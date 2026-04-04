@@ -2,5 +2,11 @@
   "key.categories.reachfly.category": "Reach & Fly",
   "key.reachfly.toggle_reach": "Toggle Reach",
   "key.reachfly.toggle_fly": "Toggle Fly",
+  "key.reachfly.toggle_esp": "Toggle ESP",
+  "key.reachfly.toggle_autohit": "Toggle Auto Hit",
+  "key.reachfly.toggle_lowhealthkill": "Toggle Low Health Kill",
+  "key.reachfly.toggle_eating": "Toggle Eating Assist",
+  "key.reachfly.toggle_shield": "Toggle Shield Assist",
+  "key.reachfly.toggle_dupe": "Toggle Dupe",
   "key.reachfly.open_config": "Open Config"
 }

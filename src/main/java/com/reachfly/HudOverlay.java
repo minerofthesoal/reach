@@ -6,55 +6,67 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 
 /**
- * Renders a HUD overlay showing the current status of Reach and Fly features.
- * Displayed in the top-left corner of the screen.
+ * Renders HUD overlay showing the status of all mod features.
  */
 public class HudOverlay {
 
-    /**
-     * Render callback for the HUD overlay.
-     */
+    private static final int GREEN = 0xFF55FF55;
+    private static final int RED = 0xFFFF5555;
+    private static final int BG = 0x80000000;
+
     public static void render(DrawContext context, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
-        if (client.getDebugHud().shouldShowDebugHud()) return; // Hide when F3 debug screen is open
+        if (client.getDebugHud().shouldShowDebugHud()) return;
 
-        TextRenderer textRenderer = client.textRenderer;
+        TextRenderer tr = client.textRenderer;
         int x = 6;
         int y = 6;
-        int lineHeight = 12;
+        int lh = 12;
 
-        // --- Reach Status ---
-        String reachStatus;
-        int reachColor;
-        if (ModConfig.reachEnabled) {
-            reachStatus = String.format("Reach: ON (%.1f)", ModConfig.reachDistance);
-            reachColor = 0xFF55FF55; // Green
-        } else {
-            reachStatus = "Reach: OFF";
-            reachColor = 0xFFFF5555; // Red
-        }
+        drawLine(context, tr, x, y,
+                ModConfig.reachEnabled ? String.format("Reach: ON (%.1f)", ModConfig.reachDistance) : "Reach: OFF",
+                ModConfig.reachEnabled);
+        y += lh;
 
-        // Draw background for readability
-        int reachWidth = textRenderer.getWidth(reachStatus);
-        context.fill(x - 2, y - 2, x + reachWidth + 2, y + 10, 0x80000000);
-        context.drawText(textRenderer, reachStatus, x, y, reachColor, true);
+        drawLine(context, tr, x, y,
+                ModConfig.flyEnabled ? String.format("Fly: ON (%.1fx)", ModConfig.flySpeed) : "Fly: OFF",
+                ModConfig.flyEnabled);
+        y += lh;
 
-        y += lineHeight;
+        drawLine(context, tr, x, y,
+                "ESP: " + (ModConfig.espEnabled ? "ON" : "OFF"),
+                ModConfig.espEnabled);
+        y += lh;
 
-        // --- Fly Status ---
-        String flyStatus;
-        int flyColor;
-        if (ModConfig.flyEnabled) {
-            flyStatus = String.format("Fly: ON (%.1fx)", ModConfig.flySpeed);
-            flyColor = 0xFF55FF55; // Green
-        } else {
-            flyStatus = "Fly: OFF";
-            flyColor = 0xFFFF5555; // Red
-        }
+        drawLine(context, tr, x, y,
+                ModConfig.autoHitEnabled ? String.format("AutoHit: ON (%.1f)", ModConfig.autoHitRange) : "AutoHit: OFF",
+                ModConfig.autoHitEnabled);
+        y += lh;
 
-        int flyWidth = textRenderer.getWidth(flyStatus);
-        context.fill(x - 2, y - 2, x + flyWidth + 2, y + 10, 0x80000000);
-        context.drawText(textRenderer, flyStatus, x, y, flyColor, true);
+        drawLine(context, tr, x, y,
+                ModConfig.lowHealthKillEnabled ? String.format("LowHP Kill: ON (<%.0f)", ModConfig.lowHealthThreshold) : "LowHP Kill: OFF",
+                ModConfig.lowHealthKillEnabled);
+        y += lh;
+
+        drawLine(context, tr, x, y,
+                "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"),
+                ModConfig.eatingAssistEnabled);
+        y += lh;
+
+        drawLine(context, tr, x, y,
+                "Shield: " + (ModConfig.shieldAssistEnabled ? "ON" : "OFF"),
+                ModConfig.shieldAssistEnabled);
+        y += lh;
+
+        drawLine(context, tr, x, y,
+                "Dupe: " + (ModConfig.dupeEnabled ? "ON" : "OFF"),
+                ModConfig.dupeEnabled);
+    }
+
+    private static void drawLine(DrawContext ctx, TextRenderer tr, int x, int y, String text, boolean enabled) {
+        int w = tr.getWidth(text);
+        ctx.fill(x - 2, y - 2, x + w + 2, y + 10, BG);
+        ctx.drawText(tr, text, x, y, enabled ? GREEN : RED, true);
     }
 }

@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Configuration system for the Reach & Fly mod.
+ * Configuration system for all mod features.
  * Persists settings to a JSON file in the config directory.
  */
 public class ModConfig {
@@ -30,10 +30,37 @@ public class ModConfig {
     public static final float FLY_SPEED_MIN = 0.1f;
     public static final float FLY_SPEED_MAX = 10.0f;
 
-    /**
-     * Load configuration from disk. If the file doesn't exist, defaults are used
-     * and a new config file is created.
-     */
+    // --- ESP settings ---
+    public static boolean espEnabled = false;
+    public static boolean espPlayers = true;
+    public static boolean espHostile = true;
+    public static boolean espPassive = false;
+
+    // --- Auto Hit settings ---
+    public static boolean autoHitEnabled = false;
+    public static float autoHitRange = 3.0f;
+    public static final float AUTO_HIT_RANGE_MIN = 1.0f;
+    public static final float AUTO_HIT_RANGE_MAX = 50.0f;
+    public static boolean autoHitPlayersOnly = false;
+
+    // --- Low Health Kill settings ---
+    public static boolean lowHealthKillEnabled = false;
+    public static float lowHealthThreshold = 6.0f; // 3 hearts
+    public static final float LOW_HEALTH_MIN = 1.0f;
+    public static final float LOW_HEALTH_MAX = 20.0f;
+
+    // --- Eating Assist settings ---
+    public static boolean eatingAssistEnabled = false;
+    public static int eatingHungerThreshold = 14; // Start eating at 7 shanks
+    public static final int EATING_HUNGER_MIN = 1;
+    public static final int EATING_HUNGER_MAX = 19;
+
+    // --- Shield Assist settings ---
+    public static boolean shieldAssistEnabled = false;
+
+    // --- Dupe settings ---
+    public static boolean dupeEnabled = false;
+
     public static void load() {
         if (Files.exists(CONFIG_PATH)) {
             try {
@@ -44,25 +71,48 @@ public class ModConfig {
                     reachDistance = clamp(data.reachDistance, REACH_MIN, REACH_MAX);
                     flyEnabled = data.flyEnabled;
                     flySpeed = clamp(data.flySpeed, FLY_SPEED_MIN, FLY_SPEED_MAX);
+                    espEnabled = data.espEnabled;
+                    espPlayers = data.espPlayers;
+                    espHostile = data.espHostile;
+                    espPassive = data.espPassive;
+                    autoHitEnabled = data.autoHitEnabled;
+                    autoHitRange = clamp(data.autoHitRange, AUTO_HIT_RANGE_MIN, AUTO_HIT_RANGE_MAX);
+                    autoHitPlayersOnly = data.autoHitPlayersOnly;
+                    lowHealthKillEnabled = data.lowHealthKillEnabled;
+                    lowHealthThreshold = clamp(data.lowHealthThreshold, LOW_HEALTH_MIN, LOW_HEALTH_MAX);
+                    eatingAssistEnabled = data.eatingAssistEnabled;
+                    eatingHungerThreshold = (int) clamp(data.eatingHungerThreshold, EATING_HUNGER_MIN, EATING_HUNGER_MAX);
+                    shieldAssistEnabled = data.shieldAssistEnabled;
+                    dupeEnabled = data.dupeEnabled;
                 }
                 ReachFlyClient.LOGGER.info("[ReachFly] Config loaded.");
             } catch (IOException e) {
                 ReachFlyClient.LOGGER.error("[ReachFly] Failed to load config", e);
             }
         } else {
-            save(); // Create default config file
+            save();
         }
     }
 
-    /**
-     * Save current configuration to disk.
-     */
     public static void save() {
         ConfigData data = new ConfigData();
         data.reachEnabled = reachEnabled;
         data.reachDistance = reachDistance;
         data.flyEnabled = flyEnabled;
         data.flySpeed = flySpeed;
+        data.espEnabled = espEnabled;
+        data.espPlayers = espPlayers;
+        data.espHostile = espHostile;
+        data.espPassive = espPassive;
+        data.autoHitEnabled = autoHitEnabled;
+        data.autoHitRange = autoHitRange;
+        data.autoHitPlayersOnly = autoHitPlayersOnly;
+        data.lowHealthKillEnabled = lowHealthKillEnabled;
+        data.lowHealthThreshold = lowHealthThreshold;
+        data.eatingAssistEnabled = eatingAssistEnabled;
+        data.eatingHungerThreshold = eatingHungerThreshold;
+        data.shieldAssistEnabled = shieldAssistEnabled;
+        data.dupeEnabled = dupeEnabled;
 
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
@@ -76,13 +126,23 @@ public class ModConfig {
         return Math.max(min, Math.min(max, value));
     }
 
-    /**
-     * Internal data class for JSON serialization.
-     */
     private static class ConfigData {
         boolean reachEnabled = false;
         float reachDistance = 6.0f;
         boolean flyEnabled = false;
         float flySpeed = 1.0f;
+        boolean espEnabled = false;
+        boolean espPlayers = true;
+        boolean espHostile = true;
+        boolean espPassive = false;
+        boolean autoHitEnabled = false;
+        float autoHitRange = 3.0f;
+        boolean autoHitPlayersOnly = false;
+        boolean lowHealthKillEnabled = false;
+        float lowHealthThreshold = 6.0f;
+        boolean eatingAssistEnabled = false;
+        int eatingHungerThreshold = 14;
+        boolean shieldAssistEnabled = false;
+        boolean dupeEnabled = false;
     }
 }
