@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "reachfly",
+  "version": "${version}",
+  "name": "Reach & Fly Mod",
+  "description": "A client-side mod that adds configurable extended reach and survival fly with HUD indicators.",
+  "authors": ["ReachFlyDev"],
+  "contact": {
+    "sources": "https://github.com/minerofthesoal/reach"
+  },
+  "license": "MIT",
+  "icon": "assets/reachfly/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.reachfly.ReachFlyClient"],
+    "modmenu": ["com.reachfly.ModMenuIntegration"]
+  },
+  "mixins": ["reachfly.mixins.json"],
+  "accessWidener": "reachfly.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
