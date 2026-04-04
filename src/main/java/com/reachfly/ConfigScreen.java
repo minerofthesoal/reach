@@ -40,58 +40,58 @@ public class ConfigScreen extends Screen {
         optionList = new ConfigList(this.client, this.width, listHeight, listTop, 25);
 
         // ========== REACH ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Reach",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Reach",
                 () -> ModConfig.reachEnabled, v -> ModConfig.reachEnabled = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Reach Distance",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,new ConfigSlider(0, 0, bw, bh, "Reach Distance",
                 ModConfig.reachDistance, ModConfig.REACH_MIN, ModConfig.REACH_MAX,
                 v -> ModConfig.reachDistance = v)));
 
         // ========== FLY ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Fly",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Fly",
                 () -> ModConfig.flyEnabled, v -> ModConfig.flyEnabled = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Fly Speed",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,new ConfigSlider(0, 0, bw, bh, "Fly Speed",
                 ModConfig.flySpeed, ModConfig.FLY_SPEED_MIN, ModConfig.FLY_SPEED_MAX,
                 v -> ModConfig.flySpeed = v)));
 
         // ========== ESP ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "ESP",
                 () -> ModConfig.espEnabled, v -> ModConfig.espEnabled = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP Players",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "ESP Players",
                 () -> ModConfig.espPlayers, v -> ModConfig.espPlayers = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP Hostile",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "ESP Hostile",
                 () -> ModConfig.espHostile, v -> ModConfig.espHostile = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP Passive",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "ESP Passive",
                 () -> ModConfig.espPassive, v -> ModConfig.espPassive = v)));
 
         // ========== AUTO HIT ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Auto Hit",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Auto Hit",
                 () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Auto Hit Range",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,new ConfigSlider(0, 0, bw, bh, "Auto Hit Range",
                 ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX,
                 v -> ModConfig.autoHitRange = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Auto Hit Players Only",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Auto Hit Players Only",
                 () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v)));
 
         // ========== LOW HEALTH KILL ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Low Health Kill",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Low Health Kill",
                 () -> ModConfig.lowHealthKillEnabled, v -> ModConfig.lowHealthKillEnabled = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Health Threshold",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,new ConfigSlider(0, 0, bw, bh, "Health Threshold",
                 ModConfig.lowHealthThreshold, ModConfig.LOW_HEALTH_MIN, ModConfig.LOW_HEALTH_MAX,
                 v -> ModConfig.lowHealthThreshold = v)));
 
         // ========== EATING ASSIST ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Eating Assist",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Eating Assist",
                 () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v)));
-        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Hunger Threshold",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,new ConfigSlider(0, 0, bw, bh, "Hunger Threshold",
                 ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX,
                 v -> ModConfig.eatingHungerThreshold = Math.round(v))));
 
         // ========== SHIELD ASSIST ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Shield Assist",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Shield Assist",
                 () -> ModConfig.shieldAssistEnabled, v -> ModConfig.shieldAssistEnabled = v)));
 
         // ========== DUPE ==========
-        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Dupe",
+        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width,toggleButton(bw, bh, "Dupe",
                 () -> ModConfig.dupeEnabled, v -> ModConfig.dupeEnabled = v)));
 
         addDrawableChild(optionList);
@@ -148,13 +148,22 @@ public class ConfigScreen extends Screen {
         }
 
         /**
+         * Expose the protected addEntry method.
+         */
+        public void addOptionEntry(WidgetEntry entry) {
+            super.addEntry(entry);
+        }
+
+        /**
          * A single row in the scrollable list, containing one ClickableWidget.
          */
         public static class WidgetEntry extends ElementListWidget.Entry<WidgetEntry> {
             private final ClickableWidget widget;
+            private final int listWidth;
 
-            public WidgetEntry(ClickableWidget widget) {
+            public WidgetEntry(int listWidth, ClickableWidget widget) {
                 this.widget = widget;
+                this.listWidth = listWidth;
             }
 
             @Override
@@ -168,11 +177,8 @@ public class ConfigScreen extends Screen {
             }
 
             @Override
-            public void render(DrawContext context, int index, int y, int x,
-                               int entryWidth, int entryHeight,
-                               int mouseX, int mouseY, boolean hovered, float tickDelta) {
-                widget.setX(x + (entryWidth - widget.getWidth()) / 2);
-                widget.setY(y);
+            public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+                widget.setX((listWidth - widget.getWidth()) / 2);
                 widget.render(context, mouseX, mouseY, tickDelta);
             }
         }
