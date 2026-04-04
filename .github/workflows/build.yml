@@ -38,11 +38,11 @@ jobs:
           path: build/libs/*.jar
           if-no-files-found: error
 
-      - name: Create Release (on main branch push)
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      - name: Create Release
+        if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ github.run_number }}
-          name: "Reach & Fly Mod Build #${{ github.run_number }}"
+          tag_name: v1.0.0-build.${{ github.run_number }}
+          name: "Reach & Fly Mod v1.0.0 (Build #${{ github.run_number }})"
           files: build/libs/*.jar
           generate_release_notes: true

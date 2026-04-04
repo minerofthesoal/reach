@@ -17,7 +17,7 @@ public class HudOverlay {
     public static void render(DrawContext context, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
-        if (client.options.debugEnabled) return; // Hide when F3 debug screen is open
+        if (client.getDebugHud().shouldShowDebugHud()) return; // Hide when F3 debug screen is open
 
         TextRenderer textRenderer = client.textRenderer;
         int x = 6;
