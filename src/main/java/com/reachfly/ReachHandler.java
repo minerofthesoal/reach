@@ -9,9 +9,9 @@ import net.minecraft.util.Identifier;
 
 /**
  * Manages the player's reach attribute modifiers.
- * In MC 1.21.1, interaction range is controlled by entity attributes:
- * - PLAYER_BLOCK_INTERACTION_RANGE (default 4.5, creative 5.0)
- * - PLAYER_ENTITY_INTERACTION_RANGE (default 3.0, creative 5.0)
+ * In MC 1.21.11, interaction range is controlled by entity attributes:
+ * - BLOCK_INTERACTION_RANGE (default 4.5, creative 5.0)
+ * - ENTITY_INTERACTION_RANGE (default 3.0, creative 5.0)
  *
  * We apply additive modifiers to extend these ranges.
  */
@@ -35,9 +35,9 @@ public class ReachHandler {
         ClientPlayerEntity player = client.player;
 
         EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
+                EntityAttributes.BLOCK_INTERACTION_RANGE);
         EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE);
+                EntityAttributes.ENTITY_INTERACTION_RANGE);
 
         if (blockRange == null || entityRange == null) return;
 
@@ -74,9 +74,9 @@ public class ReachHandler {
         ClientPlayerEntity player = client.player;
 
         EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
+                EntityAttributes.BLOCK_INTERACTION_RANGE);
         EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE);
+                EntityAttributes.ENTITY_INTERACTION_RANGE);
 
         if (blockRange != null) blockRange.removeModifier(BLOCK_REACH_ID);
         if (entityRange != null) entityRange.removeModifier(ENTITY_REACH_ID);

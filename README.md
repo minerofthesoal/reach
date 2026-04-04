@@ -1,6 +1,6 @@
 # Reach & Fly Mod
 
-A client-side Fabric mod for Minecraft 1.21.1 that adds configurable extended reach and survival flight.
+A client-side Fabric mod for Minecraft 1.21.11 that adds configurable extended reach and survival flight.
 
 ## Features
 
@@ -23,7 +23,7 @@ All keybinds are configurable in Minecraft's Controls menu under "Reach & Fly".
 
 ## Installation
 
-1. Install [Fabric Loader](https://fabricmc.net/use/installer/) for Minecraft 1.21.1
+1. Install [Fabric Loader](https://fabricmc.net/use/installer/) for Minecraft 1.21.11
 2. Install [Fabric API](https://modrinth.com/mod/fabric-api)
 3. Download the latest JAR from [Releases](../../releases) or [Actions](../../actions)
 4. Place the JAR in your `.minecraft/mods/` folder
