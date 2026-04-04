@@ -9,6 +9,8 @@ import net.minecraft.client.network.ClientPlayerEntity;
  */
 public class FlyHandler {
 
+    private static boolean wasFlying = false;
+
     /**
      * Called every client tick to manage fly state and speed.
      */
@@ -20,6 +22,8 @@ public class FlyHandler {
         if (player.getAbilities().creativeMode) return;
 
         if (ModConfig.flyEnabled) {
+            wasFlying = true;
+
             // Enable flight ability
             player.getAbilities().allowFlying = true;
 
@@ -33,6 +37,21 @@ public class FlyHandler {
         } else {
             // Only disable if we previously enabled it (don't touch spectator/creative)
             if (!player.isSpectator()) {
+                // Notify the player when fly is turned off and they're airborne
+                if (wasFlying) {
+                    wasFlying = false;
+                    if (!player.isOnGround()) {
+                        player.sendMessage(
+                            net.minecraft.text.Text.literal("\u00a7c[ReachFly] \u00a7eFly disabled! You are falling - brace for landing!"),
+                            true  // overlay / action bar
+                        );
+                    } else {
+                        player.sendMessage(
+                            net.minecraft.text.Text.literal("\u00a7c[ReachFly] \u00a7aFly disabled. Safe on the ground."),
+                            true
+                        );
+                    }
+                }
                 player.getAbilities().allowFlying = false;
                 player.getAbilities().flying = false;
             }
