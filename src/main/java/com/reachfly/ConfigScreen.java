@@ -1,18 +1,26 @@
 package com.reachfly;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
 
+import java.util.List;
+
 /**
- * In-game configuration screen for all mod features.
- * Provides toggles and sliders organized by feature.
+ * Scrollable in-game configuration screen for all mod features.
+ * Uses ElementListWidget for a proper scrollbar.
  */
 public class ConfigScreen extends Screen {
 
     private final Screen parent;
+    private ConfigList optionList;
 
     public ConfigScreen(Screen parent) {
         super(Text.literal("Reach & Fly Configuration"));
@@ -21,87 +29,76 @@ public class ConfigScreen extends Screen {
 
     @Override
     protected void init() {
-        int cx = this.width / 2;
+        int headerHeight = 28;
+        int footerHeight = 36;
+        int listTop = headerHeight;
+        int listHeight = this.height - headerHeight - footerHeight;
         int bw = 200;
         int bh = 20;
-        int sp = 22;
-        int y = 30;
+
+        // Create scrollable list
+        optionList = new ConfigList(this.client, this.width, listHeight, listTop, 25);
 
         // ========== REACH ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Reach",
-                () -> ModConfig.reachEnabled, v -> ModConfig.reachEnabled = v));
-        y += sp;
-        addDrawableChild(new ConfigSlider(cx - bw / 2, y, bw, bh, "Reach Distance",
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Reach",
+                () -> ModConfig.reachEnabled, v -> ModConfig.reachEnabled = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Reach Distance",
                 ModConfig.reachDistance, ModConfig.REACH_MIN, ModConfig.REACH_MAX,
-                v -> ModConfig.reachDistance = v));
-        y += sp;
+                v -> ModConfig.reachDistance = v)));
 
         // ========== FLY ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Fly",
-                () -> ModConfig.flyEnabled, v -> ModConfig.flyEnabled = v));
-        y += sp;
-        addDrawableChild(new ConfigSlider(cx - bw / 2, y, bw, bh, "Fly Speed",
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Fly",
+                () -> ModConfig.flyEnabled, v -> ModConfig.flyEnabled = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Fly Speed",
                 ModConfig.flySpeed, ModConfig.FLY_SPEED_MIN, ModConfig.FLY_SPEED_MAX,
-                v -> ModConfig.flySpeed = v));
-        y += sp;
+                v -> ModConfig.flySpeed = v)));
 
         // ========== ESP ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "ESP",
-                () -> ModConfig.espEnabled, v -> ModConfig.espEnabled = v));
-        y += sp;
-        addDrawableChild(toggleButton(cx, y, bw, bh, "ESP Players",
-                () -> ModConfig.espPlayers, v -> ModConfig.espPlayers = v));
-        y += sp;
-        addDrawableChild(toggleButton(cx, y, bw, bh, "ESP Hostile",
-                () -> ModConfig.espHostile, v -> ModConfig.espHostile = v));
-        y += sp;
-        addDrawableChild(toggleButton(cx, y, bw, bh, "ESP Passive",
-                () -> ModConfig.espPassive, v -> ModConfig.espPassive = v));
-        y += sp;
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP",
+                () -> ModConfig.espEnabled, v -> ModConfig.espEnabled = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP Players",
+                () -> ModConfig.espPlayers, v -> ModConfig.espPlayers = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP Hostile",
+                () -> ModConfig.espHostile, v -> ModConfig.espHostile = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "ESP Passive",
+                () -> ModConfig.espPassive, v -> ModConfig.espPassive = v)));
 
         // ========== AUTO HIT ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Auto Hit",
-                () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v));
-        y += sp;
-        addDrawableChild(new ConfigSlider(cx - bw / 2, y, bw, bh, "Auto Hit Range",
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Auto Hit",
+                () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Auto Hit Range",
                 ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX,
-                v -> ModConfig.autoHitRange = v));
-        y += sp;
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Auto Hit Players Only",
-                () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v));
-        y += sp;
+                v -> ModConfig.autoHitRange = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Auto Hit Players Only",
+                () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v)));
 
         // ========== LOW HEALTH KILL ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Low Health Kill",
-                () -> ModConfig.lowHealthKillEnabled, v -> ModConfig.lowHealthKillEnabled = v));
-        y += sp;
-        addDrawableChild(new ConfigSlider(cx - bw / 2, y, bw, bh, "Health Threshold",
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Low Health Kill",
+                () -> ModConfig.lowHealthKillEnabled, v -> ModConfig.lowHealthKillEnabled = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Health Threshold",
                 ModConfig.lowHealthThreshold, ModConfig.LOW_HEALTH_MIN, ModConfig.LOW_HEALTH_MAX,
-                v -> ModConfig.lowHealthThreshold = v));
-        y += sp;
+                v -> ModConfig.lowHealthThreshold = v)));
 
         // ========== EATING ASSIST ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Eating Assist",
-                () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v));
-        y += sp;
-        addDrawableChild(new ConfigSlider(cx - bw / 2, y, bw, bh, "Hunger Threshold",
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Eating Assist",
+                () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v)));
+        optionList.addEntry(new ConfigList.WidgetEntry(new ConfigSlider(0, 0, bw, bh, "Hunger Threshold",
                 ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX,
-                v -> ModConfig.eatingHungerThreshold = Math.round(v)));
-        y += sp;
+                v -> ModConfig.eatingHungerThreshold = Math.round(v))));
 
         // ========== SHIELD ASSIST ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Shield Assist",
-                () -> ModConfig.shieldAssistEnabled, v -> ModConfig.shieldAssistEnabled = v));
-        y += sp;
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Shield Assist",
+                () -> ModConfig.shieldAssistEnabled, v -> ModConfig.shieldAssistEnabled = v)));
 
         // ========== DUPE ==========
-        addDrawableChild(toggleButton(cx, y, bw, bh, "Dupe",
-                () -> ModConfig.dupeEnabled, v -> ModConfig.dupeEnabled = v));
-        y += sp + 4;
+        optionList.addEntry(new ConfigList.WidgetEntry(toggleButton(bw, bh, "Dupe",
+                () -> ModConfig.dupeEnabled, v -> ModConfig.dupeEnabled = v)));
 
-        // ========== DONE ==========
+        addDrawableChild(optionList);
+
+        // Done button at the bottom
         addDrawableChild(ButtonWidget.builder(Text.literal("Done"), btn -> close())
-                .dimensions(cx - bw / 2, y, bw, bh).build());
+                .dimensions(this.width / 2 - 100, this.height - 28, 200, 20).build());
     }
 
     @Override
@@ -113,13 +110,13 @@ public class ConfigScreen extends Screen {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 12, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 10, 0xFFFFFF);
     }
 
     /**
-     * Helper to create a toggle button.
+     * Helper to create a toggle button (not yet positioned — list entry handles that).
      */
-    private ButtonWidget toggleButton(int cx, int y, int w, int h, String label,
+    private ButtonWidget toggleButton(int w, int h, String label,
                                        java.util.function.Supplier<Boolean> getter,
                                        java.util.function.Consumer<Boolean> setter) {
         return ButtonWidget.builder(
@@ -129,12 +126,62 @@ public class ConfigScreen extends Screen {
                     btn.setMessage(Text.literal(label + ": " + (getter.get() ? "ON" : "OFF")));
                     ModConfig.save();
                 }
-        ).dimensions(cx - w / 2, y, w, h).build();
+        ).dimensions(0, 0, w, h).build();
     }
 
+    // =====================================================
+    // Scrollable list widget
+    // =====================================================
+
     /**
-     * Reusable slider with min/max range and a value setter callback.
+     * Scrollable list of config entries with a scrollbar.
      */
+    public static class ConfigList extends ElementListWidget<ConfigList.WidgetEntry> {
+
+        public ConfigList(MinecraftClient client, int width, int height, int y, int itemHeight) {
+            super(client, width, height, y, itemHeight);
+        }
+
+        @Override
+        public int getRowWidth() {
+            return 220;
+        }
+
+        /**
+         * A single row in the scrollable list, containing one ClickableWidget.
+         */
+        public static class WidgetEntry extends ElementListWidget.Entry<WidgetEntry> {
+            private final ClickableWidget widget;
+
+            public WidgetEntry(ClickableWidget widget) {
+                this.widget = widget;
+            }
+
+            @Override
+            public List<? extends Element> children() {
+                return List.of(widget);
+            }
+
+            @Override
+            public List<? extends Selectable> selectableChildren() {
+                return List.of(widget);
+            }
+
+            @Override
+            public void render(DrawContext context, int index, int y, int x,
+                               int entryWidth, int entryHeight,
+                               int mouseX, int mouseY, boolean hovered, float tickDelta) {
+                widget.setX(x + (entryWidth - widget.getWidth()) / 2);
+                widget.setY(y);
+                widget.render(context, mouseX, mouseY, tickDelta);
+            }
+        }
+    }
+
+    // =====================================================
+    // Reusable slider
+    // =====================================================
+
     private static class ConfigSlider extends SliderWidget {
         private final String label;
         private final float min;
