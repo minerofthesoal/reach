@@ -86,7 +86,7 @@ public class ConfigScreen extends Screen {
         y += sp;
         addDrawableChild(new ConfigSlider(cx - bw / 2, y, bw, bh, "Hunger Threshold",
                 ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX,
-                v -> ModConfig.eatingHungerThreshold = (int) v));
+                v -> ModConfig.eatingHungerThreshold = Math.round(v)));
         y += sp;
 
         // ========== SHIELD ASSIST ==========

@@ -57,8 +57,8 @@ public class EatingAssistHandler {
         if (foodSlot == -1) return; // No food available
 
         // Save current slot and switch to food
-        previousSlot = player.getInventory().selectedSlot;
-        player.getInventory().selectedSlot = foodSlot;
+        previousSlot = player.getInventory().getSelectedSlot();
+        player.getInventory().setSelectedSlot(foodSlot);
 
         // Start eating
         client.options.useKey.setPressed(true);
@@ -75,7 +75,7 @@ public class EatingAssistHandler {
         isEating = false;
 
         if (previousSlot >= 0 && client.player != null) {
-            client.player.getInventory().selectedSlot = previousSlot;
+            client.player.getInventory().setSelectedSlot(previousSlot);
             previousSlot = -1;
         }
     }
