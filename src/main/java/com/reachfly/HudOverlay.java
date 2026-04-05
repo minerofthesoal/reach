@@ -50,6 +50,11 @@ public class HudOverlay {
         y += lh;
 
         drawLine(context, tr, x, y,
+                ModConfig.autoKillWhenLowEnabled ? String.format("AutoKill(LowHP): ON (<%.0f)", ModConfig.autoKillSelfHpThreshold) : "AutoKill(LowHP): OFF",
+                ModConfig.autoKillWhenLowEnabled);
+        y += lh;
+
+        drawLine(context, tr, x, y,
                 "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"),
                 ModConfig.eatingAssistEnabled);
         y += lh;

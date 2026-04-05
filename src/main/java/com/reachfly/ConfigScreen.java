@@ -1,23 +1,26 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
-import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigScreen extends Screen {
 
     private final Screen parent;
-    private ConfigList optionList;
+    private double scrollOffset = 0;
+    private int contentHeight = 0;
+    private final List<Entry> entries = new ArrayList<>();
+
+    private static final int ROW_HEIGHT = 24;
+    private static final int HEADER = 28;
+    private static final int FOOTER = 36;
+    private static final int BUTTON_W = 200;
+    private static final int BUTTON_H = 20;
 
     public ConfigScreen(Screen parent) {
         super(Text.literal("Reach & Fly Configuration"));
@@ -26,83 +29,164 @@ public class ConfigScreen extends Screen {
 
     @Override
     protected void init() {
-        int headerHeight = 28;
-        int footerHeight = 36;
-        int listTop = headerHeight;
-        int listHeight = this.height - headerHeight - footerHeight;
-        int bw = 200;
-        int bh = 20;
+        entries.clear();
+        clearChildren();
 
-        optionList = new ConfigList(this.client, this.width, listHeight, listTop, 25);
+        // Build all entries
+        addLabel("\u00a76\u00a7l--- Reach ---");
+        addToggle("Reach", () -> ModConfig.reachEnabled, v -> ModConfig.reachEnabled = v);
+        addSlider("Reach Distance", ModConfig.reachDistance, ModConfig.REACH_MIN, ModConfig.REACH_MAX, v -> ModConfig.reachDistance = v);
 
-        // --- REACH ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a76\u00a7l--- Reach ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Reach",
-                () -> ModConfig.reachEnabled, v -> ModConfig.reachEnabled = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, new ConfigSlider(0, 0, bw, bh, "Reach Distance",
-                ModConfig.reachDistance, ModConfig.REACH_MIN, ModConfig.REACH_MAX,
-                v -> ModConfig.reachDistance = v)));
+        addLabel("\u00a7b\u00a7l--- Fly ---");
+        addToggle("Fly", () -> ModConfig.flyEnabled, v -> ModConfig.flyEnabled = v);
+        addSlider("Fly Speed", ModConfig.flySpeed, ModConfig.FLY_SPEED_MIN, ModConfig.FLY_SPEED_MAX, v -> ModConfig.flySpeed = v);
 
-        // --- FLY ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a7b\u00a7l--- Fly ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Fly",
-                () -> ModConfig.flyEnabled, v -> ModConfig.flyEnabled = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, new ConfigSlider(0, 0, bw, bh, "Fly Speed",
-                ModConfig.flySpeed, ModConfig.FLY_SPEED_MIN, ModConfig.FLY_SPEED_MAX,
-                v -> ModConfig.flySpeed = v)));
+        addLabel("\u00a7d\u00a7l--- ESP ---");
+        addToggle("ESP", () -> ModConfig.espEnabled, v -> ModConfig.espEnabled = v);
+        addToggle("ESP Players", () -> ModConfig.espPlayers, v -> ModConfig.espPlayers = v);
+        addToggle("ESP Hostile", () -> ModConfig.espHostile, v -> ModConfig.espHostile = v);
+        addToggle("ESP Passive", () -> ModConfig.espPassive, v -> ModConfig.espPassive = v);
 
-        // --- ESP ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a7d\u00a7l--- ESP ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "ESP",
-                () -> ModConfig.espEnabled, v -> ModConfig.espEnabled = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "ESP Players",
-                () -> ModConfig.espPlayers, v -> ModConfig.espPlayers = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "ESP Hostile",
-                () -> ModConfig.espHostile, v -> ModConfig.espHostile = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "ESP Passive",
-                () -> ModConfig.espPassive, v -> ModConfig.espPassive = v)));
+        addLabel("\u00a7c\u00a7l--- Auto Hit ---");
+        addToggle("Auto Hit", () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v);
+        addSlider("Auto Hit Range", ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX, v -> ModConfig.autoHitRange = v);
+        addToggle("Auto Hit Players Only", () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v);
 
-        // --- AUTO HIT ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a7c\u00a7l--- Auto Hit ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Auto Hit",
-                () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, new ConfigSlider(0, 0, bw, bh, "Auto Hit Range",
-                ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX,
-                v -> ModConfig.autoHitRange = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Auto Hit Players Only",
-                () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v)));
+        addLabel("\u00a74\u00a7l--- Low Health Kill ---");
+        addToggle("Low Health Kill", () -> ModConfig.lowHealthKillEnabled, v -> ModConfig.lowHealthKillEnabled = v);
+        addSlider("Health Threshold", ModConfig.lowHealthThreshold, ModConfig.LOW_HEALTH_MIN, ModConfig.LOW_HEALTH_MAX, v -> ModConfig.lowHealthThreshold = v);
 
-        // --- LOW HEALTH KILL ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a74\u00a7l--- Low Health Kill ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Low Health Kill",
-                () -> ModConfig.lowHealthKillEnabled, v -> ModConfig.lowHealthKillEnabled = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, new ConfigSlider(0, 0, bw, bh, "Health Threshold",
-                ModConfig.lowHealthThreshold, ModConfig.LOW_HEALTH_MIN, ModConfig.LOW_HEALTH_MAX,
-                v -> ModConfig.lowHealthThreshold = v)));
+        addLabel("\u00a7e\u00a7l--- Auto Kill (Self Low HP) ---");
+        addToggle("Auto Kill When Low", () -> ModConfig.autoKillWhenLowEnabled, v -> ModConfig.autoKillWhenLowEnabled = v);
+        addSlider("Your HP Threshold", ModConfig.autoKillSelfHpThreshold, ModConfig.AUTO_KILL_SELF_HP_MIN, ModConfig.AUTO_KILL_SELF_HP_MAX, v -> ModConfig.autoKillSelfHpThreshold = v);
+        addSlider("Kill Range", ModConfig.autoKillWhenLowRange, ModConfig.AUTO_KILL_RANGE_MIN, ModConfig.AUTO_KILL_RANGE_MAX, v -> ModConfig.autoKillWhenLowRange = v);
 
-        // --- EATING ASSIST ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a7a\u00a7l--- Eating Assist ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Eating Assist",
-                () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v)));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, new ConfigSlider(0, 0, bw, bh, "Hunger Threshold",
-                ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX,
-                v -> ModConfig.eatingHungerThreshold = Math.round(v))));
+        addLabel("\u00a7a\u00a7l--- Eating Assist ---");
+        addToggle("Eating Assist", () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v);
+        addSlider("Hunger Threshold", ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX, v -> ModConfig.eatingHungerThreshold = Math.round(v));
 
-        // --- SHIELD ASSIST ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a79\u00a7l--- Shield Assist ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Shield Assist",
-                () -> ModConfig.shieldAssistEnabled, v -> ModConfig.shieldAssistEnabled = v)));
+        addLabel("\u00a79\u00a7l--- Shield Assist ---");
+        addToggle("Shield Assist", () -> ModConfig.shieldAssistEnabled, v -> ModConfig.shieldAssistEnabled = v);
 
-        // --- DUPE ---
-        optionList.addOptionEntry(new ConfigList.LabelEntry(this.width, "\u00a75\u00a7l--- Dupe ---", this.client));
-        optionList.addOptionEntry(new ConfigList.WidgetEntry(this.width, colorToggle(bw, bh, "Dupe",
-                () -> ModConfig.dupeEnabled, v -> ModConfig.dupeEnabled = v)));
+        addLabel("\u00a75\u00a7l--- Dupe ---");
+        addToggle("Dupe", () -> ModConfig.dupeEnabled, v -> ModConfig.dupeEnabled = v);
 
-        addDrawableChild(optionList);
+        contentHeight = entries.size() * ROW_HEIGHT;
 
-        // Done button
+        // Done button pinned to bottom
         addDrawableChild(ButtonWidget.builder(Text.literal("Done"), btn -> close())
                 .dimensions(this.width / 2 - 100, this.height - 28, 200, 20).build());
+
+        repositionWidgets();
+    }
+
+    private void addLabel(String text) {
+        entries.add(new Entry(text, null));
+    }
+
+    private void addToggle(String label, java.util.function.Supplier<Boolean> getter,
+                            java.util.function.Consumer<Boolean> setter) {
+        ButtonWidget btn = ButtonWidget.builder(
+                toggleText(label, getter.get()),
+                b -> {
+                    setter.accept(!getter.get());
+                    b.setMessage(toggleText(label, getter.get()));
+                    ModConfig.save();
+                }
+        ).dimensions(0, 0, BUTTON_W, BUTTON_H).build();
+        addDrawableChild(btn);
+        entries.add(new Entry(null, btn));
+    }
+
+    private void addSlider(String label, float current, float min, float max,
+                            java.util.function.Consumer<Float> setter) {
+        ConfigSlider slider = new ConfigSlider(0, 0, BUTTON_W, BUTTON_H, label, current, min, max, setter);
+        addDrawableChild(slider);
+        entries.add(new Entry(null, slider));
+    }
+
+    private static Text toggleText(String label, boolean on) {
+        String status = on ? "\u00a7a\u00a7lON" : "\u00a7c\u00a7lOFF";
+        return Text.literal("\u00a7f" + label + ": " + status);
+    }
+
+    private void repositionWidgets() {
+        int viewTop = HEADER;
+        int viewBottom = this.height - FOOTER;
+        int centerX = this.width / 2 - BUTTON_W / 2;
+
+        for (int i = 0; i < entries.size(); i++) {
+            int entryY = HEADER + i * ROW_HEIGHT - (int) scrollOffset;
+            Entry e = entries.get(i);
+            if (e.widget != null) {
+                e.widget.setX(centerX);
+                e.widget.setY(entryY);
+                e.widget.visible = (entryY + BUTTON_H > viewTop && entryY < viewBottom);
+                e.widget.active = e.widget.visible;
+            }
+        }
+    }
+
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        repositionWidgets();
+
+        int viewTop = HEADER;
+        int viewBottom = this.height - FOOTER;
+
+        // Dark background for the list area
+        context.fill(0, viewTop, this.width, viewBottom, 0xC0101010);
+
+        // Enable scissor so entries don't render outside the list area
+        context.enableScissor(0, viewTop, this.width, viewBottom);
+
+        // Render widgets (super handles drawable children)
+        super.render(context, mouseX, mouseY, delta);
+
+        // Render labels
+        for (int i = 0; i < entries.size(); i++) {
+            Entry e = entries.get(i);
+            if (e.label != null) {
+                int entryY = HEADER + i * ROW_HEIGHT - (int) scrollOffset + 5;
+                if (entryY + 10 > viewTop && entryY < viewBottom) {
+                    Text text = Text.literal(e.label);
+                    int textW = this.textRenderer.getWidth(text);
+                    context.drawTextWithShadow(this.textRenderer, text,
+                            (this.width - textW) / 2, entryY, 0xFFFFFF);
+                }
+            }
+        }
+
+        context.disableScissor();
+
+        // Scrollbar
+        if (contentHeight > (viewBottom - viewTop)) {
+            int viewH = viewBottom - viewTop;
+            int barX = this.width / 2 + BUTTON_W / 2 + 8;
+            int barW = 6;
+            float ratio = (float) viewH / contentHeight;
+            int thumbH = Math.max(15, (int) (viewH * ratio));
+            int maxScroll = contentHeight - viewH;
+            int thumbY = viewTop + (maxScroll > 0 ? (int) (scrollOffset / maxScroll * (viewH - thumbH)) : 0);
+
+            // Track
+            context.fill(barX, viewTop, barX + barW, viewBottom, 0x40FFFFFF);
+            // Thumb
+            context.fill(barX, thumbY, barX + barW, thumbY + thumbH, 0xC0AAAAAA);
+        }
+
+        // Title
+        context.drawCenteredTextWithShadow(this.textRenderer,
+                Text.literal("\u00a7b\u00a7lReach\u00a7r \u00a76& \u00a7d\u00a7lFly\u00a7r \u00a77Config"),
+                this.width / 2, 10, 0xFFFFFF);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        int viewH = this.height - HEADER - FOOTER;
+        int maxScroll = Math.max(0, contentHeight - viewH);
+        scrollOffset = Math.max(0, Math.min(maxScroll, scrollOffset - verticalAmount * 10));
+        return true;
     }
 
     @Override
@@ -111,118 +195,7 @@ public class ConfigScreen extends Screen {
         if (this.client != null) this.client.setScreen(parent);
     }
 
-    @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        // Styled title with color
-        context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.literal("\u00a7b\u00a7lReach\u00a7r \u00a76& \u00a7d\u00a7lFly\u00a7r \u00a77Config"),
-                this.width / 2, 10, 0xFFFFFF);
-    }
-
-    private ButtonWidget colorToggle(int w, int h, String label,
-                                      java.util.function.Supplier<Boolean> getter,
-                                      java.util.function.Consumer<Boolean> setter) {
-        return ButtonWidget.builder(
-                coloredToggleText(label, getter.get()),
-                btn -> {
-                    setter.accept(!getter.get());
-                    btn.setMessage(coloredToggleText(label, getter.get()));
-                    ModConfig.save();
-                }
-        ).dimensions(0, 0, w, h).build();
-    }
-
-    private static Text coloredToggleText(String label, boolean on) {
-        // Green "ON" / Red "OFF" with white label
-        String status = on ? "\u00a7a\u00a7lON" : "\u00a7c\u00a7lOFF";
-        return Text.literal("\u00a7f" + label + ": " + status);
-    }
-
-    // =====================================================
-    // Scrollable list widget
-    // =====================================================
-
-    public static class ConfigList extends ElementListWidget<ConfigList.AbstractEntry> {
-
-        public ConfigList(MinecraftClient client, int width, int height, int y, int itemHeight) {
-            super(client, width, height, y, itemHeight);
-        }
-
-        @Override
-        public int getRowWidth() {
-            return 220;
-        }
-
-        public void addOptionEntry(AbstractEntry entry) {
-            super.addEntry(entry);
-        }
-
-        // Base entry type
-        public static abstract class AbstractEntry extends ElementListWidget.Entry<AbstractEntry> {
-        }
-
-        // Section header label (non-interactive)
-        public static class LabelEntry extends AbstractEntry {
-            private final Text label;
-            private final int listWidth;
-            private final MinecraftClient client;
-
-            public LabelEntry(int listWidth, String text, MinecraftClient client) {
-                this.label = Text.literal(text);
-                this.listWidth = listWidth;
-                this.client = client;
-            }
-
-            @Override
-            public List<? extends Element> children() {
-                return Collections.emptyList();
-            }
-
-            @Override
-            public List<? extends Selectable> selectableChildren() {
-                return Collections.emptyList();
-            }
-
-            @Override
-            public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-                int textWidth = client.textRenderer.getWidth(label);
-                int x = (listWidth - textWidth) / 2;
-                context.drawTextWithShadow(client.textRenderer, label, x, 6, 0xFFFFFF);
-            }
-        }
-
-        // Widget entry (buttons, sliders)
-        public static class WidgetEntry extends AbstractEntry {
-            private final ClickableWidget widget;
-            private final int listWidth;
-
-            public WidgetEntry(int listWidth, ClickableWidget widget) {
-                this.widget = widget;
-                this.listWidth = listWidth;
-            }
-
-            @Override
-            public List<? extends Element> children() {
-                return List.of(widget);
-            }
-
-            @Override
-            public List<? extends Selectable> selectableChildren() {
-                return List.of(widget);
-            }
-
-            @Override
-            public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-                widget.setX((listWidth - widget.getWidth()) / 2);
-                widget.render(context, mouseX, mouseY, tickDelta);
-            }
-        }
-    }
-
-    // =====================================================
-    // Reusable slider
-    // =====================================================
+    private record Entry(String label, net.minecraft.client.gui.widget.ClickableWidget widget) {}
 
     private static class ConfigSlider extends SliderWidget {
         private final String label;

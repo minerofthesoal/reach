@@ -21,6 +21,7 @@ public class KeybindHandler {
     public static KeyBinding toggleLowHealthKill;
     public static KeyBinding toggleEatingAssist;
     public static KeyBinding toggleShieldAssist;
+    public static KeyBinding toggleAutoKillWhenLow;
     public static KeyBinding toggleDupe;
     public static KeyBinding openConfig;
 
@@ -52,6 +53,10 @@ public class KeybindHandler {
         toggleShieldAssist = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_shield",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_M, CATEGORY));
+
+        toggleAutoKillWhenLow = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_autokilllow",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY));
 
         toggleDupe = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_dupe",

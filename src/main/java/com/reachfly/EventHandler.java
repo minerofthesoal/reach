@@ -77,6 +77,13 @@ public class EventHandler {
             ReachFlyClient.LOGGER.info("[ReachFly] Shield Assist: {}", ModConfig.shieldAssistEnabled ? "ON" : "OFF");
         }
 
+        // --- Toggle Auto Kill When Low ---
+        while (KeybindHandler.toggleAutoKillWhenLow.wasPressed()) {
+            ModConfig.autoKillWhenLowEnabled = !ModConfig.autoKillWhenLowEnabled;
+            ModConfig.save();
+            ReachFlyClient.LOGGER.info("[ReachFly] Auto Kill When Low: {}", ModConfig.autoKillWhenLowEnabled ? "ON" : "OFF");
+        }
+
         // --- Toggle Dupe ---
         while (KeybindHandler.toggleDupe.wasPressed()) {
             ModConfig.dupeEnabled = !ModConfig.dupeEnabled;
@@ -95,6 +102,7 @@ public class EventHandler {
         LowHealthKillHandler.tick(client);
         EatingAssistHandler.tick(client);
         ShieldAssistHandler.tick(client);
+        AutoKillWhenLowHandler.tick(client);
         DupeHandler.tick(client);
     }
 }

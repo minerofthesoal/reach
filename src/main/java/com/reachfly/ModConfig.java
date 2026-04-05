@@ -58,6 +58,15 @@ public class ModConfig {
     // --- Shield Assist settings ---
     public static boolean shieldAssistEnabled = false;
 
+    // --- Auto Kill When Low HP settings ---
+    public static boolean autoKillWhenLowEnabled = false;
+    public static float autoKillSelfHpThreshold = 6.0f; // trigger when YOUR health is below this
+    public static float autoKillWhenLowRange = 4.0f;
+    public static final float AUTO_KILL_SELF_HP_MIN = 1.0f;
+    public static final float AUTO_KILL_SELF_HP_MAX = 20.0f;
+    public static final float AUTO_KILL_RANGE_MIN = 1.0f;
+    public static final float AUTO_KILL_RANGE_MAX = 50.0f;
+
     // --- Dupe settings ---
     public static boolean dupeEnabled = false;
 
@@ -83,6 +92,9 @@ public class ModConfig {
                     eatingAssistEnabled = data.eatingAssistEnabled;
                     eatingHungerThreshold = (int) clamp(data.eatingHungerThreshold, EATING_HUNGER_MIN, EATING_HUNGER_MAX);
                     shieldAssistEnabled = data.shieldAssistEnabled;
+                    autoKillWhenLowEnabled = data.autoKillWhenLowEnabled;
+                    autoKillSelfHpThreshold = clamp(data.autoKillSelfHpThreshold, AUTO_KILL_SELF_HP_MIN, AUTO_KILL_SELF_HP_MAX);
+                    autoKillWhenLowRange = clamp(data.autoKillWhenLowRange, AUTO_KILL_RANGE_MIN, AUTO_KILL_RANGE_MAX);
                     dupeEnabled = data.dupeEnabled;
                 }
                 ReachFlyClient.LOGGER.info("[ReachFly] Config loaded.");
@@ -112,6 +124,9 @@ public class ModConfig {
         data.eatingAssistEnabled = eatingAssistEnabled;
         data.eatingHungerThreshold = eatingHungerThreshold;
         data.shieldAssistEnabled = shieldAssistEnabled;
+        data.autoKillWhenLowEnabled = autoKillWhenLowEnabled;
+        data.autoKillSelfHpThreshold = autoKillSelfHpThreshold;
+        data.autoKillWhenLowRange = autoKillWhenLowRange;
         data.dupeEnabled = dupeEnabled;
 
         try {
@@ -143,6 +158,9 @@ public class ModConfig {
         boolean eatingAssistEnabled = false;
         int eatingHungerThreshold = 14;
         boolean shieldAssistEnabled = false;
+        boolean autoKillWhenLowEnabled = false;
+        float autoKillSelfHpThreshold = 6.0f;
+        float autoKillWhenLowRange = 4.0f;
         boolean dupeEnabled = false;
     }
 }
