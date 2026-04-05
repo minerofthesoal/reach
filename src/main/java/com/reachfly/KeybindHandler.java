@@ -17,7 +17,6 @@ public class KeybindHandler {
     public static KeyBinding toggleAutoHit;
     public static KeyBinding toggleLowHealthKill;
     public static KeyBinding toggleEatingAssist;
-    public static KeyBinding toggleShieldAssist;
     public static KeyBinding toggleAutoKillWhenLow;
     public static KeyBinding toggleJesus;
     public static KeyBinding toggleAutoElytraSwap;
@@ -27,7 +26,6 @@ public class KeybindHandler {
     public static KeyBinding toggleSpeed;
     public static KeyBinding toggleWalkToCoords;
     public static KeyBinding toggleHud;
-    public static KeyBinding toggleDupe;
     public static KeyBinding openConfig;
 
     public static void register() {
@@ -54,10 +52,6 @@ public class KeybindHandler {
         toggleEatingAssist = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_eating",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_N, CATEGORY));
-
-        toggleShieldAssist = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.reachfly.toggle_shield",
-                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_M, CATEGORY));
 
         toggleAutoKillWhenLow = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_autokilllow",
@@ -94,10 +88,6 @@ public class KeybindHandler {
         toggleHud = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_hud",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, CATEGORY));
-
-        toggleDupe = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.reachfly.toggle_dupe",
-                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_J, CATEGORY));
 
         openConfig = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.open_config",

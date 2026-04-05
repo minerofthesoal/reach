@@ -115,14 +115,6 @@ public class ConfigScreen extends Screen {
         addToggle("Eating Assist", () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v);
         addSlider("Hunger Threshold", ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX, v -> ModConfig.eatingHungerThreshold = Math.round(v));
 
-        // --- SHIELD ASSIST ---
-        addLabel("\u00a79\u00a7l--- Shield Assist ---");
-        addToggle("Shield Assist", () -> ModConfig.shieldAssistEnabled, v -> ModConfig.shieldAssistEnabled = v);
-
-        // --- DUPE ---
-        addLabel("\u00a75\u00a7l--- Dupe ---");
-        addToggle("Dupe", () -> ModConfig.dupeEnabled, v -> ModConfig.dupeEnabled = v);
-
         // --- HUD ---
         addLabel("\u00a77\u00a7l--- Display ---");
         addToggle("Show HUD", () -> ModConfig.hudVisible, v -> ModConfig.hudVisible = v);

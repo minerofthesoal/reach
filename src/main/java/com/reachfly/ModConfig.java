@@ -61,9 +61,6 @@ public class ModConfig {
     public static final int EATING_HUNGER_MIN = 1;
     public static final int EATING_HUNGER_MAX = 19;
 
-    // --- Shield Assist ---
-    public static boolean shieldAssistEnabled = false;
-
     // --- Jesus ---
     public static boolean jesusEnabled = false;
 
@@ -100,9 +97,6 @@ public class ModConfig {
     public static float walkToY = 64;
     public static float walkToZ = 0;
 
-    // --- Dupe ---
-    public static boolean dupeEnabled = false;
-
     public static void load() {
         if (Files.exists(CONFIG_PATH)) {
             try {
@@ -128,7 +122,6 @@ public class ModConfig {
                     autoKillWhenLowRange = clamp(data.autoKillWhenLowRange, AUTO_KILL_RANGE_MIN, AUTO_KILL_RANGE_MAX);
                     eatingAssistEnabled = data.eatingAssistEnabled;
                     eatingHungerThreshold = (int) clamp(data.eatingHungerThreshold, EATING_HUNGER_MIN, EATING_HUNGER_MAX);
-                    shieldAssistEnabled = data.shieldAssistEnabled;
                     jesusEnabled = data.jesusEnabled;
                     autoElytraSwapEnabled = data.autoElytraSwapEnabled;
                     flyToCoordsEnabled = data.flyToCoordsEnabled;
@@ -145,7 +138,6 @@ public class ModConfig {
                     walkToX = data.walkToX;
                     walkToY = data.walkToY;
                     walkToZ = data.walkToZ;
-                    dupeEnabled = data.dupeEnabled;
                 }
                 ReachFlyClient.LOGGER.info("[ReachFly] Config loaded.");
             } catch (IOException e) {
@@ -177,7 +169,6 @@ public class ModConfig {
         data.autoKillWhenLowRange = autoKillWhenLowRange;
         data.eatingAssistEnabled = eatingAssistEnabled;
         data.eatingHungerThreshold = eatingHungerThreshold;
-        data.shieldAssistEnabled = shieldAssistEnabled;
         data.jesusEnabled = jesusEnabled;
         data.autoElytraSwapEnabled = autoElytraSwapEnabled;
         data.flyToCoordsEnabled = flyToCoordsEnabled;
@@ -194,7 +185,6 @@ public class ModConfig {
         data.walkToX = walkToX;
         data.walkToY = walkToY;
         data.walkToZ = walkToZ;
-        data.dupeEnabled = dupeEnabled;
 
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
@@ -228,7 +218,6 @@ public class ModConfig {
         float autoKillWhenLowRange = 4.0f;
         boolean eatingAssistEnabled = false;
         int eatingHungerThreshold = 14;
-        boolean shieldAssistEnabled = false;
         boolean jesusEnabled = false;
         boolean autoElytraSwapEnabled = false;
         boolean flyToCoordsEnabled = false;
@@ -245,6 +234,5 @@ public class ModConfig {
         float walkToX = 0;
         float walkToY = 64;
         float walkToZ = 0;
-        boolean dupeEnabled = false;
     }
 }

@@ -4,98 +4,109 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 
 /**
- * Eating Assist - Automatically eats food when the player's hunger drops below a threshold.
- * Scans hotbar for food items and switches + eats automatically.
+ * Eating Assist - Automatically eats food when hunger drops below threshold.
+ * Searches the entire hotbar for food. Does NOT hold down use key (which
+ * would block auto hit and ESP interactions). Instead uses the interaction
+ * manager to start using the item each tick.
  */
 public class EatingAssistHandler {
 
-    private static boolean isEating = false;
     private static int previousSlot = -1;
+    private static int eatTicks = 0;
 
-    /**
-     * Called every client tick to check hunger and auto-eat.
-     */
     public static void tick(MinecraftClient client) {
         if (!ModConfig.eatingAssistEnabled) return;
         if (client.player == null || client.world == null) return;
         if (client.currentScreen != null) {
-            stopEating(client);
+            reset(client);
             return;
         }
+        if (client.interactionManager == null) return;
 
         ClientPlayerEntity player = client.player;
         int foodLevel = player.getHungerManager().getFoodLevel();
 
-        // If hunger is above threshold and we were eating, stop
+        // If hunger is satisfied, stop eating
         if (foodLevel >= ModConfig.eatingHungerThreshold) {
-            if (isEating) {
-                stopEating(client);
+            if (previousSlot >= 0) {
+                reset(client);
             }
             return;
         }
 
-        // Check if currently held item is food and we're already eating
-        if (isEating) {
-            // Keep holding use key
-            if (!player.isUsingItem()) {
-                // Item finished or was interrupted, try again
-                ItemStack held = player.getMainHandStack();
-                if (isFood(held)) {
-                    client.options.useKey.setPressed(true);
-                } else {
-                    stopEating(client);
-                }
+        // If player is currently using an item (eating), let it continue
+        if (player.isUsingItem()) {
+            eatTicks++;
+            // Safety timeout - if eating takes too long, something went wrong
+            if (eatTicks > 60) {
+                reset(client);
             }
             return;
         }
 
-        // Find food in hotbar
-        int foodSlot = findFoodSlot(player);
-        if (foodSlot == -1) return; // No food available
+        // If we were eating and the item finished, check if we need more food
+        if (previousSlot >= 0 && !player.isUsingItem()) {
+            // Check if still hungry
+            if (player.getHungerManager().getFoodLevel() >= ModConfig.eatingHungerThreshold) {
+                reset(client);
+                return;
+            }
+            // Check if current slot still has food
+            ItemStack held = player.getMainHandStack();
+            if (!isFood(held)) {
+                // Current food ran out, find more
+                player.getInventory().setSelectedSlot(previousSlot);
+                previousSlot = -1;
+            }
+        }
 
-        // Save current slot and switch to food
-        previousSlot = player.getInventory().getSelectedSlot();
+        // Find best food in hotbar (most hunger restoration)
+        int foodSlot = findBestFoodSlot(player);
+        if (foodSlot == -1) return;
+
+        // Save original slot if not already saved
+        if (previousSlot < 0) {
+            previousSlot = player.getInventory().getSelectedSlot();
+        }
+
+        // Switch to food slot
         player.getInventory().setSelectedSlot(foodSlot);
+        eatTicks = 0;
 
-        // Start eating
-        client.options.useKey.setPressed(true);
-        isEating = true;
+        // Use the interaction manager to start eating (doesn't hold use key)
+        client.interactionManager.interactItem(player, net.minecraft.util.Hand.MAIN_HAND);
     }
 
-    /**
-     * Stop the eating process and restore the previous hotbar slot.
-     */
-    private static void stopEating(MinecraftClient client) {
-        if (!isEating) return;
-
-        client.options.useKey.setPressed(false);
-        isEating = false;
-
+    private static void reset(MinecraftClient client) {
         if (previousSlot >= 0 && client.player != null) {
             client.player.getInventory().setSelectedSlot(previousSlot);
-            previousSlot = -1;
         }
+        previousSlot = -1;
+        eatTicks = 0;
     }
 
-    /**
-     * Find the first food item in the player's hotbar (slots 0-8).
-     */
-    private static int findFoodSlot(ClientPlayerEntity player) {
+    private static int findBestFoodSlot(ClientPlayerEntity player) {
+        int bestSlot = -1;
+        int bestNutrition = 0;
+
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.getInventory().getStack(i);
-            if (isFood(stack)) {
-                return i;
+            if (!isFood(stack)) continue;
+
+            // Get nutrition value if available, otherwise default to 1
+            var foodComp = stack.get(DataComponentTypes.FOOD);
+            int nutrition = (foodComp != null) ? foodComp.nutrition() : 1;
+
+            if (nutrition > bestNutrition) {
+                bestNutrition = nutrition;
+                bestSlot = i;
             }
         }
-        return -1;
+        return bestSlot;
     }
 
-    /**
-     * Check if an ItemStack is a food item.
-     */
     private static boolean isFood(ItemStack stack) {
         if (stack.isEmpty()) return false;
         return stack.contains(DataComponentTypes.FOOD);

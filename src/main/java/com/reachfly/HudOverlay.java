@@ -33,9 +33,7 @@ public class HudOverlay {
                 ModConfig.flyEnabled);
         y += lh;
 
-        drawLine(context, tr, x, y,
-                "ESP: " + (ModConfig.espEnabled ? "ON" : "OFF"),
-                ModConfig.espEnabled);
+        drawLine(context, tr, x, y, "ESP: " + (ModConfig.espEnabled ? "ON" : "OFF"), ModConfig.espEnabled);
         y += lh;
 
         drawLine(context, tr, x, y,
@@ -53,14 +51,10 @@ public class HudOverlay {
                 ModConfig.autoKillWhenLowEnabled);
         y += lh;
 
-        drawLine(context, tr, x, y,
-                "Jesus: " + (ModConfig.jesusEnabled ? "ON" : "OFF"),
-                ModConfig.jesusEnabled);
+        drawLine(context, tr, x, y, "Jesus: " + (ModConfig.jesusEnabled ? "ON" : "OFF"), ModConfig.jesusEnabled);
         y += lh;
 
-        drawLine(context, tr, x, y,
-                "NoFall: " + (ModConfig.noFallEnabled ? "ON" : "OFF"),
-                ModConfig.noFallEnabled);
+        drawLine(context, tr, x, y, "NoFall: " + (ModConfig.noFallEnabled ? "ON" : "OFF"), ModConfig.noFallEnabled);
         y += lh;
 
         drawLine(context, tr, x, y,
@@ -68,14 +62,10 @@ public class HudOverlay {
                 ModConfig.speedEnabled);
         y += lh;
 
-        drawLine(context, tr, x, y,
-                "Fullbright: " + (ModConfig.fullbrightEnabled ? "ON" : "OFF"),
-                ModConfig.fullbrightEnabled);
+        drawLine(context, tr, x, y, "Fullbright: " + (ModConfig.fullbrightEnabled ? "ON" : "OFF"), ModConfig.fullbrightEnabled);
         y += lh;
 
-        drawLine(context, tr, x, y,
-                "Elytra Swap: " + (ModConfig.autoElytraSwapEnabled ? "ON" : "OFF"),
-                ModConfig.autoElytraSwapEnabled);
+        drawLine(context, tr, x, y, "Elytra Swap: " + (ModConfig.autoElytraSwapEnabled ? "ON" : "OFF"), ModConfig.autoElytraSwapEnabled);
         y += lh;
 
         if (ModConfig.flyToCoordsEnabled) {
@@ -96,19 +86,7 @@ public class HudOverlay {
         }
         y += lh;
 
-        drawLine(context, tr, x, y,
-                "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"),
-                ModConfig.eatingAssistEnabled);
-        y += lh;
-
-        drawLine(context, tr, x, y,
-                "Shield: " + (ModConfig.shieldAssistEnabled ? "ON" : "OFF"),
-                ModConfig.shieldAssistEnabled);
-        y += lh;
-
-        drawLine(context, tr, x, y,
-                "Dupe: " + (ModConfig.dupeEnabled ? "ON" : "OFF"),
-                ModConfig.dupeEnabled);
+        drawLine(context, tr, x, y, "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"), ModConfig.eatingAssistEnabled);
     }
 
     private static void drawLine(DrawContext ctx, TextRenderer tr, int x, int y, String text, boolean enabled) {
