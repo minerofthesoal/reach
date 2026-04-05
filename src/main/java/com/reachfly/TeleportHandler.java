@@ -72,12 +72,7 @@ public class TeleportHandler {
             ServerPlayerEntity serverPlayer = server.getPlayerManager()
                     .getPlayer(player.getUuid());
             if (serverPlayer != null) {
-                serverPlayer.teleport(
-                        serverPlayer.getServerWorld(),
-                        tx, ty, tz,
-                        java.util.Set.of(),
-                        serverPlayer.getYaw(), serverPlayer.getPitch(),
-                        true);
+                serverPlayer.requestTeleport(tx, ty, tz);
                 player.sendMessage(
                         Text.literal("\u00a7a[TP] Teleported to " +
                                 String.format("%.0f, %.0f, %.0f", tx, ty, tz)),

@@ -8,8 +8,6 @@ import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Set;
-
 /**
  * Server-side addon for Optimizer Super Premium.
  *
@@ -47,12 +45,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                     // Execute on the server thread
                     double finalY = y;
                     context.server().execute(() -> {
-                        player.teleport(
-                                player.getServerWorld(),
-                                x, finalY, z,
-                                Set.of(),
-                                player.getYaw(), player.getPitch(),
-                                true);
+                        player.requestTeleport(x, finalY, z);
 
                         player.sendMessage(
                                 Text.literal("\u00a7a[OSP] Teleported to " +
