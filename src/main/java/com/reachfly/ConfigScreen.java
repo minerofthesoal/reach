@@ -121,6 +121,13 @@ public class ConfigScreen extends Screen {
         addSlider("Walk Target Y", ModConfig.walkToY, -64, 320, v -> ModConfig.walkToY = v);
         addSlider("Walk Target Z", ModConfig.walkToZ, -30000, 30000, v -> ModConfig.walkToZ = v);
 
+        // --- TELEPORT ---
+        addLabel("\u00a75\u00a7l--- Teleport ---");
+        addToggle("Use Server Addon (reliable)", () -> ModConfig.tpUseServerAddon, v -> ModConfig.tpUseServerAddon = v);
+        addSlider("TP Target X", ModConfig.tpX, -30000, 30000, v -> ModConfig.tpX = v);
+        addSlider("TP Target Y", ModConfig.tpY, -64, 320, v -> ModConfig.tpY = v);
+        addSlider("TP Target Z", ModConfig.tpZ, -30000, 30000, v -> ModConfig.tpZ = v);
+
         // --- EATING ASSIST ---
         addLabel("\u00a7a\u00a7l--- Eating Assist ---");
         addToggle("Eating Assist", () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v);

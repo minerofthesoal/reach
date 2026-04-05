@@ -99,6 +99,12 @@ public class ModConfig {
     public static final float KNOCKBACK_MIN = 1.0f;
     public static final float KNOCKBACK_MAX = 2500.0f;
 
+    // --- Teleport ---
+    public static boolean tpUseServerAddon = true;
+    public static float tpX = 0;
+    public static float tpY = 100;
+    public static float tpZ = 0;
+
     // --- HUD ---
     public static boolean hudVisible = true;
 
@@ -150,6 +156,10 @@ public class ModConfig {
                     knockbackEnabled = data.knockbackEnabled;
                     knockbackStrength = clamp(data.knockbackStrength, KNOCKBACK_MIN, KNOCKBACK_MAX);
                     hudVisible = data.hudVisible;
+                    tpUseServerAddon = data.tpUseServerAddon;
+                    tpX = data.tpX;
+                    tpY = data.tpY;
+                    tpZ = data.tpZ;
                     walkToCoordsEnabled = data.walkToCoordsEnabled;
                     walkToX = data.walkToX;
                     walkToY = data.walkToY;
@@ -202,6 +212,10 @@ public class ModConfig {
         data.knockbackEnabled = knockbackEnabled;
         data.knockbackStrength = knockbackStrength;
         data.hudVisible = hudVisible;
+        data.tpUseServerAddon = tpUseServerAddon;
+        data.tpX = tpX;
+        data.tpY = tpY;
+        data.tpZ = tpZ;
         data.walkToCoordsEnabled = walkToCoordsEnabled;
         data.walkToX = walkToX;
         data.walkToY = walkToY;
@@ -256,6 +270,10 @@ public class ModConfig {
         boolean knockbackEnabled = false;
         float knockbackStrength = 5.0f;
         boolean hudVisible = true;
+        boolean tpUseServerAddon = true;
+        float tpX = 0;
+        float tpY = 100;
+        float tpZ = 0;
         boolean walkToCoordsEnabled = false;
         float walkToX = 0;
         float walkToY = 64;

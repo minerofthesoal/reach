@@ -111,6 +111,10 @@ public class EventHandler {
             ModConfig.save();
         }
 
+        while (KeybindHandler.triggerTeleport.wasPressed()) {
+            TeleportHandler.triggerTeleport();
+        }
+
         while (KeybindHandler.openConfig.wasPressed()) {
             client.setScreen(new ConfigScreen(client.currentScreen));
         }
@@ -131,5 +135,6 @@ public class EventHandler {
         XrayHandler.tick(client);
         KnockbackHandler.tick(client);
         WalkToCoordsHandler.tick(client);
+        TeleportHandler.tick(client);
     }
 }

@@ -103,6 +103,12 @@ public class HudOverlay {
         y += lh;
 
         drawLine(context, tr, x, y, "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"), ModConfig.eatingAssistEnabled);
+        y += lh;
+
+        String tpMode = ModConfig.tpUseServerAddon ? "Addon" : "Beta";
+        drawLine(context, tr, x, y,
+                String.format("TP [%s]: %.0f, %.0f, %.0f (press T)", tpMode, ModConfig.tpX, ModConfig.tpY, ModConfig.tpZ),
+                true, YELLOW);
     }
 
     private static void drawLine(DrawContext ctx, TextRenderer tr, int x, int y, String text, boolean enabled) {

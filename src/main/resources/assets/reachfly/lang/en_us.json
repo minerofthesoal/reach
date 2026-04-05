@@ -17,5 +17,6 @@
   "key.reachfly.toggle_xray": "Toggle X-Ray",
   "key.reachfly.toggle_knockback": "Toggle Knockback",
   "key.reachfly.toggle_hud": "Toggle HUD",
+  "key.reachfly.trigger_teleport": "Teleport to Coords",
   "key.reachfly.open_config": "Open Config"
 }

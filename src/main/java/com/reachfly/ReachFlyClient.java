@@ -23,6 +23,9 @@ public class ReachFlyClient implements ClientModInitializer {
         // Register all keybinds
         KeybindHandler.register();
 
+        // Register teleport networking payload
+        TeleportHandler.registerPayload();
+
         // Register tick and render event handlers
         EventHandler.register();
 

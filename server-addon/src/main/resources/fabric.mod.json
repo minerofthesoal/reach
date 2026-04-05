@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "osp-server-addon",
+  "version": "${version}",
+  "name": "OSP Server Addon",
+  "description": "Server-side addon for Optimizer Super Premium. Allows players with the client mod to teleport to any coordinates. Players without the client mod are completely unaffected.",
+  "authors": ["ReachFlyDev"],
+  "license": "Apache-2.0",
+  "environment": "server",
+  "entrypoints": {
+    "server": [
+      "com.reachfly.serveraddon.OspServerAddon"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

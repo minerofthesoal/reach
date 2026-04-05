@@ -28,6 +28,7 @@ public class KeybindHandler {
     public static KeyBinding toggleXray;
     public static KeyBinding toggleKnockback;
     public static KeyBinding toggleHud;
+    public static KeyBinding triggerTeleport;
     public static KeyBinding openConfig;
 
     public static void register() {
@@ -98,6 +99,10 @@ public class KeybindHandler {
         toggleHud = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_hud",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, CATEGORY));
+
+        triggerTeleport = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.trigger_teleport",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_T, CATEGORY));
 
         openConfig = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.open_config",
