@@ -1,9 +1,7 @@
 package com.reachfly.mixin;
 
 import com.reachfly.KnockbackHandler;
-import com.reachfly.ModConfig;
 import com.reachfly.ReachHandler;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;

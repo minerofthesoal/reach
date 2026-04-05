@@ -76,7 +76,7 @@ public class HudOverlay {
         y += lh;
 
         if (ModConfig.flyToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getPos();
+            Vec3d pos = client.player.getEntityPos();
             double dist = pos.distanceTo(new Vec3d(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
             drawLine(context, tr, x, y,
                     String.format("FlyTo: %.0f,%.0f,%.0f (%.0f blks)", ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ, dist),
@@ -87,7 +87,7 @@ public class HudOverlay {
         y += lh;
 
         if (ModConfig.walkToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getPos();
+            Vec3d pos = client.player.getEntityPos();
             double dist = Math.sqrt(
                     (pos.x - ModConfig.walkToX) * (pos.x - ModConfig.walkToX) +
                     (pos.z - ModConfig.walkToZ) * (pos.z - ModConfig.walkToZ));
