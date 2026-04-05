@@ -40,6 +40,7 @@ public class ModConfig {
     public static final float AUTO_HIT_RANGE_MIN = 1.0f;
     public static final float AUTO_HIT_RANGE_MAX = 50.0f;
     public static boolean autoHitPlayersOnly = false;
+    public static boolean killAuraEnabled = false;
 
     // --- Low Health Kill ---
     public static boolean lowHealthKillEnabled = false;
@@ -117,6 +118,7 @@ public class ModConfig {
                     autoHitEnabled = data.autoHitEnabled;
                     autoHitRange = clamp(data.autoHitRange, AUTO_HIT_RANGE_MIN, AUTO_HIT_RANGE_MAX);
                     autoHitPlayersOnly = data.autoHitPlayersOnly;
+                    killAuraEnabled = data.killAuraEnabled;
                     lowHealthKillEnabled = data.lowHealthKillEnabled;
                     lowHealthThreshold = clamp(data.lowHealthThreshold, LOW_HEALTH_MIN, LOW_HEALTH_MAX);
                     autoKillWhenLowEnabled = data.autoKillWhenLowEnabled;
@@ -165,6 +167,7 @@ public class ModConfig {
         data.autoHitEnabled = autoHitEnabled;
         data.autoHitRange = autoHitRange;
         data.autoHitPlayersOnly = autoHitPlayersOnly;
+        data.killAuraEnabled = killAuraEnabled;
         data.lowHealthKillEnabled = lowHealthKillEnabled;
         data.lowHealthThreshold = lowHealthThreshold;
         data.autoKillWhenLowEnabled = autoKillWhenLowEnabled;
@@ -215,6 +218,7 @@ public class ModConfig {
         boolean autoHitEnabled = false;
         float autoHitRange = 3.0f;
         boolean autoHitPlayersOnly = false;
+        boolean killAuraEnabled = false;
         boolean lowHealthKillEnabled = false;
         float lowHealthThreshold = 6.0f;
         boolean autoKillWhenLowEnabled = false;

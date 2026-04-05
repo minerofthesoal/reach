@@ -36,9 +36,14 @@ public class HudOverlay {
         drawLine(context, tr, x, y, "ESP: " + (ModConfig.espEnabled ? "ON" : "OFF"), ModConfig.espEnabled);
         y += lh;
 
-        drawLine(context, tr, x, y,
-                ModConfig.autoHitEnabled ? String.format("AutoHit: ON (%.1f)", ModConfig.autoHitRange) : "AutoHit: OFF",
-                ModConfig.autoHitEnabled);
+        String autoHitText;
+        if (ModConfig.autoHitEnabled) {
+            String mode = ModConfig.killAuraEnabled ? " [AURA]" : "";
+            autoHitText = String.format("AutoHit: ON (%.1f)%s", ModConfig.autoHitRange, mode);
+        } else {
+            autoHitText = "AutoHit: OFF";
+        }
+        drawLine(context, tr, x, y, autoHitText, ModConfig.autoHitEnabled);
         y += lh;
 
         drawLine(context, tr, x, y,
