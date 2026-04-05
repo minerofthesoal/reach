@@ -54,7 +54,7 @@ public class WalkToCoordsHandler {
             detourTicks = 0;
             tickCounter = 0;
             player.sendMessage(
-                    Text.literal("\u00a7b[ReachFly] \u00a7eWalking to X:%.0f Y:%.0f Z:%.0f (%.0f blocks)"
+                    Text.literal("\u00a7b[OSP] \u00a7eWalking to X:%.0f Y:%.0f Z:%.0f (%.0f blocks)"
                             .formatted(targetX, targetY, targetZ, horizDist)),
                     true);
         }
@@ -65,7 +65,7 @@ public class WalkToCoordsHandler {
             isNavigating = false;
             releaseAllKeys(client);
             player.sendMessage(
-                    Text.literal("\u00a7b[ReachFly] \u00a7aArrived at destination!"),
+                    Text.literal("\u00a7b[OSP] \u00a7aArrived at destination!"),
                     true);
             ModConfig.save();
             return;

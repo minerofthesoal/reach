@@ -100,6 +100,11 @@ public class EventHandler {
             ModConfig.save();
         }
 
+        while (KeybindHandler.toggleXray.wasPressed()) {
+            ModConfig.xrayEnabled = !ModConfig.xrayEnabled;
+            ModConfig.save();
+        }
+
         while (KeybindHandler.toggleKnockback.wasPressed()) {
             ModConfig.knockbackEnabled = !ModConfig.knockbackEnabled;
             KnockbackHandler.updateKnockbackAttributes();
@@ -123,6 +128,7 @@ public class EventHandler {
         NoFallHandler.tick(client);
         FullbrightHandler.tick(client);
         SpeedHandler.tick(client);
+        XrayHandler.tick(client);
         KnockbackHandler.tick(client);
         WalkToCoordsHandler.tick(client);
     }

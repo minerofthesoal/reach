@@ -4,6 +4,7 @@
   "package": "com.reachfly.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "BlockRenderMixin",
     "ClientPlayerInteractionManagerMixin",
     "EntityGlowMixin"
   ],

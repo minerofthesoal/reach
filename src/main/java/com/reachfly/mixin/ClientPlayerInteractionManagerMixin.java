@@ -1,7 +1,16 @@
 package com.reachfly.mixin;
 
+import com.reachfly.KnockbackHandler;
+import com.reachfly.ModConfig;
 import com.reachfly.ReachHandler;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,5 +22,49 @@ public class ClientPlayerInteractionManagerMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         ReachHandler.updateReachAttributes();
+    }
+
+    /**
+     * After attacking an entity, apply extra knockback velocity directly
+     * on the server-side entity (singleplayer only).
+     * This supplements the ATTACK_KNOCKBACK attribute for extra force.
+     */
+    @Inject(method = "attackEntity", at = @At("TAIL"))
+    private void onAttackEntity(PlayerEntity player, Entity target, CallbackInfo ci) {
+        if (!ModConfig.knockbackEnabled) return;
+        if (!(player instanceof ClientPlayerEntity)) return;
+
+        MinecraftClient client = MinecraftClient.getInstance();
+        MinecraftServer server = client.getServer();
+        if (server == null) return; // Only works in singleplayer
+
+        // Get the server-side entity and apply velocity directly
+        for (ServerWorld world : server.getWorlds()) {
+            Entity serverTarget = world.getEntityById(target.getId());
+            if (serverTarget != null) {
+                Vec3d playerPos = player.getEntityPos();
+                Vec3d targetPos = serverTarget.getPos();
+                Vec3d direction = targetPos.subtract(playerPos);
+
+                double horizLength = Math.sqrt(direction.x * direction.x + direction.z * direction.z);
+                if (horizLength < 0.01) {
+                    float yaw = player.getYaw();
+                    direction = new Vec3d(-Math.sin(Math.toRadians(yaw)), 0, Math.cos(Math.toRadians(yaw)));
+                    horizLength = 1.0;
+                }
+
+                double normalX = direction.x / horizLength;
+                double normalZ = direction.z / horizLength;
+                double strength = ModConfig.knockbackStrength;
+
+                // Scale velocity: at strength 1 = modest, at 2500 = extreme
+                double velocityMult = strength * 0.5;
+                double verticalBoost = Math.min(strength * 0.15, 80.0);
+
+                serverTarget.addVelocity(normalX * velocityMult, verticalBoost, normalZ * velocityMult);
+                serverTarget.velocityModified = true;
+                break;
+            }
+        }
     }
 }

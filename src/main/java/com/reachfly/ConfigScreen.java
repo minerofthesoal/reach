@@ -24,7 +24,7 @@ public class ConfigScreen extends Screen {
     private static final int BUTTON_H = 20;
 
     public ConfigScreen(Screen parent) {
-        super(Text.literal("Reach & Fly Configuration"));
+        super(Text.literal("Optimizer Super Premium"));
         this.parent = parent;
     }
 
@@ -64,6 +64,10 @@ public class ConfigScreen extends Screen {
         addLabel("\u00a7f\u00a7l--- Speed ---");
         addToggle("Speed", () -> ModConfig.speedEnabled, v -> ModConfig.speedEnabled = v);
         addSlider("Speed Multiplier", ModConfig.speedMultiplier, ModConfig.SPEED_MIN, ModConfig.SPEED_MAX, v -> ModConfig.speedMultiplier = v);
+
+        // --- X-RAY ---
+        addLabel("\u00a7a\u00a7l--- X-Ray ---");
+        addToggle("X-Ray (See Through Blocks)", () -> ModConfig.xrayEnabled, v -> ModConfig.xrayEnabled = v);
 
         // --- KNOCKBACK ---
         addLabel("\u00a7c\u00a7l--- Knockback ---");
@@ -225,7 +229,7 @@ public class ConfigScreen extends Screen {
 
         // Title
         context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.literal("\u00a7b\u00a7lReach\u00a7r \u00a76& \u00a7d\u00a7lFly\u00a7r \u00a77v1.1"),
+                Text.literal("\u00a7b\u00a7lOptimizer\u00a7r \u00a76\u00a7lSuper \u00a7d\u00a7lPremium\u00a7r \u00a77v2.0"),
                 this.width / 2, 10, 0xFFFFFF);
     }
 

@@ -25,6 +25,7 @@ public class KeybindHandler {
     public static KeyBinding toggleFullbright;
     public static KeyBinding toggleSpeed;
     public static KeyBinding toggleWalkToCoords;
+    public static KeyBinding toggleXray;
     public static KeyBinding toggleKnockback;
     public static KeyBinding toggleHud;
     public static KeyBinding openConfig;
@@ -85,6 +86,10 @@ public class KeybindHandler {
         toggleWalkToCoords = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_walktocoords",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_SEMICOLON, CATEGORY));
+
+        toggleXray = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_xray",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z, CATEGORY));
 
         toggleKnockback = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_knockback",

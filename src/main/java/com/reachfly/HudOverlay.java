@@ -69,6 +69,9 @@ public class HudOverlay {
                 ModConfig.knockbackEnabled);
         y += lh;
 
+        drawLine(context, tr, x, y, "X-Ray: " + (ModConfig.xrayEnabled ? "ON" : "OFF"), ModConfig.xrayEnabled);
+        y += lh;
+
         drawLine(context, tr, x, y, "Fullbright: " + (ModConfig.fullbrightEnabled ? "ON" : "OFF"), ModConfig.fullbrightEnabled);
         y += lh;
 

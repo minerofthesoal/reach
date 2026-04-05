@@ -90,6 +90,9 @@ public class ModConfig {
     public static final float SPEED_MIN = 1.0f;
     public static final float SPEED_MAX = 10.0f;
 
+    // --- X-Ray ---
+    public static boolean xrayEnabled = false;
+
     // --- Knockback ---
     public static boolean knockbackEnabled = false;
     public static float knockbackStrength = 5.0f;
@@ -143,6 +146,7 @@ public class ModConfig {
                     fullbrightEnabled = data.fullbrightEnabled;
                     speedEnabled = data.speedEnabled;
                     speedMultiplier = clamp(data.speedMultiplier, SPEED_MIN, SPEED_MAX);
+                    xrayEnabled = data.xrayEnabled;
                     knockbackEnabled = data.knockbackEnabled;
                     knockbackStrength = clamp(data.knockbackStrength, KNOCKBACK_MIN, KNOCKBACK_MAX);
                     hudVisible = data.hudVisible;
@@ -151,9 +155,9 @@ public class ModConfig {
                     walkToY = data.walkToY;
                     walkToZ = data.walkToZ;
                 }
-                ReachFlyClient.LOGGER.info("[ReachFly] Config loaded.");
+                ReachFlyClient.LOGGER.info("[OSP] Config loaded.");
             } catch (IOException e) {
-                ReachFlyClient.LOGGER.error("[ReachFly] Failed to load config", e);
+                ReachFlyClient.LOGGER.error("[OSP] Failed to load config", e);
             }
         } else {
             save();
@@ -194,6 +198,7 @@ public class ModConfig {
         data.fullbrightEnabled = fullbrightEnabled;
         data.speedEnabled = speedEnabled;
         data.speedMultiplier = speedMultiplier;
+        data.xrayEnabled = xrayEnabled;
         data.knockbackEnabled = knockbackEnabled;
         data.knockbackStrength = knockbackStrength;
         data.hudVisible = hudVisible;
@@ -206,7 +211,7 @@ public class ModConfig {
             Files.createDirectories(CONFIG_PATH.getParent());
             Files.writeString(CONFIG_PATH, GSON.toJson(data));
         } catch (IOException e) {
-            ReachFlyClient.LOGGER.error("[ReachFly] Failed to save config", e);
+            ReachFlyClient.LOGGER.error("[OSP] Failed to save config", e);
         }
     }
 
@@ -247,6 +252,7 @@ public class ModConfig {
         boolean fullbrightEnabled = false;
         boolean speedEnabled = false;
         float speedMultiplier = 2.0f;
+        boolean xrayEnabled = false;
         boolean knockbackEnabled = false;
         float knockbackStrength = 5.0f;
         boolean hudVisible = true;
