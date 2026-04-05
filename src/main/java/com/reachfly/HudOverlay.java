@@ -3,8 +3,6 @@ package com.reachfly;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
-
 public class HudOverlay {
 
     private static final int GREEN = 0xFF55FF55;
@@ -12,7 +10,7 @@ public class HudOverlay {
     private static final int YELLOW = 0xFFFFFF55;
     private static final int BG = 0x80000000;
 
-    public static void render(DrawContext context, RenderTickCounter tickCounter) {
+    public static void render(DrawContext context, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
         if (client.getDebugHud().shouldShowDebugHud()) return;

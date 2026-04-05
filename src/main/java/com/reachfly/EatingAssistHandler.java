@@ -57,7 +57,7 @@ public class EatingAssistHandler {
             ItemStack held = player.getMainHandStack();
             if (!isFood(held)) {
                 // Current food ran out, find more
-                player.getInventory().setSelectedSlot(previousSlot);
+                player.getInventory().selectedSlot = (previousSlot);
                 previousSlot = -1;
             }
         }
@@ -68,11 +68,11 @@ public class EatingAssistHandler {
 
         // Save original slot if not already saved
         if (previousSlot < 0) {
-            previousSlot = player.getInventory().getSelectedSlot();
+            previousSlot = player.getInventory().selectedSlot;
         }
 
         // Switch to food slot
-        player.getInventory().setSelectedSlot(foodSlot);
+        player.getInventory().selectedSlot = (foodSlot);
         eatTicks = 0;
 
         // Use the interaction manager to start eating (doesn't hold use key)
@@ -81,7 +81,7 @@ public class EatingAssistHandler {
 
     private static void reset(MinecraftClient client) {
         if (previousSlot >= 0 && client.player != null) {
-            client.player.getInventory().setSelectedSlot(previousSlot);
+            client.player.getInventory().selectedSlot = (previousSlot);
         }
         previousSlot = -1;
         eatTicks = 0;

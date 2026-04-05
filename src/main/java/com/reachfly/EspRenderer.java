@@ -2,7 +2,6 @@ package com.reachfly;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +22,7 @@ public class EspRenderer {
         HudRenderCallback.EVENT.register(EspRenderer::renderEsp);
     }
 
-    private static void renderEsp(DrawContext context, RenderTickCounter tickCounter) {
+    private static void renderEsp(DrawContext context, float tickDelta) {
         if (!ModConfig.espEnabled) return;
         if (!ModConfig.espLines && !ModConfig.espPathTrace) return;
 
@@ -34,8 +33,6 @@ public class EspRenderer {
         int screenCenterX = client.getWindow().getScaledWidth() / 2;
         int screenCenterY = client.getWindow().getScaledHeight() / 2;
 
-        float tickDelta = tickCounter.getTickProgress(true);
-
         float fov = client.options.getFov().getValue().floatValue();
         Matrix4f projMatrix = client.gameRenderer.getBasicProjectionMatrix(fov);
 
@@ -45,8 +42,8 @@ public class EspRenderer {
         modelViewStack.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0f));
         Matrix4f mvMatrix = modelViewStack.peek().getPositionMatrix();
 
-        Vec3d cameraPos = camera.getCameraPos();
-        Vec3d playerPos = client.player.getEntityPos();
+        Vec3d cameraPos = camera.getPos();
+        Vec3d playerPos = client.player.getPos();
 
         for (Entity entity : client.world.getEntities()) {
             if (entity == client.player) continue;
@@ -54,7 +51,11 @@ public class EspRenderer {
             if (!living.isAlive()) continue;
             if (!shouldShow(entity)) continue;
 
-            Vec3d entityPos = entity.getLerpedPos(tickDelta);
+            // Interpolate entity position using prevX/Y/Z
+            double ex = entity.prevX + (entity.getX() - entity.prevX) * tickDelta;
+            double ey = entity.prevY + (entity.getY() - entity.prevY) * tickDelta;
+            double ez = entity.prevZ + (entity.getZ() - entity.prevZ) * tickDelta;
+            Vec3d entityPos = new Vec3d(ex, ey, ez);
             int color = getColor(entity);
 
             // Tracer lines from crosshair to entity center
