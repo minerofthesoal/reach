@@ -26,7 +26,7 @@ public class FlyToCoordsHandler {
         double targetZ = ModConfig.flyToZ;
 
         Vec3d target = new Vec3d(targetX, targetY, targetZ);
-        Vec3d pos = player.getPos();
+        Vec3d pos = player.getEntityPos();
         double distance = pos.distanceTo(target);
 
         if (!isNavigating) {
