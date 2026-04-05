@@ -32,6 +32,7 @@ public class ModConfig {
     public static boolean espHostile = true;
     public static boolean espPassive = false;
     public static boolean espLines = false;
+    public static boolean espPathTrace = false;
 
     // --- Auto Hit ---
     public static boolean autoHitEnabled = false;
@@ -112,6 +113,7 @@ public class ModConfig {
                     espHostile = data.espHostile;
                     espPassive = data.espPassive;
                     espLines = data.espLines;
+                    espPathTrace = data.espPathTrace;
                     autoHitEnabled = data.autoHitEnabled;
                     autoHitRange = clamp(data.autoHitRange, AUTO_HIT_RANGE_MIN, AUTO_HIT_RANGE_MAX);
                     autoHitPlayersOnly = data.autoHitPlayersOnly;
@@ -159,6 +161,7 @@ public class ModConfig {
         data.espHostile = espHostile;
         data.espPassive = espPassive;
         data.espLines = espLines;
+        data.espPathTrace = espPathTrace;
         data.autoHitEnabled = autoHitEnabled;
         data.autoHitRange = autoHitRange;
         data.autoHitPlayersOnly = autoHitPlayersOnly;
@@ -208,6 +211,7 @@ public class ModConfig {
         boolean espHostile = true;
         boolean espPassive = false;
         boolean espLines = false;
+        boolean espPathTrace = false;
         boolean autoHitEnabled = false;
         float autoHitRange = 3.0f;
         boolean autoHitPlayersOnly = false;

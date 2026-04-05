@@ -50,6 +50,7 @@ public class ConfigScreen extends Screen {
         addToggle("ESP Hostile", () -> ModConfig.espHostile, v -> ModConfig.espHostile = v);
         addToggle("ESP Passive", () -> ModConfig.espPassive, v -> ModConfig.espPassive = v);
         addToggle("ESP Tracer Lines", () -> ModConfig.espLines, v -> ModConfig.espLines = v);
+        addToggle("ESP Path Trace", () -> ModConfig.espPathTrace, v -> ModConfig.espPathTrace = v);
 
         // --- JESUS ---
         addLabel("\u00a73\u00a7l--- Jesus ---");

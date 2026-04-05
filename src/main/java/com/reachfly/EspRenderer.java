@@ -10,7 +10,9 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
@@ -18,11 +20,12 @@ import org.joml.Vector4f;
 public class EspRenderer {
 
     public static void register() {
-        HudRenderCallback.EVENT.register(EspRenderer::renderLines);
+        HudRenderCallback.EVENT.register(EspRenderer::renderEsp);
     }
 
-    private static void renderLines(DrawContext context, RenderTickCounter tickCounter) {
-        if (!ModConfig.espEnabled || !ModConfig.espLines) return;
+    private static void renderEsp(DrawContext context, RenderTickCounter tickCounter) {
+        if (!ModConfig.espEnabled) return;
+        if (!ModConfig.espLines && !ModConfig.espPathTrace) return;
 
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.world == null) return;
@@ -33,11 +36,9 @@ public class EspRenderer {
 
         float tickDelta = tickCounter.getTickProgress(true);
 
-        // Get projection matrix using client FOV setting
         float fov = client.options.getFov().getValue().floatValue();
         Matrix4f projMatrix = client.gameRenderer.getBasicProjectionMatrix(fov);
 
-        // Apply camera rotation
         MatrixStack modelViewStack = new MatrixStack();
         net.minecraft.client.render.Camera camera = client.gameRenderer.getCamera();
         modelViewStack.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
@@ -45,42 +46,122 @@ public class EspRenderer {
         Matrix4f mvMatrix = modelViewStack.peek().getPositionMatrix();
 
         Vec3d cameraPos = camera.getCameraPos();
+        Vec3d playerPos = client.player.getEntityPos();
 
         for (Entity entity : client.world.getEntities()) {
             if (entity == client.player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
+            if (!shouldShow(entity)) continue;
 
-            if (!shouldShowLine(entity)) continue;
+            Vec3d entityPos = entity.getLerpedPos(tickDelta);
+            int color = getColor(entity);
 
-            // Get interpolated position
-            Vec3d lerpedPos = entity.getLerpedPos(tickDelta);
-            double x = lerpedPos.x - cameraPos.x;
-            double y = lerpedPos.y - cameraPos.y + entity.getHeight() / 2.0;
-            double z = lerpedPos.z - cameraPos.z;
+            // Tracer lines from crosshair to entity center
+            if (ModConfig.espLines) {
+                double ex = entityPos.x - cameraPos.x;
+                double ey = entityPos.y - cameraPos.y + entity.getHeight() / 2.0;
+                double ez = entityPos.z - cameraPos.z;
 
-            // Project to screen space
-            Vector4f pos4 = new Vector4f((float) x, (float) y, (float) z, 1.0f);
-            pos4.mul(mvMatrix);
-            pos4.mul(projMatrix);
+                int[] screenPos = projectToScreen(ex, ey, ez, mvMatrix, projMatrix, client);
+                if (screenPos != null) {
+                    drawLine(context, screenCenterX, screenCenterY, screenPos[0], screenPos[1], color);
+                }
+            }
 
-            if (pos4.w <= 0) continue; // Behind camera
+            // Path trace - ground-level waypoints from player to entity
+            if (ModConfig.espPathTrace) {
+                double dist = playerPos.horizontalDistanceTo(entityPos);
+                if (dist > 200) continue; // Don't trace very far entities
 
-            float ndcX = pos4.x / pos4.w;
-            float ndcY = pos4.y / pos4.w;
+                // Generate ground-level path points
+                int numPoints = Math.min(30, (int) (dist / 2.0) + 1);
+                int[] prevScreen = null;
 
-            int screenW = client.getWindow().getScaledWidth();
-            int screenH = client.getWindow().getScaledHeight();
-            int sx = (int) ((ndcX + 1.0f) / 2.0f * screenW);
-            int sy = (int) ((1.0f - ndcY) / 2.0f * screenH);
+                for (int i = 0; i <= numPoints; i++) {
+                    double t = (double) i / numPoints;
+                    double px = playerPos.x + (entityPos.x - playerPos.x) * t;
+                    double pz = playerPos.z + (entityPos.z - playerPos.z) * t;
 
-            int color = getLineColor(entity);
+                    // Find ground level at this position
+                    double py = findGroundY(client.world, px, playerPos.y, pz);
 
-            drawLine(context, screenCenterX, screenCenterY, sx, sy, color);
+                    // Offset slightly above ground for visibility
+                    double wx = px - cameraPos.x;
+                    double wy = py + 0.1 - cameraPos.y;
+                    double wz = pz - cameraPos.z;
+
+                    int[] screenPos = projectToScreen(wx, wy, wz, mvMatrix, projMatrix, client);
+                    if (screenPos != null) {
+                        // Draw waypoint dot
+                        int dotSize = (i == numPoints) ? 3 : 2;
+                        int dotColor = (i == numPoints) ? color : withAlpha(color, 0xBB);
+                        context.fill(screenPos[0] - dotSize, screenPos[1] - dotSize,
+                                     screenPos[0] + dotSize, screenPos[1] + dotSize, dotColor);
+
+                        // Connect dots with lines
+                        if (prevScreen != null) {
+                            drawLine(context, prevScreen[0], prevScreen[1],
+                                     screenPos[0], screenPos[1], withAlpha(color, 0x88));
+                        }
+                        prevScreen = screenPos;
+                    } else {
+                        prevScreen = null;
+                    }
+                }
+            }
         }
     }
 
-    private static boolean shouldShowLine(Entity entity) {
+    private static double findGroundY(World world, double x, double startY, double z) {
+        int bx = (int) Math.floor(x);
+        int bz = (int) Math.floor(z);
+        int sy = (int) Math.floor(startY);
+
+        // Search downward from start Y for solid ground
+        for (int y = sy + 2; y > sy - 10 && y > world.getBottomY(); y--) {
+            BlockPos pos = new BlockPos(bx, y, bz);
+            BlockPos above = new BlockPos(bx, y + 1, bz);
+            if (!world.getBlockState(pos).isAir() && world.getBlockState(above).isAir()) {
+                return y + 1;
+            }
+        }
+        // Search upward
+        for (int y = sy; y < sy + 10 && y < world.getTopYInclusive(); y++) {
+            BlockPos pos = new BlockPos(bx, y, bz);
+            BlockPos above = new BlockPos(bx, y + 1, bz);
+            if (!world.getBlockState(pos).isAir() && world.getBlockState(above).isAir()) {
+                return y + 1;
+            }
+        }
+        return startY;
+    }
+
+    private static int[] projectToScreen(double x, double y, double z,
+                                          Matrix4f mvMatrix, Matrix4f projMatrix,
+                                          MinecraftClient client) {
+        Vector4f pos4 = new Vector4f((float) x, (float) y, (float) z, 1.0f);
+        pos4.mul(mvMatrix);
+        pos4.mul(projMatrix);
+
+        if (pos4.w <= 0) return null;
+
+        float ndcX = pos4.x / pos4.w;
+        float ndcY = pos4.y / pos4.w;
+
+        int screenW = client.getWindow().getScaledWidth();
+        int screenH = client.getWindow().getScaledHeight();
+        int sx = (int) ((ndcX + 1.0f) / 2.0f * screenW);
+        int sy = (int) ((1.0f - ndcY) / 2.0f * screenH);
+
+        return new int[]{sx, sy};
+    }
+
+    private static int withAlpha(int color, int alpha) {
+        return (alpha << 24) | (color & 0x00FFFFFF);
+    }
+
+    private static boolean shouldShow(Entity entity) {
         if (entity instanceof PlayerEntity) return ModConfig.espPlayers;
         if (entity instanceof HostileEntity) return ModConfig.espHostile;
         if (entity instanceof MobEntity && !(entity instanceof PassiveEntity)) return ModConfig.espHostile;
@@ -89,7 +170,7 @@ public class EspRenderer {
         return false;
     }
 
-    private static int getLineColor(Entity entity) {
+    private static int getColor(Entity entity) {
         if (entity instanceof PlayerEntity) return 0xFFFF5555;
         if (entity instanceof HostileEntity) return 0xFFFF8800;
         if (entity instanceof MobEntity && !(entity instanceof PassiveEntity)) return 0xFFFF8800;
