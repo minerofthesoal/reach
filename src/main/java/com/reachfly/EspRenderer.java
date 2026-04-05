@@ -2,6 +2,7 @@ package com.reachfly;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +23,7 @@ public class EspRenderer {
         HudRenderCallback.EVENT.register(EspRenderer::renderEsp);
     }
 
-    private static void renderEsp(DrawContext context, float tickDelta) {
+    private static void renderEsp(DrawContext context, RenderTickCounter tickCounter) {
         if (!ModConfig.espEnabled) return;
         if (!ModConfig.espLines && !ModConfig.espPathTrace) return;
 
@@ -32,6 +33,7 @@ public class EspRenderer {
 
         int screenCenterX = client.getWindow().getScaledWidth() / 2;
         int screenCenterY = client.getWindow().getScaledHeight() / 2;
+        float tickDelta = tickCounter.getTickDelta(true);
 
         float fov = client.options.getFov().getValue().floatValue();
         Matrix4f projMatrix = client.gameRenderer.getBasicProjectionMatrix(fov);
@@ -130,7 +132,7 @@ public class EspRenderer {
             }
         }
         // Search upward
-        for (int y = sy; y < sy + 10 && y < world.getTopYInclusive(); y++) {
+        for (int y = sy; y < sy + 10 && y < world.getTopY(); y++) {
             BlockPos pos = new BlockPos(bx, y, bz);
             BlockPos above = new BlockPos(bx, y + 1, bz);
             if (!world.getBlockState(pos).isAir() && world.getBlockState(above).isAir()) {
