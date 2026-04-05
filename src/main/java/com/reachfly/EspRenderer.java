@@ -52,19 +52,19 @@ public class EspRenderer {
             if (!shouldShow(entity)) continue;
 
             // Interpolate entity position using prevX/Y/Z
-            double ex = entity.prevX + (entity.getX() - entity.prevX) * tickDelta;
-            double ey = entity.prevY + (entity.getY() - entity.prevY) * tickDelta;
-            double ez = entity.prevZ + (entity.getZ() - entity.prevZ) * tickDelta;
-            Vec3d entityPos = new Vec3d(ex, ey, ez);
+            double lerpX = entity.prevX + (entity.getX() - entity.prevX) * tickDelta;
+            double lerpY = entity.prevY + (entity.getY() - entity.prevY) * tickDelta;
+            double lerpZ = entity.prevZ + (entity.getZ() - entity.prevZ) * tickDelta;
+            Vec3d entityPos = new Vec3d(lerpX, lerpY, lerpZ);
             int color = getColor(entity);
 
             // Tracer lines from crosshair to entity center
             if (ModConfig.espLines) {
-                double ex = entityPos.x - cameraPos.x;
-                double ey = entityPos.y - cameraPos.y + entity.getHeight() / 2.0;
-                double ez = entityPos.z - cameraPos.z;
+                double rx = entityPos.x - cameraPos.x;
+                double ry = entityPos.y - cameraPos.y + entity.getHeight() / 2.0;
+                double rz = entityPos.z - cameraPos.z;
 
-                int[] screenPos = projectToScreen(ex, ey, ez, mvMatrix, projMatrix, client);
+                int[] screenPos = projectToScreen(rx, ry, rz, mvMatrix, projMatrix, client);
                 if (screenPos != null) {
                     drawLine(context, screenCenterX, screenCenterY, screenPos[0], screenPos[1], color);
                 }
@@ -72,7 +72,9 @@ public class EspRenderer {
 
             // Path trace - ground-level waypoints from player to entity
             if (ModConfig.espPathTrace) {
-                double dist = playerPos.horizontalDistanceTo(entityPos);
+                double hdx = playerPos.x - entityPos.x;
+                double hdz = playerPos.z - entityPos.z;
+                double dist = Math.sqrt(hdx * hdx + hdz * hdz);
                 if (dist > 200) continue; // Don't trace very far entities
 
                 // Generate ground-level path points
