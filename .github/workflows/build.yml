@@ -2,7 +2,7 @@ name: Build & Release JAR
 
 on:
   push:
-    branches: [ main, 'claude/**' ]
+    branches: [ main, 'claude/**', 'mc-*' ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -25,11 +25,12 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.14'
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: gradle build
+        run: ./gradlew build
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
