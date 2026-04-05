@@ -129,7 +129,7 @@ public class EspRenderer {
             }
         }
         // Search upward
-        for (int y = sy; y < sy + 10 && y < world.getTopY(); y++) {
+        for (int y = sy; y < sy + 10 && y < 320; y++) {
             BlockPos pos = new BlockPos(bx, y, bz);
             BlockPos above = new BlockPos(bx, y + 1, bz);
             if (!world.getBlockState(pos).isAir() && world.getBlockState(above).isAir()) {

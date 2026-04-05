@@ -20,7 +20,7 @@ public class NoFallHandler {
         // If falling a significant distance, spoof ground status
         if (player.fallDistance > 2.0f) {
             client.getNetworkHandler().sendPacket(
-                    new PlayerMoveC2SPacket.OnGroundOnly(true));
+                    new PlayerMoveC2SPacket.OnGroundOnly(true, player.horizontalCollision));
             player.fallDistance = 0.0f;
         }
     }
