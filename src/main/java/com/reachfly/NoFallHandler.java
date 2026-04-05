@@ -3,11 +3,14 @@ package com.reachfly;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 /**
- * NoFall - Prevents ALL fall damage by constantly spoofing ground status.
- * Handles: normal falling, fly-into-ground, getting hit while flying,
- * knockback while airborne, and any other scenario that causes fall damage.
+ * NoFall - Prevents ALL fall damage by:
+ * 1. Sending Full position packets with onGround=true every tick while not grounded
+ * 2. Resetting both client and server-side fallDistance every tick
+ * 3. Directly setting server player onGround in singleplayer
  */
 public class NoFallHandler {
 
@@ -18,26 +21,28 @@ public class NoFallHandler {
 
         ClientPlayerEntity player = client.player;
 
-        // Strategy: if the player has ANY fall distance, immediately cancel it.
-        // Don't wait for thresholds - just always keep fallDistance at 0
-        // and tell the server we're on the ground.
-        if (player.fallDistance > 0.5f) {
+        // Always reset client-side fall distance every tick
+        player.fallDistance = 0.0f;
+
+        // If the player is not on the ground, send a spoofed Full position packet
+        // with onGround=true. The Full packet includes position so the server
+        // doesn't just discard it like it can with OnGroundOnly.
+        if (!player.isOnGround()) {
             client.getNetworkHandler().sendPacket(
-                    new PlayerMoveC2SPacket.OnGroundOnly(true, player.horizontalCollision));
-            player.fallDistance = 0.0f;
+                    new PlayerMoveC2SPacket.Full(
+                            player.getX(), player.getY(), player.getZ(),
+                            player.getYaw(), player.getPitch(),
+                            true, player.horizontalCollision));
         }
 
-        // While flying (our fly hack), aggressively prevent fall damage
-        if (player.getAbilities().flying || ModConfig.flyEnabled) {
-            player.fallDistance = 0.0f;
-        }
-
-        // If the player has significant downward velocity, also spoof
-        // This catches getting hit/knocked while flying
-        if (player.getVelocity().y < -0.5 && !player.isOnGround()) {
-            client.getNetworkHandler().sendPacket(
-                    new PlayerMoveC2SPacket.OnGroundOnly(true, player.horizontalCollision));
-            player.fallDistance = 0.0f;
+        // In singleplayer, directly manipulate the server player
+        MinecraftServer server = client.getServer();
+        if (server != null) {
+            ServerPlayerEntity serverPlayer = server.getPlayerManager()
+                    .getPlayer(player.getUuid());
+            if (serverPlayer != null) {
+                serverPlayer.fallDistance = 0.0f;
+            }
         }
     }
 }

@@ -10,9 +10,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 /**
- * Manages the player's reach attribute modifiers on BOTH client and server side.
- * Client-side: controls crosshair targeting distance.
- * Server-side (singleplayer): controls actual interaction validation distance.
+ * Manages reach attribute modifiers on BOTH client and server side.
+ * Only updates when the value actually changes to prevent flickering.
  */
 public class ReachHandler {
 
@@ -23,19 +22,26 @@ public class ReachHandler {
     private static final double DEFAULT_ENTITY_RANGE = 3.0;
 
     private static int tickCounter = 0;
+    private static boolean lastEnabled = false;
+    private static float lastDistance = 0;
 
-    /**
-     * Called every tick to ensure reach attributes stay applied
-     * (handles respawn, dimension change, etc.)
-     */
     public static void tick(MinecraftClient client) {
-        if (!ModConfig.reachEnabled) return;
         if (client.player == null) return;
 
-        // Re-apply every 20 ticks (1 second) to handle respawns etc.
+        // Only update when state actually changes
+        boolean needsUpdate = (ModConfig.reachEnabled != lastEnabled)
+                || (ModConfig.reachEnabled && ModConfig.reachDistance != lastDistance);
+
         tickCounter++;
-        if (tickCounter >= 20) {
+        // Also re-apply every 2 seconds as safety net (respawn, dimension change)
+        if (tickCounter >= 40) {
             tickCounter = 0;
+            if (ModConfig.reachEnabled) needsUpdate = true;
+        }
+
+        if (needsUpdate) {
+            lastEnabled = ModConfig.reachEnabled;
+            lastDistance = ModConfig.reachDistance;
             updateReachAttributes();
         }
     }
@@ -45,11 +51,8 @@ public class ReachHandler {
         if (client.player == null) return;
 
         ClientPlayerEntity player = client.player;
-
-        // Apply to client-side player (crosshair targeting)
         applyToPlayer(player);
 
-        // Apply to server-side player (actual interaction validation in singleplayer)
         MinecraftServer server = client.getServer();
         if (server != null) {
             ServerPlayerEntity serverPlayer = server.getPlayerManager()
@@ -72,16 +75,22 @@ public class ReachHandler {
             double blockBoost = ModConfig.reachDistance - DEFAULT_BLOCK_RANGE;
             double entityBoost = ModConfig.reachDistance - DEFAULT_ENTITY_RANGE;
 
-            blockRange.removeModifier(BLOCK_REACH_ID);
-            entityRange.removeModifier(ENTITY_REACH_ID);
+            // Check if modifier already exists with correct value to avoid flickering
+            EntityAttributeModifier existingBlock = blockRange.getModifier(BLOCK_REACH_ID);
+            if (existingBlock == null || existingBlock.value() != blockBoost) {
+                blockRange.removeModifier(BLOCK_REACH_ID);
+                blockRange.addTemporaryModifier(new EntityAttributeModifier(
+                        BLOCK_REACH_ID, blockBoost,
+                        EntityAttributeModifier.Operation.ADD_VALUE));
+            }
 
-            blockRange.addTemporaryModifier(new EntityAttributeModifier(
-                    BLOCK_REACH_ID, blockBoost,
-                    EntityAttributeModifier.Operation.ADD_VALUE));
-
-            entityRange.addTemporaryModifier(new EntityAttributeModifier(
-                    ENTITY_REACH_ID, entityBoost,
-                    EntityAttributeModifier.Operation.ADD_VALUE));
+            EntityAttributeModifier existingEntity = entityRange.getModifier(ENTITY_REACH_ID);
+            if (existingEntity == null || existingEntity.value() != entityBoost) {
+                entityRange.removeModifier(ENTITY_REACH_ID);
+                entityRange.addTemporaryModifier(new EntityAttributeModifier(
+                        ENTITY_REACH_ID, entityBoost,
+                        EntityAttributeModifier.Operation.ADD_VALUE));
+            }
         } else {
             blockRange.removeModifier(BLOCK_REACH_ID);
             entityRange.removeModifier(ENTITY_REACH_ID);

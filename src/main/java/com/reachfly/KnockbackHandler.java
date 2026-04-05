@@ -10,22 +10,36 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 /**
- * Knockback hack - Applies the knockback attribute to the player so all attacks
- * deal massive knockback. Works by modifying ATTACK_KNOCKBACK on both client
- * and server side (like Reach does), so the server actually applies the knockback.
- * Configurable up to 2500.
+ * Knockback hack - Applies ATTACK_KNOCKBACK attribute modifier on both client
+ * and server. Combined with the mixin that directly sets velocity + velocityDirty
+ * on the server entity, this produces massive knockback in singleplayer.
+ *
+ * Uses the same "check before update" pattern as ReachHandler to avoid
+ * modifier flickering.
  */
 public class KnockbackHandler {
 
     private static final Identifier KNOCKBACK_ID = Identifier.of("reachfly", "knockback_boost");
+
     private static int tickCounter = 0;
+    private static boolean lastEnabled = false;
+    private static float lastStrength = 0;
 
     public static void tick(MinecraftClient client) {
         if (client.player == null) return;
 
+        boolean needsUpdate = (ModConfig.knockbackEnabled != lastEnabled)
+                || (ModConfig.knockbackEnabled && ModConfig.knockbackStrength != lastStrength);
+
         tickCounter++;
-        if (tickCounter >= 20) {
+        if (tickCounter >= 40) {
             tickCounter = 0;
+            if (ModConfig.knockbackEnabled) needsUpdate = true;
+        }
+
+        if (needsUpdate) {
+            lastEnabled = ModConfig.knockbackEnabled;
+            lastStrength = ModConfig.knockbackStrength;
             updateKnockbackAttributes();
         }
     }
@@ -35,11 +49,8 @@ public class KnockbackHandler {
         if (client.player == null) return;
 
         ClientPlayerEntity player = client.player;
-
-        // Apply to client-side player
         applyToPlayer(player);
 
-        // Apply to server-side player (singleplayer)
         MinecraftServer server = client.getServer();
         if (server != null) {
             ServerPlayerEntity serverPlayer = server.getPlayerManager()
@@ -53,17 +64,19 @@ public class KnockbackHandler {
     private static void applyToPlayer(net.minecraft.entity.LivingEntity player) {
         EntityAttributeInstance knockback = player.getAttributeInstance(
                 EntityAttributes.ATTACK_KNOCKBACK);
-
         if (knockback == null) return;
 
         if (ModConfig.knockbackEnabled) {
-            // Default ATTACK_KNOCKBACK is 0, so the boost IS the total value
             double boost = ModConfig.knockbackStrength;
 
-            knockback.removeModifier(KNOCKBACK_ID);
-            knockback.addTemporaryModifier(new EntityAttributeModifier(
-                    KNOCKBACK_ID, boost,
-                    EntityAttributeModifier.Operation.ADD_VALUE));
+            // Check if modifier already exists with correct value
+            EntityAttributeModifier existing = knockback.getModifier(KNOCKBACK_ID);
+            if (existing == null || existing.value() != boost) {
+                knockback.removeModifier(KNOCKBACK_ID);
+                knockback.addTemporaryModifier(new EntityAttributeModifier(
+                        KNOCKBACK_ID, boost,
+                        EntityAttributeModifier.Operation.ADD_VALUE));
+            }
         } else {
             knockback.removeModifier(KNOCKBACK_ID);
         }

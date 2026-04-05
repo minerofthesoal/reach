@@ -1,8 +1,6 @@
 package com.reachfly.mixin;
 
-import com.reachfly.KnockbackHandler;
 import com.reachfly.ModConfig;
-import com.reachfly.ReachHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -18,11 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
-
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void onTick(CallbackInfo ci) {
-        ReachHandler.updateReachAttributes();
-    }
 
     @Inject(method = "attackEntity", at = @At("TAIL"))
     private void onAttackEntity(PlayerEntity player, Entity target, CallbackInfo ci) {
@@ -53,12 +46,13 @@ public class ClientPlayerInteractionManagerMixin {
                 double velocityMult = strength * 0.5;
                 double verticalBoost = Math.min(strength * 0.15, 80.0);
 
-                // Use setVelocity to force velocity sync
-                Vec3d currentVel = serverTarget.getVelocity();
-                serverTarget.setVelocity(
-                    currentVel.x + normalX * velocityMult,
-                    currentVel.y + verticalBoost,
-                    currentVel.z + normalZ * velocityMult);
+                // Reset velocity first, then use addVelocity which marks velocity as dirty
+                // ensuring the server syncs it to all clients
+                serverTarget.setVelocity(Vec3d.ZERO);
+                serverTarget.addVelocity(
+                    normalX * velocityMult,
+                    verticalBoost,
+                    normalZ * velocityMult);
                 break;
             }
         }
