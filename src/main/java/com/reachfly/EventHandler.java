@@ -4,10 +4,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 
-/**
- * Registers tick and render event callbacks.
- * Handles keybind processing and dispatches to all feature handlers.
- */
 public class EventHandler {
 
     public static void register() {
@@ -18,6 +14,12 @@ public class EventHandler {
 
     private static void onClientTick(MinecraftClient client) {
         if (client.player == null) return;
+
+        // --- Toggle HUD ---
+        while (KeybindHandler.toggleHud.wasPressed()) {
+            ModConfig.hudVisible = !ModConfig.hudVisible;
+            ModConfig.save();
+        }
 
         // --- Toggle Reach ---
         while (KeybindHandler.toggleReach.wasPressed()) {
@@ -46,49 +48,81 @@ public class EventHandler {
         while (KeybindHandler.toggleEsp.wasPressed()) {
             ModConfig.espEnabled = !ModConfig.espEnabled;
             ModConfig.save();
-            ReachFlyClient.LOGGER.info("[ReachFly] ESP: {}", ModConfig.espEnabled ? "ON" : "OFF");
         }
 
         // --- Toggle Auto Hit ---
         while (KeybindHandler.toggleAutoHit.wasPressed()) {
             ModConfig.autoHitEnabled = !ModConfig.autoHitEnabled;
             ModConfig.save();
-            ReachFlyClient.LOGGER.info("[ReachFly] Auto Hit: {}", ModConfig.autoHitEnabled ? "ON" : "OFF");
         }
 
         // --- Toggle Low Health Kill ---
         while (KeybindHandler.toggleLowHealthKill.wasPressed()) {
             ModConfig.lowHealthKillEnabled = !ModConfig.lowHealthKillEnabled;
             ModConfig.save();
-            ReachFlyClient.LOGGER.info("[ReachFly] Low Health Kill: {}", ModConfig.lowHealthKillEnabled ? "ON" : "OFF");
         }
 
         // --- Toggle Eating Assist ---
         while (KeybindHandler.toggleEatingAssist.wasPressed()) {
             ModConfig.eatingAssistEnabled = !ModConfig.eatingAssistEnabled;
             ModConfig.save();
-            ReachFlyClient.LOGGER.info("[ReachFly] Eating Assist: {}", ModConfig.eatingAssistEnabled ? "ON" : "OFF");
         }
 
         // --- Toggle Shield Assist ---
         while (KeybindHandler.toggleShieldAssist.wasPressed()) {
             ModConfig.shieldAssistEnabled = !ModConfig.shieldAssistEnabled;
             ModConfig.save();
-            ReachFlyClient.LOGGER.info("[ReachFly] Shield Assist: {}", ModConfig.shieldAssistEnabled ? "ON" : "OFF");
         }
 
         // --- Toggle Auto Kill When Low ---
         while (KeybindHandler.toggleAutoKillWhenLow.wasPressed()) {
             ModConfig.autoKillWhenLowEnabled = !ModConfig.autoKillWhenLowEnabled;
             ModConfig.save();
-            ReachFlyClient.LOGGER.info("[ReachFly] Auto Kill When Low: {}", ModConfig.autoKillWhenLowEnabled ? "ON" : "OFF");
+        }
+
+        // --- Toggle Jesus ---
+        while (KeybindHandler.toggleJesus.wasPressed()) {
+            ModConfig.jesusEnabled = !ModConfig.jesusEnabled;
+            ModConfig.save();
+        }
+
+        // --- Toggle Auto Elytra Swap ---
+        while (KeybindHandler.toggleAutoElytraSwap.wasPressed()) {
+            ModConfig.autoElytraSwapEnabled = !ModConfig.autoElytraSwapEnabled;
+            ModConfig.save();
+        }
+
+        // --- Toggle Fly to Coords ---
+        while (KeybindHandler.toggleFlyToCoords.wasPressed()) {
+            ModConfig.flyToCoordsEnabled = !ModConfig.flyToCoordsEnabled;
+            if (!ModConfig.flyToCoordsEnabled) {
+                FlyToCoordsHandler.onDisable();
+            }
+            ModConfig.save();
+        }
+
+        // --- Toggle NoFall ---
+        while (KeybindHandler.toggleNoFall.wasPressed()) {
+            ModConfig.noFallEnabled = !ModConfig.noFallEnabled;
+            ModConfig.save();
+        }
+
+        // --- Toggle Fullbright ---
+        while (KeybindHandler.toggleFullbright.wasPressed()) {
+            ModConfig.fullbrightEnabled = !ModConfig.fullbrightEnabled;
+            ModConfig.save();
+        }
+
+        // --- Toggle Speed ---
+        while (KeybindHandler.toggleSpeed.wasPressed()) {
+            ModConfig.speedEnabled = !ModConfig.speedEnabled;
+            ModConfig.save();
         }
 
         // --- Toggle Dupe ---
         while (KeybindHandler.toggleDupe.wasPressed()) {
             ModConfig.dupeEnabled = !ModConfig.dupeEnabled;
             ModConfig.save();
-            ReachFlyClient.LOGGER.info("[ReachFly] Dupe: {}", ModConfig.dupeEnabled ? "ON" : "OFF");
         }
 
         // --- Open Config Screen ---
@@ -100,9 +134,15 @@ public class EventHandler {
         FlyHandler.tick(client);
         AutoHitHandler.tick(client);
         LowHealthKillHandler.tick(client);
+        AutoKillWhenLowHandler.tick(client);
         EatingAssistHandler.tick(client);
         ShieldAssistHandler.tick(client);
-        AutoKillWhenLowHandler.tick(client);
+        JesusHandler.tick(client);
+        AutoElytraSwapHandler.tick(client);
+        FlyToCoordsHandler.tick(client);
+        NoFallHandler.tick(client);
+        FullbrightHandler.tick(client);
+        SpeedHandler.tick(client);
         DupeHandler.tick(client);
     }
 }

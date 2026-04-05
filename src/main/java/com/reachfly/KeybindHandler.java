@@ -6,9 +6,6 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
-/**
- * Registers and manages all mod keybinds.
- */
 public class KeybindHandler {
 
     private static final KeyBinding.Category CATEGORY =
@@ -22,6 +19,13 @@ public class KeybindHandler {
     public static KeyBinding toggleEatingAssist;
     public static KeyBinding toggleShieldAssist;
     public static KeyBinding toggleAutoKillWhenLow;
+    public static KeyBinding toggleJesus;
+    public static KeyBinding toggleAutoElytraSwap;
+    public static KeyBinding toggleFlyToCoords;
+    public static KeyBinding toggleNoFall;
+    public static KeyBinding toggleFullbright;
+    public static KeyBinding toggleSpeed;
+    public static KeyBinding toggleHud;
     public static KeyBinding toggleDupe;
     public static KeyBinding openConfig;
 
@@ -57,6 +61,34 @@ public class KeybindHandler {
         toggleAutoKillWhenLow = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_autokilllow",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY));
+
+        toggleJesus = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_jesus",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_U, CATEGORY));
+
+        toggleAutoElytraSwap = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_elytraswap",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Y, CATEGORY));
+
+        toggleFlyToCoords = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_flytocoords",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_P, CATEGORY));
+
+        toggleNoFall = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_nofall",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_I, CATEGORY));
+
+        toggleFullbright = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_fullbright",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_L, CATEGORY));
+
+        toggleSpeed = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_speed",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, CATEGORY));
+
+        toggleHud = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_hud",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, CATEGORY));
 
         toggleDupe = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_dupe",

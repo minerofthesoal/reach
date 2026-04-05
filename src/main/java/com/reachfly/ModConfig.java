@@ -8,66 +8,92 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-/**
- * Configuration system for all mod features.
- * Persists settings to a JSON file in the config directory.
- */
 public class ModConfig {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_PATH = FabricLoader.getInstance()
             .getConfigDir().resolve("reachfly.json");
 
-    // --- Reach settings ---
+    // --- Reach ---
     public static boolean reachEnabled = false;
     public static float reachDistance = 6.0f;
     public static final float REACH_MIN = 3.0f;
     public static final float REACH_MAX = 50.0f;
 
-    // --- Fly settings ---
+    // --- Fly ---
     public static boolean flyEnabled = false;
     public static float flySpeed = 1.0f;
     public static final float FLY_SPEED_MIN = 0.1f;
     public static final float FLY_SPEED_MAX = 10.0f;
 
-    // --- ESP settings ---
+    // --- ESP ---
     public static boolean espEnabled = false;
     public static boolean espPlayers = true;
     public static boolean espHostile = true;
     public static boolean espPassive = false;
 
-    // --- Auto Hit settings ---
+    // --- Auto Hit ---
     public static boolean autoHitEnabled = false;
     public static float autoHitRange = 3.0f;
     public static final float AUTO_HIT_RANGE_MIN = 1.0f;
     public static final float AUTO_HIT_RANGE_MAX = 50.0f;
     public static boolean autoHitPlayersOnly = false;
 
-    // --- Low Health Kill settings ---
+    // --- Low Health Kill ---
     public static boolean lowHealthKillEnabled = false;
-    public static float lowHealthThreshold = 6.0f; // 3 hearts
+    public static float lowHealthThreshold = 6.0f;
     public static final float LOW_HEALTH_MIN = 1.0f;
     public static final float LOW_HEALTH_MAX = 20.0f;
 
-    // --- Eating Assist settings ---
-    public static boolean eatingAssistEnabled = false;
-    public static int eatingHungerThreshold = 14; // Start eating at 7 shanks
-    public static final int EATING_HUNGER_MIN = 1;
-    public static final int EATING_HUNGER_MAX = 19;
-
-    // --- Shield Assist settings ---
-    public static boolean shieldAssistEnabled = false;
-
-    // --- Auto Kill When Low HP settings ---
+    // --- Auto Kill When Low HP ---
     public static boolean autoKillWhenLowEnabled = false;
-    public static float autoKillSelfHpThreshold = 6.0f; // trigger when YOUR health is below this
+    public static float autoKillSelfHpThreshold = 6.0f;
     public static float autoKillWhenLowRange = 4.0f;
     public static final float AUTO_KILL_SELF_HP_MIN = 1.0f;
     public static final float AUTO_KILL_SELF_HP_MAX = 20.0f;
     public static final float AUTO_KILL_RANGE_MIN = 1.0f;
     public static final float AUTO_KILL_RANGE_MAX = 50.0f;
 
-    // --- Dupe settings ---
+    // --- Eating Assist ---
+    public static boolean eatingAssistEnabled = false;
+    public static int eatingHungerThreshold = 14;
+    public static final int EATING_HUNGER_MIN = 1;
+    public static final int EATING_HUNGER_MAX = 19;
+
+    // --- Shield Assist ---
+    public static boolean shieldAssistEnabled = false;
+
+    // --- Jesus ---
+    public static boolean jesusEnabled = false;
+
+    // --- Auto Elytra Swap ---
+    public static boolean autoElytraSwapEnabled = false;
+
+    // --- Fly to Coords ---
+    public static boolean flyToCoordsEnabled = false;
+    public static float flyToX = 0;
+    public static float flyToY = 100;
+    public static float flyToZ = 0;
+    public static float flyToCoordsSpeed = 2.0f;
+    public static final float FLY_TO_SPEED_MIN = 0.5f;
+    public static final float FLY_TO_SPEED_MAX = 20.0f;
+
+    // --- NoFall ---
+    public static boolean noFallEnabled = false;
+
+    // --- Fullbright ---
+    public static boolean fullbrightEnabled = false;
+
+    // --- Speed ---
+    public static boolean speedEnabled = false;
+    public static float speedMultiplier = 2.0f;
+    public static final float SPEED_MIN = 1.0f;
+    public static final float SPEED_MAX = 10.0f;
+
+    // --- HUD ---
+    public static boolean hudVisible = true;
+
+    // --- Dupe ---
     public static boolean dupeEnabled = false;
 
     public static void load() {
@@ -89,12 +115,24 @@ public class ModConfig {
                     autoHitPlayersOnly = data.autoHitPlayersOnly;
                     lowHealthKillEnabled = data.lowHealthKillEnabled;
                     lowHealthThreshold = clamp(data.lowHealthThreshold, LOW_HEALTH_MIN, LOW_HEALTH_MAX);
-                    eatingAssistEnabled = data.eatingAssistEnabled;
-                    eatingHungerThreshold = (int) clamp(data.eatingHungerThreshold, EATING_HUNGER_MIN, EATING_HUNGER_MAX);
-                    shieldAssistEnabled = data.shieldAssistEnabled;
                     autoKillWhenLowEnabled = data.autoKillWhenLowEnabled;
                     autoKillSelfHpThreshold = clamp(data.autoKillSelfHpThreshold, AUTO_KILL_SELF_HP_MIN, AUTO_KILL_SELF_HP_MAX);
                     autoKillWhenLowRange = clamp(data.autoKillWhenLowRange, AUTO_KILL_RANGE_MIN, AUTO_KILL_RANGE_MAX);
+                    eatingAssistEnabled = data.eatingAssistEnabled;
+                    eatingHungerThreshold = (int) clamp(data.eatingHungerThreshold, EATING_HUNGER_MIN, EATING_HUNGER_MAX);
+                    shieldAssistEnabled = data.shieldAssistEnabled;
+                    jesusEnabled = data.jesusEnabled;
+                    autoElytraSwapEnabled = data.autoElytraSwapEnabled;
+                    flyToCoordsEnabled = data.flyToCoordsEnabled;
+                    flyToX = data.flyToX;
+                    flyToY = data.flyToY;
+                    flyToZ = data.flyToZ;
+                    flyToCoordsSpeed = clamp(data.flyToCoordsSpeed, FLY_TO_SPEED_MIN, FLY_TO_SPEED_MAX);
+                    noFallEnabled = data.noFallEnabled;
+                    fullbrightEnabled = data.fullbrightEnabled;
+                    speedEnabled = data.speedEnabled;
+                    speedMultiplier = clamp(data.speedMultiplier, SPEED_MIN, SPEED_MAX);
+                    hudVisible = data.hudVisible;
                     dupeEnabled = data.dupeEnabled;
                 }
                 ReachFlyClient.LOGGER.info("[ReachFly] Config loaded.");
@@ -121,12 +159,24 @@ public class ModConfig {
         data.autoHitPlayersOnly = autoHitPlayersOnly;
         data.lowHealthKillEnabled = lowHealthKillEnabled;
         data.lowHealthThreshold = lowHealthThreshold;
-        data.eatingAssistEnabled = eatingAssistEnabled;
-        data.eatingHungerThreshold = eatingHungerThreshold;
-        data.shieldAssistEnabled = shieldAssistEnabled;
         data.autoKillWhenLowEnabled = autoKillWhenLowEnabled;
         data.autoKillSelfHpThreshold = autoKillSelfHpThreshold;
         data.autoKillWhenLowRange = autoKillWhenLowRange;
+        data.eatingAssistEnabled = eatingAssistEnabled;
+        data.eatingHungerThreshold = eatingHungerThreshold;
+        data.shieldAssistEnabled = shieldAssistEnabled;
+        data.jesusEnabled = jesusEnabled;
+        data.autoElytraSwapEnabled = autoElytraSwapEnabled;
+        data.flyToCoordsEnabled = flyToCoordsEnabled;
+        data.flyToX = flyToX;
+        data.flyToY = flyToY;
+        data.flyToZ = flyToZ;
+        data.flyToCoordsSpeed = flyToCoordsSpeed;
+        data.noFallEnabled = noFallEnabled;
+        data.fullbrightEnabled = fullbrightEnabled;
+        data.speedEnabled = speedEnabled;
+        data.speedMultiplier = speedMultiplier;
+        data.hudVisible = hudVisible;
         data.dupeEnabled = dupeEnabled;
 
         try {
@@ -155,12 +205,24 @@ public class ModConfig {
         boolean autoHitPlayersOnly = false;
         boolean lowHealthKillEnabled = false;
         float lowHealthThreshold = 6.0f;
-        boolean eatingAssistEnabled = false;
-        int eatingHungerThreshold = 14;
-        boolean shieldAssistEnabled = false;
         boolean autoKillWhenLowEnabled = false;
         float autoKillSelfHpThreshold = 6.0f;
         float autoKillWhenLowRange = 4.0f;
+        boolean eatingAssistEnabled = false;
+        int eatingHungerThreshold = 14;
+        boolean shieldAssistEnabled = false;
+        boolean jesusEnabled = false;
+        boolean autoElytraSwapEnabled = false;
+        boolean flyToCoordsEnabled = false;
+        float flyToX = 0;
+        float flyToY = 100;
+        float flyToZ = 0;
+        float flyToCoordsSpeed = 2.0f;
+        boolean noFallEnabled = false;
+        boolean fullbrightEnabled = false;
+        boolean speedEnabled = false;
+        float speedMultiplier = 2.0f;
+        boolean hudVisible = true;
         boolean dupeEnabled = false;
     }
 }

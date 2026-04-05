@@ -4,6 +4,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -32,48 +33,91 @@ public class ConfigScreen extends Screen {
         entries.clear();
         clearChildren();
 
-        // Build all entries
+        // --- REACH ---
         addLabel("\u00a76\u00a7l--- Reach ---");
         addToggle("Reach", () -> ModConfig.reachEnabled, v -> ModConfig.reachEnabled = v);
         addSlider("Reach Distance", ModConfig.reachDistance, ModConfig.REACH_MIN, ModConfig.REACH_MAX, v -> ModConfig.reachDistance = v);
 
+        // --- FLY ---
         addLabel("\u00a7b\u00a7l--- Fly ---");
         addToggle("Fly", () -> ModConfig.flyEnabled, v -> ModConfig.flyEnabled = v);
         addSlider("Fly Speed", ModConfig.flySpeed, ModConfig.FLY_SPEED_MIN, ModConfig.FLY_SPEED_MAX, v -> ModConfig.flySpeed = v);
 
+        // --- ESP ---
         addLabel("\u00a7d\u00a7l--- ESP ---");
         addToggle("ESP", () -> ModConfig.espEnabled, v -> ModConfig.espEnabled = v);
         addToggle("ESP Players", () -> ModConfig.espPlayers, v -> ModConfig.espPlayers = v);
         addToggle("ESP Hostile", () -> ModConfig.espHostile, v -> ModConfig.espHostile = v);
         addToggle("ESP Passive", () -> ModConfig.espPassive, v -> ModConfig.espPassive = v);
 
+        // --- JESUS ---
+        addLabel("\u00a73\u00a7l--- Jesus ---");
+        addToggle("Jesus (Walk on Water)", () -> ModConfig.jesusEnabled, v -> ModConfig.jesusEnabled = v);
+
+        // --- NOFALL ---
+        addLabel("\u00a7e\u00a7l--- NoFall ---");
+        addToggle("NoFall", () -> ModConfig.noFallEnabled, v -> ModConfig.noFallEnabled = v);
+
+        // --- SPEED ---
+        addLabel("\u00a7f\u00a7l--- Speed ---");
+        addToggle("Speed", () -> ModConfig.speedEnabled, v -> ModConfig.speedEnabled = v);
+        addSlider("Speed Multiplier", ModConfig.speedMultiplier, ModConfig.SPEED_MIN, ModConfig.SPEED_MAX, v -> ModConfig.speedMultiplier = v);
+
+        // --- FULLBRIGHT ---
+        addLabel("\u00a7e\u00a7l--- Fullbright ---");
+        addToggle("Fullbright", () -> ModConfig.fullbrightEnabled, v -> ModConfig.fullbrightEnabled = v);
+
+        // --- AUTO HIT ---
         addLabel("\u00a7c\u00a7l--- Auto Hit ---");
         addToggle("Auto Hit", () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v);
         addSlider("Auto Hit Range", ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX, v -> ModConfig.autoHitRange = v);
         addToggle("Auto Hit Players Only", () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v);
 
+        // --- LOW HEALTH KILL ---
         addLabel("\u00a74\u00a7l--- Low Health Kill ---");
         addToggle("Low Health Kill", () -> ModConfig.lowHealthKillEnabled, v -> ModConfig.lowHealthKillEnabled = v);
         addSlider("Health Threshold", ModConfig.lowHealthThreshold, ModConfig.LOW_HEALTH_MIN, ModConfig.LOW_HEALTH_MAX, v -> ModConfig.lowHealthThreshold = v);
 
-        addLabel("\u00a7e\u00a7l--- Auto Kill (Self Low HP) ---");
+        // --- AUTO KILL WHEN LOW ---
+        addLabel("\u00a76\u00a7l--- Auto Kill (Self Low HP) ---");
         addToggle("Auto Kill When Low", () -> ModConfig.autoKillWhenLowEnabled, v -> ModConfig.autoKillWhenLowEnabled = v);
         addSlider("Your HP Threshold", ModConfig.autoKillSelfHpThreshold, ModConfig.AUTO_KILL_SELF_HP_MIN, ModConfig.AUTO_KILL_SELF_HP_MAX, v -> ModConfig.autoKillSelfHpThreshold = v);
         addSlider("Kill Range", ModConfig.autoKillWhenLowRange, ModConfig.AUTO_KILL_RANGE_MIN, ModConfig.AUTO_KILL_RANGE_MAX, v -> ModConfig.autoKillWhenLowRange = v);
 
+        // --- AUTO ELYTRA SWAP ---
+        addLabel("\u00a7b\u00a7l--- Auto Elytra Swap ---");
+        addToggle("Elytra Swap", () -> ModConfig.autoElytraSwapEnabled, v -> ModConfig.autoElytraSwapEnabled = v);
+
+        // --- FLY TO COORDS ---
+        addLabel("\u00a73\u00a7l--- Fly to Coords ---");
+        addToggle("Fly to Coords", () -> ModConfig.flyToCoordsEnabled, v -> {
+            ModConfig.flyToCoordsEnabled = v;
+            if (!v) FlyToCoordsHandler.onDisable();
+        });
+        addSlider("Target X", ModConfig.flyToX, -30000, 30000, v -> ModConfig.flyToX = v);
+        addSlider("Target Y", ModConfig.flyToY, -64, 320, v -> ModConfig.flyToY = v);
+        addSlider("Target Z", ModConfig.flyToZ, -30000, 30000, v -> ModConfig.flyToZ = v);
+        addSlider("Fly Speed", ModConfig.flyToCoordsSpeed, ModConfig.FLY_TO_SPEED_MIN, ModConfig.FLY_TO_SPEED_MAX, v -> ModConfig.flyToCoordsSpeed = v);
+
+        // --- EATING ASSIST ---
         addLabel("\u00a7a\u00a7l--- Eating Assist ---");
         addToggle("Eating Assist", () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v);
         addSlider("Hunger Threshold", ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX, v -> ModConfig.eatingHungerThreshold = Math.round(v));
 
+        // --- SHIELD ASSIST ---
         addLabel("\u00a79\u00a7l--- Shield Assist ---");
         addToggle("Shield Assist", () -> ModConfig.shieldAssistEnabled, v -> ModConfig.shieldAssistEnabled = v);
 
+        // --- DUPE ---
         addLabel("\u00a75\u00a7l--- Dupe ---");
         addToggle("Dupe", () -> ModConfig.dupeEnabled, v -> ModConfig.dupeEnabled = v);
 
+        // --- HUD ---
+        addLabel("\u00a77\u00a7l--- Display ---");
+        addToggle("Show HUD", () -> ModConfig.hudVisible, v -> ModConfig.hudVisible = v);
+
         contentHeight = entries.size() * ROW_HEIGHT;
 
-        // Done button pinned to bottom
         addDrawableChild(ButtonWidget.builder(Text.literal("Done"), btn -> close())
                 .dimensions(this.width / 2 - 100, this.height - 28, 200, 20).build());
 
@@ -134,16 +178,12 @@ public class ConfigScreen extends Screen {
         int viewTop = HEADER;
         int viewBottom = this.height - FOOTER;
 
-        // Dark background for the list area
         context.fill(0, viewTop, this.width, viewBottom, 0xC0101010);
 
-        // Enable scissor so entries don't render outside the list area
         context.enableScissor(0, viewTop, this.width, viewBottom);
 
-        // Render widgets (super handles drawable children)
         super.render(context, mouseX, mouseY, delta);
 
-        // Render labels
         for (int i = 0; i < entries.size(); i++) {
             Entry e = entries.get(i);
             if (e.label != null) {
@@ -169,15 +209,13 @@ public class ConfigScreen extends Screen {
             int maxScroll = contentHeight - viewH;
             int thumbY = viewTop + (maxScroll > 0 ? (int) (scrollOffset / maxScroll * (viewH - thumbH)) : 0);
 
-            // Track
             context.fill(barX, viewTop, barX + barW, viewBottom, 0x40FFFFFF);
-            // Thumb
             context.fill(barX, thumbY, barX + barW, thumbY + thumbH, 0xC0AAAAAA);
         }
 
         // Title
         context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.literal("\u00a7b\u00a7lReach\u00a7r \u00a76& \u00a7d\u00a7lFly\u00a7r \u00a77Config"),
+                Text.literal("\u00a7b\u00a7lReach\u00a7r \u00a76& \u00a7d\u00a7lFly\u00a7r \u00a77v1.1"),
                 this.width / 2, 10, 0xFFFFFF);
     }
 
@@ -208,11 +246,16 @@ public class ConfigScreen extends Screen {
                             java.util.function.Consumer<Float> setter) {
             super(x, y, w, h,
                     Text.literal(String.format("%s: %.1f", label, current)),
-                    (current - min) / (max - min));
+                    clampNorm(current, min, max));
             this.label = label;
             this.min = min;
             this.max = max;
             this.setter = setter;
+        }
+
+        private static double clampNorm(float current, float min, float max) {
+            if (max <= min) return 0;
+            return Math.max(0, Math.min(1, (current - min) / (max - min)));
         }
 
         @Override

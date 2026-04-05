@@ -3,12 +3,12 @@
   "id": "reachfly",
   "version": "${version}",
   "name": "Reach & Fly Mod",
-  "description": "A client-side mod that adds configurable extended reach and survival fly with HUD indicators.",
+  "description": "A client-side mod with reach, fly, ESP, Jesus, NoFall, Fullbright, Speed, auto-combat, elytra swap, fly-to-coords, and more.",
   "authors": ["ReachFlyDev"],
   "contact": {
     "sources": "https://github.com/minerofthesoal/reach"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "icon": "assets/reachfly/icon.png",
   "environment": "client",
   "entrypoints": {
