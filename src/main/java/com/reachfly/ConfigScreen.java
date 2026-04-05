@@ -65,6 +65,11 @@ public class ConfigScreen extends Screen {
         addToggle("Speed", () -> ModConfig.speedEnabled, v -> ModConfig.speedEnabled = v);
         addSlider("Speed Multiplier", ModConfig.speedMultiplier, ModConfig.SPEED_MIN, ModConfig.SPEED_MAX, v -> ModConfig.speedMultiplier = v);
 
+        // --- KNOCKBACK ---
+        addLabel("\u00a7c\u00a7l--- Knockback ---");
+        addToggle("Knockback", () -> ModConfig.knockbackEnabled, v -> ModConfig.knockbackEnabled = v);
+        addSlider("Knockback Strength", ModConfig.knockbackStrength, ModConfig.KNOCKBACK_MIN, ModConfig.KNOCKBACK_MAX, v -> ModConfig.knockbackStrength = v);
+
         // --- FULLBRIGHT ---
         addLabel("\u00a7e\u00a7l--- Fullbright ---");
         addToggle("Fullbright", () -> ModConfig.fullbrightEnabled, v -> ModConfig.fullbrightEnabled = v);

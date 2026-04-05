@@ -90,6 +90,12 @@ public class ModConfig {
     public static final float SPEED_MIN = 1.0f;
     public static final float SPEED_MAX = 10.0f;
 
+    // --- Knockback ---
+    public static boolean knockbackEnabled = false;
+    public static float knockbackStrength = 5.0f;
+    public static final float KNOCKBACK_MIN = 1.0f;
+    public static final float KNOCKBACK_MAX = 2500.0f;
+
     // --- HUD ---
     public static boolean hudVisible = true;
 
@@ -137,6 +143,8 @@ public class ModConfig {
                     fullbrightEnabled = data.fullbrightEnabled;
                     speedEnabled = data.speedEnabled;
                     speedMultiplier = clamp(data.speedMultiplier, SPEED_MIN, SPEED_MAX);
+                    knockbackEnabled = data.knockbackEnabled;
+                    knockbackStrength = clamp(data.knockbackStrength, KNOCKBACK_MIN, KNOCKBACK_MAX);
                     hudVisible = data.hudVisible;
                     walkToCoordsEnabled = data.walkToCoordsEnabled;
                     walkToX = data.walkToX;
@@ -186,6 +194,8 @@ public class ModConfig {
         data.fullbrightEnabled = fullbrightEnabled;
         data.speedEnabled = speedEnabled;
         data.speedMultiplier = speedMultiplier;
+        data.knockbackEnabled = knockbackEnabled;
+        data.knockbackStrength = knockbackStrength;
         data.hudVisible = hudVisible;
         data.walkToCoordsEnabled = walkToCoordsEnabled;
         data.walkToX = walkToX;
@@ -237,6 +247,8 @@ public class ModConfig {
         boolean fullbrightEnabled = false;
         boolean speedEnabled = false;
         float speedMultiplier = 2.0f;
+        boolean knockbackEnabled = false;
+        float knockbackStrength = 5.0f;
         boolean hudVisible = true;
         boolean walkToCoordsEnabled = false;
         float walkToX = 0;

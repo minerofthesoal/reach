@@ -64,6 +64,11 @@ public class HudOverlay {
                 ModConfig.speedEnabled);
         y += lh;
 
+        drawLine(context, tr, x, y,
+                ModConfig.knockbackEnabled ? String.format("Knockback: ON (%.0f)", ModConfig.knockbackStrength) : "Knockback: OFF",
+                ModConfig.knockbackEnabled);
+        y += lh;
+
         drawLine(context, tr, x, y, "Fullbright: " + (ModConfig.fullbrightEnabled ? "ON" : "OFF"), ModConfig.fullbrightEnabled);
         y += lh;
 

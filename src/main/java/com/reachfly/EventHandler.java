@@ -100,6 +100,11 @@ public class EventHandler {
             ModConfig.save();
         }
 
+        while (KeybindHandler.toggleKnockback.wasPressed()) {
+            ModConfig.knockbackEnabled = !ModConfig.knockbackEnabled;
+            ModConfig.save();
+        }
+
         while (KeybindHandler.openConfig.wasPressed()) {
             client.setScreen(new ConfigScreen(client.currentScreen));
         }
@@ -117,6 +122,7 @@ public class EventHandler {
         NoFallHandler.tick(client);
         FullbrightHandler.tick(client);
         SpeedHandler.tick(client);
+        KnockbackHandler.tick(client);
         WalkToCoordsHandler.tick(client);
     }
 }
