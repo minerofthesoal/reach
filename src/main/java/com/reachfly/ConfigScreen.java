@@ -49,6 +49,7 @@ public class ConfigScreen extends Screen {
         addToggle("ESP Players", () -> ModConfig.espPlayers, v -> ModConfig.espPlayers = v);
         addToggle("ESP Hostile", () -> ModConfig.espHostile, v -> ModConfig.espHostile = v);
         addToggle("ESP Passive", () -> ModConfig.espPassive, v -> ModConfig.espPassive = v);
+        addToggle("ESP Tracer Lines", () -> ModConfig.espLines, v -> ModConfig.espLines = v);
 
         // --- JESUS ---
         addLabel("\u00a73\u00a7l--- Jesus ---");
@@ -98,6 +99,16 @@ public class ConfigScreen extends Screen {
         addSlider("Target Y", ModConfig.flyToY, -64, 320, v -> ModConfig.flyToY = v);
         addSlider("Target Z", ModConfig.flyToZ, -30000, 30000, v -> ModConfig.flyToZ = v);
         addSlider("Fly Speed", ModConfig.flyToCoordsSpeed, ModConfig.FLY_TO_SPEED_MIN, ModConfig.FLY_TO_SPEED_MAX, v -> ModConfig.flyToCoordsSpeed = v);
+
+        // --- WALK TO COORDS ---
+        addLabel("\u00a7a\u00a7l--- Walk to Coords ---");
+        addToggle("Walk to Coords", () -> ModConfig.walkToCoordsEnabled, v -> {
+            ModConfig.walkToCoordsEnabled = v;
+            if (!v) WalkToCoordsHandler.onDisable();
+        });
+        addSlider("Walk Target X", ModConfig.walkToX, -30000, 30000, v -> ModConfig.walkToX = v);
+        addSlider("Walk Target Y", ModConfig.walkToY, -64, 320, v -> ModConfig.walkToY = v);
+        addSlider("Walk Target Z", ModConfig.walkToZ, -30000, 30000, v -> ModConfig.walkToZ = v);
 
         // --- EATING ASSIST ---
         addLabel("\u00a7a\u00a7l--- Eating Assist ---");

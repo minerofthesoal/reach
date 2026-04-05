@@ -31,6 +31,7 @@ public class ModConfig {
     public static boolean espPlayers = true;
     public static boolean espHostile = true;
     public static boolean espPassive = false;
+    public static boolean espLines = false;
 
     // --- Auto Hit ---
     public static boolean autoHitEnabled = false;
@@ -93,6 +94,12 @@ public class ModConfig {
     // --- HUD ---
     public static boolean hudVisible = true;
 
+    // --- Walk to Coords ---
+    public static boolean walkToCoordsEnabled = false;
+    public static float walkToX = 0;
+    public static float walkToY = 64;
+    public static float walkToZ = 0;
+
     // --- Dupe ---
     public static boolean dupeEnabled = false;
 
@@ -110,6 +117,7 @@ public class ModConfig {
                     espPlayers = data.espPlayers;
                     espHostile = data.espHostile;
                     espPassive = data.espPassive;
+                    espLines = data.espLines;
                     autoHitEnabled = data.autoHitEnabled;
                     autoHitRange = clamp(data.autoHitRange, AUTO_HIT_RANGE_MIN, AUTO_HIT_RANGE_MAX);
                     autoHitPlayersOnly = data.autoHitPlayersOnly;
@@ -133,6 +141,10 @@ public class ModConfig {
                     speedEnabled = data.speedEnabled;
                     speedMultiplier = clamp(data.speedMultiplier, SPEED_MIN, SPEED_MAX);
                     hudVisible = data.hudVisible;
+                    walkToCoordsEnabled = data.walkToCoordsEnabled;
+                    walkToX = data.walkToX;
+                    walkToY = data.walkToY;
+                    walkToZ = data.walkToZ;
                     dupeEnabled = data.dupeEnabled;
                 }
                 ReachFlyClient.LOGGER.info("[ReachFly] Config loaded.");
@@ -154,6 +166,7 @@ public class ModConfig {
         data.espPlayers = espPlayers;
         data.espHostile = espHostile;
         data.espPassive = espPassive;
+        data.espLines = espLines;
         data.autoHitEnabled = autoHitEnabled;
         data.autoHitRange = autoHitRange;
         data.autoHitPlayersOnly = autoHitPlayersOnly;
@@ -177,6 +190,10 @@ public class ModConfig {
         data.speedEnabled = speedEnabled;
         data.speedMultiplier = speedMultiplier;
         data.hudVisible = hudVisible;
+        data.walkToCoordsEnabled = walkToCoordsEnabled;
+        data.walkToX = walkToX;
+        data.walkToY = walkToY;
+        data.walkToZ = walkToZ;
         data.dupeEnabled = dupeEnabled;
 
         try {
@@ -200,6 +217,7 @@ public class ModConfig {
         boolean espPlayers = true;
         boolean espHostile = true;
         boolean espPassive = false;
+        boolean espLines = false;
         boolean autoHitEnabled = false;
         float autoHitRange = 3.0f;
         boolean autoHitPlayersOnly = false;
@@ -223,6 +241,10 @@ public class ModConfig {
         boolean speedEnabled = false;
         float speedMultiplier = 2.0f;
         boolean hudVisible = true;
+        boolean walkToCoordsEnabled = false;
+        float walkToX = 0;
+        float walkToY = 64;
+        float walkToZ = 0;
         boolean dupeEnabled = false;
     }
 }

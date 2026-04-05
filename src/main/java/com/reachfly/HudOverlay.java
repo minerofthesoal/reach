@@ -87,6 +87,15 @@ public class HudOverlay {
         }
         y += lh;
 
+        if (ModConfig.walkToCoordsEnabled) {
+            drawLine(context, tr, x, y,
+                    String.format("WalkTo: %.0f,%.0f,%.0f", ModConfig.walkToX, ModConfig.walkToY, ModConfig.walkToZ),
+                    true, YELLOW);
+        } else {
+            drawLine(context, tr, x, y, "WalkTo: OFF", false);
+        }
+        y += lh;
+
         drawLine(context, tr, x, y,
                 "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"),
                 ModConfig.eatingAssistEnabled);

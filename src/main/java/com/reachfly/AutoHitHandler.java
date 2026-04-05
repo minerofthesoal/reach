@@ -5,26 +5,26 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 
 /**
  * Auto Hit - Automatically attacks the nearest entity within range.
- * Respects attack cooldown for optimal damage output.
+ * Targets ALL living entities (hostile, passive, neutral, players) unless
+ * "players only" mode is enabled.
  */
 public class AutoHitHandler {
 
-    /**
-     * Called every client tick. Finds and attacks the nearest valid target.
-     */
     public static void tick(MinecraftClient client) {
         if (!ModConfig.autoHitEnabled) return;
         if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) return; // Don't attack while in menus
+        if (client.currentScreen != null) return;
+        if (client.interactionManager == null) return;
 
         ClientPlayerEntity player = client.player;
 
-        // Only attack when attack cooldown is ready (smooth hits, max damage)
         if (player.getAttackCooldownProgress(0.0f) < 1.0f) return;
 
         Entity nearest = null;
@@ -38,11 +38,6 @@ public class AutoHitHandler {
             // Filter: players only mode
             if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
 
-            // Skip passive mobs unless they're players
-            if (!ModConfig.autoHitPlayersOnly) {
-                if (!(entity instanceof HostileEntity) && !(entity instanceof PlayerEntity)) continue;
-            }
-
             double dist = player.distanceTo(entity);
             if (dist < nearestDist) {
                 nearestDist = dist;
@@ -51,7 +46,6 @@ public class AutoHitHandler {
         }
 
         if (nearest != null) {
-            // Face the target and attack
             client.interactionManager.attackEntity(player, nearest);
             player.swingHand(Hand.MAIN_HAND);
         }

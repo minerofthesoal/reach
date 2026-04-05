@@ -119,6 +119,15 @@ public class EventHandler {
             ModConfig.save();
         }
 
+        // --- Toggle Walk to Coords ---
+        while (KeybindHandler.toggleWalkToCoords.wasPressed()) {
+            ModConfig.walkToCoordsEnabled = !ModConfig.walkToCoordsEnabled;
+            if (!ModConfig.walkToCoordsEnabled) {
+                WalkToCoordsHandler.onDisable();
+            }
+            ModConfig.save();
+        }
+
         // --- Toggle Dupe ---
         while (KeybindHandler.toggleDupe.wasPressed()) {
             ModConfig.dupeEnabled = !ModConfig.dupeEnabled;
@@ -143,6 +152,7 @@ public class EventHandler {
         NoFallHandler.tick(client);
         FullbrightHandler.tick(client);
         SpeedHandler.tick(client);
+        WalkToCoordsHandler.tick(client);
         DupeHandler.tick(client);
     }
 }
