@@ -24,11 +24,6 @@ public class ClientPlayerInteractionManagerMixin {
         ReachHandler.updateReachAttributes();
     }
 
-    /**
-     * After attacking an entity, apply extra knockback velocity directly
-     * on the server-side entity (singleplayer only).
-     * This supplements the ATTACK_KNOCKBACK attribute for extra force.
-     */
     @Inject(method = "attackEntity", at = @At("TAIL"))
     private void onAttackEntity(PlayerEntity player, Entity target, CallbackInfo ci) {
         if (!ModConfig.knockbackEnabled) return;
@@ -36,14 +31,13 @@ public class ClientPlayerInteractionManagerMixin {
 
         MinecraftClient client = MinecraftClient.getInstance();
         MinecraftServer server = client.getServer();
-        if (server == null) return; // Only works in singleplayer
+        if (server == null) return;
 
-        // Get the server-side entity and apply velocity directly
         for (ServerWorld world : server.getWorlds()) {
             Entity serverTarget = world.getEntityById(target.getId());
             if (serverTarget != null) {
-                Vec3d playerPos = player.getEntityPos();
-                Vec3d targetPos = serverTarget.getPos();
+                Vec3d playerPos = new Vec3d(player.getX(), player.getY(), player.getZ());
+                Vec3d targetPos = new Vec3d(serverTarget.getX(), serverTarget.getY(), serverTarget.getZ());
                 Vec3d direction = targetPos.subtract(playerPos);
 
                 double horizLength = Math.sqrt(direction.x * direction.x + direction.z * direction.z);
@@ -56,13 +50,15 @@ public class ClientPlayerInteractionManagerMixin {
                 double normalX = direction.x / horizLength;
                 double normalZ = direction.z / horizLength;
                 double strength = ModConfig.knockbackStrength;
-
-                // Scale velocity: at strength 1 = modest, at 2500 = extreme
                 double velocityMult = strength * 0.5;
                 double verticalBoost = Math.min(strength * 0.15, 80.0);
 
-                serverTarget.addVelocity(normalX * velocityMult, verticalBoost, normalZ * velocityMult);
-                serverTarget.velocityModified = true;
+                // Use setVelocity to force velocity sync
+                Vec3d currentVel = serverTarget.getVelocity();
+                serverTarget.setVelocity(
+                    currentVel.x + normalX * velocityMult,
+                    currentVel.y + verticalBoost,
+                    currentVel.z + normalZ * velocityMult);
                 break;
             }
         }
