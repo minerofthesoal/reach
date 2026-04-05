@@ -4,6 +4,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.util.math.Vec3d;
 
 public class HudOverlay {
 
@@ -36,14 +37,10 @@ public class HudOverlay {
         drawLine(context, tr, x, y, "ESP: " + (ModConfig.espEnabled ? "ON" : "OFF"), ModConfig.espEnabled);
         y += lh;
 
-        String autoHitText;
-        if (ModConfig.autoHitEnabled) {
-            String mode = ModConfig.killAuraEnabled ? " [AURA]" : "";
-            autoHitText = String.format("AutoHit: ON (%.1f)%s", ModConfig.autoHitRange, mode);
-        } else {
-            autoHitText = "AutoHit: OFF";
-        }
-        drawLine(context, tr, x, y, autoHitText, ModConfig.autoHitEnabled);
+        String autoHitLabel = ModConfig.autoHitEnabled
+                ? String.format("AutoHit: ON (%.1f)%s", ModConfig.autoHitRange, ModConfig.killAuraEnabled ? " [AURA]" : "")
+                : "AutoHit: OFF";
+        drawLine(context, tr, x, y, autoHitLabel, ModConfig.autoHitEnabled);
         y += lh;
 
         drawLine(context, tr, x, y,
@@ -73,18 +70,24 @@ public class HudOverlay {
         drawLine(context, tr, x, y, "Elytra Swap: " + (ModConfig.autoElytraSwapEnabled ? "ON" : "OFF"), ModConfig.autoElytraSwapEnabled);
         y += lh;
 
-        if (ModConfig.flyToCoordsEnabled) {
+        if (ModConfig.flyToCoordsEnabled && client.player != null) {
+            Vec3d pos = client.player.getPos();
+            double dist = pos.distanceTo(new Vec3d(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
             drawLine(context, tr, x, y,
-                    String.format("FlyTo: %.0f,%.0f,%.0f", ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ),
+                    String.format("FlyTo: %.0f,%.0f,%.0f (%.0f blks)", ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ, dist),
                     true, YELLOW);
         } else {
             drawLine(context, tr, x, y, "FlyTo: OFF", false);
         }
         y += lh;
 
-        if (ModConfig.walkToCoordsEnabled) {
+        if (ModConfig.walkToCoordsEnabled && client.player != null) {
+            Vec3d pos = client.player.getPos();
+            double dist = Math.sqrt(
+                    (pos.x - ModConfig.walkToX) * (pos.x - ModConfig.walkToX) +
+                    (pos.z - ModConfig.walkToZ) * (pos.z - ModConfig.walkToZ));
             drawLine(context, tr, x, y,
-                    String.format("WalkTo: %.0f,%.0f,%.0f", ModConfig.walkToX, ModConfig.walkToY, ModConfig.walkToZ),
+                    String.format("WalkTo: %.0f,%.0f,%.0f (%.0f blks)", ModConfig.walkToX, ModConfig.walkToY, ModConfig.walkToZ, dist),
                     true, YELLOW);
         } else {
             drawLine(context, tr, x, y, "WalkTo: OFF", false);
