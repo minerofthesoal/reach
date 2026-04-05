@@ -1,10 +1,14 @@
-name: Build & Release Client Mod
+name: Build & Release Server Addon
 
 on:
   push:
-    branches: [ main, 'claude/**', 'mc-*' ]
+    branches: [ main, 'claude/**' ]
+    paths:
+      - 'server-addon/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'server-addon/**'
   workflow_dispatch:
 
 permissions:
@@ -13,6 +17,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server-addon
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,8 +33,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Make Gradle wrapper executable
-        run: chmod +x ./gradlew
+      - name: Copy Gradle wrapper from root
+        run: |
+          cp -r ../gradle .
+          cp ../gradlew .
+          chmod +x ./gradlew
 
       - name: Build with Gradle
         run: ./gradlew build
@@ -35,15 +45,15 @@ jobs:
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: reach-fly-mod
-          path: build/libs/*.jar
+          name: osp-server-addon
+          path: server-addon/build/libs/*.jar
           if-no-files-found: error
 
       - name: Create Release
         if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0-build.${{ github.run_number }}
-          name: "Optimizer Super Premium v1.1.0 (Build #${{ github.run_number }})"
-          files: build/libs/*.jar
+          tag_name: server-addon-v1.0.0-build.${{ github.run_number }}
+          name: "OSP Server Addon v1.0.0 (Build #${{ github.run_number }})"
+          files: server-addon/build/libs/*.jar
           generate_release_notes: true
