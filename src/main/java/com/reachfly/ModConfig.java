@@ -99,6 +99,15 @@ public class ModConfig {
     public static final float KNOCKBACK_MIN = 1.0f;
     public static final float KNOCKBACK_MAX = 2500.0f;
 
+    // --- Auto Totem ---
+    public static boolean autoTotemEnabled = false;
+
+    // --- Auto Armor ---
+    public static boolean autoArmorEnabled = false;
+
+    // --- Scaffold ---
+    public static boolean scaffoldEnabled = false;
+
     // --- Teleport ---
     public static boolean tpUseServerAddon = true;
     public static float tpX = 0;
@@ -156,6 +165,9 @@ public class ModConfig {
                     knockbackEnabled = data.knockbackEnabled;
                     knockbackStrength = clamp(data.knockbackStrength, KNOCKBACK_MIN, KNOCKBACK_MAX);
                     hudVisible = data.hudVisible;
+                    autoTotemEnabled = data.autoTotemEnabled;
+                    autoArmorEnabled = data.autoArmorEnabled;
+                    scaffoldEnabled = data.scaffoldEnabled;
                     tpUseServerAddon = data.tpUseServerAddon;
                     tpX = data.tpX;
                     tpY = data.tpY;
@@ -212,6 +224,9 @@ public class ModConfig {
         data.knockbackEnabled = knockbackEnabled;
         data.knockbackStrength = knockbackStrength;
         data.hudVisible = hudVisible;
+        data.autoTotemEnabled = autoTotemEnabled;
+        data.autoArmorEnabled = autoArmorEnabled;
+        data.scaffoldEnabled = scaffoldEnabled;
         data.tpUseServerAddon = tpUseServerAddon;
         data.tpX = tpX;
         data.tpY = tpY;
@@ -270,6 +285,9 @@ public class ModConfig {
         boolean knockbackEnabled = false;
         float knockbackStrength = 5.0f;
         boolean hudVisible = true;
+        boolean autoTotemEnabled = false;
+        boolean autoArmorEnabled = false;
+        boolean scaffoldEnabled = false;
         boolean tpUseServerAddon = true;
         float tpX = 0;
         float tpY = 100;

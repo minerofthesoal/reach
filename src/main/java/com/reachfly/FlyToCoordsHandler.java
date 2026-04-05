@@ -114,6 +114,7 @@ public class FlyToCoordsHandler {
 
         // Collision avoidance - check blocks ahead and rise if needed
         double extraY = 0;
+        boolean breaking = false;
         if (horizDist > 3) {
             BlockPos ahead1 = new BlockPos(
                     (int) Math.floor(pos.x + direction.x * 2),
@@ -133,6 +134,13 @@ public class FlyToCoordsHandler {
 
             if (blocked || stuckTicks > 20) {
                 extraY = 0.3; // Rise above obstacles
+            }
+
+            // If stuck for a while, try breaking the block ahead
+            if (stuckTicks > 60 && !client.world.getBlockState(ahead1).isAir()) {
+                breaking = BlockBreaker.tryBreak(client, ahead1);
+            } else if (stuckTicks > 60 && !client.world.getBlockState(ahead1Up).isAir()) {
+                breaking = BlockBreaker.tryBreak(client, ahead1Up);
             }
         }
 

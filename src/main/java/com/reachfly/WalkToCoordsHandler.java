@@ -205,12 +205,22 @@ public class WalkToCoordsHandler {
             shouldJump = true;
         }
 
-        // 2-block wall ahead - need to detour instead of jump
-        if (solidAtFeet && solidAtHead && detourTicks <= 0) {
-            detourYawOffset = (detourYawOffset >= 0) ? 90 : -90;
-            if (detourYawOffset == 0) detourYawOffset = 90;
-            detourTicks = 40;
+        // 2-block wall ahead - try breaking blocks first, then detour
+        if (solidAtFeet && solidAtHead) {
+            // Try to break the block at feet level first
+            if (stuckTicks > 30) {
+                BlockBreaker.tryBreak(client, feetAhead);
+            } else if (detourTicks <= 0) {
+                detourYawOffset = (detourYawOffset >= 0) ? 90 : -90;
+                if (detourYawOffset == 0) detourYawOffset = 90;
+                detourTicks = 40;
+            }
             shouldJump = false;
+        }
+
+        // If severely stuck, break blocks aggressively
+        if (stuckTicks > 80 && solidAtFeet) {
+            BlockBreaker.tryBreak(client, feetAhead);
         }
 
         if (shouldJump) {

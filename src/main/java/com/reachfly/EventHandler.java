@@ -111,6 +111,21 @@ public class EventHandler {
             ModConfig.save();
         }
 
+        while (KeybindHandler.toggleAutoTotem.wasPressed()) {
+            ModConfig.autoTotemEnabled = !ModConfig.autoTotemEnabled;
+            ModConfig.save();
+        }
+
+        while (KeybindHandler.toggleAutoArmor.wasPressed()) {
+            ModConfig.autoArmorEnabled = !ModConfig.autoArmorEnabled;
+            ModConfig.save();
+        }
+
+        while (KeybindHandler.toggleScaffold.wasPressed()) {
+            ModConfig.scaffoldEnabled = !ModConfig.scaffoldEnabled;
+            ModConfig.save();
+        }
+
         while (KeybindHandler.triggerTeleport.wasPressed()) {
             TeleportHandler.triggerTeleport();
         }
@@ -135,6 +150,9 @@ public class EventHandler {
         XrayHandler.tick(client);
         KnockbackHandler.tick(client);
         WalkToCoordsHandler.tick(client);
+        AutoTotemHandler.tick(client);
+        AutoArmorHandler.tick(client);
+        ScaffoldHandler.tick(client);
         TeleportHandler.tick(client);
     }
 }

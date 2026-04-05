@@ -27,6 +27,9 @@ public class KeybindHandler {
     public static KeyBinding toggleWalkToCoords;
     public static KeyBinding toggleXray;
     public static KeyBinding toggleKnockback;
+    public static KeyBinding toggleAutoTotem;
+    public static KeyBinding toggleAutoArmor;
+    public static KeyBinding toggleScaffold;
     public static KeyBinding toggleHud;
     public static KeyBinding triggerTeleport;
     public static KeyBinding openConfig;
@@ -95,6 +98,18 @@ public class KeybindHandler {
         toggleKnockback = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_knockback",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_J, CATEGORY));
+
+        toggleAutoTotem = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_autototem",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_M, CATEGORY));
+
+        toggleAutoArmor = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_autoarmor",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, CATEGORY));
+
+        toggleScaffold = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.reachfly.toggle_scaffold",
+                InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, CATEGORY));
 
         toggleHud = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.toggle_hud",

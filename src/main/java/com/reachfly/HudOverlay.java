@@ -11,6 +11,8 @@ public class HudOverlay {
     private static final int GREEN = 0xFF55FF55;
     private static final int RED = 0xFFFF5555;
     private static final int YELLOW = 0xFFFFFF55;
+    private static final int CYAN = 0xFF55FFFF;
+    private static final int PURPLE = 0xFFAA55FF;
     private static final int BG = 0x80000000;
 
     public static void render(DrawContext context, RenderTickCounter tickCounter) {
@@ -23,6 +25,10 @@ public class HudOverlay {
         int x = 6;
         int y = 6;
         int lh = 12;
+
+        // Branding header
+        drawLine(context, tr, x, y, "\u00a7d\u00a7lFlick Client \u00a78(OSP)", true, PURPLE);
+        y += lh;
 
         drawLine(context, tr, x, y,
                 ModConfig.reachEnabled ? String.format("Reach: ON (%.1f)", ModConfig.reachDistance) : "Reach: OFF",
@@ -72,6 +78,15 @@ public class HudOverlay {
         drawLine(context, tr, x, y, "X-Ray: " + (ModConfig.xrayEnabled ? "ON" : "OFF"), ModConfig.xrayEnabled);
         y += lh;
 
+        drawLine(context, tr, x, y, "Scaffold: " + (ModConfig.scaffoldEnabled ? "ON" : "OFF"), ModConfig.scaffoldEnabled);
+        y += lh;
+
+        drawLine(context, tr, x, y, "Auto Totem: " + (ModConfig.autoTotemEnabled ? "ON" : "OFF"), ModConfig.autoTotemEnabled);
+        y += lh;
+
+        drawLine(context, tr, x, y, "Auto Armor: " + (ModConfig.autoArmorEnabled ? "ON" : "OFF"), ModConfig.autoArmorEnabled);
+        y += lh;
+
         drawLine(context, tr, x, y, "Fullbright: " + (ModConfig.fullbrightEnabled ? "ON" : "OFF"), ModConfig.fullbrightEnabled);
         y += lh;
 
@@ -102,13 +117,13 @@ public class HudOverlay {
         }
         y += lh;
 
-        drawLine(context, tr, x, y, "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"), ModConfig.eatingAssistEnabled);
-        y += lh;
-
         String tpMode = ModConfig.tpUseServerAddon ? "Addon" : "Beta";
         drawLine(context, tr, x, y,
-                String.format("TP [%s]: %.0f, %.0f, %.0f (press T)", tpMode, ModConfig.tpX, ModConfig.tpY, ModConfig.tpZ),
-                true, YELLOW);
+                String.format("TP [%s]: %.0f, %.0f, %.0f (T)", tpMode, ModConfig.tpX, ModConfig.tpY, ModConfig.tpZ),
+                true, CYAN);
+        y += lh;
+
+        drawLine(context, tr, x, y, "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"), ModConfig.eatingAssistEnabled);
     }
 
     private static void drawLine(DrawContext ctx, TextRenderer tr, int x, int y, String text, boolean enabled) {

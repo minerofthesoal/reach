@@ -1,5 +1,5 @@
 {
-  "key.categories.reachfly.category": "Optimizer Super Premium",
+  "key.categories.reachfly.category": "Flick Client (OSP)",
   "key.reachfly.toggle_reach": "Toggle Reach",
   "key.reachfly.toggle_fly": "Toggle Fly",
   "key.reachfly.toggle_esp": "Toggle ESP",
@@ -16,6 +16,9 @@
   "key.reachfly.toggle_walktocoords": "Toggle Walk to Coords",
   "key.reachfly.toggle_xray": "Toggle X-Ray",
   "key.reachfly.toggle_knockback": "Toggle Knockback",
+  "key.reachfly.toggle_autototem": "Toggle Auto Totem",
+  "key.reachfly.toggle_autoarmor": "Toggle Auto Armor",
+  "key.reachfly.toggle_scaffold": "Toggle Scaffold",
   "key.reachfly.toggle_hud": "Toggle HUD",
   "key.reachfly.trigger_teleport": "Teleport to Coords",
   "key.reachfly.open_config": "Open Config"

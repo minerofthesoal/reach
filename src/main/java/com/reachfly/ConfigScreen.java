@@ -81,6 +81,18 @@ public class ConfigScreen extends Screen {
         addToggle("Knockback", () -> ModConfig.knockbackEnabled, v -> ModConfig.knockbackEnabled = v);
         addNumberButton("Knockback Strength", () -> ModConfig.knockbackStrength, ModConfig.KNOCKBACK_MIN, ModConfig.KNOCKBACK_MAX, v -> ModConfig.knockbackStrength = v);
 
+        // --- SCAFFOLD ---
+        addLabel("\u00a76\u00a7l--- Scaffold ---");
+        addToggle("Scaffold (Auto-Bridge)", () -> ModConfig.scaffoldEnabled, v -> ModConfig.scaffoldEnabled = v);
+
+        // --- AUTO TOTEM ---
+        addLabel("\u00a7d\u00a7l--- Auto Totem ---");
+        addToggle("Auto Totem (Offhand)", () -> ModConfig.autoTotemEnabled, v -> ModConfig.autoTotemEnabled = v);
+
+        // --- AUTO ARMOR ---
+        addLabel("\u00a79\u00a7l--- Auto Armor ---");
+        addToggle("Auto Armor (Best Equip)", () -> ModConfig.autoArmorEnabled, v -> ModConfig.autoArmorEnabled = v);
+
         // --- FULLBRIGHT ---
         addLabel("\u00a7e\u00a7l--- Fullbright ---");
         addToggle("Fullbright", () -> ModConfig.fullbrightEnabled, v -> ModConfig.fullbrightEnabled = v);
@@ -361,7 +373,7 @@ public class ConfigScreen extends Screen {
 
             // Title
             context.drawCenteredTextWithShadow(this.textRenderer,
-                    Text.literal("\u00a7b\u00a7lOptimizer\u00a7r \u00a76\u00a7lSuper \u00a7d\u00a7lPremium\u00a7r \u00a77v2.0"),
+                    Text.literal("\u00a7d\u00a7lFlick Client\u00a7r \u00a78(OSP) \u00a77v2.0"),
                     this.width / 2, 10, 0xFFFFFF);
         }
     }
