@@ -74,6 +74,7 @@ public class ConfigScreen extends Screen {
         addToggle("Auto Hit", () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v);
         addSlider("Auto Hit Range", ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX, v -> ModConfig.autoHitRange = v);
         addToggle("Auto Hit Players Only", () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v);
+        addToggle("Kill Aura (Hit All In Range)", () -> ModConfig.killAuraEnabled, v -> ModConfig.killAuraEnabled = v);
 
         // --- LOW HEALTH KILL ---
         addLabel("\u00a74\u00a7l--- Low Health Kill ---");

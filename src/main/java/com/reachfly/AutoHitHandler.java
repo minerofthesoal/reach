@@ -4,17 +4,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 
-/**
- * Auto Hit - Automatically attacks the nearest entity within range.
- * Targets ALL living entities (hostile, passive, neutral, players) unless
- * "players only" mode is enabled.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class AutoHitHandler {
 
     public static void tick(MinecraftClient client) {
@@ -27,6 +22,30 @@ public class AutoHitHandler {
 
         if (player.getAttackCooldownProgress(0.0f) < 1.0f) return;
 
+        if (ModConfig.killAuraEnabled) {
+            List<Entity> targets = new ArrayList<>();
+            for (Entity entity : client.world.getEntities()) {
+                if (entity == player) continue;
+                if (!(entity instanceof LivingEntity living)) continue;
+                if (!living.isAlive()) continue;
+                if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
+
+                double dist = player.distanceTo(entity);
+                if (dist <= ModConfig.autoHitRange) {
+                    targets.add(entity);
+                }
+            }
+            boolean first = true;
+            for (Entity target : targets) {
+                client.interactionManager.attackEntity(player, target);
+                if (first) {
+                    player.swingHand(Hand.MAIN_HAND);
+                    first = false;
+                }
+            }
+            return;
+        }
+
         Entity nearest = null;
         double nearestDist = ModConfig.autoHitRange;
 
@@ -34,8 +53,6 @@ public class AutoHitHandler {
             if (entity == player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
-
-            // Filter: players only mode
             if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
 
             double dist = player.distanceTo(entity);
