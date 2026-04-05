@@ -36,12 +36,12 @@ public class ConfigScreen extends Screen {
         // --- REACH ---
         addLabel("\u00a76\u00a7l--- Reach ---");
         addToggle("Reach", () -> ModConfig.reachEnabled, v -> ModConfig.reachEnabled = v);
-        addSlider("Reach Distance", ModConfig.reachDistance, ModConfig.REACH_MIN, ModConfig.REACH_MAX, v -> ModConfig.reachDistance = v);
+        addNumberField("Reach Distance", ModConfig.reachDistance, ModConfig.REACH_MIN, ModConfig.REACH_MAX, v -> ModConfig.reachDistance = v);
 
         // --- FLY ---
         addLabel("\u00a7b\u00a7l--- Fly ---");
         addToggle("Fly", () -> ModConfig.flyEnabled, v -> ModConfig.flyEnabled = v);
-        addSlider("Fly Speed", ModConfig.flySpeed, ModConfig.FLY_SPEED_MIN, ModConfig.FLY_SPEED_MAX, v -> ModConfig.flySpeed = v);
+        addNumberField("Fly Speed", ModConfig.flySpeed, ModConfig.FLY_SPEED_MIN, ModConfig.FLY_SPEED_MAX, v -> ModConfig.flySpeed = v);
 
         // --- ESP ---
         addLabel("\u00a7d\u00a7l--- ESP ---");
@@ -63,7 +63,7 @@ public class ConfigScreen extends Screen {
         // --- SPEED ---
         addLabel("\u00a7f\u00a7l--- Speed ---");
         addToggle("Speed", () -> ModConfig.speedEnabled, v -> ModConfig.speedEnabled = v);
-        addSlider("Speed Multiplier", ModConfig.speedMultiplier, ModConfig.SPEED_MIN, ModConfig.SPEED_MAX, v -> ModConfig.speedMultiplier = v);
+        addNumberField("Speed Multiplier", ModConfig.speedMultiplier, ModConfig.SPEED_MIN, ModConfig.SPEED_MAX, v -> ModConfig.speedMultiplier = v);
 
         // --- X-RAY ---
         addLabel("\u00a7a\u00a7l--- X-Ray ---");
@@ -72,7 +72,7 @@ public class ConfigScreen extends Screen {
         // --- KNOCKBACK ---
         addLabel("\u00a7c\u00a7l--- Knockback ---");
         addToggle("Knockback", () -> ModConfig.knockbackEnabled, v -> ModConfig.knockbackEnabled = v);
-        addSlider("Knockback Strength", ModConfig.knockbackStrength, ModConfig.KNOCKBACK_MIN, ModConfig.KNOCKBACK_MAX, v -> ModConfig.knockbackStrength = v);
+        addNumberField("Knockback Strength", ModConfig.knockbackStrength, ModConfig.KNOCKBACK_MIN, ModConfig.KNOCKBACK_MAX, v -> ModConfig.knockbackStrength = v);
 
         // --- FULLBRIGHT ---
         addLabel("\u00a7e\u00a7l--- Fullbright ---");
@@ -81,20 +81,20 @@ public class ConfigScreen extends Screen {
         // --- AUTO HIT ---
         addLabel("\u00a7c\u00a7l--- Auto Hit ---");
         addToggle("Auto Hit", () -> ModConfig.autoHitEnabled, v -> ModConfig.autoHitEnabled = v);
-        addSlider("Auto Hit Range", ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX, v -> ModConfig.autoHitRange = v);
+        addNumberField("Auto Hit Range", ModConfig.autoHitRange, ModConfig.AUTO_HIT_RANGE_MIN, ModConfig.AUTO_HIT_RANGE_MAX, v -> ModConfig.autoHitRange = v);
         addToggle("Auto Hit Players Only", () -> ModConfig.autoHitPlayersOnly, v -> ModConfig.autoHitPlayersOnly = v);
         addToggle("Kill Aura (Hit All In Range)", () -> ModConfig.killAuraEnabled, v -> ModConfig.killAuraEnabled = v);
 
         // --- LOW HEALTH KILL ---
         addLabel("\u00a74\u00a7l--- Low Health Kill ---");
         addToggle("Low Health Kill", () -> ModConfig.lowHealthKillEnabled, v -> ModConfig.lowHealthKillEnabled = v);
-        addSlider("Health Threshold", ModConfig.lowHealthThreshold, ModConfig.LOW_HEALTH_MIN, ModConfig.LOW_HEALTH_MAX, v -> ModConfig.lowHealthThreshold = v);
+        addNumberField("Health Threshold", ModConfig.lowHealthThreshold, ModConfig.LOW_HEALTH_MIN, ModConfig.LOW_HEALTH_MAX, v -> ModConfig.lowHealthThreshold = v);
 
         // --- AUTO KILL WHEN LOW ---
         addLabel("\u00a76\u00a7l--- Auto Kill (Self Low HP) ---");
         addToggle("Auto Kill When Low", () -> ModConfig.autoKillWhenLowEnabled, v -> ModConfig.autoKillWhenLowEnabled = v);
-        addSlider("Your HP Threshold", ModConfig.autoKillSelfHpThreshold, ModConfig.AUTO_KILL_SELF_HP_MIN, ModConfig.AUTO_KILL_SELF_HP_MAX, v -> ModConfig.autoKillSelfHpThreshold = v);
-        addSlider("Kill Range", ModConfig.autoKillWhenLowRange, ModConfig.AUTO_KILL_RANGE_MIN, ModConfig.AUTO_KILL_RANGE_MAX, v -> ModConfig.autoKillWhenLowRange = v);
+        addNumberField("Your HP Threshold", ModConfig.autoKillSelfHpThreshold, ModConfig.AUTO_KILL_SELF_HP_MIN, ModConfig.AUTO_KILL_SELF_HP_MAX, v -> ModConfig.autoKillSelfHpThreshold = v);
+        addNumberField("Kill Range", ModConfig.autoKillWhenLowRange, ModConfig.AUTO_KILL_RANGE_MIN, ModConfig.AUTO_KILL_RANGE_MAX, v -> ModConfig.autoKillWhenLowRange = v);
 
         // --- AUTO ELYTRA SWAP ---
         addLabel("\u00a7b\u00a7l--- Auto Elytra Swap ---");
@@ -106,10 +106,10 @@ public class ConfigScreen extends Screen {
             ModConfig.flyToCoordsEnabled = v;
             if (!v) FlyToCoordsHandler.onDisable();
         });
-        addSlider("Target X", ModConfig.flyToX, -30000, 30000, v -> ModConfig.flyToX = v);
-        addSlider("Target Y", ModConfig.flyToY, -64, 320, v -> ModConfig.flyToY = v);
-        addSlider("Target Z", ModConfig.flyToZ, -30000, 30000, v -> ModConfig.flyToZ = v);
-        addSlider("Fly Speed", ModConfig.flyToCoordsSpeed, ModConfig.FLY_TO_SPEED_MIN, ModConfig.FLY_TO_SPEED_MAX, v -> ModConfig.flyToCoordsSpeed = v);
+        addNumberField("Target X", ModConfig.flyToX, -30000000, 30000000, v -> ModConfig.flyToX = v);
+        addNumberField("Target Y", ModConfig.flyToY, -64, 320, v -> ModConfig.flyToY = v);
+        addNumberField("Target Z", ModConfig.flyToZ, -30000000, 30000000, v -> ModConfig.flyToZ = v);
+        addNumberField("Fly Speed", ModConfig.flyToCoordsSpeed, ModConfig.FLY_TO_SPEED_MIN, ModConfig.FLY_TO_SPEED_MAX, v -> ModConfig.flyToCoordsSpeed = v);
 
         // --- WALK TO COORDS ---
         addLabel("\u00a7a\u00a7l--- Walk to Coords ---");
@@ -117,21 +117,21 @@ public class ConfigScreen extends Screen {
             ModConfig.walkToCoordsEnabled = v;
             if (!v) WalkToCoordsHandler.onDisable();
         });
-        addSlider("Walk Target X", ModConfig.walkToX, -30000, 30000, v -> ModConfig.walkToX = v);
-        addSlider("Walk Target Y", ModConfig.walkToY, -64, 320, v -> ModConfig.walkToY = v);
-        addSlider("Walk Target Z", ModConfig.walkToZ, -30000, 30000, v -> ModConfig.walkToZ = v);
+        addNumberField("Walk Target X", ModConfig.walkToX, -30000000, 30000000, v -> ModConfig.walkToX = v);
+        addNumberField("Walk Target Y", ModConfig.walkToY, -64, 320, v -> ModConfig.walkToY = v);
+        addNumberField("Walk Target Z", ModConfig.walkToZ, -30000000, 30000000, v -> ModConfig.walkToZ = v);
 
         // --- TELEPORT ---
         addLabel("\u00a75\u00a7l--- Teleport (press T) ---");
         addToggle("Normal Mode (needs addon on server)", () -> ModConfig.tpUseServerAddon, v -> ModConfig.tpUseServerAddon = v);
-        addSlider("TP Target X", ModConfig.tpX, -30000, 30000, v -> ModConfig.tpX = v);
-        addSlider("TP Target Y", ModConfig.tpY, -64, 320, v -> ModConfig.tpY = v);
-        addSlider("TP Target Z", ModConfig.tpZ, -30000, 30000, v -> ModConfig.tpZ = v);
+        addNumberField("TP Target X", ModConfig.tpX, -30000000, 30000000, v -> ModConfig.tpX = v);
+        addNumberField("TP Target Y", ModConfig.tpY, -64, 320, v -> ModConfig.tpY = v);
+        addNumberField("TP Target Z", ModConfig.tpZ, -30000000, 30000000, v -> ModConfig.tpZ = v);
 
         // --- EATING ASSIST ---
         addLabel("\u00a7a\u00a7l--- Eating Assist ---");
         addToggle("Eating Assist", () -> ModConfig.eatingAssistEnabled, v -> ModConfig.eatingAssistEnabled = v);
-        addSlider("Hunger Threshold", ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX, v -> ModConfig.eatingHungerThreshold = Math.round(v));
+        addNumberField("Hunger Threshold", ModConfig.eatingHungerThreshold, ModConfig.EATING_HUNGER_MIN, ModConfig.EATING_HUNGER_MAX, v -> ModConfig.eatingHungerThreshold = Math.round(v));
 
         // --- HUD ---
         addLabel("\u00a77\u00a7l--- Display ---");
@@ -163,11 +163,34 @@ public class ConfigScreen extends Screen {
         entries.add(new Entry(null, btn));
     }
 
-    private void addSlider(String label, float current, float min, float max,
-                            java.util.function.Consumer<Float> setter) {
-        ConfigSlider slider = new ConfigSlider(0, 0, BUTTON_W, BUTTON_H, label, current, min, max, setter);
-        addDrawableChild(slider);
-        entries.add(new Entry(null, slider));
+    private void addNumberField(String label, float current, float min, float max,
+                                 java.util.function.Consumer<Float> setter) {
+        // Label (80px) + TextFieldWidget (120px)
+        int fieldW = 120;
+        TextFieldWidget field = new TextFieldWidget(this.textRenderer, 0, 0, fieldW, BUTTON_H,
+                Text.literal(label));
+        field.setText(formatNumber(current));
+        field.setMaxLength(15);
+        field.setChangedListener(text -> {
+            try {
+                float val = Float.parseFloat(text.trim());
+                val = Math.max(min, Math.min(max, val));
+                setter.accept(val);
+                ModConfig.save();
+                field.setEditableColor(0xFFFFFF);
+            } catch (NumberFormatException e) {
+                field.setEditableColor(0xFF5555);
+            }
+        });
+        addDrawableChild(field);
+        entries.add(new Entry(label, field));
+    }
+
+    private static String formatNumber(float val) {
+        if (val == Math.floor(val) && !Float.isInfinite(val)) {
+            return String.valueOf((int) val);
+        }
+        return String.format("%.1f", val);
     }
 
     private static Text toggleText(String label, boolean on) {
@@ -184,8 +207,16 @@ public class ConfigScreen extends Screen {
             int entryY = HEADER + i * ROW_HEIGHT - (int) scrollOffset;
             Entry e = entries.get(i);
             if (e.widget != null) {
-                e.widget.setX(centerX);
-                e.widget.setY(entryY);
+                if (e.widget instanceof TextFieldWidget) {
+                    // Position text field to the right, leaving room for label
+                    int fieldW = 120;
+                    e.widget.setX(centerX + BUTTON_W - fieldW);
+                    e.widget.setY(entryY);
+                    e.widget.setWidth(fieldW);
+                } else {
+                    e.widget.setX(centerX);
+                    e.widget.setY(entryY);
+                }
                 e.widget.visible = (entryY + BUTTON_H > viewTop && entryY < viewBottom);
                 e.widget.active = e.widget.visible;
             }
@@ -198,6 +229,7 @@ public class ConfigScreen extends Screen {
 
         int viewTop = HEADER;
         int viewBottom = this.height - FOOTER;
+        int centerX = this.width / 2 - BUTTON_W / 2;
 
         context.fill(0, viewTop, this.width, viewBottom, 0xC0101010);
 
@@ -207,13 +239,19 @@ public class ConfigScreen extends Screen {
 
         for (int i = 0; i < entries.size(); i++) {
             Entry e = entries.get(i);
-            if (e.label != null) {
-                int entryY = HEADER + i * ROW_HEIGHT - (int) scrollOffset + 5;
-                if (entryY + 10 > viewTop && entryY < viewBottom) {
+            int entryY = HEADER + i * ROW_HEIGHT - (int) scrollOffset + 5;
+            if (entryY + 10 > viewTop && entryY < viewBottom) {
+                if (e.label != null && e.widget == null) {
+                    // Section header label - centered
                     Text text = Text.literal(e.label);
                     int textW = this.textRenderer.getWidth(text);
                     context.drawTextWithShadow(this.textRenderer, text,
                             (this.width - textW) / 2, entryY, 0xFFFFFF);
+                } else if (e.label != null && e.widget instanceof TextFieldWidget) {
+                    // Number field label - draw to the left of the text field
+                    context.drawTextWithShadow(this.textRenderer,
+                            Text.literal("\u00a7f" + e.label),
+                            centerX, entryY, 0xFFFFFF);
                 }
             }
         }
@@ -255,40 +293,4 @@ public class ConfigScreen extends Screen {
     }
 
     private record Entry(String label, net.minecraft.client.gui.widget.ClickableWidget widget) {}
-
-    private static class ConfigSlider extends SliderWidget {
-        private final String label;
-        private final float min;
-        private final float max;
-        private final java.util.function.Consumer<Float> setter;
-
-        public ConfigSlider(int x, int y, int w, int h, String label,
-                            float current, float min, float max,
-                            java.util.function.Consumer<Float> setter) {
-            super(x, y, w, h,
-                    Text.literal(String.format("%s: %.1f", label, current)),
-                    clampNorm(current, min, max));
-            this.label = label;
-            this.min = min;
-            this.max = max;
-            this.setter = setter;
-        }
-
-        private static double clampNorm(float current, float min, float max) {
-            if (max <= min) return 0;
-            return Math.max(0, Math.min(1, (current - min) / (max - min)));
-        }
-
-        @Override
-        protected void updateMessage() {
-            float val = min + (float) this.value * (max - min);
-            this.setMessage(Text.literal(String.format("%s: %.1f", label, val)));
-        }
-
-        @Override
-        protected void applyValue() {
-            setter.accept(min + (float) this.value * (max - min));
-            ModConfig.save();
-        }
-    }
 }
