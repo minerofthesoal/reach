@@ -24,10 +24,14 @@ public class ConfigScreen extends Screen {
     private ButtonWidget activeSource = null;
 
     private static final int ROW_HEIGHT = 24;
-    private static final int HEADER = 28;
+    private static final int HEADER = 40;
     private static final int FOOTER = 36;
-    private static final int BUTTON_W = 200;
+    private static final int BUTTON_W = 240;
     private static final int BUTTON_H = 20;
+
+    // Gradient colors for header
+    private static final int HEADER_LEFT = 0xFF8B5CF6;  // Purple
+    private static final int HEADER_RIGHT = 0xFF3B82F6; // Blue
 
     public ConfigScreen(Screen parent) {
         super(Text.literal("Optimizer Super Premium"));
@@ -315,28 +319,53 @@ public class ConfigScreen extends Screen {
         if (activeTextField != null) {
             context.fill(0, 0, this.width, this.height, 0xC0000000);
 
-            // Draw editing box background
-            int boxW = 220;
-            int boxH = 80;
+            // Draw editing box background with border
+            int boxW = 240;
+            int boxH = 90;
             int boxX = this.width / 2 - boxW / 2;
-            int boxY = 2;
-            context.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0xFF222222);
-            context.fill(boxX + 1, boxY + 1, boxX + boxW - 1, boxY + boxH - 1, 0xFF333333);
+            int boxY = this.height / 2 - boxH / 2 - 20;
+            // Outer border (purple accent)
+            context.fill(boxX - 1, boxY - 1, boxX + boxW + 1, boxY + boxH + 1, 0xFF8B5CF6);
+            // Inner background
+            context.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0xFF1A1A2E);
 
             // Label above field
             context.drawCenteredTextWithShadow(this.textRenderer,
-                    Text.literal("\u00a7e" + activeLabel),
-                    this.width / 2, boxY + 6, 0xFFFFFF);
+                    Text.literal("\u00a7b\u00a7l" + activeLabel),
+                    this.width / 2, boxY + 8, 0xFFFFFF);
+
+            // Reposition text field and buttons to center of screen
+            if (activeTextField != null) {
+                activeTextField.setX(this.width / 2 - 100);
+                activeTextField.setY(boxY + 24);
+            }
+            if (confirmBtn != null) {
+                confirmBtn.setX(this.width / 2 - 102);
+                confirmBtn.setY(boxY + 50);
+            }
+            if (cancelBtn != null) {
+                cancelBtn.setX(this.width / 2 + 2);
+                cancelBtn.setY(boxY + 50);
+            }
 
             // Render the text field, confirm, cancel via super (they're added as children)
             super.render(context, mouseX, mouseY, delta);
 
             // Range hint below buttons
             context.drawCenteredTextWithShadow(this.textRenderer,
-                    Text.literal("\u00a78Range: " + formatNumber(activeMin) + " - " + formatNumber(activeMax)),
-                    this.width / 2, boxY + 66, 0x888888);
+                    Text.literal("\u00a78Range: " + formatNumber(activeMin) + " \u2014 " + formatNumber(activeMax)),
+                    this.width / 2, boxY + boxH - 12, 0x888888);
         } else {
-            context.fill(0, viewTop, this.width, viewBottom, 0xC0101010);
+            // Main background
+            context.fill(0, 0, this.width, this.height, 0xFF0D0D1A);
+
+            // Header gradient bar
+            context.fill(0, 0, this.width, HEADER, 0xFF16162E);
+            // Accent line under header
+            context.fill(0, HEADER - 1, this.width, HEADER, 0xFF8B5CF6);
+
+            // Content area
+            context.fill(0, viewTop, this.width, viewBottom, 0xFF111122);
 
             context.enableScissor(0, viewTop, this.width, viewBottom);
 
@@ -347,6 +376,12 @@ public class ConfigScreen extends Screen {
                 if (e.label != null && e.widget == null) {
                     int entryY = HEADER + i * ROW_HEIGHT - (int) scrollOffset + 5;
                     if (entryY + 10 > viewTop && entryY < viewBottom) {
+                        // Draw subtle separator line above category labels
+                        int lineY = entryY - 2;
+                        int lineX1 = this.width / 2 - BUTTON_W / 2;
+                        int lineX2 = this.width / 2 + BUTTON_W / 2;
+                        context.fill(lineX1, lineY, lineX2, lineY + 1, 0x40FFFFFF);
+
                         Text text = Text.literal(e.label);
                         int textW = this.textRenderer.getWidth(text);
                         context.drawTextWithShadow(this.textRenderer, text,
@@ -360,21 +395,29 @@ public class ConfigScreen extends Screen {
             // Scrollbar
             if (contentHeight > (viewBottom - viewTop)) {
                 int viewH = viewBottom - viewTop;
-                int barX = this.width / 2 + BUTTON_W / 2 + 8;
-                int barW = 6;
+                int barX = this.width / 2 + BUTTON_W / 2 + 10;
+                int barW = 4;
                 float ratio = (float) viewH / contentHeight;
-                int thumbH = Math.max(15, (int) (viewH * ratio));
+                int thumbH = Math.max(20, (int) (viewH * ratio));
                 int maxScroll = contentHeight - viewH;
                 int thumbY = viewTop + (maxScroll > 0 ? (int) (scrollOffset / maxScroll * (viewH - thumbH)) : 0);
 
-                context.fill(barX, viewTop, barX + barW, viewBottom, 0x40FFFFFF);
-                context.fill(barX, thumbY, barX + barW, thumbY + thumbH, 0xC0AAAAAA);
+                // Track
+                context.fill(barX, viewTop, barX + barW, viewBottom, 0x20FFFFFF);
+                // Thumb with rounded feel
+                context.fill(barX, thumbY, barX + barW, thumbY + thumbH, 0xA08B5CF6);
             }
 
-            // Title
+            // Footer accent line
+            context.fill(0, viewBottom, this.width, viewBottom + 1, 0xFF8B5CF6);
+
+            // Title - "Optimizer Super Premium" with subtitle
             context.drawCenteredTextWithShadow(this.textRenderer,
-                    Text.literal("\u00a7d\u00a7lFlick Client\u00a7r \u00a78(OSP) \u00a77v2.0"),
-                    this.width / 2, 10, 0xFFFFFF);
+                    Text.literal("\u00a7d\u00a7lOptimizer Super Premium"),
+                    this.width / 2, 8, 0xFFFFFF);
+            context.drawCenteredTextWithShadow(this.textRenderer,
+                    Text.literal("\u00a78v2.1 \u00a75|\u00a78 Settings"),
+                    this.width / 2, 20, 0x888888);
         }
     }
 

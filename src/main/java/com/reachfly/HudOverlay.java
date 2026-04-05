@@ -27,7 +27,7 @@ public class HudOverlay {
         int lh = 12;
 
         // Branding header
-        drawLine(context, tr, x, y, "\u00a7d\u00a7lFlick Client \u00a78(OSP)", true, PURPLE);
+        drawLine(context, tr, x, y, "\u00a7d\u00a7lOSP \u00a78v2.1", true, PURPLE);
         y += lh;
 
         drawLine(context, tr, x, y,
