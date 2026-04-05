@@ -23,12 +23,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Setup Gradle wrapper for server addon
-        run: |
-          cd server-addon
-          cp -r ../gradle .
-          cp ../gradlew .
-          chmod +x ./gradlew
+      - name: Make Gradle wrapper executable
+        run: chmod +x server-addon/gradlew
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4

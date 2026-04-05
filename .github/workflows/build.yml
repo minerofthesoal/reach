@@ -2,7 +2,7 @@ name: Build & Release Client Mod
 
 on:
   push:
-    branches: [ main, 'claude/**', 'mc-*' ]
+    branches: [ main, 'claude/**' ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
