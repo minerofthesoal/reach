@@ -3,12 +3,8 @@ name: Build & Release Server Addon
 on:
   push:
     branches: [ main, 'claude/**' ]
-    paths:
-      - 'server-addon/**'
   pull_request:
     branches: [ main ]
-    paths:
-      - 'server-addon/**'
   workflow_dispatch:
 
 permissions:
@@ -17,9 +13,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: server-addon
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,16 +23,21 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Copy Gradle wrapper from root
+      - name: Setup Gradle wrapper for server addon
         run: |
+          cd server-addon
           cp -r ../gradle .
           cp ../gradlew .
           chmod +x ./gradlew
 
-      - name: Build with Gradle
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
+          build-root-directory: server-addon
+
+      - name: Build server addon
+        working-directory: server-addon
         run: ./gradlew build
 
       - name: Upload JAR artifact
