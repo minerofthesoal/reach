@@ -1,6 +1,6 @@
-# Reach & Fly Mod
+# Optimizer Super Premium
 
-A client-side Fabric mod for Minecraft with 15+ hack features including extended reach, fly, ESP, auto-combat, Jesus (walk on water), and more.
+A client-side Fabric mod for Minecraft with 18+ hack features including extended reach, fly, ESP, auto-combat, teleport, X-Ray, knockback, Jesus (walk on water), and more.
 
 **Supported Versions:** 1.21.11 | 1.21.4 | 1.21.1
 
@@ -21,21 +21,36 @@ A client-side Fabric mod for Minecraft with 15+ hack features including extended
 | **NoFall** | Prevents fall damage | `I` |
 | **Fullbright** | Night vision (max gamma) | `L` |
 | **Speed** | Ground speed multiplier | `O` |
+| **X-Ray** | See ores/chests/spawners through blocks | `Z` |
+| **Knockback** | Massive knockback on hit (up to 2500) | `J` |
+| **Teleport** | Instant teleport to any coordinates | `T` |
 | **Auto Elytra Swap** | Auto-equip elytra when falling | `Y` |
 | **Fly to Coords** | Auto-fly to target coordinates | `P` |
 | **Walk to Coords** | Simple pathfinding to coordinates | `;` |
 | **HUD Toggle** | Show/hide status overlay | `H` |
 | **Config Screen** | Full GUI with sliders and toggles | `Right Shift` |
 
-All keybinds are configurable in Minecraft's Controls menu under the "Reach & Fly" category.
+All keybinds are configurable in Minecraft's Controls menu under the "Optimizer Super Premium" category.
 
 ## Installation
+
+### Client Mod
 
 1. Install [Fabric Loader](https://fabricmc.net/use/installer/) for your Minecraft version
 2. Install [Fabric API](https://modrinth.com/mod/fabric-api)
 3. Download the latest JAR from [Releases](../../releases) or [Actions](../../actions)
 4. Place the JAR in your `.minecraft/mods/` folder
 5. Launch Minecraft
+
+### Server Addon (Optional)
+
+The server addon enables **reliable teleportation** on multiplayer servers. Players without the client mod are completely unaffected.
+
+1. Build the server addon: `cd server-addon && ../gradlew build`
+2. Place `osp-server-addon-1.0.0.jar` in the server's `mods/` folder
+3. Restart the server
+
+Without the server addon, the Teleport feature still works in **Beta mode** (fully client-side, may rubberband).
 
 ### Version Branches
 
@@ -53,6 +68,7 @@ Detailed documentation for every feature is in the [docs/wiki](docs/wiki/) folde
 - [Keybinds](docs/wiki/Keybinds.md) - Complete keybind reference
 - [Configuration](docs/wiki/Configuration.md) - Config file and GUI settings
 - [Building from Source](docs/wiki/Building.md) - Build instructions for all versions
+- [Server Addon](docs/wiki/ServerAddon.md) - Server-side teleport addon setup
 
 ## Building from Source
 
@@ -71,6 +87,12 @@ git checkout mc-1.21.4   # or mc-1.21.1
 ```
 
 The built JAR will be at `build/libs/reach-fly-mod-<version>.jar`.
+
+To build the server addon:
+```bash
+cd server-addon
+../gradlew build
+```
 
 ## Project Structure
 
@@ -94,12 +116,25 @@ src/main/java/com/reachfly/
 ├── NoFallHandler.java            # Fall damage prevention
 ├── FullbrightHandler.java        # Max gamma
 ├── SpeedHandler.java             # Ground speed multiplier
+├── KnockbackHandler.java         # Knockback attribute modifier
+├── XrayHandler.java              # X-Ray block filter
+├── TeleportHandler.java          # Teleport (normal + beta modes)
+├── TeleportPayload.java          # Custom network packet for teleport
 ├── AutoElytraSwapHandler.java    # Auto elytra equip on fall
 ├── FlyToCoordsHandler.java       # Auto-fly to coordinates
 ├── WalkToCoordsHandler.java      # Simple walk pathfinding
 └── mixin/
-    ├── ClientPlayerInteractionManagerMixin.java
+    ├── BlockRenderMixin.java     # X-Ray block rendering
+    ├── ClientPlayerInteractionManagerMixin.java  # Knockback velocity
     └── EntityGlowMixin.java      # ESP entity glow effect
+
+server-addon/                     # Optional server-side teleport addon
+├── build.gradle
+├── src/main/java/com/reachfly/serveraddon/
+│   ├── OspServerAddon.java       # Server initializer + packet receiver
+│   └── TeleportPayload.java      # Matching packet definition
+└── src/main/resources/
+    └── fabric.mod.json
 ```
 
 ## License

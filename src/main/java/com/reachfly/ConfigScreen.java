@@ -122,8 +122,8 @@ public class ConfigScreen extends Screen {
         addSlider("Walk Target Z", ModConfig.walkToZ, -30000, 30000, v -> ModConfig.walkToZ = v);
 
         // --- TELEPORT ---
-        addLabel("\u00a75\u00a7l--- Teleport ---");
-        addToggle("Use Server Addon (reliable)", () -> ModConfig.tpUseServerAddon, v -> ModConfig.tpUseServerAddon = v);
+        addLabel("\u00a75\u00a7l--- Teleport (press T) ---");
+        addToggle("Normal Mode (needs addon on server)", () -> ModConfig.tpUseServerAddon, v -> ModConfig.tpUseServerAddon = v);
         addSlider("TP Target X", ModConfig.tpX, -30000, 30000, v -> ModConfig.tpX = v);
         addSlider("TP Target Y", ModConfig.tpY, -64, 320, v -> ModConfig.tpY = v);
         addSlider("TP Target Z", ModConfig.tpZ, -30000, 30000, v -> ModConfig.tpZ = v);

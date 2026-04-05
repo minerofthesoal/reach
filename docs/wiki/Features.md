@@ -1,6 +1,6 @@
 # Features Overview
 
-Complete documentation for all Reach & Fly Mod features.
+Complete documentation for all Optimizer Super Premium features.
 
 ---
 
@@ -11,6 +11,7 @@ Extends the player's block and entity interaction distance beyond the vanilla 4.
 - Works in singleplayer by modifying both client-side and server-side attributes
 - Affects block breaking/placing AND entity targeting
 - Range: 3.0 - 50.0 blocks
+- Smart change detection: only updates attributes when the value changes, preventing flickering
 
 | Config Option | Default | Range |
 |---------------|---------|-------|
@@ -69,6 +70,7 @@ Automatically attacks the nearest living entity within range.
 
 - Respects attack cooldown (only swings when fully charged)
 - Optional players-only filter
+- Kill Aura mode: hits ALL entities in range each swing
 - Performs swing animation
 
 | Config Option | Default | Range |
@@ -76,6 +78,7 @@ Automatically attacks the nearest living entity within range.
 | `autoHitEnabled` | `false` | - |
 | `autoHitRange` | `3.0` | 1.0 - 50.0 |
 | `autoHitPlayersOnly` | `false` | - |
+| `killAuraEnabled` | `false` | - |
 
 ---
 
@@ -106,6 +109,65 @@ Defensive mode: automatically attacks nearby entities when YOUR health drops bel
 | `autoKillWhenLowEnabled` | `false` | - |
 | `autoKillSelfHpThreshold` | `6.0` | 1.0 - 20.0 |
 | `autoKillWhenLowRange` | `4.0` | 1.0 - 50.0 |
+
+---
+
+## Knockback
+
+Applies massive knockback to entities when you hit them. Configurable strength up to 2500.
+
+- Uses ATTACK_KNOCKBACK attribute modifier on both client and server
+- In singleplayer, also directly sets entity velocity via mixin for maximum effect
+- Smart change detection prevents modifier flickering
+
+| Config Option | Default | Range |
+|---------------|---------|-------|
+| `knockbackEnabled` | `false` | - |
+| `knockbackStrength` | `5.0` | 1.0 - 2500.0 |
+
+---
+
+## X-Ray
+
+See valuable blocks through terrain. Shows:
+
+- **Ores:** Diamond, emerald, gold, iron, copper, lapis, redstone, coal, quartz, ancient debris
+- **Containers:** Chests, ender chests, barrels, shulker boxes
+- **Structures:** Spawners, end portal frames
+- **Liquids:** Lava, water
+
+All non-valuable blocks become invisible. Automatically reloads chunks when toggled.
+
+| Config Option | Default |
+|---------------|---------|
+| `xrayEnabled` | `false` |
+
+---
+
+## Teleport
+
+Instantly teleport to any coordinates. Has two modes:
+
+### Normal Mode (`tpUseServerAddon = true`)
+Uses client + server cooperation for reliable teleportation:
+- **Singleplayer/LAN:** Directly teleports the server-side player entity. Always works perfectly.
+- **Multiplayer:** Sends a custom `reachfly:teleport` packet to the server. Requires the [Server Addon](ServerAddon.md) to be installed on the server.
+
+### Beta Mode (`tpUseServerAddon = false`)
+Fully client-side teleportation:
+- Sets the player position locally and sends spoofed position packets
+- Does NOT access any server internals
+- Works everywhere but **may rubberband** on vanilla/anti-cheat servers since the server may reject the position
+- No server addon needed
+
+Press the **T** key (default) to teleport. Set target coordinates in the config screen.
+
+| Config Option | Default | Range |
+|---------------|---------|-------|
+| `tpUseServerAddon` | `true` | - |
+| `tpX` | `0` | -30000 - 30000 |
+| `tpY` | `100` | -64 - 320 |
+| `tpZ` | `0` | -30000 - 30000 |
 
 ---
 
@@ -146,9 +208,10 @@ Walk on the surface of water and lava.
 
 Prevents fall damage by spoofing on-ground status to the server.
 
-- Activates when fall distance exceeds 2.0 blocks
-- Sends a `PlayerMoveC2SPacket.OnGroundOnly(true)` packet
-- Resets fall distance client-side
+- Sends Full position packets with `onGround=true` every tick while airborne
+- Resets client-side fall distance every tick
+- In singleplayer, also resets server-side fall distance directly
+- Handles all edge cases: normal falling, fly-into-ground, getting hit while flying
 
 | Config Option | Default |
 |---------------|---------|
@@ -171,10 +234,10 @@ Sets game gamma to maximum (16.0) for full visibility in darkness.
 
 ## Speed
 
-Multiplies horizontal ground movement speed.
+Multiplies horizontal ground movement speed using directional input.
 
+- Calculates movement direction from key inputs (W/A/S/D) and player yaw
 - Only applies while on the ground and actively moving
-- Multiplies X and Z velocity components
 - Does not affect vertical movement (falling/jumping)
 
 | Config Option | Default | Range |
@@ -204,8 +267,11 @@ Automatically flies the player to target coordinates.
 
 - Enables flight capability and sets velocity toward target
 - Rotates player to face the direction of travel
-- Arrives within 3 blocks of target, then disables
-- Shows actionbar messages for navigation feedback
+- Smooth deceleration within 30 blocks of target
+- Collision avoidance: rises over obstacles
+- Stuck detection with automatic altitude adjustment
+- Arrives within 1.5 blocks of target, then disables
+- Shows actionbar messages with distance and ETA
 
 | Config Option | Default | Range |
 |---------------|---------|-------|
@@ -219,12 +285,14 @@ Automatically flies the player to target coordinates.
 
 ## Walk to Coords
 
-Simple Baritone-like automatic walking to target coordinates.
+Baritone-like automatic walking to target coordinates.
 
 - Simulates W key, sprint, and jump inputs
-- Basic obstacle detection: jumps over 1-block-high obstacles
-- Auto-jumps when target is above current Y level
-- Stops within 2 blocks horizontal / 3 blocks vertical of target
+- Obstacle detection: jumps over 1-block obstacles, detours around 2-block walls
+- Gap detection: avoids 2+ block drops
+- Stuck detection with rerouting (70 degree detour, 180 degree reversal)
+- Auto-sprint when hunger > 6
+- Stops within 2 blocks horizontal / 4 blocks vertical of target
 - Sends actionbar progress messages
 
 | Config Option | Default | Range |
@@ -241,7 +309,7 @@ Simple Baritone-like automatic walking to target coordinates.
 On-screen status display showing all active features.
 
 - Renders in the top-left corner
-- Green = enabled, Red = disabled, Yellow = active navigation
+- Green = enabled, Red = disabled, Yellow = active navigation/teleport info
 - Shows current config values (distances, speeds, thresholds)
 - Hidden when the debug screen (F3) is open
 

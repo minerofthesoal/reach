@@ -31,11 +31,14 @@ If [Mod Menu](https://modrinth.com/mod/modmenu) is installed, you can also acces
 | `autoHitEnabled` | bool | false | - | Auto-attack nearest entity |
 | `autoHitRange` | float | 3.0 | 1.0 - 50.0 | Auto hit search radius |
 | `autoHitPlayersOnly` | bool | false | - | Only target players |
+| `killAuraEnabled` | bool | false | - | Hit all entities in range |
 | `lowHealthKillEnabled` | bool | false | - | Target low-HP entities |
 | `lowHealthThreshold` | float | 6.0 | 1.0 - 20.0 | HP threshold for targets |
 | `autoKillWhenLowEnabled` | bool | false | - | Attack when your HP is low |
 | `autoKillSelfHpThreshold` | float | 6.0 | 1.0 - 20.0 | Your HP threshold to activate |
 | `autoKillWhenLowRange` | float | 4.0 | 1.0 - 50.0 | Attack range when low HP |
+| `knockbackEnabled` | bool | false | - | Enable knockback boost |
+| `knockbackStrength` | float | 5.0 | 1.0 - 2500.0 | Knockback strength |
 
 ### Movement
 
@@ -48,14 +51,18 @@ If [Mod Menu](https://modrinth.com/mod/modmenu) is installed, you can also acces
 | `jesusEnabled` | bool | false | - | Walk on water/lava |
 | `noFallEnabled` | bool | false | - | Prevent fall damage |
 
-### Navigation
+### Navigation & Teleport
 
 | Option | Type | Default | Range | Description |
 |--------|------|---------|-------|-------------|
+| `tpUseServerAddon` | bool | true | - | Normal mode (ON) or Beta mode (OFF) |
+| `tpX` | float | 0 | -30000 - 30000 | Teleport target X |
+| `tpY` | float | 100 | -64 - 320 | Teleport target Y |
+| `tpZ` | float | 0 | -30000 - 30000 | Teleport target Z |
 | `flyToCoordsEnabled` | bool | false | - | Auto-fly to coords |
-| `flyToX` | float | 0 | -30000 - 30000 | Target X coordinate |
-| `flyToY` | float | 100 | -64 - 320 | Target Y coordinate |
-| `flyToZ` | float | 0 | -30000 - 30000 | Target Z coordinate |
+| `flyToX` | float | 0 | -30000 - 30000 | Fly target X |
+| `flyToY` | float | 100 | -64 - 320 | Fly target Y |
+| `flyToZ` | float | 0 | -30000 - 30000 | Fly target Z |
 | `flyToCoordsSpeed` | float | 2.0 | 0.5 - 20.0 | Navigation flight speed |
 | `walkToCoordsEnabled` | bool | false | - | Auto-walk to coords |
 | `walkToX` | float | 0 | -30000 - 30000 | Walk target X |
@@ -73,6 +80,7 @@ If [Mod Menu](https://modrinth.com/mod/modmenu) is installed, you can also acces
 | `espLines` | bool | false | Draw tracer lines to entities |
 | `espPathTrace` | bool | false | Draw ground-level path trace |
 | `fullbrightEnabled` | bool | false | Max gamma night vision |
+| `xrayEnabled` | bool | false | See ores through blocks |
 | `hudVisible` | bool | true | Show HUD status overlay |
 
 ### Utility
@@ -100,6 +108,7 @@ If [Mod Menu](https://modrinth.com/mod/modmenu) is installed, you can also acces
   "autoHitEnabled": false,
   "autoHitRange": 3.0,
   "autoHitPlayersOnly": false,
+  "killAuraEnabled": false,
   "lowHealthKillEnabled": false,
   "lowHealthThreshold": 6.0,
   "autoKillWhenLowEnabled": false,
@@ -112,6 +121,9 @@ If [Mod Menu](https://modrinth.com/mod/modmenu) is installed, you can also acces
   "fullbrightEnabled": false,
   "speedEnabled": false,
   "speedMultiplier": 2.0,
+  "xrayEnabled": false,
+  "knockbackEnabled": false,
+  "knockbackStrength": 5.0,
   "autoElytraSwapEnabled": false,
   "flyToCoordsEnabled": false,
   "flyToX": 0.0,
@@ -122,6 +134,10 @@ If [Mod Menu](https://modrinth.com/mod/modmenu) is installed, you can also acces
   "walkToX": 0.0,
   "walkToY": 64.0,
   "walkToZ": 0.0,
+  "tpUseServerAddon": true,
+  "tpX": 0.0,
+  "tpY": 100.0,
+  "tpZ": 0.0,
   "hudVisible": true
 }
 ```

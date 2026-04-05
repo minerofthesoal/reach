@@ -1,6 +1,6 @@
 # Keybinds
 
-All keybinds are configurable in Minecraft's Controls menu under the **Reach & Fly** category.
+All keybinds are configurable in Minecraft's Controls menu under the **Optimizer Super Premium** category.
 
 ## Default Keybind Map
 
@@ -17,6 +17,9 @@ All keybinds are configurable in Minecraft's Controls menu under the **Reach & F
 | `I` | Toggle NoFall | Prevent fall damage |
 | `L` | Toggle Fullbright | Maximum gamma |
 | `O` | Toggle Speed | Ground speed multiplier |
+| `Z` | Toggle X-Ray | See ores through blocks |
+| `J` | Toggle Knockback | Massive knockback on hit |
+| `T` | Teleport | Instant teleport to set coords |
 | `Y` | Toggle Auto Elytra Swap | Auto-equip elytra on fall |
 | `P` | Toggle Fly to Coords | Auto-fly to target |
 | `;` | Toggle Walk to Coords | Auto-walk to target |
@@ -27,12 +30,13 @@ All keybinds are configurable in Minecraft's Controls menu under the **Reach & F
 
 1. Open Minecraft Settings
 2. Go to **Controls** > **Key Binds**
-3. Scroll to the **Reach & Fly** category
+3. Scroll to the **Optimizer Super Premium** category
 4. Click on any keybind to reassign it
 
 ## Tips
 
 - All toggles are press-to-toggle (not hold)
+- **Teleport** (`T`) is a one-shot action, not a toggle - press it each time you want to teleport
 - Features stay enabled across sessions (saved to config)
 - The config screen (`Right Shift`) gives access to ALL settings including sliders for numeric values
-- Coordinate-based features (Fly to Coords, Walk to Coords) need coordinates set in the config screen before toggling on
+- Coordinate-based features (Fly to Coords, Walk to Coords, Teleport) need coordinates set in the config screen before use

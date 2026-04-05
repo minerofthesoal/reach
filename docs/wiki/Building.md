@@ -5,7 +5,7 @@
 - **JDK 21** or later
 - **Git**
 
-## Quick Build
+## Quick Build (Client Mod)
 
 ```bash
 git clone https://github.com/minerofthesoal/reach.git
@@ -14,6 +14,17 @@ cd reach
 ```
 
 The built JAR is at `build/libs/reach-fly-mod-<version>.jar`.
+
+## Building the Server Addon
+
+The server addon is a separate Gradle project in the `server-addon/` directory:
+
+```bash
+cd server-addon
+../gradlew build
+```
+
+The built JAR is at `server-addon/build/libs/osp-server-addon-1.0.0.jar`.
 
 ## Building for Different Minecraft Versions
 
