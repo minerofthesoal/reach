@@ -22,6 +22,24 @@ public class ReachHandler {
     private static final double DEFAULT_BLOCK_RANGE = 4.5;
     private static final double DEFAULT_ENTITY_RANGE = 3.0;
 
+    private static int tickCounter = 0;
+
+    /**
+     * Called every tick to ensure reach attributes stay applied
+     * (handles respawn, dimension change, etc.)
+     */
+    public static void tick(MinecraftClient client) {
+        if (!ModConfig.reachEnabled) return;
+        if (client.player == null) return;
+
+        // Re-apply every 20 ticks (1 second) to handle respawns etc.
+        tickCounter++;
+        if (tickCounter >= 20) {
+            tickCounter = 0;
+            updateReachAttributes();
+        }
+    }
+
     public static void updateReachAttributes() {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
@@ -44,9 +62,9 @@ public class ReachHandler {
 
     private static void applyToPlayer(net.minecraft.entity.LivingEntity player) {
         EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.BLOCK_INTERACTION_RANGE);
+                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
         EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.ENTITY_INTERACTION_RANGE);
+                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE);
 
         if (blockRange == null || entityRange == null) return;
 
@@ -88,9 +106,9 @@ public class ReachHandler {
 
     private static void clearForPlayer(net.minecraft.entity.LivingEntity player) {
         EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.BLOCK_INTERACTION_RANGE);
+                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
         EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.ENTITY_INTERACTION_RANGE);
+                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE);
 
         if (blockRange != null) blockRange.removeModifier(BLOCK_REACH_ID);
         if (entityRange != null) entityRange.removeModifier(ENTITY_REACH_ID);

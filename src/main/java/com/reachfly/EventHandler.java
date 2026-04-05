@@ -22,6 +22,7 @@ public class EventHandler {
 
         while (KeybindHandler.toggleReach.wasPressed()) {
             ModConfig.reachEnabled = !ModConfig.reachEnabled;
+            ReachHandler.updateReachAttributes();
             ModConfig.save();
         }
 
@@ -104,6 +105,7 @@ public class EventHandler {
         }
 
         // Run feature tick handlers
+        ReachHandler.tick(client);
         FlyHandler.tick(client);
         AutoHitHandler.tick(client);
         LowHealthKillHandler.tick(client);
