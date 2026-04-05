@@ -13,6 +13,7 @@ public class HudOverlay {
     private static final int YELLOW = 0xFFFFFF55;
     private static final int CYAN = 0xFF55FFFF;
     private static final int PURPLE = 0xFFAA55FF;
+    private static final int GOLD = 0xFFFFD700;
     private static final int BG = 0x80000000;
 
     public static void render(DrawContext context, RenderTickCounter tickCounter) {
@@ -26,8 +27,11 @@ public class HudOverlay {
         int y = 6;
         int lh = 12;
 
-        // Branding header
-        drawLine(context, tr, x, y, "\u00a7d\u00a7lOSP \u00a78v2.1", true, PURPLE);
+        if (ModConfig.proUnlocked) {
+            drawLine(context, tr, x, y, "\u00a7d\u00a7lOSP \u00a76\u00a7lPRO", true, GOLD);
+        } else {
+            drawLine(context, tr, x, y, "\u00a7d\u00a7lOSP \u00a78v2.1", true, PURPLE);
+        }
         y += lh;
 
         drawLine(context, tr, x, y,
@@ -124,6 +128,103 @@ public class HudOverlay {
         y += lh;
 
         drawLine(context, tr, x, y, "Eat Assist: " + (ModConfig.eatingAssistEnabled ? "ON" : "OFF"), ModConfig.eatingAssistEnabled);
+        y += lh;
+
+        // ===== PRO HUD (only show enabled pro modules) =====
+        if (ModConfig.proUnlocked) {
+            boolean anyPro = false;
+
+            if (ModConfig.antiKnockbackEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, String.format("Anti KB: ON (%.0f%%)", ModConfig.antiKnockbackStrength), true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.noSwingEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "No Swing: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.antiAfkEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "Anti AFK: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.fastBreakEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, String.format("FastBreak: ON (%.1fx)", ModConfig.fastBreakSpeed), true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.nukerEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, String.format("Nuker: ON (%.0f)", ModConfig.nukerRadius), true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.autoFarmEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "AutoFarm: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.phaseEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "Phase: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.freecamEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "Freecam: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.timerEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, String.format("Timer: ON (%.1fx)", ModConfig.timerSpeed), true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.chestEspEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "ChestESP: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.trajectoriesEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "Trajectories: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.nametagsEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "Nametags: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.autoFishEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "AutoFish: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.chestStealerEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "ChestStealer: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.autoToolEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "AutoTool: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.chatSpamEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "ChatSpam: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.autoBridgeEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "AutoBridge: ON", true, GOLD);
+                y += lh;
+            }
+            if (ModConfig.towerEnabled) {
+                if (!anyPro) { drawLine(context, tr, x, y, "\u00a76--- PRO ---", true, GOLD); y += lh; anyPro = true; }
+                drawLine(context, tr, x, y, "Tower: ON", true, GOLD);
+                y += lh;
+            }
+        }
     }
 
     private static void drawLine(DrawContext ctx, TextRenderer tr, int x, int y, String text, boolean enabled) {

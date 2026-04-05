@@ -154,5 +154,6 @@ public class EventHandler {
         AutoArmorHandler.tick(client);
         ScaffoldHandler.tick(client);
         TeleportHandler.tick(client);
+        ProHandlers.tick(client);
     }
 }

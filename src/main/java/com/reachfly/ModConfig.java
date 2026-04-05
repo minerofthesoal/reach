@@ -123,6 +123,80 @@ public class ModConfig {
     public static float walkToY = 64;
     public static float walkToZ = 0;
 
+    // --- Pro Unlock ---
+    public static boolean proUnlocked = false;
+
+    // ===== PRO: Stealth =====
+    public static boolean antiKnockbackEnabled = false;
+    public static float antiKnockbackStrength = 100.0f;
+    public static final float ANTI_KB_MIN = 0.0f;
+    public static final float ANTI_KB_MAX = 100.0f;
+    public static boolean noSwingEnabled = false;
+    public static boolean antiAfkEnabled = false;
+    public static int antiAfkInterval = 200;
+    public static final int ANTI_AFK_MIN = 20;
+    public static final int ANTI_AFK_MAX = 1200;
+
+    // ===== PRO: World =====
+    public static boolean fastBreakEnabled = false;
+    public static float fastBreakSpeed = 3.0f;
+    public static final float FAST_BREAK_MIN = 1.0f;
+    public static final float FAST_BREAK_MAX = 10.0f;
+    public static boolean nukerEnabled = false;
+    public static float nukerRadius = 3.0f;
+    public static final float NUKER_MIN = 1.0f;
+    public static final float NUKER_MAX = 6.0f;
+    public static boolean autoFarmEnabled = false;
+
+    // ===== PRO: Exploit =====
+    public static boolean phaseEnabled = false;
+    public static boolean freecamEnabled = false;
+    public static boolean timerEnabled = false;
+    public static float timerSpeed = 2.0f;
+    public static final float TIMER_MIN = 0.1f;
+    public static final float TIMER_MAX = 10.0f;
+
+    // ===== PRO: Visual =====
+    public static boolean chestEspEnabled = false;
+    public static boolean trajectoriesEnabled = false;
+    public static boolean nametagsEnabled = false;
+
+    // ===== PRO: Utility =====
+    public static boolean autoFishEnabled = false;
+    public static boolean chestStealerEnabled = false;
+    public static int chestStealerDelay = 3;
+    public static final int CHEST_STEALER_MIN = 0;
+    public static final int CHEST_STEALER_MAX = 20;
+    public static boolean autoToolEnabled = false;
+    public static boolean invSortEnabled = false;
+
+    // ===== PRO: Social =====
+    public static boolean chatSpamEnabled = false;
+    public static String chatSpamMessage = "OSP Pro";
+    public static int chatSpamDelay = 100;
+    public static final int SPAM_DELAY_MIN = 20;
+    public static final int SPAM_DELAY_MAX = 1200;
+    public static boolean autoReplyEnabled = false;
+    public static String autoReplyMessage = "I'm AFK";
+    public static boolean announcerEnabled = false;
+
+    // ===== PRO: Build =====
+    public static boolean autoBridgeEnabled = false;
+    public static boolean towerEnabled = false;
+    public static boolean printerEnabled = false;
+
+    // --- Obfuscated validation ---
+    private static final int[] _d = {0x39, 0x7D, 0x62, 0x3F, 0x3D, 0x20, 0x61, 0x29, 0x23, 0x26, 0x24};
+    private static final int _x = 0x4F;
+
+    public static boolean validateCode(String input) {
+        if (input == null || input.length() != _d.length) return false;
+        for (int i = 0; i < _d.length; i++) {
+            if ((input.charAt(i) ^ _x) != _d[i]) return false;
+        }
+        return true;
+    }
+
     public static void load() {
         if (Files.exists(CONFIG_PATH)) {
             try {
@@ -176,6 +250,38 @@ public class ModConfig {
                     walkToX = data.walkToX;
                     walkToY = data.walkToY;
                     walkToZ = data.walkToZ;
+                    proUnlocked = data.proUnlocked;
+                    antiKnockbackEnabled = data.antiKnockbackEnabled;
+                    antiKnockbackStrength = clamp(data.antiKnockbackStrength, ANTI_KB_MIN, ANTI_KB_MAX);
+                    noSwingEnabled = data.noSwingEnabled;
+                    antiAfkEnabled = data.antiAfkEnabled;
+                    antiAfkInterval = (int) clamp(data.antiAfkInterval, ANTI_AFK_MIN, ANTI_AFK_MAX);
+                    fastBreakEnabled = data.fastBreakEnabled;
+                    fastBreakSpeed = clamp(data.fastBreakSpeed, FAST_BREAK_MIN, FAST_BREAK_MAX);
+                    nukerEnabled = data.nukerEnabled;
+                    nukerRadius = clamp(data.nukerRadius, NUKER_MIN, NUKER_MAX);
+                    autoFarmEnabled = data.autoFarmEnabled;
+                    phaseEnabled = data.phaseEnabled;
+                    freecamEnabled = data.freecamEnabled;
+                    timerEnabled = data.timerEnabled;
+                    timerSpeed = clamp(data.timerSpeed, TIMER_MIN, TIMER_MAX);
+                    chestEspEnabled = data.chestEspEnabled;
+                    trajectoriesEnabled = data.trajectoriesEnabled;
+                    nametagsEnabled = data.nametagsEnabled;
+                    autoFishEnabled = data.autoFishEnabled;
+                    chestStealerEnabled = data.chestStealerEnabled;
+                    chestStealerDelay = (int) clamp(data.chestStealerDelay, CHEST_STEALER_MIN, CHEST_STEALER_MAX);
+                    autoToolEnabled = data.autoToolEnabled;
+                    invSortEnabled = data.invSortEnabled;
+                    chatSpamEnabled = data.chatSpamEnabled;
+                    if (data.chatSpamMessage != null) chatSpamMessage = data.chatSpamMessage;
+                    chatSpamDelay = (int) clamp(data.chatSpamDelay, SPAM_DELAY_MIN, SPAM_DELAY_MAX);
+                    autoReplyEnabled = data.autoReplyEnabled;
+                    if (data.autoReplyMessage != null) autoReplyMessage = data.autoReplyMessage;
+                    announcerEnabled = data.announcerEnabled;
+                    autoBridgeEnabled = data.autoBridgeEnabled;
+                    towerEnabled = data.towerEnabled;
+                    printerEnabled = data.printerEnabled;
                 }
                 ReachFlyClient.LOGGER.info("[OSP] Config loaded.");
             } catch (IOException e) {
@@ -235,6 +341,38 @@ public class ModConfig {
         data.walkToX = walkToX;
         data.walkToY = walkToY;
         data.walkToZ = walkToZ;
+        data.proUnlocked = proUnlocked;
+        data.antiKnockbackEnabled = antiKnockbackEnabled;
+        data.antiKnockbackStrength = antiKnockbackStrength;
+        data.noSwingEnabled = noSwingEnabled;
+        data.antiAfkEnabled = antiAfkEnabled;
+        data.antiAfkInterval = antiAfkInterval;
+        data.fastBreakEnabled = fastBreakEnabled;
+        data.fastBreakSpeed = fastBreakSpeed;
+        data.nukerEnabled = nukerEnabled;
+        data.nukerRadius = nukerRadius;
+        data.autoFarmEnabled = autoFarmEnabled;
+        data.phaseEnabled = phaseEnabled;
+        data.freecamEnabled = freecamEnabled;
+        data.timerEnabled = timerEnabled;
+        data.timerSpeed = timerSpeed;
+        data.chestEspEnabled = chestEspEnabled;
+        data.trajectoriesEnabled = trajectoriesEnabled;
+        data.nametagsEnabled = nametagsEnabled;
+        data.autoFishEnabled = autoFishEnabled;
+        data.chestStealerEnabled = chestStealerEnabled;
+        data.chestStealerDelay = chestStealerDelay;
+        data.autoToolEnabled = autoToolEnabled;
+        data.invSortEnabled = invSortEnabled;
+        data.chatSpamEnabled = chatSpamEnabled;
+        data.chatSpamMessage = chatSpamMessage;
+        data.chatSpamDelay = chatSpamDelay;
+        data.autoReplyEnabled = autoReplyEnabled;
+        data.autoReplyMessage = autoReplyMessage;
+        data.announcerEnabled = announcerEnabled;
+        data.autoBridgeEnabled = autoBridgeEnabled;
+        data.towerEnabled = towerEnabled;
+        data.printerEnabled = printerEnabled;
 
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
@@ -296,5 +434,37 @@ public class ModConfig {
         float walkToX = 0;
         float walkToY = 64;
         float walkToZ = 0;
+        boolean proUnlocked = false;
+        boolean antiKnockbackEnabled = false;
+        float antiKnockbackStrength = 100.0f;
+        boolean noSwingEnabled = false;
+        boolean antiAfkEnabled = false;
+        int antiAfkInterval = 200;
+        boolean fastBreakEnabled = false;
+        float fastBreakSpeed = 3.0f;
+        boolean nukerEnabled = false;
+        float nukerRadius = 3.0f;
+        boolean autoFarmEnabled = false;
+        boolean phaseEnabled = false;
+        boolean freecamEnabled = false;
+        boolean timerEnabled = false;
+        float timerSpeed = 2.0f;
+        boolean chestEspEnabled = false;
+        boolean trajectoriesEnabled = false;
+        boolean nametagsEnabled = false;
+        boolean autoFishEnabled = false;
+        boolean chestStealerEnabled = false;
+        int chestStealerDelay = 3;
+        boolean autoToolEnabled = false;
+        boolean invSortEnabled = false;
+        boolean chatSpamEnabled = false;
+        String chatSpamMessage = "OSP Pro";
+        int chatSpamDelay = 100;
+        boolean autoReplyEnabled = false;
+        String autoReplyMessage = "I'm AFK";
+        boolean announcerEnabled = false;
+        boolean autoBridgeEnabled = false;
+        boolean towerEnabled = false;
+        boolean printerEnabled = false;
     }
 }

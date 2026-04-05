@@ -14,11 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * ClickGUI - Category-panel layout inspired by Future/Rusherhack/LiquidBounce.
- * Features category tabs across the top, module list with toggle switches,
- * and expandable settings per module.
- */
 public class ConfigScreen extends Screen {
 
     private final Screen parent;
@@ -26,13 +21,17 @@ public class ConfigScreen extends Screen {
     private double scrollOffset = 0;
     private String expandedModule = null;
 
-    // Edit modal state
     private TextFieldWidget editField = null;
     private String editLabel = null;
     private java.util.function.Consumer<Float> editSetter = null;
     private float editMin, editMax;
 
-    // Colors
+    // Code entry
+    private TextFieldWidget codeField = null;
+    private boolean showCodeEntry = false;
+    private String codeMessage = null;
+    private int codeMsgTimer = 0;
+
     private static final int BG = 0xF0101020;
     private static final int PANEL_BG = 0xF0181828;
     private static final int ACCENT = 0xFF8B5CF6;
@@ -45,12 +44,13 @@ public class ConfigScreen extends Screen {
     private static final int TEXT_DIM = 0xFF888898;
     private static final int GREEN = 0xFF4ADE80;
     private static final int RED = 0xFFEF4444;
+    private static final int GOLD = 0xFFFFD700;
+    private static final int PRO_ACCENT = 0xFFFF6B6B;
 
     private static final int TAB_H = 28;
     private static final int MODULE_H = 22;
     private static final int SETTING_H = 18;
 
-    // Data model
     private final Map<String, List<Module>> categories = new LinkedHashMap<>();
 
     public ConfigScreen(Screen parent) {
@@ -62,6 +62,8 @@ public class ConfigScreen extends Screen {
     protected void init() {
         clearChildren();
         editField = null;
+        codeField = null;
+        showCodeEntry = false;
         categories.clear();
         scrollOffset = 0;
 
@@ -127,53 +129,122 @@ public class ConfigScreen extends Screen {
                 .addNumber("Y", () -> ModConfig.tpY, -64, 320, v -> ModConfig.tpY = v)
                 .addNumber("Z", () -> ModConfig.tpZ, -30000000, 30000000, v -> ModConfig.tpZ = v));
         categories.put("Player", player);
-    }
 
-    // ---- RENDERING ----
+        // ===== PRO CATEGORIES (only when unlocked) =====
+        if (ModConfig.proUnlocked) {
+            // === PRO: STEALTH ===
+            List<Module> stealth = new ArrayList<>();
+            stealth.add(new Module("Anti Knockback", () -> ModConfig.antiKnockbackEnabled, v -> ModConfig.antiKnockbackEnabled = v)
+                    .addNumber("Strength %", () -> ModConfig.antiKnockbackStrength, ModConfig.ANTI_KB_MIN, ModConfig.ANTI_KB_MAX, v -> ModConfig.antiKnockbackStrength = v));
+            stealth.add(new Module("No Swing", () -> ModConfig.noSwingEnabled, v -> ModConfig.noSwingEnabled = v));
+            stealth.add(new Module("Anti AFK", () -> ModConfig.antiAfkEnabled, v -> ModConfig.antiAfkEnabled = v)
+                    .addNumber("Interval (ticks)", () -> (float) ModConfig.antiAfkInterval, ModConfig.ANTI_AFK_MIN, ModConfig.ANTI_AFK_MAX, v -> ModConfig.antiAfkInterval = Math.round(v)));
+            categories.put("\u00a76Stealth", stealth);
+
+            // === PRO: WORLD ===
+            List<Module> world = new ArrayList<>();
+            world.add(new Module("Fast Break", () -> ModConfig.fastBreakEnabled, v -> ModConfig.fastBreakEnabled = v)
+                    .addNumber("Speed Multi", () -> ModConfig.fastBreakSpeed, ModConfig.FAST_BREAK_MIN, ModConfig.FAST_BREAK_MAX, v -> ModConfig.fastBreakSpeed = v));
+            world.add(new Module("Nuker", () -> ModConfig.nukerEnabled, v -> ModConfig.nukerEnabled = v)
+                    .addNumber("Radius", () -> ModConfig.nukerRadius, ModConfig.NUKER_MIN, ModConfig.NUKER_MAX, v -> ModConfig.nukerRadius = v));
+            world.add(new Module("Auto Farm", () -> ModConfig.autoFarmEnabled, v -> ModConfig.autoFarmEnabled = v));
+            categories.put("\u00a72World", world);
+
+            // === PRO: EXPLOIT ===
+            List<Module> exploit = new ArrayList<>();
+            exploit.add(new Module("Phase", () -> ModConfig.phaseEnabled, v -> ModConfig.phaseEnabled = v));
+            exploit.add(new Module("Freecam", () -> ModConfig.freecamEnabled, v -> ModConfig.freecamEnabled = v));
+            exploit.add(new Module("Timer", () -> ModConfig.timerEnabled, v -> ModConfig.timerEnabled = v)
+                    .addNumber("Speed", () -> ModConfig.timerSpeed, ModConfig.TIMER_MIN, ModConfig.TIMER_MAX, v -> ModConfig.timerSpeed = v));
+            categories.put("\u00a74Exploit", exploit);
+
+            // === PRO: VISUAL ===
+            List<Module> visual = new ArrayList<>();
+            visual.add(new Module("Chest ESP", () -> ModConfig.chestEspEnabled, v -> ModConfig.chestEspEnabled = v));
+            visual.add(new Module("Trajectories", () -> ModConfig.trajectoriesEnabled, v -> ModConfig.trajectoriesEnabled = v));
+            visual.add(new Module("Nametags", () -> ModConfig.nametagsEnabled, v -> ModConfig.nametagsEnabled = v));
+            categories.put("\u00a7eVisual+", visual);
+
+            // === PRO: UTILITY ===
+            List<Module> utility = new ArrayList<>();
+            utility.add(new Module("Auto Fish", () -> ModConfig.autoFishEnabled, v -> ModConfig.autoFishEnabled = v));
+            utility.add(new Module("Chest Stealer", () -> ModConfig.chestStealerEnabled, v -> ModConfig.chestStealerEnabled = v)
+                    .addNumber("Delay (ticks)", () -> (float) ModConfig.chestStealerDelay, ModConfig.CHEST_STEALER_MIN, ModConfig.CHEST_STEALER_MAX, v -> ModConfig.chestStealerDelay = Math.round(v)));
+            utility.add(new Module("Auto Tool", () -> ModConfig.autoToolEnabled, v -> ModConfig.autoToolEnabled = v));
+            utility.add(new Module("Inv Sort", () -> ModConfig.invSortEnabled, v -> ModConfig.invSortEnabled = v));
+            categories.put("\u00a73Utility", utility);
+
+            // === PRO: SOCIAL ===
+            List<Module> social = new ArrayList<>();
+            social.add(new Module("Chat Spam", () -> ModConfig.chatSpamEnabled, v -> ModConfig.chatSpamEnabled = v)
+                    .addNumber("Delay (ticks)", () -> (float) ModConfig.chatSpamDelay, ModConfig.SPAM_DELAY_MIN, ModConfig.SPAM_DELAY_MAX, v -> ModConfig.chatSpamDelay = Math.round(v)));
+            social.add(new Module("Auto Reply", () -> ModConfig.autoReplyEnabled, v -> ModConfig.autoReplyEnabled = v));
+            social.add(new Module("Announcer", () -> ModConfig.announcerEnabled, v -> ModConfig.announcerEnabled = v));
+            categories.put("\u00a7dSocial", social);
+
+            // === PRO: BUILD ===
+            List<Module> build = new ArrayList<>();
+            build.add(new Module("Auto Bridge", () -> ModConfig.autoBridgeEnabled, v -> ModConfig.autoBridgeEnabled = v));
+            build.add(new Module("Tower", () -> ModConfig.towerEnabled, v -> ModConfig.towerEnabled = v));
+            build.add(new Module("Printer", () -> ModConfig.printerEnabled, v -> ModConfig.printerEnabled = v));
+            categories.put("\u00a7bBuild", build);
+        }
+    }
 
     @Override
     public void render(DrawContext ctx, int mouseX, int mouseY, float delta) {
-        // Full screen dark background
         ctx.fill(0, 0, this.width, this.height, BG);
 
-        if (editField != null) {
-            renderEditModal(ctx, mouseX, mouseY, delta);
-            return;
-        }
+        if (codeMsgTimer > 0) codeMsgTimer--;
+        if (showCodeEntry) { renderCodeEntry(ctx, mouseX, mouseY, delta); return; }
+        if (editField != null) { renderEditModal(ctx, mouseX, mouseY, delta); return; }
 
         int panelW = Math.min(320, this.width - 40);
         int panelX = (this.width - panelW) / 2;
         int panelTop = 20;
         int panelBottom = this.height - 20;
 
-        // Panel background
         ctx.fill(panelX - 1, panelTop - 1, panelX + panelW + 1, panelBottom + 1, ACCENT_DIM);
         ctx.fill(panelX, panelTop, panelX + panelW, panelBottom, PANEL_BG);
 
         // Title bar
         ctx.fill(panelX, panelTop, panelX + panelW, panelTop + TAB_H, 0xFF12122A);
-        ctx.fill(panelX, panelTop + TAB_H - 1, panelX + panelW, panelTop + TAB_H, ACCENT);
+        ctx.fill(panelX, panelTop + TAB_H - 1, panelX + panelW, panelTop + TAB_H, ModConfig.proUnlocked ? GOLD : ACCENT);
         ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7d\u00a7lOSP"), panelX + 6, panelTop + 6, TEXT_PRIMARY);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78v2.1"), panelX + 32, panelTop + 6, TEXT_DIM);
+        if (ModConfig.proUnlocked) {
+            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a76\u00a7lPRO"), panelX + 32, panelTop + 6, GOLD);
+        } else {
+            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78v2.1"), panelX + 32, panelTop + 6, TEXT_DIM);
+        }
+
+        // Key icon (click to enter code)
+        int keyX = panelX + panelW - 32;
+        boolean keyHover = mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 2 && mouseY < panelTop + TAB_H - 2;
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal(keyHover ? "\u00a7e\u2605" : "\u00a78\u2605"), keyX, panelTop + 6, TEXT_DIM);
 
         // Close button
-        int closeX = panelX + panelW - 16;
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7cx"), closeX, panelTop + 6, RED);
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7cx"), panelX + panelW - 16, panelTop + 6, RED);
 
-        // Category tabs
+        // Category tabs (scrollable if many)
         int tabY = panelTop + TAB_H;
         int tabCount = categories.size();
-        int tabW = panelW / tabCount;
+        int tabW = Math.max(40, panelW / Math.min(tabCount, 6));
         int tabIdx = 0;
+        int tabScrollX = 0;
         for (String cat : categories.keySet()) {
-            int tx = panelX + tabIdx * tabW;
-            boolean selected = cat.equals(activeCategory);
-            boolean hovered = mouseX >= tx && mouseX < tx + tabW && mouseY >= tabY && mouseY < tabY + 20;
-            ctx.fill(tx, tabY, tx + tabW, tabY + 20, selected ? 0xFF222244 : (hovered ? 0xFF1A1A38 : 0xFF141430));
-            if (selected) ctx.fill(tx, tabY + 18, tx + tabW, tabY + 20, ACCENT);
-            int textW = this.textRenderer.getWidth(cat);
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal(selected ? "\u00a7f" + cat : "\u00a78" + cat),
-                    tx + (tabW - textW) / 2, tabY + 5, TEXT_PRIMARY);
+            int tx = panelX + tabIdx * tabW - tabScrollX;
+            if (tx + tabW > panelX && tx < panelX + panelW) {
+                boolean selected = cat.equals(activeCategory);
+                boolean hovered = mouseX >= tx && mouseX < tx + tabW && mouseY >= tabY && mouseY < tabY + 20;
+                boolean isPro = cat.contains("\u00a7") && !cat.equals("Combat") && !cat.equals("Movement") && !cat.equals("Render") && !cat.equals("Player");
+                ctx.fill(tx, tabY, tx + tabW, tabY + 20, selected ? (isPro ? 0xFF2A2210 : 0xFF222244) : (hovered ? 0xFF1A1A38 : 0xFF141430));
+                if (selected) ctx.fill(tx, tabY + 18, tx + tabW, tabY + 20, isPro ? GOLD : ACCENT);
+                String displayCat = cat.replaceAll("\u00a7.", "");
+                int textW = this.textRenderer.getWidth(displayCat);
+                String prefix = selected ? "\u00a7f" : "\u00a78";
+                if (isPro && selected) prefix = "\u00a76";
+                ctx.drawTextWithShadow(this.textRenderer, Text.literal(prefix + displayCat), tx + (tabW - textW) / 2, tabY + 5, TEXT_PRIMARY);
+            }
             tabIdx++;
         }
 
@@ -189,7 +260,6 @@ public class ConfigScreen extends Screen {
                 y = renderModule(ctx, mod, panelX + 2, y, panelW - 4, mouseX, mouseY);
             }
         }
-
         ctx.disableScissor();
 
         // Scrollbar
@@ -213,37 +283,27 @@ public class ConfigScreen extends Screen {
         boolean hovered = mx >= x && mx < x + w && my >= y && my < y + MODULE_H;
         boolean expanded = mod.name.equals(expandedModule) && !mod.settings.isEmpty();
 
-        // Module row background
         int bg = enabled ? MODULE_ON : (hovered ? MODULE_HOVER : MODULE_BG);
         ctx.fill(x, y, x + w, y + MODULE_H, bg);
-        // Left accent bar for enabled modules
         if (enabled) ctx.fill(x, y, x + 2, y + MODULE_H, ACCENT);
 
-        // Module name
         ctx.drawTextWithShadow(this.textRenderer, Text.literal(mod.name), x + 8, y + 6, enabled ? TEXT_PRIMARY : TEXT_DIM);
 
-        // Status indicator (right side)
         String status = enabled ? "\u00a7aON" : "\u00a78OFF";
-        int statusW = this.textRenderer.getWidth(status.replace("\u00a7a", "").replace("\u00a78", ""));
+        int statusW = this.textRenderer.getWidth(enabled ? "ON" : "OFF");
         ctx.drawTextWithShadow(this.textRenderer, Text.literal(status), x + w - statusW - 20, y + 6, TEXT_PRIMARY);
 
-        // Expand arrow if has settings
         if (!mod.settings.isEmpty()) {
             String arrow = expanded ? "\u25BC" : "\u25B6";
             ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + arrow), x + w - 12, y + 6, TEXT_DIM);
         }
-
-        // Separator line
         ctx.fill(x, y + MODULE_H - 1, x + w, y + MODULE_H, 0x18FFFFFF);
-
         y += MODULE_H;
 
-        // Expanded settings
         if (expanded) {
             for (Setting s : mod.settings) {
                 ctx.fill(x, y, x + w, y + SETTING_H, SETTING_BG);
                 ctx.fill(x + 2, y, x + 3, y + SETTING_H, 0x40FFFFFF);
-
                 if (s.type == SettingType.TOGGLE) {
                     boolean on = s.boolGetter.get();
                     String val = on ? "\u00a7aON" : "\u00a7cOFF";
@@ -255,63 +315,75 @@ public class ConfigScreen extends Screen {
                     ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a77  " + s.name + ": \u00a7f" + formatNumber(val)), x + 10, y + 4, TEXT_DIM);
                     ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78[\u00a7bedit\u00a78]"), x + w - 28, y + 4, TEXT_DIM);
                 }
-
                 ctx.fill(x, y + SETTING_H - 1, x + w, y + SETTING_H, 0x10FFFFFF);
                 y += SETTING_H;
             }
         }
-
         return y;
     }
 
     private void renderEditModal(DrawContext ctx, int mouseX, int mouseY, float delta) {
         ctx.fill(0, 0, this.width, this.height, 0xC0000000);
-
-        int boxW = 220;
-        int boxH = 90;
-        int boxX = this.width / 2 - boxW / 2;
-        int boxY = this.height / 2 - boxH / 2;
-
+        int boxW = 220; int boxH = 90;
+        int boxX = this.width / 2 - boxW / 2; int boxY = this.height / 2 - boxH / 2;
         ctx.fill(boxX - 1, boxY - 1, boxX + boxW + 1, boxY + boxH + 1, ACCENT);
         ctx.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0xFF1A1A2E);
-
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a7b\u00a7l" + editLabel),
-                this.width / 2, boxY + 8, TEXT_PRIMARY);
-
-        editField.setX(this.width / 2 - 100);
-        editField.setY(boxY + 24);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a7b\u00a7l" + editLabel), this.width / 2, boxY + 8, TEXT_PRIMARY);
+        editField.setX(this.width / 2 - 100); editField.setY(boxY + 24);
         editField.render(ctx, mouseX, mouseY, delta);
-
-        // Confirm/Cancel as text buttons
         int btnY = boxY + 50;
         boolean confirmHover = mouseX >= this.width / 2 - 50 && mouseX < this.width / 2 - 5 && mouseY >= btnY && mouseY < btnY + 14;
         boolean cancelHover = mouseX >= this.width / 2 + 5 && mouseX < this.width / 2 + 50 && mouseY >= btnY && mouseY < btnY + 14;
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(confirmHover ? "\u00a7a\u00a7l[Confirm]" : "\u00a7a[Confirm]"),
-                this.width / 2 - 28, btnY, GREEN);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"),
-                this.width / 2 + 28, btnY, RED);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(confirmHover ? "\u00a7a\u00a7l[Confirm]" : "\u00a7a[Confirm]"), this.width / 2 - 28, btnY, GREEN);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"), this.width / 2 + 28, btnY, RED);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a78" + formatNumber(editMin) + " \u2014 " + formatNumber(editMax)), this.width / 2, boxY + boxH - 14, TEXT_DIM);
+    }
 
-        ctx.drawCenteredTextWithShadow(this.textRenderer,
-                Text.literal("\u00a78" + formatNumber(editMin) + " \u2014 " + formatNumber(editMax)),
-                this.width / 2, boxY + boxH - 14, TEXT_DIM);
+    private void renderCodeEntry(DrawContext ctx, int mouseX, int mouseY, float delta) {
+        ctx.fill(0, 0, this.width, this.height, 0xC0000000);
+        int boxW = 260; int boxH = 100;
+        int boxX = this.width / 2 - boxW / 2; int boxY = this.height / 2 - boxH / 2;
+        ctx.fill(boxX - 1, boxY - 1, boxX + boxW + 1, boxY + boxH + 1, GOLD);
+        ctx.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0xFF1A1A2E);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a76\u00a7lEnter Activation Code"), this.width / 2, boxY + 8, GOLD);
+        if (codeField != null) {
+            codeField.setX(this.width / 2 - 100); codeField.setY(boxY + 26);
+            codeField.render(ctx, mouseX, mouseY, delta);
+        }
+        int btnY = boxY + 54;
+        boolean activateHover = mouseX >= this.width / 2 - 55 && mouseX < this.width / 2 - 5 && mouseY >= btnY && mouseY < btnY + 14;
+        boolean cancelHover = mouseX >= this.width / 2 + 5 && mouseX < this.width / 2 + 55 && mouseY >= btnY && mouseY < btnY + 14;
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(activateHover ? "\u00a76\u00a7l[Activate]" : "\u00a76[Activate]"), this.width / 2 - 30, btnY, GOLD);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"), this.width / 2 + 30, btnY, RED);
+        if (codeMessage != null && codeMsgTimer > 0) {
+            boolean success = codeMessage.startsWith("\u00a7a");
+            ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(codeMessage), this.width / 2, boxY + boxH - 14, success ? GREEN : RED);
+        }
     }
 
     // ---- INPUT HANDLING ----
 
     @Override
     public boolean mouseClicked(Click click, boolean bl) {
-        double mouseX = click.x();
-        double mouseY = click.y();
-        int button = click.button();
+        double mouseX = click.x(); double mouseY = click.y(); int button = click.button();
         if (button != 0) return false;
+
+        // Code entry modal
+        if (showCodeEntry) {
+            if (codeField != null && codeField.isMouseOver(mouseX, mouseY)) {
+                codeField.mouseClicked(click, bl); setFocused(codeField); return true;
+            }
+            int btnY = this.height / 2 - 50 + 54;
+            if (mouseY >= btnY && mouseY < btnY + 14) {
+                if (mouseX >= this.width / 2 - 55 && mouseX < this.width / 2 - 5) { tryActivateCode(); return true; }
+                if (mouseX >= this.width / 2 + 5 && mouseX < this.width / 2 + 55) { showCodeEntry = false; codeField = null; return true; }
+            }
+            return true;
+        }
 
         // Edit modal
         if (editField != null) {
-            if (editField.isMouseOver(mouseX, mouseY)) {
-                editField.mouseClicked(click, bl);
-                setFocused(editField);
-                return true;
-            }
+            if (editField.isMouseOver(mouseX, mouseY)) { editField.mouseClicked(click, bl); setFocused(editField); return true; }
             int btnY = this.height / 2 - 45 + 50;
             if (mouseY >= btnY && mouseY < btnY + 14) {
                 if (mouseX >= this.width / 2 - 50 && mouseX < this.width / 2 - 5) { confirmEdit(); return true; }
@@ -323,7 +395,19 @@ public class ConfigScreen extends Screen {
         int panelW = Math.min(320, this.width - 40);
         int panelX = (this.width - panelW) / 2;
         int panelTop = 20;
-        int panelBottom = this.height - 20;
+
+        // Key icon (code entry)
+        int keyX = panelX + panelW - 32;
+        if (mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 2 && mouseY < panelTop + TAB_H - 2) {
+            if (!ModConfig.proUnlocked) {
+                showCodeEntry = true;
+                codeField = new TextFieldWidget(this.textRenderer, 0, 0, 200, 20, Text.literal("Code"));
+                codeField.setMaxLength(20);
+                codeField.setEditable(true);
+                setFocused(codeField);
+            }
+            return true;
+        }
 
         // Close button
         if (mouseX >= panelX + panelW - 18 && mouseX <= panelX + panelW - 4 && mouseY >= panelTop + 2 && mouseY <= panelTop + TAB_H - 2) {
@@ -334,15 +418,12 @@ public class ConfigScreen extends Screen {
         int tabY = panelTop + TAB_H;
         if (mouseY >= tabY && mouseY < tabY + 20) {
             int tabCount = categories.size();
-            int tabW = panelW / tabCount;
+            int tabW = Math.max(40, panelW / Math.min(tabCount, 6));
             int idx = 0;
             for (String cat : categories.keySet()) {
                 int tx = panelX + idx * tabW;
                 if (mouseX >= tx && mouseX < tx + tabW) {
-                    activeCategory = cat;
-                    scrollOffset = 0;
-                    expandedModule = null;
-                    return true;
+                    activeCategory = cat; scrollOffset = 0; expandedModule = null; return true;
                 }
                 idx++;
             }
@@ -352,48 +433,32 @@ public class ConfigScreen extends Screen {
         int listTop = tabY + 20;
         List<Module> modules = categories.get(activeCategory);
         if (modules == null) return false;
-
         int y = listTop - (int) scrollOffset;
         for (Module mod : modules) {
             boolean expanded = mod.name.equals(expandedModule) && !mod.settings.isEmpty();
-
-            // Module header click
             if (mouseX >= panelX + 2 && mouseX < panelX + panelW - 2 && mouseY >= y && mouseY < y + MODULE_H) {
-                // Right side = expand/collapse
-                if (mouseX >= panelX + panelW - 30 && !mod.settings.isEmpty()) {
-                    expandedModule = expanded ? null : mod.name;
-                } else {
-                    // Toggle module
-                    mod.setter.accept(!mod.enabled.get());
-                    ModConfig.save();
-                }
+                if (mouseX >= panelX + panelW - 30 && !mod.settings.isEmpty()) { expandedModule = expanded ? null : mod.name; }
+                else { mod.setter.accept(!mod.enabled.get()); ModConfig.save(); }
                 return true;
             }
             y += MODULE_H;
-
-            // Settings clicks
             if (expanded) {
                 for (Setting s : mod.settings) {
                     if (mouseX >= panelX + 2 && mouseX < panelX + panelW - 2 && mouseY >= y && mouseY < y + SETTING_H) {
-                        if (s.type == SettingType.TOGGLE) {
-                            s.boolSetter.accept(!s.boolGetter.get());
-                            ModConfig.save();
-                        } else {
-                            openEditModal(s.name, s.floatGetter.get(), s.min, s.max, s.floatSetter);
-                        }
+                        if (s.type == SettingType.TOGGLE) { s.boolSetter.accept(!s.boolGetter.get()); ModConfig.save(); }
+                        else { openEditModal(s.name, s.floatGetter.get(), s.min, s.max, s.floatSetter); }
                         return true;
                     }
                     y += SETTING_H;
                 }
             }
         }
-
         return false;
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (editField != null) return true;
+        if (editField != null || showCodeEntry) return true;
         List<Module> modules = categories.get(activeCategory);
         if (modules == null) return true;
         int panelTop = 20 + TAB_H + 20;
@@ -408,9 +473,14 @@ public class ConfigScreen extends Screen {
     @Override
     public boolean keyPressed(KeyInput keyInput) {
         int keyCode = keyInput.key();
+        if (showCodeEntry && codeField != null) {
+            if (keyCode == 257) { tryActivateCode(); return true; }
+            if (keyCode == 256) { showCodeEntry = false; codeField = null; return true; }
+            return codeField.keyPressed(keyInput);
+        }
         if (editField != null) {
-            if (keyCode == 257) { confirmEdit(); return true; } // Enter
-            if (keyCode == 256) { cancelEdit(); return true; } // Escape
+            if (keyCode == 257) { confirmEdit(); return true; }
+            if (keyCode == 256) { cancelEdit(); return true; }
             return editField.keyPressed(keyInput);
         }
         if (keyCode == 256) { close(); return true; }
@@ -419,56 +489,59 @@ public class ConfigScreen extends Screen {
 
     @Override
     public boolean charTyped(CharInput charInput) {
+        if (showCodeEntry && codeField != null) return codeField.charTyped(charInput);
         if (editField != null) return editField.charTyped(charInput);
         return super.charTyped(charInput);
+    }
+
+    // ---- CODE ACTIVATION ----
+
+    private void tryActivateCode() {
+        if (codeField == null) return;
+        String input = codeField.getText().trim();
+        if (ModConfig.validateCode(input)) {
+            ModConfig.proUnlocked = true;
+            ModConfig.save();
+            codeMessage = "\u00a7a\u00a7lPRO UNLOCKED!";
+            codeMsgTimer = 60;
+            showCodeEntry = false;
+            codeField = null;
+            init();
+        } else {
+            codeMessage = "\u00a7cInvalid code";
+            codeMsgTimer = 40;
+            codeField.setText("");
+        }
     }
 
     // ---- EDIT MODAL ----
 
     private void openEditModal(String label, float current, float min, float max, java.util.function.Consumer<Float> setter) {
-        editLabel = label;
-        editMin = min;
-        editMax = max;
-        editSetter = setter;
+        editLabel = label; editMin = min; editMax = max; editSetter = setter;
         editField = new TextFieldWidget(this.textRenderer, 0, 0, 200, 20, Text.literal(label));
-        editField.setText(formatNumber(current));
-        editField.setMaxLength(15);
-        editField.setEditable(true);
+        editField.setText(formatNumber(current)); editField.setMaxLength(15); editField.setEditable(true);
         setFocused(editField);
     }
 
     private void confirmEdit() {
         if (editField == null || editSetter == null) return;
-        try {
-            float val = Float.parseFloat(editField.getText().trim());
-            val = Math.max(editMin, Math.min(editMax, val));
-            editSetter.accept(val);
-            ModConfig.save();
-        } catch (NumberFormatException ignored) {}
+        try { float val = Math.max(editMin, Math.min(editMax, Float.parseFloat(editField.getText().trim()))); editSetter.accept(val); ModConfig.save(); } catch (NumberFormatException ignored) {}
         cancelEdit();
     }
 
-    private void cancelEdit() {
-        editField = null;
-        editLabel = null;
-        editSetter = null;
-    }
+    private void cancelEdit() { editField = null; editLabel = null; editSetter = null; }
 
     @Override
     public void close() {
+        if (showCodeEntry) { showCodeEntry = false; codeField = null; return; }
         if (editField != null) { cancelEdit(); return; }
         ModConfig.save();
         if (this.client != null) this.client.setScreen(parent);
     }
 
-    // ---- HELPERS ----
-
     private int getContentHeight(List<Module> modules) {
         int h = 0;
-        for (Module mod : modules) {
-            h += MODULE_H;
-            if (mod.name.equals(expandedModule)) h += mod.settings.size() * SETTING_H;
-        }
+        for (Module mod : modules) { h += MODULE_H; if (mod.name.equals(expandedModule)) h += mod.settings.size() * SETTING_H; }
         return h;
     }
 
@@ -477,42 +550,25 @@ public class ConfigScreen extends Screen {
         return String.format("%.1f", val);
     }
 
-    // ---- DATA MODEL ----
-
     private enum SettingType { TOGGLE, NUMBER }
 
     private static class Setting {
-        final String name;
-        final SettingType type;
-        java.util.function.Supplier<Boolean> boolGetter;
-        java.util.function.Consumer<Boolean> boolSetter;
-        java.util.function.Supplier<Float> floatGetter;
-        java.util.function.Consumer<Float> floatSetter;
+        final String name; final SettingType type;
+        java.util.function.Supplier<Boolean> boolGetter; java.util.function.Consumer<Boolean> boolSetter;
+        java.util.function.Supplier<Float> floatGetter; java.util.function.Consumer<Float> floatSetter;
         float min, max;
-
         Setting(String name, SettingType type) { this.name = name; this.type = type; }
     }
 
     private static class Module {
-        final String name;
-        final java.util.function.Supplier<Boolean> enabled;
-        final java.util.function.Consumer<Boolean> setter;
+        final String name; final java.util.function.Supplier<Boolean> enabled; final java.util.function.Consumer<Boolean> setter;
         final List<Setting> settings = new ArrayList<>();
-
-        Module(String name, java.util.function.Supplier<Boolean> enabled, java.util.function.Consumer<Boolean> setter) {
-            this.name = name; this.enabled = enabled; this.setter = setter;
-        }
-
+        Module(String name, java.util.function.Supplier<Boolean> enabled, java.util.function.Consumer<Boolean> setter) { this.name = name; this.enabled = enabled; this.setter = setter; }
         Module addToggle(String sName, java.util.function.Supplier<Boolean> getter, java.util.function.Consumer<Boolean> setter) {
-            Setting s = new Setting(sName, SettingType.TOGGLE);
-            s.boolGetter = getter; s.boolSetter = setter;
-            settings.add(s); return this;
+            Setting s = new Setting(sName, SettingType.TOGGLE); s.boolGetter = getter; s.boolSetter = setter; settings.add(s); return this;
         }
-
         Module addNumber(String sName, java.util.function.Supplier<Float> getter, float min, float max, java.util.function.Consumer<Float> setter) {
-            Setting s = new Setting(sName, SettingType.NUMBER);
-            s.floatGetter = getter; s.floatSetter = setter; s.min = min; s.max = max;
-            settings.add(s); return this;
+            Setting s = new Setting(sName, SettingType.NUMBER); s.floatGetter = getter; s.floatSetter = setter; s.min = min; s.max = max; settings.add(s); return this;
         }
     }
 }
