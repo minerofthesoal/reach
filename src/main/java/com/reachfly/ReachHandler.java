@@ -62,9 +62,9 @@ public class ReachHandler {
 
     private static void applyToPlayer(net.minecraft.entity.LivingEntity player) {
         EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
+                EntityAttributes.BLOCK_INTERACTION_RANGE);
         EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE);
+                EntityAttributes.ENTITY_INTERACTION_RANGE);
 
         if (blockRange == null || entityRange == null) return;
 
@@ -106,9 +106,9 @@ public class ReachHandler {
 
     private static void clearForPlayer(net.minecraft.entity.LivingEntity player) {
         EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
+                EntityAttributes.BLOCK_INTERACTION_RANGE);
         EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE);
+                EntityAttributes.ENTITY_INTERACTION_RANGE);
 
         if (blockRange != null) blockRange.removeModifier(BLOCK_REACH_ID);
         if (entityRange != null) entityRange.removeModifier(ENTITY_REACH_ID);
