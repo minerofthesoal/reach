@@ -102,6 +102,7 @@ public class EventHandler {
 
         while (KeybindHandler.toggleKnockback.wasPressed()) {
             ModConfig.knockbackEnabled = !ModConfig.knockbackEnabled;
+            KnockbackHandler.updateKnockbackAttributes();
             ModConfig.save();
         }
 

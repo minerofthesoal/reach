@@ -5,14 +5,10 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
 /**
- * Speed hack - Boosts the player's ground movement to a target speed.
- * Uses a target-speed approach to avoid compounding acceleration.
+ * Speed hack - Boosts ground movement speed using the player's facing direction.
+ * Calculates direction from key inputs and yaw to prevent momentum locking.
  */
 public class SpeedHandler {
-
-    // Approximate base movement speeds in Minecraft (blocks/tick)
-    private static final double BASE_WALK_SPEED = 0.108;
-    private static final double BASE_SPRINT_SPEED = 0.14;
 
     public static void tick(MinecraftClient client) {
         if (!ModConfig.speedEnabled) return;
@@ -26,20 +22,36 @@ public class SpeedHandler {
         Vec3d velocity = player.getVelocity();
         double currentSpeed = Math.sqrt(velocity.x * velocity.x + velocity.z * velocity.z);
 
-        // Only boost if player is actually trying to move
+        // Only boost if player is actually moving
         if (currentSpeed < 0.001) return;
 
-        // Calculate target speed based on whether sprinting
-        double baseSpeed = player.isSprinting() ? BASE_SPRINT_SPEED : BASE_WALK_SPEED;
+        // Detect movement direction from pressed keys
+        float forward = 0;
+        float strafe = 0;
+        if (client.options.forwardKey.isPressed()) forward += 1;
+        if (client.options.backKey.isPressed()) forward -= 1;
+        if (client.options.leftKey.isPressed()) strafe += 1;
+        if (client.options.rightKey.isPressed()) strafe -= 1;
+
+        // If no movement keys pressed, don't override velocity
+        if (forward == 0 && strafe == 0) return;
+
+        // Calculate movement direction from player yaw and input
+        float yaw = player.getYaw();
+        double yawRad = Math.toRadians(yaw);
+        double moveAngle = yawRad - Math.atan2(strafe, forward);
+
+        double dirX = -Math.sin(moveAngle);
+        double dirZ = Math.cos(moveAngle);
+
+        // Target speed
+        double baseSpeed = player.isSprinting() ? 0.14 : 0.108;
         double targetSpeed = baseSpeed * ModConfig.speedMultiplier;
 
-        // Only boost up to target, never compound beyond it
-        if (currentSpeed >= targetSpeed) return;
-
-        double scale = targetSpeed / currentSpeed;
+        // Set velocity in the input direction at target speed
         player.setVelocity(
-                velocity.x * scale,
+                dirX * targetSpeed,
                 velocity.y,
-                velocity.z * scale);
+                dirZ * targetSpeed);
     }
 }
