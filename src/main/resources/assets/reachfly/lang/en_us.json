@@ -6,7 +6,14 @@
   "key.reachfly.toggle_autohit": "Toggle Auto Hit",
   "key.reachfly.toggle_lowhealthkill": "Toggle Low Health Kill",
   "key.reachfly.toggle_eating": "Toggle Eating Assist",
-  "key.reachfly.toggle_shield": "Toggle Shield Assist",
-  "key.reachfly.toggle_dupe": "Toggle Dupe",
+  "key.reachfly.toggle_autokilllow": "Toggle Auto Kill When Low",
+  "key.reachfly.toggle_jesus": "Toggle Jesus",
+  "key.reachfly.toggle_elytraswap": "Toggle Auto Elytra Swap",
+  "key.reachfly.toggle_flytocoords": "Toggle Fly to Coords",
+  "key.reachfly.toggle_nofall": "Toggle NoFall",
+  "key.reachfly.toggle_fullbright": "Toggle Fullbright",
+  "key.reachfly.toggle_speed": "Toggle Speed",
+  "key.reachfly.toggle_walktocoords": "Toggle Walk to Coords",
+  "key.reachfly.toggle_hud": "Toggle HUD",
   "key.reachfly.open_config": "Open Config"
 }
