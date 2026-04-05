@@ -34,7 +34,7 @@ public class EspRenderer {
         int screenCenterX = client.getWindow().getScaledWidth() / 2;
         int screenCenterY = client.getWindow().getScaledHeight() / 2;
 
-        float tickDelta = tickCounter.getTickProgress(true);
+        float tickDelta = tickCounter.getTickDelta(true);
 
         float fov = client.options.getFov().getValue().floatValue();
         Matrix4f projMatrix = client.gameRenderer.getBasicProjectionMatrix(fov);
@@ -129,7 +129,7 @@ public class EspRenderer {
             }
         }
         // Search upward
-        for (int y = sy; y < sy + 10 && y < world.getTopYInclusive(); y++) {
+        for (int y = sy; y < sy + 10 && y < world.getTopY(); y++) {
             BlockPos pos = new BlockPos(bx, y, bz);
             BlockPos above = new BlockPos(bx, y + 1, bz);
             if (!world.getBlockState(pos).isAir() && world.getBlockState(above).isAir()) {
