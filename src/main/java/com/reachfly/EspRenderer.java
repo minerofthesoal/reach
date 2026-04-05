@@ -71,7 +71,9 @@ public class EspRenderer {
 
             // Path trace - ground-level waypoints from player to entity
             if (ModConfig.espPathTrace) {
-                double dist = playerPos.horizontalDistanceTo(entityPos);
+                double dx = playerPos.x - entityPos.x;
+                double dz = playerPos.z - entityPos.z;
+                double dist = Math.sqrt(dx * dx + dz * dz);
                 if (dist > 200) continue; // Don't trace very far entities
 
                 // Generate ground-level path points
