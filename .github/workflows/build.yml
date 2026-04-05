@@ -2,7 +2,7 @@ name: Build & Release JAR
 
 on:
   push:
-    branches: [ main, 'claude/**', 'mc-*' ]
+    branches: [ main, 'mc-*' ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -22,9 +22,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
