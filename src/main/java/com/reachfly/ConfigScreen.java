@@ -172,7 +172,6 @@ public class ConfigScreen extends Screen {
         field.setText(formatNumber(current));
         field.setMaxLength(15);
         field.setEditable(true);
-        field.setFocusUnlocked(true);
         field.setChangedListener(text -> {
             try {
                 float val = Float.parseFloat(text.trim());
@@ -278,56 +277,6 @@ public class ConfigScreen extends Screen {
         context.drawCenteredTextWithShadow(this.textRenderer,
                 Text.literal("\u00a7b\u00a7lOptimizer\u00a7r \u00a76\u00a7lSuper \u00a7d\u00a7lPremium\u00a7r \u00a77v2.0"),
                 this.width / 2, 10, 0xFFFFFF);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        // Tick all text fields so the cursor blinks
-        for (Entry e : entries) {
-            if (e.widget instanceof TextFieldWidget tf) {
-                tf.tick();
-            }
-        }
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        // Unfocus all text fields first, then let super handle focus
-        for (Entry e : entries) {
-            if (e.widget instanceof TextFieldWidget tf) {
-                tf.setFocused(false);
-            }
-        }
-        return super.mouseClicked(mouseX, mouseY, button);
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        // Let focused text fields consume key events first
-        for (Entry e : entries) {
-            if (e.widget instanceof TextFieldWidget tf && tf.isFocused()) {
-                if (tf.keyPressed(keyCode, scanCode, modifiers)) {
-                    return true;
-                }
-                // If a text field is focused, don't let ESC close screen unless it's ESC
-                if (keyCode != 256) { // 256 = GLFW_KEY_ESCAPE
-                    return true;
-                }
-            }
-        }
-        return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    @Override
-    public boolean charTyped(char chr, int modifiers) {
-        // Let focused text fields consume character input
-        for (Entry e : entries) {
-            if (e.widget instanceof TextFieldWidget tf && tf.isFocused()) {
-                return tf.charTyped(chr, modifiers);
-            }
-        }
-        return super.charTyped(chr, modifiers);
     }
 
     @Override
