@@ -102,6 +102,10 @@ public class ConfigScreen extends Screen {
                 .addNumber("Y", () -> ModConfig.walkToY, -64, 320, v -> ModConfig.walkToY = v)
                 .addNumber("Z", () -> ModConfig.walkToZ, -30000000, 30000000, v -> ModConfig.walkToZ = v));
         movement.add(new Module("Scaffold", () -> ModConfig.scaffoldEnabled, v -> ModConfig.scaffoldEnabled = v));
+        movement.add(new Module("Better Sprint", () -> ModConfig.betterSprintEnabled, v -> ModConfig.betterSprintEnabled = v));
+        movement.add(new Module("SafeWalk", () -> ModConfig.safeWalkEnabled, v -> ModConfig.safeWalkEnabled = v));
+        movement.add(new Module("Step", () -> ModConfig.stepEnabled, v -> ModConfig.stepEnabled = v)
+                .addNumber("Height", () -> ModConfig.stepHeight, ModConfig.STEP_MIN, ModConfig.STEP_MAX, v -> ModConfig.stepHeight = v));
         categories.put("Movement", movement);
 
         // === RENDER ===
@@ -128,6 +132,9 @@ public class ConfigScreen extends Screen {
                 .addNumber("X", () -> ModConfig.tpX, -30000000, 30000000, v -> ModConfig.tpX = v)
                 .addNumber("Y", () -> ModConfig.tpY, -64, 320, v -> ModConfig.tpY = v)
                 .addNumber("Z", () -> ModConfig.tpZ, -30000000, 30000000, v -> ModConfig.tpZ = v));
+        player.add(new Module("Auto Log", () -> ModConfig.autoLogEnabled, v -> ModConfig.autoLogEnabled = v)
+                .addNumber("HP Threshold", () -> ModConfig.autoLogHealth, ModConfig.AUTO_LOG_HP_MIN, ModConfig.AUTO_LOG_HP_MAX, v -> ModConfig.autoLogHealth = v));
+        player.add(new Module("Auto Respawn", () -> ModConfig.autoRespawnEnabled, v -> ModConfig.autoRespawnEnabled = v));
         categories.put("Player", player);
 
         // ===== PRO CATEGORIES (only when unlocked) =====

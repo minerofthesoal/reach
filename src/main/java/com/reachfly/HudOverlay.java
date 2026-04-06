@@ -84,6 +84,9 @@ public class HudOverlay {
         if (ModConfig.jesusEnabled) entries.add(new ModEntry("Jesus", COL_MOVEMENT));
         if (ModConfig.noFallEnabled) entries.add(new ModEntry("NoFall", COL_MOVEMENT));
         if (ModConfig.scaffoldEnabled) entries.add(new ModEntry("Scaffold", COL_MOVEMENT));
+        if (ModConfig.betterSprintEnabled) entries.add(new ModEntry("BetterSprint", COL_MOVEMENT));
+        if (ModConfig.safeWalkEnabled) entries.add(new ModEntry("SafeWalk", COL_MOVEMENT));
+        if (ModConfig.stepEnabled) entries.add(new ModEntry(String.format("Step \u00a7f%.0f", ModConfig.stepHeight), COL_MOVEMENT));
         if (ModConfig.flyToCoordsEnabled && client.player != null) {
             Vec3d pos = client.player.getEntityPos();
             double dist = pos.distanceTo(new Vec3d(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
@@ -105,6 +108,8 @@ public class HudOverlay {
         if (ModConfig.autoArmorEnabled) entries.add(new ModEntry("AutoArmor", COL_PLAYER));
         if (ModConfig.autoElytraSwapEnabled) entries.add(new ModEntry("Elytra", COL_PLAYER));
         if (ModConfig.eatingAssistEnabled) entries.add(new ModEntry("EatAssist", COL_PLAYER));
+        if (ModConfig.autoLogEnabled) entries.add(new ModEntry(String.format("AutoLog \u00a7f<%.0fhp", ModConfig.autoLogHealth), COL_PLAYER));
+        if (ModConfig.autoRespawnEnabled) entries.add(new ModEntry("AutoRespawn", COL_PLAYER));
 
         // Pro modules
         if (ModConfig.proUnlocked) {

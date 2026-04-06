@@ -1,6 +1,6 @@
 # Optimizer Super Premium
 
-A client-side Fabric mod for Minecraft with 18+ hack features including extended reach, fly, ESP, auto-combat, teleport, X-Ray, knockback, Jesus (walk on water), and more.
+A client-side Fabric mod for Minecraft with 25+ hack features including extended reach, fly, ESP, auto-combat, teleport, X-Ray, knockback, Jesus (walk on water), step, safewalk, auto-log, and more. Inspired by Meteor, Future, and Rusherhack clients.
 
 **Supported Versions:** 1.21.11 | 1.21.4 | 1.21.1
 
@@ -27,8 +27,16 @@ A client-side Fabric mod for Minecraft with 18+ hack features including extended
 | **Auto Elytra Swap** | Auto-equip elytra when falling | `Y` |
 | **Fly to Coords** | Auto-fly to target coordinates | `P` |
 | **Walk to Coords** | Simple pathfinding to coordinates | `;` |
+| **Auto Totem** | Auto-move totems to offhand | `M` |
+| **Auto Armor** | Auto-equip best armor | `,` |
+| **Scaffold** | Auto-place blocks below you while walking | `.` |
+| **Better Sprint** | Always sprint when moving forward | GUI |
+| **SafeWalk** | Prevent walking off block edges | GUI |
+| **Step** | Step up blocks without jumping (1-10 height) | GUI |
+| **Auto Log** | Auto-disconnect at low HP threshold | GUI |
+| **Auto Respawn** | Auto-respawn on death | GUI |
 | **HUD Toggle** | Show/hide status overlay | `H` |
-| **Config Screen** | Full GUI with sliders and toggles | `Right Shift` |
+| **Config Screen** | ClickGUI with categories and toggles | `Right Shift` |
 
 All keybinds are configurable in Minecraft's Controls menu under the "Optimizer Super Premium" category.
 
@@ -50,7 +58,32 @@ The server addon enables **reliable teleportation** on multiplayer servers. Play
 2. Place `osp-server-addon-1.0.0.jar` in the server's `mods/` folder
 3. Restart the server
 
-Without the server addon, the Teleport feature still works in **Beta mode** (fully client-side, may rubberband).
+Without the server addon, the Teleport feature still works in **Beta mode** (client-side incremental teleport, moves in 8-block steps to avoid server crashes).
+
+### Aternos Server Setup
+
+To install the server addon on an **Aternos** Minecraft server:
+
+1. Go to your Aternos server panel
+2. Click **Software & Plugins** (or **Mods**) in the left sidebar
+3. Make sure your server is set to **Fabric** as the server software
+4. Click **Upload** and select the `osp-server-addon-1.0.0.jar` file
+5. Start/restart your server
+
+**Alternative - via Aternos File Manager:**
+
+1. In the Aternos panel, go to **Files** > **mods/**
+2. Click **Upload** and upload the `osp-server-addon-1.0.0.jar`
+3. Restart the server
+
+**Via Aternos Console (after addon is installed):**
+
+The addon registers automatically. Verify it's loaded by checking the console for:
+```
+[OSP Server Addon] Initialized - teleport packets registered
+```
+
+To test, use the Teleport feature in-game with **Normal mode** (not Beta) enabled in the config.
 
 ### Version Branches
 
@@ -123,6 +156,8 @@ src/main/java/com/reachfly/
 ├── AutoElytraSwapHandler.java    # Auto elytra equip on fall
 ├── FlyToCoordsHandler.java       # Auto-fly to coordinates
 ├── WalkToCoordsHandler.java      # Simple walk pathfinding
+├── MeteorHandlers.java           # AutoLog, AutoRespawn, BetterSprint, SafeWalk, Step
+├── ProHandlers.java              # Pro-tier feature handlers
 └── mixin/
     ├── BlockRenderMixin.java     # X-Ray block rendering
     ├── ClientPlayerInteractionManagerMixin.java  # Knockback velocity

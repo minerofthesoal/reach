@@ -108,6 +108,19 @@ public class ModConfig {
     // --- Scaffold ---
     public static boolean scaffoldEnabled = false;
 
+    // --- Meteor-style ---
+    public static boolean autoLogEnabled = false;
+    public static float autoLogHealth = 4.0f;
+    public static final float AUTO_LOG_HP_MIN = 1.0f;
+    public static final float AUTO_LOG_HP_MAX = 19.0f;
+    public static boolean autoRespawnEnabled = false;
+    public static boolean betterSprintEnabled = false;
+    public static boolean safeWalkEnabled = false;
+    public static boolean stepEnabled = false;
+    public static float stepHeight = 2.0f;
+    public static final float STEP_MIN = 1.0f;
+    public static final float STEP_MAX = 10.0f;
+
     // --- Teleport ---
     public static boolean tpUseServerAddon = true;
     public static float tpX = 0;
@@ -242,6 +255,13 @@ public class ModConfig {
                     autoTotemEnabled = data.autoTotemEnabled;
                     autoArmorEnabled = data.autoArmorEnabled;
                     scaffoldEnabled = data.scaffoldEnabled;
+                    autoLogEnabled = data.autoLogEnabled;
+                    autoLogHealth = clamp(data.autoLogHealth, AUTO_LOG_HP_MIN, AUTO_LOG_HP_MAX);
+                    autoRespawnEnabled = data.autoRespawnEnabled;
+                    betterSprintEnabled = data.betterSprintEnabled;
+                    safeWalkEnabled = data.safeWalkEnabled;
+                    stepEnabled = data.stepEnabled;
+                    stepHeight = clamp(data.stepHeight, STEP_MIN, STEP_MAX);
                     tpUseServerAddon = data.tpUseServerAddon;
                     tpX = data.tpX;
                     tpY = data.tpY;
@@ -333,6 +353,13 @@ public class ModConfig {
         data.autoTotemEnabled = autoTotemEnabled;
         data.autoArmorEnabled = autoArmorEnabled;
         data.scaffoldEnabled = scaffoldEnabled;
+        data.autoLogEnabled = autoLogEnabled;
+        data.autoLogHealth = autoLogHealth;
+        data.autoRespawnEnabled = autoRespawnEnabled;
+        data.betterSprintEnabled = betterSprintEnabled;
+        data.safeWalkEnabled = safeWalkEnabled;
+        data.stepEnabled = stepEnabled;
+        data.stepHeight = stepHeight;
         data.tpUseServerAddon = tpUseServerAddon;
         data.tpX = tpX;
         data.tpY = tpY;
@@ -426,6 +453,13 @@ public class ModConfig {
         boolean autoTotemEnabled = false;
         boolean autoArmorEnabled = false;
         boolean scaffoldEnabled = false;
+        boolean autoLogEnabled = false;
+        float autoLogHealth = 4.0f;
+        boolean autoRespawnEnabled = false;
+        boolean betterSprintEnabled = false;
+        boolean safeWalkEnabled = false;
+        boolean stepEnabled = false;
+        float stepHeight = 2.0f;
         boolean tpUseServerAddon = true;
         float tpX = 0;
         float tpY = 100;
