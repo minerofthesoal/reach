@@ -3,8 +3,12 @@ name: Build & Release Server Addon v2
 on:
   push:
     branches: [ main, 'claude/**' ]
+    paths:
+      - 'server-addon/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'server-addon/**'
   workflow_dispatch:
 
 permissions:
@@ -26,22 +30,20 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x server-addon/gradlew
 
-      - name: Build server addon
+      - name: Build server addon (mod + datapack)
         working-directory: server-addon
         run: ./gradlew build --no-daemon
 
-      - name: Upload JAR artifact
+      - name: Upload Fabric mod JAR
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon-v2
-          path: server-addon/build/libs/*.jar
+          name: osp-server-addon-mod
+          path: server-addon/build/libs/osp-server-addon-2.0.0.jar
           if-no-files-found: error
 
-      - name: Create Release
-        if: github.event_name == 'push'
-        uses: softprops/action-gh-release@v2
+      - name: Upload Data Pack ZIP
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: server-addon-v2.0.0-build.${{ github.run_number }}
-          name: "OSP Server Addon v2.0.0 (Build #${{ github.run_number }})"
-          files: server-addon/build/libs/*.jar
-          generate_release_notes: true
+          name: osp-server-addon-datapack
+          path: server-addon/build/libs/osp-server-addon-datapack-2.0.0.zip
+          if-no-files-found: error

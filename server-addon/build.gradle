@@ -42,3 +42,19 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
     withSourcesJar()
 }
+
+// === Data Pack build task ===
+// Zips the datapack/ directory into a distributable data pack
+tasks.register('buildDatapack', Zip) {
+    description = 'Builds the OSP Server Addon as a Minecraft data pack (ZIP)'
+    group = 'build'
+
+    from('datapack')
+    archiveBaseName = 'osp-server-addon-datapack'
+    archiveVersion = project.version
+    archiveExtension = 'zip'
+    destinationDirectory = file("${buildDir}/libs")
+}
+
+// Include data pack in the default build
+build.dependsOn buildDatapack

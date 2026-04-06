@@ -65,9 +65,40 @@ The server addon v2 enables **full server-authoritative support** for multiplaye
 | **Fly** | Server grants flight permission (survives respawn) |
 | **ESP Extended** | Server sends entity positions beyond normal tracking range |
 
-1. Build the server addon: `cd server-addon && ../gradlew build`
+**Two installation options:**
+
+#### Option A: Fabric Mod (full features, requires Fabric on server)
+
+1. Build: `cd server-addon && ../gradlew build`
 2. Place `osp-server-addon-2.0.0.jar` in the server's `mods/` folder
 3. Restart the server
+4. Features auto-sync from the client mod via custom packets
+
+#### Option B: Data Pack (no Fabric needed, works on any server)
+
+1. Build: `cd server-addon && ../gradlew buildDatapack`
+2. Place `osp-server-addon-datapack-2.0.0.zip` in the server's `world/datapacks/` folder
+3. Run `/reload` or restart the server
+4. Use `/trigger osp.help` in-game for all commands
+
+**Data Pack commands:**
+```
+/trigger osp.help              # Show all commands (clickable!)
+/trigger osp.knockback set 1   # Toggle knockback on/off
+/trigger osp.kb_str set 50     # Set knockback strength (1-2500)
+/trigger osp.reach set 1       # Toggle reach on/off
+/trigger osp.reach_dist set 100 # Set reach (x10, e.g. 100 = 10 blocks)
+/trigger osp.speed set 1       # Toggle speed on/off
+/trigger osp.speed_mult set 20  # Set speed (x10, e.g. 20 = 2.0x)
+/trigger osp.nofall set 1      # Toggle nofall on/off
+/trigger osp.fly set 1         # Toggle fly on/off
+/trigger osp.tp_x set 100      # Set teleport X
+/trigger osp.tp_y set 64       # Set teleport Y
+/trigger osp.tp_z set 200      # Set teleport Z
+/trigger osp.tp set 1          # Teleport now!
+```
+
+To uninstall the data pack cleanly: `/function osp:uninstall`
 
 Without the server addon, features still work in **client-only mode** (Teleport uses Beta incremental mode, attributes only apply client-side, ESP limited to loaded chunks).
 
@@ -75,17 +106,20 @@ Without the server addon, features still work in **client-only mode** (Teleport 
 
 To install the server addon on an **Aternos** Minecraft server:
 
+**As Fabric Mod (requires Fabric server):**
+
 1. Go to your Aternos server panel
 2. Click **Software & Plugins** (or **Mods**) in the left sidebar
 3. Make sure your server is set to **Fabric** as the server software
 4. Click **Upload** and select the `osp-server-addon-2.0.0.jar` file
 5. Start/restart your server
 
-**Alternative - via Aternos File Manager:**
+**As Data Pack (works on ANY server - Vanilla, Fabric, Paper, etc.):**
 
-1. In the Aternos panel, go to **Files** > **mods/**
-2. Click **Upload** and upload the `osp-server-addon-2.0.0.jar`
-3. Restart the server
+1. In the Aternos panel, go to **Files** > navigate to your `world/datapacks/` folder
+2. Click **Upload** and upload the `osp-server-addon-datapack-2.0.0.zip`
+3. Restart the server (or run `/reload` in console)
+4. Players use `/trigger osp.help` in-game for commands
 
 **Via Aternos Console (after addon is installed):**
 

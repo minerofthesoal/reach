@@ -1,0 +1,3 @@
+# Acknowledge coordinate storage (coords are already in scoreboards)
+tellraw @s [{"text":"[OSP] ","color":"gold"},{"text":"TP coords: ","color":"gray"},{"score":{"name":"@s","objective":"osp.tp_x"},"color":"yellow"},{"text":", ","color":"gray"},{"score":{"name":"@s","objective":"osp.tp_y"},"color":"yellow"},{"text":", ","color":"gray"},{"score":{"name":"@s","objective":"osp.tp_z"},"color":"yellow"}]
+tellraw @s [{"text":"  Use ","color":"gray"},{"text":"/trigger osp.tp set 1","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.tp set 1"}},{"text":" to teleport","color":"gray"}]
