@@ -50,15 +50,26 @@ All keybinds are configurable in Minecraft's Controls menu under the "Optimizer 
 4. Place the JAR in your `.minecraft/mods/` folder
 5. Launch Minecraft
 
-### Server Addon (Optional)
+### Server Addon v2 (Optional)
 
-The server addon enables **reliable teleportation** on multiplayer servers. Players without the client mod are completely unaffected.
+The server addon v2 enables **full server-authoritative support** for multiplayer servers. Players without the client mod are completely unaffected.
+
+**Supported server-side features:**
+| Feature | What it does server-side |
+|---------|--------------------------|
+| **Teleport** | Reliable instant teleport (no rubberbanding) |
+| **Knockback** | Server applies ATTACK_KNOCKBACK attribute modifier |
+| **Reach** | Server applies BLOCK/ENTITY_INTERACTION_RANGE attributes |
+| **Speed** | Server applies MOVEMENT_SPEED attribute modifier |
+| **NoFall** | Server resets fall distance every tick |
+| **Fly** | Server grants flight permission (survives respawn) |
+| **ESP Extended** | Server sends entity positions beyond normal tracking range |
 
 1. Build the server addon: `cd server-addon && ../gradlew build`
-2. Place `osp-server-addon-1.0.0.jar` in the server's `mods/` folder
+2. Place `osp-server-addon-2.0.0.jar` in the server's `mods/` folder
 3. Restart the server
 
-Without the server addon, the Teleport feature still works in **Beta mode** (client-side incremental teleport, moves in 8-block steps to avoid server crashes).
+Without the server addon, features still work in **client-only mode** (Teleport uses Beta incremental mode, attributes only apply client-side, ESP limited to loaded chunks).
 
 ### Aternos Server Setup
 
@@ -67,23 +78,23 @@ To install the server addon on an **Aternos** Minecraft server:
 1. Go to your Aternos server panel
 2. Click **Software & Plugins** (or **Mods**) in the left sidebar
 3. Make sure your server is set to **Fabric** as the server software
-4. Click **Upload** and select the `osp-server-addon-1.0.0.jar` file
+4. Click **Upload** and select the `osp-server-addon-2.0.0.jar` file
 5. Start/restart your server
 
 **Alternative - via Aternos File Manager:**
 
 1. In the Aternos panel, go to **Files** > **mods/**
-2. Click **Upload** and upload the `osp-server-addon-1.0.0.jar`
+2. Click **Upload** and upload the `osp-server-addon-2.0.0.jar`
 3. Restart the server
 
 **Via Aternos Console (after addon is installed):**
 
 The addon registers automatically. Verify it's loaded by checking the console for:
 ```
-[OSP Server Addon] Initialized - teleport packets registered
+[OSP Server Addon v2] Ready. Supported features: Teleport, Knockback, Reach, Speed, NoFall, Fly, ESP
 ```
 
-To test, use the Teleport feature in-game with **Normal mode** (not Beta) enabled in the config.
+All features auto-sync when toggled in-game. The server addon cleans up all attribute modifiers when a player disconnects.
 
 ### Version Branches
 
@@ -153,6 +164,9 @@ src/main/java/com/reachfly/
 ├── XrayHandler.java              # X-Ray block filter
 ├── TeleportHandler.java          # Teleport (normal + beta modes)
 ├── TeleportPayload.java          # Custom network packet for teleport
+├── FeatureSyncPayload.java       # Feature sync packet (C2S)
+├── EspDataPayload.java           # ESP entity data packet (S2C)
+├── ServerSyncHandler.java        # Client-server feature sync handler
 ├── AutoElytraSwapHandler.java    # Auto elytra equip on fall
 ├── FlyToCoordsHandler.java       # Auto-fly to coordinates
 ├── WalkToCoordsHandler.java      # Simple walk pathfinding
@@ -163,11 +177,13 @@ src/main/java/com/reachfly/
     ├── ClientPlayerInteractionManagerMixin.java  # Knockback velocity
     └── EntityGlowMixin.java      # ESP entity glow effect
 
-server-addon/                     # Optional server-side teleport addon
+server-addon/                     # Server addon v2 (full feature support)
 ├── build.gradle
 ├── src/main/java/com/reachfly/serveraddon/
-│   ├── OspServerAddon.java       # Server initializer + packet receiver
-│   └── TeleportPayload.java      # Matching packet definition
+│   ├── OspServerAddon.java       # Server initializer + all feature handlers
+│   ├── TeleportPayload.java      # Teleport packet (C2S)
+│   ├── FeatureSyncPayload.java   # Feature sync packet (C2S)
+│   └── EspDataPayload.java       # ESP entity data packet (S2C)
 └── src/main/resources/
     └── fabric.mod.json
 ```

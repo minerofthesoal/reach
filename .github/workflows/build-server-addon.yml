@@ -1,4 +1,4 @@
-name: Build & Release Server Addon
+name: Build & Release Server Addon v2
 
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon
+          name: osp-server-addon-v2
           path: server-addon/build/libs/*.jar
           if-no-files-found: error
 
@@ -41,7 +41,7 @@ jobs:
         if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: server-addon-v1.0.0-build.${{ github.run_number }}
-          name: "OSP Server Addon v1.0.0 (Build #${{ github.run_number }})"
+          tag_name: server-addon-v2.0.0-build.${{ github.run_number }}
+          name: "OSP Server Addon v2.0.0 (Build #${{ github.run_number }})"
           files: server-addon/build/libs/*.jar
           generate_release_notes: true
