@@ -10,29 +10,20 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
 /**
- * Teleport handler with two modes:
+ * Teleport handler with three paths, tried in order:
  *
- * NORMAL MODE (tpUseServerAddon = true):
- *   Server-side teleport. Reliable, no rubberbanding.
- *
- * BETA MODE (tpUseServerAddon = false):
- *   Client-side incremental teleport. Moves in small steps (8 blocks per tick)
- *   to avoid triggering the server's "moved too quickly" detection and crashes.
- *   Sends position packets gradually instead of a single large jump.
+ * 1. SINGLEPLAYER: Direct server-side requestTeleport() - always works
+ * 2. NORMAL MODE (tpUseServerAddon = true):
+ *    a. Try Fabric mod addon (custom packet)
+ *    b. Fallback: send /trigger commands for the datapack
+ * 3. BETA MODE (tpUseServerAddon = false):
+ *    Direct client-side teleport. Sends position + multiple confirmation
+ *    packets. May rubberband on strict servers but actually moves you.
  */
 public class TeleportHandler {
 
     private static boolean pendingTeleport = false;
     private static int cooldownTicks = 0;
-
-    // Incremental TP state
-    private static boolean incrementalActive = false;
-    private static double targetX, targetY, targetZ;
-    private static int stepCount = 0;
-    private static final double STEP_DISTANCE = 8.0;
-    private static final int MAX_STEPS_PER_TICK = 3;
-    private static final int PACKET_DELAY = 1;
-    private static int delayCounter = 0;
 
     public static void triggerTeleport() {
         pendingTeleport = true;
@@ -40,12 +31,6 @@ public class TeleportHandler {
 
     public static void tick(MinecraftClient client) {
         if (client.player == null) return;
-
-        // Handle incremental beta TP in progress (must run before cooldown check)
-        if (incrementalActive) {
-            tickIncremental(client);
-            return;
-        }
 
         if (cooldownTicks > 0) {
             cooldownTicks--;
@@ -62,15 +47,7 @@ public class TeleportHandler {
 
         ClientPlayerEntity player = client.player;
 
-        if (ModConfig.tpUseServerAddon) {
-            normalTeleport(client, player, tx, ty, tz);
-        } else {
-            startBetaTeleport(client, player, tx, ty, tz);
-        }
-    }
-
-    private static void normalTeleport(MinecraftClient client, ClientPlayerEntity player,
-                                        double tx, double ty, double tz) {
+        // Path 1: Singleplayer - direct server access (always works)
         MinecraftServer server = client.getServer();
         if (server != null) {
             ServerPlayerEntity serverPlayer = server.getPlayerManager()
@@ -85,125 +62,90 @@ public class TeleportHandler {
             }
         }
 
-        try {
-            ClientPlayNetworking.send(new TeleportPayload(tx, ty, tz));
-            player.sendMessage(
-                    Text.literal("\u00a7a[TP] Sent teleport request to server: " +
-                            String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
-                    true);
-        } catch (Exception e) {
-            player.sendMessage(
-                    Text.literal("\u00a7c[TP] Server addon not installed! Use Beta mode or install the addon."),
-                    true);
+        // Path 2: Multiplayer with server addon
+        if (ModConfig.tpUseServerAddon) {
+            normalTeleport(client, player, tx, ty, tz);
+        } else {
+            // Path 3: Beta - direct client-side teleport
+            betaTeleport(client, player, tx, ty, tz);
         }
     }
 
     /**
-     * Start incremental beta teleport.
-     * Instead of jumping directly (which crashes servers), move in small 8-block
-     * steps with position packets between each step.
+     * Normal mode: Try Fabric mod packet first, fall back to datapack /trigger commands.
      */
-    private static void startBetaTeleport(MinecraftClient client, ClientPlayerEntity player,
-                                           double tx, double ty, double tz) {
-        if (client.getNetworkHandler() == null) return;
+    private static void normalTeleport(MinecraftClient client, ClientPlayerEntity player,
+                                        double tx, double ty, double tz) {
+        // Try sending the custom packet (works with Fabric mod addon)
+        boolean packetSent = false;
+        try {
+            ClientPlayNetworking.send(new TeleportPayload(tx, ty, tz));
+            packetSent = true;
+        } catch (Exception ignored) {
+            // Fabric mod addon not on server - fall through to datapack
+        }
 
-        Vec3d pos = player.getEntityPos();
-        double dist = Math.sqrt((tx - pos.x) * (tx - pos.x) + (ty - pos.y) * (ty - pos.y) + (tz - pos.z) * (tz - pos.z));
-
-        if (dist <= STEP_DISTANCE * 2) {
-            // Short distance - just do it directly
-            directBetaTp(client, player, tx, ty, tz);
+        if (packetSent) {
+            player.sendMessage(
+                    Text.literal("\u00a7a[TP] Sent teleport request to server: " +
+                            String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
+                    true);
             return;
         }
 
-        // Long distance - use incremental approach
-        targetX = tx;
-        targetY = ty;
-        targetZ = tz;
-        incrementalActive = true;
-        stepCount = 0;
-        delayCounter = 0;
+        // Fallback: Use datapack /trigger commands
+        datapackTeleport(client, player, tx, ty, tz);
+    }
 
-        int totalSteps = (int) Math.ceil(dist / STEP_DISTANCE);
+    /**
+     * Datapack mode: Send /trigger commands to set coordinates and trigger TP.
+     * Works on any server with the OSP data pack installed (vanilla, Paper, etc.)
+     */
+    private static void datapackTeleport(MinecraftClient client, ClientPlayerEntity player,
+                                          double tx, double ty, double tz) {
+        if (client.getNetworkHandler() == null) return;
+
+        // Send trigger commands for the datapack
+        // Set coordinates first, then trigger the teleport
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp_x set " + (int) tx);
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp_y set " + (int) ty);
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp_z set " + (int) tz);
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp set 1");
+
         player.sendMessage(
-                Text.literal("\u00a7e[TP BETA] Teleporting to " +
-                        String.format("%.0f, %.0f, %.0f", tx, ty, tz) +
-                        String.format(" (%.0f blocks, ~%d steps)", dist, totalSteps)),
+                Text.literal("\u00a7a[TP] Sent datapack teleport to " +
+                        String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
                 true);
     }
 
-    private static void tickIncremental(MinecraftClient client) {
-        ClientPlayerEntity player = client.player;
-        if (player == null || client.getNetworkHandler() == null) {
-            incrementalActive = false;
-            return;
-        }
-
-        delayCounter++;
-        if (delayCounter < PACKET_DELAY) return;
-        delayCounter = 0;
-
-        Vec3d pos = player.getEntityPos();
-        double dx = targetX - pos.x;
-        double dy = targetY - pos.y;
-        double dz = targetZ - pos.z;
-        double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-        if (dist <= STEP_DISTANCE * 2) {
-            // Close enough - final jump
-            directBetaTp(client, player, targetX, targetY, targetZ);
-            incrementalActive = false;
-            cooldownTicks = 20;
-            player.sendMessage(
-                    Text.literal("\u00a7a[TP BETA] Arrived at " +
-                            String.format("%.0f, %.0f, %.0f", targetX, targetY, targetZ) +
-                            String.format(" (%d steps)", stepCount)),
-                    true);
-            return;
-        }
-
-        // Move up to MAX_STEPS_PER_TICK steps this tick
-        for (int i = 0; i < MAX_STEPS_PER_TICK; i++) {
-            pos = player.getEntityPos();
-            dx = targetX - pos.x;
-            dy = targetY - pos.y;
-            dz = targetZ - pos.z;
-            dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-            if (dist <= STEP_DISTANCE) break;
-
-            double ratio = STEP_DISTANCE / dist;
-            double nx = pos.x + dx * ratio;
-            double ny = pos.y + dy * ratio;
-            double nz = pos.z + dz * ratio;
-
-            player.setPosition(nx, ny, nz);
-            client.getNetworkHandler().sendPacket(
-                    new PlayerMoveC2SPacket.Full(
-                            nx, ny, nz,
-                            player.getYaw(), player.getPitch(),
-                            false, player.horizontalCollision));
-            stepCount++;
-        }
-
-        // Safety: abort if too many steps (prevent infinite loop)
-        if (stepCount > 10000) {
-            incrementalActive = false;
-            player.sendMessage(
-                    Text.literal("\u00a7c[TP BETA] Aborted - too many steps"),
-                    true);
-        }
-    }
-
-    private static void directBetaTp(MinecraftClient client, ClientPlayerEntity player,
+    /**
+     * Beta mode: Direct client-side teleport.
+     * Sets position locally and floods the server with position packets.
+     * Will rubberband on strict anti-cheat servers but works on vanilla/Aternos.
+     */
+    private static void betaTeleport(MinecraftClient client, ClientPlayerEntity player,
                                       double tx, double ty, double tz) {
+        if (client.getNetworkHandler() == null) return;
+
+        // Set client position directly
         player.setPosition(tx, ty, tz);
         player.fallDistance = 0.0f;
-        client.getNetworkHandler().sendPacket(
-                new PlayerMoveC2SPacket.Full(
-                        tx, ty, tz,
-                        player.getYaw(), player.getPitch(),
-                        true, player.horizontalCollision));
+        player.setVelocity(0, 0, 0);
+
+        // Send multiple Full position packets to force the server to accept
+        // The server checks the last known position - flooding helps override it
+        for (int i = 0; i < 5; i++) {
+            client.getNetworkHandler().sendPacket(
+                    new PlayerMoveC2SPacket.Full(
+                            tx, ty, tz,
+                            player.getYaw(), player.getPitch(),
+                            true, false));
+        }
+
+        player.sendMessage(
+                Text.literal("\u00a7a[TP BETA] Teleported to " +
+                        String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
+                true);
     }
 
     public static void registerPayload() {

@@ -27,7 +27,6 @@ execute as @a[scores={osp.kb_str=1..}] run function osp:features/set_knockback_s
 execute as @a[scores={osp.reach_dist=1..}] run function osp:features/set_reach_dist
 execute as @a[scores={osp.speed_mult=1..}] run function osp:features/set_speed_mult
 execute as @a[scores={osp.fly_speed=1..}] run function osp:features/set_fly_speed
-execute as @a[scores={osp.tp_x=-30000000..30000000}] at @s unless score @s osp.tp_x matches 0 run function osp:features/set_tp_coords
 
 # Process feature toggles
 execute as @a[scores={osp.knockback=1..}] run function osp:features/knockback
