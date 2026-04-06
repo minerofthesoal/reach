@@ -41,14 +41,14 @@ public class TeleportHandler {
     public static void tick(MinecraftClient client) {
         if (client.player == null) return;
 
-        if (cooldownTicks > 0) {
-            cooldownTicks--;
+        // Handle incremental beta TP in progress (must run before cooldown check)
+        if (incrementalActive) {
+            tickIncremental(client);
             return;
         }
 
-        // Handle incremental beta TP in progress
-        if (incrementalActive) {
-            tickIncremental(client);
+        if (cooldownTicks > 0) {
+            cooldownTicks--;
             return;
         }
 
@@ -153,6 +153,7 @@ public class TeleportHandler {
             // Close enough - final jump
             directBetaTp(client, player, targetX, targetY, targetZ);
             incrementalActive = false;
+            cooldownTicks = 20;
             player.sendMessage(
                     Text.literal("\u00a7a[TP BETA] Arrived at " +
                             String.format("%.0f, %.0f, %.0f", targetX, targetY, targetZ) +
