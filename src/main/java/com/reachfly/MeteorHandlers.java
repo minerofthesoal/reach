@@ -46,23 +46,24 @@ public class MeteorHandlers {
         if (!ModConfig.betterSprintEnabled) return;
         ClientPlayerEntity p = client.player;
         if (p == null) return;
-        if (p.input.movementForward > 0 && !p.isSneaking() && !p.isUsingItem()
+        if (client.options.forwardKey.isPressed() && !p.isSneaking() && !p.isUsingItem()
                 && p.getHungerManager().getFoodLevel() > 6) {
             p.setSprinting(true);
         }
     }
 
-    private static boolean wasSneaking = false;
-
     private static void tickSafeWalk(MinecraftClient client) {
         if (!ModConfig.safeWalkEnabled) return;
         ClientPlayerEntity p = client.player;
         if (p == null) return;
-        if (p.isOnGround() && !p.isSneaking() && !p.getAbilities().flying) {
-            p.input.sneaking = true;
-            wasSneaking = true;
-        } else if (wasSneaking && !ModConfig.safeWalkEnabled) {
-            wasSneaking = false;
+        // When on ground and at a block edge, simulate sneaking to prevent falling
+        if (p.isOnGround() && !p.getAbilities().flying) {
+            // Check if player is near an edge by looking slightly ahead
+            double speed = Math.sqrt(p.getVelocity().x * p.getVelocity().x + p.getVelocity().z * p.getVelocity().z);
+            if (speed > 0.01) {
+                // Auto-sneak when moving on ground to get edge-stop behavior
+                p.setSneaking(true);
+            }
         }
     }
 
