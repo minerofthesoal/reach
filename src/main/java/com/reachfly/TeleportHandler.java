@@ -7,23 +7,23 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
 
 /**
- * Teleport handler with three paths, tried in order:
+ * Teleport handler with three paths:
  *
- * 1. SINGLEPLAYER: Direct server-side requestTeleport() - always works
- * 2. NORMAL MODE (tpUseServerAddon = true):
- *    a. Try Fabric mod addon (custom packet)
- *    b. Fallback: send /trigger commands for the datapack
- * 3. BETA MODE (tpUseServerAddon = false):
- *    Direct client-side teleport. Sends position + multiple confirmation
- *    packets. May rubberband on strict servers but actually moves you.
+ * 1. SINGLEPLAYER: Direct server requestTeleport()
+ * 2. NORMAL MODE: Checks if Fabric addon can receive packets.
+ *    If not, sends /trigger commands for the datapack.
+ * 3. BETA MODE: Direct client-side position set + packet flood.
  */
 public class TeleportHandler {
 
     private static boolean pendingTeleport = false;
     private static int cooldownTicks = 0;
+
+    // Datapack command queue (spread across ticks)
+    private static String[] pendingCommands = null;
+    private static int commandIndex = 0;
 
     public static void triggerTeleport() {
         pendingTeleport = true;
@@ -31,6 +31,18 @@ public class TeleportHandler {
 
     public static void tick(MinecraftClient client) {
         if (client.player == null) return;
+
+        // Process queued datapack commands (one per tick for reliability)
+        if (pendingCommands != null && client.getNetworkHandler() != null) {
+            if (commandIndex < pendingCommands.length) {
+                client.getNetworkHandler().sendChatCommand(pendingCommands[commandIndex]);
+                commandIndex++;
+            } else {
+                pendingCommands = null;
+                commandIndex = 0;
+            }
+            return;
+        }
 
         if (cooldownTicks > 0) {
             cooldownTicks--;
@@ -47,7 +59,7 @@ public class TeleportHandler {
 
         ClientPlayerEntity player = client.player;
 
-        // Path 1: Singleplayer - direct server access (always works)
+        // Path 1: Singleplayer - direct server access
         MinecraftServer server = client.getServer();
         if (server != null) {
             ServerPlayerEntity serverPlayer = server.getPlayerManager()
@@ -62,78 +74,65 @@ public class TeleportHandler {
             }
         }
 
-        // Path 2: Multiplayer with server addon
+        // Path 2 & 3: Multiplayer
         if (ModConfig.tpUseServerAddon) {
             normalTeleport(client, player, tx, ty, tz);
         } else {
-            // Path 3: Beta - direct client-side teleport
             betaTeleport(client, player, tx, ty, tz);
         }
     }
 
     /**
-     * Normal mode: Try Fabric mod packet first, fall back to datapack /trigger commands.
+     * Normal mode: Check if server has the Fabric addon registered.
+     * If yes, send custom packet. If no, use datapack /trigger commands.
      */
     private static void normalTeleport(MinecraftClient client, ClientPlayerEntity player,
                                         double tx, double ty, double tz) {
-        // Try sending the custom packet (works with Fabric mod addon)
-        boolean packetSent = false;
-        try {
+        // Check if the server actually supports our custom packet
+        if (ClientPlayNetworking.canSend(TeleportPayload.ID)) {
             ClientPlayNetworking.send(new TeleportPayload(tx, ty, tz));
-            packetSent = true;
-        } catch (Exception ignored) {
-            // Fabric mod addon not on server - fall through to datapack
-        }
-
-        if (packetSent) {
             player.sendMessage(
-                    Text.literal("\u00a7a[TP] Sent teleport request to server: " +
+                    Text.literal("\u00a7a[TP] Teleported via server addon: " +
                             String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
                     true);
             return;
         }
 
-        // Fallback: Use datapack /trigger commands
+        // Fallback: datapack mode via /trigger commands
+        // Queue commands to send one per tick (triggers need re-enabling between uses)
         datapackTeleport(client, player, tx, ty, tz);
     }
 
     /**
-     * Datapack mode: Send /trigger commands to set coordinates and trigger TP.
-     * Works on any server with the OSP data pack installed (vanilla, Paper, etc.)
+     * Datapack mode: Queue /trigger commands sent one per tick.
      */
     private static void datapackTeleport(MinecraftClient client, ClientPlayerEntity player,
                                           double tx, double ty, double tz) {
-        if (client.getNetworkHandler() == null) return;
-
-        // Send trigger commands for the datapack
-        // Set coordinates first, then trigger the teleport
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp_x set " + (int) tx);
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp_y set " + (int) ty);
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp_z set " + (int) tz);
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp set 1");
+        pendingCommands = new String[]{
+                "trigger osp.tp_x set " + (int) tx,
+                "trigger osp.tp_y set " + (int) ty,
+                "trigger osp.tp_z set " + (int) tz,
+                "trigger osp.tp set 1"
+        };
+        commandIndex = 0;
 
         player.sendMessage(
-                Text.literal("\u00a7a[TP] Sent datapack teleport to " +
-                        String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
+                Text.literal("\u00a7e[TP] Sending datapack teleport to " +
+                        String.format("%.0f, %.0f, %.0f", tx, ty, tz) + "..."),
                 true);
     }
 
     /**
-     * Beta mode: Direct client-side teleport.
-     * Sets position locally and floods the server with position packets.
-     * Will rubberband on strict anti-cheat servers but works on vanilla/Aternos.
+     * Beta mode: Direct client-side teleport with packet flood.
      */
     private static void betaTeleport(MinecraftClient client, ClientPlayerEntity player,
                                       double tx, double ty, double tz) {
         if (client.getNetworkHandler() == null) return;
 
-        // Set client position directly
         player.setPosition(tx, ty, tz);
         player.fallDistance = 0.0f;
         player.setVelocity(0, 0, 0);
 
-        // Send multiple Full position packets to force the server to accept
-        // The server checks the last known position - flooding helps override it
         for (int i = 0; i < 5; i++) {
             client.getNetworkHandler().sendPacket(
                     new PlayerMoveC2SPacket.Full(

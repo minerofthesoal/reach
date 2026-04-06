@@ -41,6 +41,10 @@ public class ModConfig {
     public static final float AUTO_HIT_RANGE_MAX = 50.0f;
     public static boolean autoHitPlayersOnly = false;
     public static boolean killAuraEnabled = false;
+    public static boolean killAuraPlusEnabled = false;
+    public static int killAuraPlusCps = 20;
+    public static final int KA_PLUS_CPS_MIN = 5;
+    public static final int KA_PLUS_CPS_MAX = 40;
 
     // --- Low Health Kill ---
     public static boolean lowHealthKillEnabled = false;
@@ -230,6 +234,8 @@ public class ModConfig {
                     autoHitRange = clamp(data.autoHitRange, AUTO_HIT_RANGE_MIN, AUTO_HIT_RANGE_MAX);
                     autoHitPlayersOnly = data.autoHitPlayersOnly;
                     killAuraEnabled = data.killAuraEnabled;
+                    killAuraPlusEnabled = data.killAuraPlusEnabled;
+                    killAuraPlusCps = Math.max(KA_PLUS_CPS_MIN, Math.min(KA_PLUS_CPS_MAX, data.killAuraPlusCps));
                     lowHealthKillEnabled = data.lowHealthKillEnabled;
                     lowHealthThreshold = clamp(data.lowHealthThreshold, LOW_HEALTH_MIN, LOW_HEALTH_MAX);
                     autoKillWhenLowEnabled = data.autoKillWhenLowEnabled;
@@ -328,6 +334,8 @@ public class ModConfig {
         data.autoHitRange = autoHitRange;
         data.autoHitPlayersOnly = autoHitPlayersOnly;
         data.killAuraEnabled = killAuraEnabled;
+        data.killAuraPlusEnabled = killAuraPlusEnabled;
+        data.killAuraPlusCps = killAuraPlusCps;
         data.lowHealthKillEnabled = lowHealthKillEnabled;
         data.lowHealthThreshold = lowHealthThreshold;
         data.autoKillWhenLowEnabled = autoKillWhenLowEnabled;
@@ -428,6 +436,8 @@ public class ModConfig {
         float autoHitRange = 3.0f;
         boolean autoHitPlayersOnly = false;
         boolean killAuraEnabled = false;
+        boolean killAuraPlusEnabled = false;
+        int killAuraPlusCps = 20;
         boolean lowHealthKillEnabled = false;
         float lowHealthThreshold = 6.0f;
         boolean autoKillWhenLowEnabled = false;
