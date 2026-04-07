@@ -151,7 +151,7 @@ public class WurstHandlers {
         if (p == null || client.screen != null) return;
         if (client.hitResult == null) return;
 
-        if (!(client.hitResult instanceof net.minecraft.util.hit.EntityHitResult ehr)) return;
+        if (!(client.hitResult instanceof net.minecraft.world.phys.EntityHitResult ehr)) return;
         if (!(ehr.getEntity() instanceof LivingEntity)) return;
 
         int bestSlot = -1;
@@ -267,7 +267,7 @@ public class WurstHandlers {
 
         if (p.getAttackStrengthScale(0.0f) < 1.0f) return;
 
-        if (client.hitResult instanceof net.minecraft.util.hit.EntityHitResult ehr) {
+        if (client.hitResult instanceof net.minecraft.world.phys.EntityHitResult ehr) {
             Entity target = ehr.getEntity();
             if (target instanceof LivingEntity living && living.isAlive()) {
                 if (ModConfig.autoHitPlayersOnly && !(target instanceof Player)) return;

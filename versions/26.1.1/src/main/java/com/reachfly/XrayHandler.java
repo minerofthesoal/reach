@@ -55,7 +55,7 @@ public class XrayHandler {
     public static boolean shouldRenderBlock(net.minecraft.world.level.block.Block block) {
         if (!ModConfig.xrayEnabled) return true;
 
-        String blockId = net.minecraft.registry.BuiltInRegistries.BLOCK.getId(block).getPath();
+        String blockId = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getId(block).getPath();
 
         // Ores
         if (blockId.contains("ore")) return true;

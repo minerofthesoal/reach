@@ -66,7 +66,7 @@ public class AutoArmorHandler {
         if (stack.isEmpty()) return -1;
         Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
         if (equippable == null) return -1;
-        String id = net.minecraft.registry.BuiltInRegistries.ITEM.getId(stack.getItem()).getPath();
+        String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getId(stack.getItem()).getPath();
         if (id.contains("netherite")) return 6;
         if (id.contains("diamond")) return 5;
         if (id.contains("iron")) return 4;

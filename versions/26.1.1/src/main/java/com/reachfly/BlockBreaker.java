@@ -38,7 +38,7 @@ public class BlockBreaker {
         // Attack the block (starts or continues breaking)
         client.gameMode.startDestroyBlock(pos, Direction.UP);
         client.gameMode.continueDestroyBlock(pos, Direction.UP);
-        client.player.swing(net.minecraft.util.InteractionHand.MAIN_HAND);
+        client.player.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
         breakProgress++;
 
         // Check if broken (becomes air)

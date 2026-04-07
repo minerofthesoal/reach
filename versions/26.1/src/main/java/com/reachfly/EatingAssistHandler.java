@@ -79,7 +79,7 @@ public class EatingAssistHandler {
         eatTicks = 0;
 
         // Start eating via interaction manager, then hold use key
-        client.gameMode.useItem(player, net.minecraft.util.InteractionHand.MAIN_HAND);
+        client.gameMode.useItem(player, net.minecraft.world.InteractionHand.MAIN_HAND);
         KeyMapping.set(client.options.keyUse.getDefaultKey(), true);
         isHoldingUse = true;
     }
