@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "reachfly",
   "version": "${version}",
-  "name": "Optimizer Super Premium",
+  "name": "f1sch client",
   "description": "The ultimate Minecraft optimization suite with premium features.",
-  "authors": ["ReachFlyDev"],
+  "authors": ["f1schDev"],
   "contact": {
     "sources": "https://github.com/minerofthesoal/reach"
   },

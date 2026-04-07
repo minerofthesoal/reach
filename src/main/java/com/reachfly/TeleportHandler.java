@@ -87,17 +87,17 @@ public class TeleportHandler {
     /**
      * Datapack mode: Send all /trigger commands in one tick.
      * Each trigger objective is independent so they can all fire in the same tick.
-     * The datapack tick function processes osp.tp=1 next server tick.
+     * The datapack tick function processes f1sch.tp=1 next server tick.
      */
     private static void datapackTeleport(MinecraftClient client, ClientPlayerEntity player,
                                           double tx, double ty, double tz) {
         if (client.getNetworkHandler() == null) return;
 
         // Send all coordinates + trigger at once
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp_x set " + (int) tx);
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp_y set " + (int) ty);
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp_z set " + (int) tz);
-        client.getNetworkHandler().sendChatCommand("trigger osp.tp set 1");
+        client.getNetworkHandler().sendChatCommand("trigger f1sch.tp_x set " + (int) tx);
+        client.getNetworkHandler().sendChatCommand("trigger f1sch.tp_y set " + (int) ty);
+        client.getNetworkHandler().sendChatCommand("trigger f1sch.tp_z set " + (int) tz);
+        client.getNetworkHandler().sendChatCommand("trigger f1sch.tp set 1");
 
         player.sendMessage(
                 Text.literal("\u00a7a[TP] Teleporting to " +

@@ -1,6 +1,6 @@
 # Features Overview
 
-Complete documentation for all Optimizer Super Premium features.
+Complete documentation for all f1sch client features.
 
 ---
 

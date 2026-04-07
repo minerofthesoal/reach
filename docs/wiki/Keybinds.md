@@ -1,6 +1,6 @@
 # Keybinds
 
-All keybinds are configurable in Minecraft's Controls menu under the **Optimizer Super Premium** category.
+All keybinds are configurable in Minecraft's Controls menu under the **f1sch client** category.
 
 ## Default Keybind Map
 
@@ -30,7 +30,7 @@ All keybinds are configurable in Minecraft's Controls menu under the **Optimizer
 
 1. Open Minecraft Settings
 2. Go to **Controls** > **Key Binds**
-3. Scroll to the **Optimizer Super Premium** category
+3. Scroll to the **f1sch client** category
 4. Click on any keybind to reassign it
 
 ## Tips

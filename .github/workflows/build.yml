@@ -60,15 +60,15 @@ jobs:
       - name: Upload server addon mod JAR
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon-v3-mod
-          path: server-addon/build/libs/osp-server-addon-3.0.0.jar
+          name: f1sch-server-addon-v3-mod
+          path: server-addon/build/libs/f1sch-server-addon-3.0.0.jar
           if-no-files-found: error
 
       - name: Upload server addon data pack ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon-v3-datapack
-          path: server-addon/build/libs/osp-server-addon-datapack-3.0.0.zip
+          name: f1sch-server-addon-v3-datapack
+          path: server-addon/build/libs/f1sch-server-addon-datapack-3.0.0.zip
           if-no-files-found: error
 
   release:
@@ -86,20 +86,20 @@ jobs:
       - name: Download server addon mod
         uses: actions/download-artifact@v4
         with:
-          name: osp-server-addon-v3-mod
+          name: f1sch-server-addon-v3-mod
           path: artifacts/server
 
       - name: Download server addon data pack
         uses: actions/download-artifact@v4
         with:
-          name: osp-server-addon-v3-datapack
+          name: f1sch-server-addon-v3-datapack
           path: artifacts/datapack
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v2.2.0-build.${{ github.run_number }}
-          name: "OSP v2.2.0 + Server Addon v3 (Build #${{ github.run_number }})"
+          name: "f1sch v2.2.0 + Server Addon v3 (Build #${{ github.run_number }})"
           body: |
             ## Downloads
             - **Client Mod (MC 1.21.11)** - Install in `.minecraft/mods/` (requires Fabric)

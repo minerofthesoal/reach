@@ -42,12 +42,12 @@ public class FlyHandler {
                     wasFlying = false;
                     if (!player.isOnGround()) {
                         player.sendMessage(
-                            net.minecraft.text.Text.literal("\u00a7c[OSP] \u00a7eFly disabled! You are falling - brace for landing!"),
+                            net.minecraft.text.Text.literal("\u00a7c[f1sch] \u00a7eFly disabled! You are falling - brace for landing!"),
                             true  // overlay / action bar
                         );
                     } else {
                         player.sendMessage(
-                            net.minecraft.text.Text.literal("\u00a7c[OSP] \u00a7aFly disabled. Safe on the ground."),
+                            net.minecraft.text.Text.literal("\u00a7c[f1sch] \u00a7aFly disabled. Safe on the ground."),
                             true
                         );
                     }

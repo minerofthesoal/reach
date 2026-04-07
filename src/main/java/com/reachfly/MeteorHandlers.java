@@ -28,10 +28,10 @@ public class MeteorHandlers {
         if (p.getHealth() <= ModConfig.autoLogHealth) {
             ModConfig.autoLogEnabled = false;
             ModConfig.save();
-            p.sendMessage(Text.literal("\u00a7c[OSP] Auto Log: disconnecting at " +
+            p.sendMessage(Text.literal("\u00a7c[f1sch] Auto Log: disconnecting at " +
                     String.format("%.1f HP", p.getHealth())), false);
             client.getNetworkHandler().getConnection().disconnect(
-                    Text.literal("OSP Auto Log - Health below " + String.format("%.1f", ModConfig.autoLogHealth)));
+                    Text.literal("f1sch Auto Log - Health below " + String.format("%.1f", ModConfig.autoLogHealth)));
         }
     }
 

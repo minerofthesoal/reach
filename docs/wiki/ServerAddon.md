@@ -1,6 +1,6 @@
 # Server Addon
 
-The OSP Server Addon is an optional server-side Fabric mod that enables reliable teleportation for players running the Optimizer Super Premium client mod.
+The f1sch Server Addon is an optional server-side Fabric mod that enables reliable teleportation for players running the f1sch client client mod.
 
 ## How It Works
 
@@ -25,7 +25,7 @@ The OSP Server Addon is an optional server-side Fabric mod that enables reliable
    cd server-addon
    ../gradlew build
    ```
-2. Copy `server-addon/build/libs/osp-server-addon-1.0.0.jar` to the server's `mods/` folder
+2. Copy `server-addon/build/libs/f1sch-server-addon-1.0.0.jar` to the server's `mods/` folder
 3. Restart the server
 
 ### Client Setup
@@ -60,7 +60,7 @@ If you want to restrict who can teleport, you would need to add a permission che
 
 The addon logs all teleport events:
 ```
-[OSP Server Addon] Teleporting Steve to 100, 64, -200
+[f1sch Server Addon] Teleporting Steve to 100, 64, -200
 ```
 
 ## Troubleshooting

@@ -24,7 +24,7 @@ cd server-addon
 ../gradlew build
 ```
 
-The built JAR is at `server-addon/build/libs/osp-server-addon-1.0.0.jar`.
+The built JAR is at `server-addon/build/libs/f1sch-server-addon-1.0.0.jar`.
 
 ## Building for Different Minecraft Versions
 

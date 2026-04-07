@@ -54,7 +54,7 @@ public class ConfigScreen extends Screen {
     private final Map<String, List<Module>> categories = new LinkedHashMap<>();
 
     public ConfigScreen(Screen parent) {
-        super(Text.literal("OSP"));
+        super(Text.literal("f1sch"));
         this.parent = parent;
     }
 

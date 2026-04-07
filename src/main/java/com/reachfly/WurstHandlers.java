@@ -242,7 +242,7 @@ public class WurstHandlers {
 
         if (client.player != null) {
             client.player.sendMessage(
-                    net.minecraft.text.Text.literal("\u00a7c[OSP] PANIC - All hacks disabled!"),
+                    net.minecraft.text.Text.literal("\u00a7c[f1sch] PANIC - All hacks disabled!"),
                     true);
         }
     }

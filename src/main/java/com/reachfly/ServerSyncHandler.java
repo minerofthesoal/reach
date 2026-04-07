@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Client-side handler for syncing features with the OSP Server Addon v2.
+ * Client-side handler for syncing features with the f1sch Server Addon v2.
  *
  * When the server addon is installed, this sends feature state changes
  * so the server can apply them authoritatively. Also receives ESP entity

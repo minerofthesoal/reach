@@ -14,6 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -55,218 +56,23 @@ public class ItemGiveScreen extends Screen {
     private static final int HOVER_BG = 0xFF282848;
     private static final int SELECTED_BG = 0xFF2A1F4E;
 
-    // Datapack trigger codes: item_id -> trigger code (1-200)
-    private static final Map<String, Integer> TRIGGER_CODES = new HashMap<>();
-    static {
-        // Materials (1-20)
-        TRIGGER_CODES.put("minecraft:diamond", 1);
-        TRIGGER_CODES.put("minecraft:iron_ingot", 2);
-        TRIGGER_CODES.put("minecraft:gold_ingot", 3);
-        TRIGGER_CODES.put("minecraft:emerald", 4);
-        TRIGGER_CODES.put("minecraft:netherite_ingot", 5);
-        TRIGGER_CODES.put("minecraft:lapis_lazuli", 6);
-        TRIGGER_CODES.put("minecraft:redstone", 7);
-        TRIGGER_CODES.put("minecraft:coal", 8);
-        TRIGGER_CODES.put("minecraft:copper_ingot", 9);
-        TRIGGER_CODES.put("minecraft:amethyst_shard", 10);
-        TRIGGER_CODES.put("minecraft:quartz", 11);
-        TRIGGER_CODES.put("minecraft:glowstone_dust", 12);
-        TRIGGER_CODES.put("minecraft:obsidian", 13);
-        TRIGGER_CODES.put("minecraft:blaze_rod", 14);
-        TRIGGER_CODES.put("minecraft:ender_pearl", 15);
-        TRIGGER_CODES.put("minecraft:phantom_membrane", 16);
-        TRIGGER_CODES.put("minecraft:leather", 17);
-        TRIGGER_CODES.put("minecraft:string", 18);
-        TRIGGER_CODES.put("minecraft:slime_ball", 19);
-        TRIGGER_CODES.put("minecraft:bone", 20);
-        // Food (21-35)
-        TRIGGER_CODES.put("minecraft:golden_apple", 21);
-        TRIGGER_CODES.put("minecraft:enchanted_golden_apple", 22);
-        TRIGGER_CODES.put("minecraft:cooked_beef", 23);
-        TRIGGER_CODES.put("minecraft:cooked_porkchop", 24);
-        TRIGGER_CODES.put("minecraft:bread", 25);
-        TRIGGER_CODES.put("minecraft:golden_carrot", 26);
-        TRIGGER_CODES.put("minecraft:cooked_salmon", 27);
-        TRIGGER_CODES.put("minecraft:cake", 28);
-        TRIGGER_CODES.put("minecraft:cookie", 29);
-        TRIGGER_CODES.put("minecraft:melon_slice", 30);
-        TRIGGER_CODES.put("minecraft:sweet_berries", 31);
-        TRIGGER_CODES.put("minecraft:chorus_fruit", 32);
-        TRIGGER_CODES.put("minecraft:dried_kelp", 33);
-        TRIGGER_CODES.put("minecraft:mushroom_stew", 34);
-        TRIGGER_CODES.put("minecraft:suspicious_stew", 35);
-        // Diamond gear (36-45)
-        TRIGGER_CODES.put("minecraft:diamond_sword", 36);
-        TRIGGER_CODES.put("minecraft:diamond_pickaxe", 37);
-        TRIGGER_CODES.put("minecraft:diamond_axe", 38);
-        TRIGGER_CODES.put("minecraft:diamond_shovel", 39);
-        TRIGGER_CODES.put("minecraft:diamond_hoe", 40);
-        TRIGGER_CODES.put("minecraft:diamond_helmet", 41);
-        TRIGGER_CODES.put("minecraft:diamond_chestplate", 42);
-        TRIGGER_CODES.put("minecraft:diamond_leggings", 43);
-        TRIGGER_CODES.put("minecraft:diamond_boots", 44);
-        TRIGGER_CODES.put("minecraft:diamond_horse_armor", 45);
-        // Netherite gear (46-55)
-        TRIGGER_CODES.put("minecraft:netherite_sword", 46);
-        TRIGGER_CODES.put("minecraft:netherite_pickaxe", 47);
-        TRIGGER_CODES.put("minecraft:netherite_axe", 48);
-        TRIGGER_CODES.put("minecraft:netherite_shovel", 49);
-        TRIGGER_CODES.put("minecraft:netherite_hoe", 50);
-        TRIGGER_CODES.put("minecraft:netherite_helmet", 51);
-        TRIGGER_CODES.put("minecraft:netherite_chestplate", 52);
-        TRIGGER_CODES.put("minecraft:netherite_leggings", 53);
-        TRIGGER_CODES.put("minecraft:netherite_boots", 54);
-        TRIGGER_CODES.put("minecraft:netherite_upgrade_smithing_template", 55);
-        // Iron gear (56-64)
-        TRIGGER_CODES.put("minecraft:iron_sword", 56);
-        TRIGGER_CODES.put("minecraft:iron_pickaxe", 57);
-        TRIGGER_CODES.put("minecraft:iron_axe", 58);
-        TRIGGER_CODES.put("minecraft:iron_shovel", 59);
-        TRIGGER_CODES.put("minecraft:iron_helmet", 60);
-        TRIGGER_CODES.put("minecraft:iron_chestplate", 61);
-        TRIGGER_CODES.put("minecraft:iron_leggings", 62);
-        TRIGGER_CODES.put("minecraft:iron_boots", 63);
-        TRIGGER_CODES.put("minecraft:iron_horse_armor", 64);
-        // Weapons & combat (65-80)
-        TRIGGER_CODES.put("minecraft:bow", 65);
-        TRIGGER_CODES.put("minecraft:crossbow", 66);
-        TRIGGER_CODES.put("minecraft:arrow", 67);
-        TRIGGER_CODES.put("minecraft:spectral_arrow", 68);
-        TRIGGER_CODES.put("minecraft:shield", 69);
-        TRIGGER_CODES.put("minecraft:totem_of_undying", 70);
-        TRIGGER_CODES.put("minecraft:trident", 71);
-        TRIGGER_CODES.put("minecraft:mace", 72);
-        TRIGGER_CODES.put("minecraft:tnt", 73);
-        TRIGGER_CODES.put("minecraft:end_crystal", 74);
-        TRIGGER_CODES.put("minecraft:fire_charge", 75);
-        TRIGGER_CODES.put("minecraft:flint_and_steel", 76);
-        TRIGGER_CODES.put("minecraft:lava_bucket", 77);
-        TRIGGER_CODES.put("minecraft:water_bucket", 78);
-        TRIGGER_CODES.put("minecraft:snowball", 79);
-        TRIGGER_CODES.put("minecraft:egg", 80);
-        // Utility & transport (81-100)
-        TRIGGER_CODES.put("minecraft:elytra", 81);
-        TRIGGER_CODES.put("minecraft:firework_rocket", 82);
-        TRIGGER_CODES.put("minecraft:ender_chest", 83);
-        TRIGGER_CODES.put("minecraft:shulker_box", 84);
-        TRIGGER_CODES.put("minecraft:crafting_table", 85);
-        TRIGGER_CODES.put("minecraft:anvil", 86);
-        TRIGGER_CODES.put("minecraft:enchanting_table", 87);
-        TRIGGER_CODES.put("minecraft:brewing_stand", 88);
-        TRIGGER_CODES.put("minecraft:furnace", 89);
-        TRIGGER_CODES.put("minecraft:blast_furnace", 90);
-        TRIGGER_CODES.put("minecraft:smoker", 91);
-        TRIGGER_CODES.put("minecraft:chest", 92);
-        TRIGGER_CODES.put("minecraft:hopper", 93);
-        TRIGGER_CODES.put("minecraft:dispenser", 94);
-        TRIGGER_CODES.put("minecraft:dropper", 95);
-        TRIGGER_CODES.put("minecraft:piston", 96);
-        TRIGGER_CODES.put("minecraft:sticky_piston", 97);
-        TRIGGER_CODES.put("minecraft:minecart", 98);
-        TRIGGER_CODES.put("minecraft:saddle", 99);
-        TRIGGER_CODES.put("minecraft:name_tag", 100);
-        // Potions & effects (101-115)
-        TRIGGER_CODES.put("minecraft:experience_bottle", 101);
-        TRIGGER_CODES.put("minecraft:glass_bottle", 102);
-        TRIGGER_CODES.put("minecraft:dragon_breath", 103);
-        TRIGGER_CODES.put("minecraft:ghast_tear", 104);
-        TRIGGER_CODES.put("minecraft:fermented_spider_eye", 105);
-        TRIGGER_CODES.put("minecraft:magma_cream", 106);
-        TRIGGER_CODES.put("minecraft:nether_wart", 107);
-        TRIGGER_CODES.put("minecraft:glistering_melon_slice", 108);
-        TRIGGER_CODES.put("minecraft:rabbit_foot", 109);
-        TRIGGER_CODES.put("minecraft:spider_eye", 110);
-        TRIGGER_CODES.put("minecraft:sugar", 111);
-        TRIGGER_CODES.put("minecraft:gunpowder", 112);
-        TRIGGER_CODES.put("minecraft:turtle_scute", 114);
-        TRIGGER_CODES.put("minecraft:breeze_rod", 115);
-        // Blocks (116-145)
-        TRIGGER_CODES.put("minecraft:stone", 116);
-        TRIGGER_CODES.put("minecraft:cobblestone", 117);
-        TRIGGER_CODES.put("minecraft:deepslate", 118);
-        TRIGGER_CODES.put("minecraft:dirt", 119);
-        TRIGGER_CODES.put("minecraft:grass_block", 120);
-        TRIGGER_CODES.put("minecraft:sand", 121);
-        TRIGGER_CODES.put("minecraft:gravel", 122);
-        TRIGGER_CODES.put("minecraft:oak_log", 123);
-        TRIGGER_CODES.put("minecraft:oak_planks", 124);
-        TRIGGER_CODES.put("minecraft:glass", 125);
-        TRIGGER_CODES.put("minecraft:bricks", 126);
-        TRIGGER_CODES.put("minecraft:stone_bricks", 127);
-        TRIGGER_CODES.put("minecraft:nether_bricks", 128);
-        TRIGGER_CODES.put("minecraft:end_stone", 129);
-        TRIGGER_CODES.put("minecraft:purpur_block", 130);
-        TRIGGER_CODES.put("minecraft:prismarine", 131);
-        TRIGGER_CODES.put("minecraft:sea_lantern", 132);
-        TRIGGER_CODES.put("minecraft:glowstone", 133);
-        TRIGGER_CODES.put("minecraft:torch", 134);
-        TRIGGER_CODES.put("minecraft:lantern", 135);
-        TRIGGER_CODES.put("minecraft:beacon", 136);
-        TRIGGER_CODES.put("minecraft:conduit", 137);
-        TRIGGER_CODES.put("minecraft:sponge", 138);
-        TRIGGER_CODES.put("minecraft:tinted_glass", 139);
-        TRIGGER_CODES.put("minecraft:rail", 140);
-        TRIGGER_CODES.put("minecraft:powered_rail", 141);
-        TRIGGER_CODES.put("minecraft:redstone_block", 142);
-        TRIGGER_CODES.put("minecraft:diamond_block", 143);
-        TRIGGER_CODES.put("minecraft:iron_block", 144);
-        TRIGGER_CODES.put("minecraft:gold_block", 145);
-        // Redstone (146-160)
-        TRIGGER_CODES.put("minecraft:redstone_torch", 147);
-        TRIGGER_CODES.put("minecraft:repeater", 148);
-        TRIGGER_CODES.put("minecraft:comparator", 149);
-        TRIGGER_CODES.put("minecraft:observer", 150);
-        TRIGGER_CODES.put("minecraft:daylight_detector", 151);
-        TRIGGER_CODES.put("minecraft:lever", 152);
-        TRIGGER_CODES.put("minecraft:stone_button", 153);
-        TRIGGER_CODES.put("minecraft:stone_pressure_plate", 154);
-        TRIGGER_CODES.put("minecraft:tripwire_hook", 155);
-        TRIGGER_CODES.put("minecraft:trapped_chest", 156);
-        TRIGGER_CODES.put("minecraft:note_block", 157);
-        TRIGGER_CODES.put("minecraft:target", 158);
-        TRIGGER_CODES.put("minecraft:sculk_sensor", 159);
-        TRIGGER_CODES.put("minecraft:calibrated_sculk_sensor", 160);
-        // Special & rare (161-180)
-        TRIGGER_CODES.put("minecraft:nether_star", 161);
-        TRIGGER_CODES.put("minecraft:dragon_egg", 162);
-        TRIGGER_CODES.put("minecraft:heart_of_the_sea", 164);
-        TRIGGER_CODES.put("minecraft:nautilus_shell", 165);
-        TRIGGER_CODES.put("minecraft:wither_skeleton_skull", 166);
-        TRIGGER_CODES.put("minecraft:soul_sand", 167);
-        TRIGGER_CODES.put("minecraft:respawn_anchor", 168);
-        TRIGGER_CODES.put("minecraft:lodestone", 169);
-        TRIGGER_CODES.put("minecraft:recovery_compass", 170);
-        TRIGGER_CODES.put("minecraft:spyglass", 171);
-        TRIGGER_CODES.put("minecraft:brush", 172);
-        TRIGGER_CODES.put("minecraft:lead", 173);
-        TRIGGER_CODES.put("minecraft:fishing_rod", 174);
-        TRIGGER_CODES.put("minecraft:shears", 175);
-        TRIGGER_CODES.put("minecraft:compass", 176);
-        TRIGGER_CODES.put("minecraft:clock", 177);
-        TRIGGER_CODES.put("minecraft:map", 178);
-        TRIGGER_CODES.put("minecraft:book", 179);
-        TRIGGER_CODES.put("minecraft:writable_book", 180);
-        // Spawn eggs & misc (181-200)
-        TRIGGER_CODES.put("minecraft:command_block", 181);
-        TRIGGER_CODES.put("minecraft:chain_command_block", 182);
-        TRIGGER_CODES.put("minecraft:repeating_command_block", 183);
-        TRIGGER_CODES.put("minecraft:structure_block", 184);
-        TRIGGER_CODES.put("minecraft:barrier", 185);
-        TRIGGER_CODES.put("minecraft:light", 186);
-        TRIGGER_CODES.put("minecraft:spawner", 187);
-        TRIGGER_CODES.put("minecraft:trial_spawner", 188);
-        TRIGGER_CODES.put("minecraft:vault", 189);
-        TRIGGER_CODES.put("minecraft:debug_stick", 190);
-        TRIGGER_CODES.put("minecraft:knowledge_book", 191);
-        TRIGGER_CODES.put("minecraft:bundle", 192);
-        TRIGGER_CODES.put("minecraft:copper_bulb", 193);
-        TRIGGER_CODES.put("minecraft:trial_key", 194);
-        TRIGGER_CODES.put("minecraft:ominous_trial_key", 195);
-        TRIGGER_CODES.put("minecraft:wind_charge", 196);
-        TRIGGER_CODES.put("minecraft:wolf_armor", 197);
-        TRIGGER_CODES.put("minecraft:decorated_pot", 198);
-        TRIGGER_CODES.put("minecraft:heavy_core", 199);
-        TRIGGER_CODES.put("minecraft:white_bed", 200);
+    // Trigger codes: computed lazily from sorted item registry.
+    // Matches the alphabetically-sorted give_item.mcfunction in the datapack.
+    private static Map<String, Integer> triggerCodes = null;
+
+    private static Map<String, Integer> getTriggerCodes() {
+        if (triggerCodes == null) {
+            triggerCodes = new HashMap<>();
+            List<String> ids = new ArrayList<>();
+            for (Item item : Registries.ITEM) {
+                ids.add(Registries.ITEM.getId(item).toString());
+            }
+            Collections.sort(ids);
+            for (int i = 0; i < ids.size(); i++) {
+                triggerCodes.put(ids.get(i), i + 1);
+            }
+        }
+        return triggerCodes;
     }
 
     public ItemGiveScreen(Screen parent) {
@@ -647,9 +453,9 @@ public class ItemGiveScreen extends Screen {
 
         // 2. Fallback: datapack trigger (200 mapped items, no OP needed)
         if (!sent) {
-            Integer code = TRIGGER_CODES.get(itemId);
+            Integer code = getTriggerCodes().get(itemId);
             if (code != null) {
-                client.getNetworkHandler().sendChatCommand("trigger osp.give set " + code);
+                client.getNetworkHandler().sendChatCommand("trigger f1sch.give set " + code);
                 sent = true;
             }
         }

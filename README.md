@@ -1,4 +1,4 @@
-# Optimizer Super Premium
+# f1sch client
 
 A client-side Fabric mod for Minecraft with 25+ hack features including extended reach, fly, ESP, auto-combat, teleport, X-Ray, knockback, Jesus (walk on water), step, safewalk, auto-log, and more. Inspired by Meteor, Future, and Rusherhack clients.
 
@@ -38,7 +38,7 @@ A client-side Fabric mod for Minecraft with 25+ hack features including extended
 | **HUD Toggle** | Show/hide status overlay | `H` |
 | **Config Screen** | ClickGUI with categories and toggles | `Right Shift` |
 
-All keybinds are configurable in Minecraft's Controls menu under the "Optimizer Super Premium" category.
+All keybinds are configurable in Minecraft's Controls menu under the "f1sch client" category.
 
 ## Installation
 
@@ -70,35 +70,35 @@ The server addon v2 enables **full server-authoritative support** for multiplaye
 #### Option A: Fabric Mod (full features, requires Fabric on server)
 
 1. Build: `cd server-addon && ../gradlew build`
-2. Place `osp-server-addon-2.0.0.jar` in the server's `mods/` folder
+2. Place `f1sch-server-addon-2.0.0.jar` in the server's `mods/` folder
 3. Restart the server
 4. Features auto-sync from the client mod via custom packets
 
 #### Option B: Data Pack (no Fabric needed, works on any server)
 
 1. Build: `cd server-addon && ../gradlew buildDatapack`
-2. Place `osp-server-addon-datapack-2.0.0.zip` in the server's `world/datapacks/` folder
+2. Place `f1sch-server-addon-datapack-2.0.0.zip` in the server's `world/datapacks/` folder
 3. Run `/reload` or restart the server
-4. Use `/trigger osp.help` in-game for all commands
+4. Use `/trigger f1sch.help` in-game for all commands
 
 **Data Pack commands:**
 ```
-/trigger osp.help              # Show all commands (clickable!)
-/trigger osp.knockback set 1   # Toggle knockback on/off
-/trigger osp.kb_str set 50     # Set knockback strength (1-2500)
-/trigger osp.reach set 1       # Toggle reach on/off
-/trigger osp.reach_dist set 100 # Set reach (x10, e.g. 100 = 10 blocks)
-/trigger osp.speed set 1       # Toggle speed on/off
-/trigger osp.speed_mult set 20  # Set speed (x10, e.g. 20 = 2.0x)
-/trigger osp.nofall set 1      # Toggle nofall on/off
-/trigger osp.fly set 1         # Toggle fly on/off
-/trigger osp.tp_x set 100      # Set teleport X
-/trigger osp.tp_y set 64       # Set teleport Y
-/trigger osp.tp_z set 200      # Set teleport Z
-/trigger osp.tp set 1          # Teleport now!
+/trigger f1sch.help              # Show all commands (clickable!)
+/trigger f1sch.knockback set 1   # Toggle knockback on/off
+/trigger f1sch.kb_str set 50     # Set knockback strength (1-2500)
+/trigger f1sch.reach set 1       # Toggle reach on/off
+/trigger f1sch.reach_dist set 100 # Set reach (x10, e.g. 100 = 10 blocks)
+/trigger f1sch.speed set 1       # Toggle speed on/off
+/trigger f1sch.speed_mult set 20  # Set speed (x10, e.g. 20 = 2.0x)
+/trigger f1sch.nofall set 1      # Toggle nofall on/off
+/trigger f1sch.fly set 1         # Toggle fly on/off
+/trigger f1sch.tp_x set 100      # Set teleport X
+/trigger f1sch.tp_y set 64       # Set teleport Y
+/trigger f1sch.tp_z set 200      # Set teleport Z
+/trigger f1sch.tp set 1          # Teleport now!
 ```
 
-To uninstall the data pack cleanly: `/function osp:uninstall`
+To uninstall the data pack cleanly: `/function f1sch:uninstall`
 
 Without the server addon, features still work in **client-only mode** (Teleport uses Beta incremental mode, attributes only apply client-side, ESP limited to loaded chunks).
 
@@ -111,21 +111,21 @@ To install the server addon on an **Aternos** Minecraft server:
 1. Go to your Aternos server panel
 2. Click **Software & Plugins** (or **Mods**) in the left sidebar
 3. Make sure your server is set to **Fabric** as the server software
-4. Click **Upload** and select the `osp-server-addon-2.0.0.jar` file
+4. Click **Upload** and select the `f1sch-server-addon-2.0.0.jar` file
 5. Start/restart your server
 
 **As Data Pack (works on ANY server - Vanilla, Fabric, Paper, etc.):**
 
 1. In the Aternos panel, go to **Files** > navigate to your `world/datapacks/` folder
-2. Click **Upload** and upload the `osp-server-addon-datapack-2.0.0.zip`
+2. Click **Upload** and upload the `f1sch-server-addon-datapack-2.0.0.zip`
 3. Restart the server (or run `/reload` in console)
-4. Players use `/trigger osp.help` in-game for commands
+4. Players use `/trigger f1sch.help` in-game for commands
 
 **Via Aternos Console (after addon is installed):**
 
 The addon registers automatically. Verify it's loaded by checking the console for:
 ```
-[OSP Server Addon v2] Ready. Supported features: Teleport, Knockback, Reach, Speed, NoFall, Fly, ESP
+[f1sch Server Addon v2] Ready. Supported features: Teleport, Knockback, Reach, Speed, NoFall, Fly, ESP
 ```
 
 All features auto-sync when toggled in-game. The server addon cleans up all attribute modifiers when a player disconnects.

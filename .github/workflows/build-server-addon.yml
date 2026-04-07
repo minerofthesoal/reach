@@ -37,13 +37,13 @@ jobs:
       - name: Upload Fabric mod JAR
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon-mod
-          path: server-addon/build/libs/osp-server-addon-3.0.0.jar
+          name: f1sch-server-addon-mod
+          path: server-addon/build/libs/f1sch-server-addon-3.0.0.jar
           if-no-files-found: error
 
       - name: Upload Data Pack ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon-datapack
-          path: server-addon/build/libs/osp-server-addon-datapack-3.0.0.zip
+          name: f1sch-server-addon-datapack
+          path: server-addon/build/libs/f1sch-server-addon-datapack-3.0.0.zip
           if-no-files-found: error

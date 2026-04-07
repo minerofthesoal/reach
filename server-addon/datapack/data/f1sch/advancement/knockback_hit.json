@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "hit": {
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "rewards": {
+    "function": "f1sch:features/knockback_hit"
+  }
+}

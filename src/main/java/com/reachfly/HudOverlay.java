@@ -53,10 +53,10 @@ public class HudOverlay {
         String brand;
         int brandColor;
         if (ModConfig.proUnlocked) {
-            brand = "OSP PRO";
+            brand = "f1sch PRO";
             brandColor = 0xFFFFD700;
         } else {
-            brand = "OSP v2.2";
+            brand = "f1sch v2.2";
             brandColor = 0xFFBB66FF;
         }
         int bw = tr.getWidth(brand);

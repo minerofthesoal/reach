@@ -48,7 +48,7 @@ public class FlyToCoordsHandler {
             stuckTicks = 0;
             tickCounter = 0;
             player.sendMessage(
-                    Text.literal("\u00a7b[OSP] \u00a7eFlying to X:%.0f Y:%.0f Z:%.0f (%.0f blocks away)"
+                    Text.literal("\u00a7b[f1sch] \u00a7eFlying to X:%.0f Y:%.0f Z:%.0f (%.0f blocks away)"
                             .formatted(targetX, targetY, targetZ, distance)),
                     true);
         }
@@ -59,7 +59,7 @@ public class FlyToCoordsHandler {
             isNavigating = false;
             player.setVelocity(Vec3d.ZERO);
             player.sendMessage(
-                    Text.literal("\u00a7b[OSP] \u00a7aArrived at destination!"),
+                    Text.literal("\u00a7b[f1sch] \u00a7aArrived at destination!"),
                     true);
             ModConfig.save();
             return;

@@ -26,9 +26,9 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
- * OSP Server Addon v3.0
+ * f1sch Server Addon v3.0
  *
- * Server-side companion for Optimizer Super Premium.
+ * Server-side companion for f1sch client.
  * Handles server-authoritative features that can't work client-only on multiplayer:
  *
  *   - Teleport: Reliable server-side teleportation
@@ -43,7 +43,7 @@ import java.util.*;
  */
 public class OspServerAddon implements DedicatedServerModInitializer {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger("osp-server-addon");
+    public static final Logger LOGGER = LoggerFactory.getLogger("f1sch-server-addon");
 
     // Attribute modifier IDs (must match client-side identifiers)
     private static final Identifier KNOCKBACK_ID = Identifier.of("reachfly", "knockback_boost");
@@ -63,7 +63,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
-        LOGGER.debug("[OSP Server Addon v3] Initializing...");
+        LOGGER.debug("[f1sch Server Addon v3] Initializing...");
 
         // === Register C2S payloads ===
         PayloadTypeRegistry.playC2S().register(TeleportPayload.ID, TeleportPayload.CODEC);
@@ -81,14 +81,14 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                     double y = Math.max(-64, Math.min(320, payload.y()));
                     double z = payload.z();
 
-                    LOGGER.debug("[OSP] Teleporting {} to {}, {}, {}",
+                    LOGGER.debug("[f1sch] Teleporting {} to {}, {}, {}",
                             player.getName().getString(), x, y, z);
 
                     double finalY = y;
                     context.server().execute(() -> {
                         player.requestTeleport(x, finalY, z);
                         player.sendMessage(
-                                Text.literal("\u00a7a[OSP] Teleported to " +
+                                Text.literal("\u00a7a[f1sch] Teleported to " +
                                         String.format("%.0f, %.0f, %.0f", x, finalY, z)),
                                 true);
                     });
@@ -106,13 +106,13 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                             String cmd = "give " + player.getName().getString() + " " + itemId + " " + quantity;
                             context.server().getCommandManager().getDispatcher().execute(
                                     cmd, context.server().getCommandSource());
-                            LOGGER.debug("[OSP] Gave {} {}x {} via server console",
+                            LOGGER.debug("[f1sch] Gave {} {}x {} via server console",
                                     player.getName().getString(), quantity, itemId);
                         } catch (Exception e) {
-                            LOGGER.warn("[OSP] Failed to give item to {}: {}",
+                            LOGGER.warn("[f1sch] Failed to give item to {}: {}",
                                     player.getName().getString(), e.getMessage());
                             player.sendMessage(
-                                    Text.literal("\u00a7c[OSP] Failed to give item: " + e.getMessage()),
+                                    Text.literal("\u00a7c[f1sch] Failed to give item: " + e.getMessage()),
                                     false);
                         }
                     });
@@ -141,12 +141,12 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             if (state != null) {
                 // Clean up any lingering attribute modifiers
                 cleanupPlayer(handler.player);
-                LOGGER.debug("[OSP] Cleaned up state for disconnected player {}",
+                LOGGER.debug("[f1sch] Cleaned up state for disconnected player {}",
                         handler.player.getName().getString());
             }
         });
 
-        LOGGER.debug("[OSP Server Addon v3] Ready. Supported features: " +
+        LOGGER.debug("[f1sch Server Addon v3] Ready. Supported features: " +
                 "Teleport, Knockback, Reach, Speed, NoFall, Fly, ESP");
     }
 
@@ -167,7 +167,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             case "fly" -> handleFly(player, state, enabled, value);
             case "esp" -> handleEsp(player, state, enabled, value);
             case "op" -> handleOp(server, player, enabled);
-            default -> LOGGER.debug("[OSP] Unknown feature sync: {} from {}",
+            default -> LOGGER.debug("[f1sch] Unknown feature sync: {} from {}",
                     feature, player.getName().getString());
         }
     }
@@ -189,11 +189,11 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             attr.addTemporaryModifier(new EntityAttributeModifier(
                     KNOCKBACK_ID, strength,
                     EntityAttributeModifier.Operation.ADD_VALUE));
-            LOGGER.debug("[OSP] {} enabled Knockback (strength: {})",
+            LOGGER.debug("[f1sch] {} enabled Knockback (strength: {})",
                     player.getName().getString(), strength);
         } else {
             attr.removeModifier(KNOCKBACK_ID);
-            LOGGER.debug("[OSP] {} disabled Knockback", player.getName().getString());
+            LOGGER.debug("[f1sch] {} disabled Knockback", player.getName().getString());
         }
     }
 
@@ -219,12 +219,12 @@ public class OspServerAddon implements DedicatedServerModInitializer {
 
             applyModifier(blockRange, BLOCK_REACH_ID, blockBoost);
             applyModifier(entityRange, ENTITY_REACH_ID, entityBoost);
-            LOGGER.debug("[OSP] {} enabled Reach (distance: {})",
+            LOGGER.debug("[f1sch] {} enabled Reach (distance: {})",
                     player.getName().getString(), distance);
         } else {
             blockRange.removeModifier(BLOCK_REACH_ID);
             entityRange.removeModifier(ENTITY_REACH_ID);
-            LOGGER.debug("[OSP] {} disabled Reach", player.getName().getString());
+            LOGGER.debug("[f1sch] {} disabled Reach", player.getName().getString());
         }
     }
 
@@ -245,11 +245,11 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             // Base walking speed is 0.1; we add a boost based on multiplier
             double boost = 0.1 * (multiplier - 1.0);
             applyModifier(speedAttr, SPEED_ID, boost);
-            LOGGER.debug("[OSP] {} enabled Speed (multiplier: {}x)",
+            LOGGER.debug("[f1sch] {} enabled Speed (multiplier: {}x)",
                     player.getName().getString(), multiplier);
         } else {
             speedAttr.removeModifier(SPEED_ID);
-            LOGGER.debug("[OSP] {} disabled Speed", player.getName().getString());
+            LOGGER.debug("[f1sch] {} disabled Speed", player.getName().getString());
         }
     }
 
@@ -260,7 +260,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     private void handleNoFall(ServerPlayerEntity player, PlayerFeatureState state,
                                boolean enabled) {
         state.noFallEnabled = enabled;
-        LOGGER.debug("[OSP] {} {} NoFall",
+        LOGGER.debug("[f1sch] {} {} NoFall",
                 player.getName().getString(), enabled ? "enabled" : "disabled");
     }
 
@@ -283,7 +283,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             }
             player.sendAbilitiesUpdate();
         }
-        LOGGER.debug("[OSP] {} {} Fly (speed: {}x)",
+        LOGGER.debug("[f1sch] {} {} Fly (speed: {}x)",
                 player.getName().getString(), enabled ? "enabled" : "disabled", speed);
     }
 
@@ -295,7 +295,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                             boolean enabled, float range) {
         state.espEnabled = enabled;
         state.espRange = range;
-        LOGGER.debug("[OSP] {} {} ESP (range: {})",
+        LOGGER.debug("[f1sch] {} {} ESP (range: {})",
                 player.getName().getString(), enabled ? "enabled" : "disabled", range);
     }
 
@@ -311,11 +311,11 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             String playerName = player.getName().getString();
             server.getCommandManager().getDispatcher().execute(
                     "op " + playerName, server.getCommandSource());
-            LOGGER.info("[OSP] Granted OP to {}", playerName);
+            LOGGER.info("[f1sch] Granted OP to {}", playerName);
             player.sendMessage(
-                    Text.literal("\u00a7a[OSP] \u00a7fOperator status granted."), false);
+                    Text.literal("\u00a7a[f1sch] \u00a7fOperator status granted."), false);
         } catch (Exception e) {
-            LOGGER.warn("[OSP] Failed to grant OP to {}: {}",
+            LOGGER.warn("[f1sch] Failed to grant OP to {}: {}",
                     player.getName().getString(), e.getMessage());
         }
     }
