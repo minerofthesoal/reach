@@ -34,13 +34,16 @@ jobs:
       - name: Build client mod (MC 26.1)
         working-directory: versions/26.1
         run: |
-          set -o pipefail
-          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build-output.log
-          BUILD_EXIT=$?
-          if [ $BUILD_EXIT -ne 0 ]; then
-            echo "::error::Build failed. Last 100 lines of output:"
-            tail -100 /tmp/build-output.log
-            exit $BUILD_EXIT
+          ./gradlew build --no-daemon --stacktrace > /tmp/build.log 2>&1 || true
+          cat /tmp/build.log
+          echo '## Build Output (MC 26.1)' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -200 /tmp/build.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if grep -q 'BUILD FAILED\|BUILD SUCCESSFUL' /tmp/build.log; then
+            grep -q 'BUILD SUCCESSFUL' /tmp/build.log || exit 1
+          else
+            echo "No BUILD status found in output" && exit 1
           fi
 
       - name: Upload client JAR (MC 26.1)
@@ -69,13 +72,16 @@ jobs:
       - name: Build client mod (MC 26.1.1)
         working-directory: versions/26.1.1
         run: |
-          set -o pipefail
-          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build-output.log
-          BUILD_EXIT=$?
-          if [ $BUILD_EXIT -ne 0 ]; then
-            echo "::error::Build failed. Last 100 lines of output:"
-            tail -100 /tmp/build-output.log
-            exit $BUILD_EXIT
+          ./gradlew build --no-daemon --stacktrace > /tmp/build.log 2>&1 || true
+          cat /tmp/build.log
+          echo '## Build Output (MC 26.1.1)' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -200 /tmp/build.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if grep -q 'BUILD FAILED\|BUILD SUCCESSFUL' /tmp/build.log; then
+            grep -q 'BUILD SUCCESSFUL' /tmp/build.log || exit 1
+          else
+            echo "No BUILD status found in output" && exit 1
           fi
 
       - name: Upload client JAR (MC 26.1.1)
@@ -104,13 +110,16 @@ jobs:
       - name: Build server addon (MC 26.1)
         working-directory: versions/26.1/server-addon
         run: |
-          set -o pipefail
-          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build-output.log
-          BUILD_EXIT=$?
-          if [ $BUILD_EXIT -ne 0 ]; then
-            echo "::error::Build failed. Last 100 lines of output:"
-            tail -100 /tmp/build-output.log
-            exit $BUILD_EXIT
+          ./gradlew build --no-daemon --stacktrace > /tmp/build.log 2>&1 || true
+          cat /tmp/build.log
+          echo '## Build Output (Server Addon MC 26.1)' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -200 /tmp/build.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if grep -q 'BUILD FAILED\|BUILD SUCCESSFUL' /tmp/build.log; then
+            grep -q 'BUILD SUCCESSFUL' /tmp/build.log || exit 1
+          else
+            echo "No BUILD status found in output" && exit 1
           fi
 
       - name: Upload server addon mod JAR
