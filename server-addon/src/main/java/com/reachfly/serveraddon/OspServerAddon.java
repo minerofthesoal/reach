@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
- * OSP Server Addon v2.0
+ * OSP Server Addon v3.0
  *
  * Server-side companion for Optimizer Super Premium.
  * Handles server-authoritative features that can't work client-only on multiplayer:
@@ -59,7 +59,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
-        LOGGER.info("[OSP Server Addon v2] Initializing...");
+        LOGGER.info("[OSP Server Addon v3] Initializing...");
 
         // === Register C2S payloads ===
         PayloadTypeRegistry.playC2S().register(TeleportPayload.ID, TeleportPayload.CODEC);
@@ -116,7 +116,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             }
         });
 
-        LOGGER.info("[OSP Server Addon v2] Ready. Supported features: " +
+        LOGGER.info("[OSP Server Addon v3] Ready. Supported features: " +
                 "Teleport, Knockback, Reach, Speed, NoFall, Fly, ESP");
     }
 

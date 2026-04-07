@@ -8,7 +8,9 @@
     "BlockStateMixin",
     "ClientPlayerInteractionManagerMixin",
     "EntityGlowMixin",
-    "InvMoveMixin"
+    "InvMoveMixin",
+    "SafeWalkMixin",
+    "XrayBlockRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

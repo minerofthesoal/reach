@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 /**
  * Fullbright - Sets gamma to maximum so the player can see in the dark.
  * Restores original gamma when disabled.
+ * Also forces fullbright when X-Ray is active so ores are visible underground.
  */
 public class FullbrightHandler {
 
@@ -14,7 +15,10 @@ public class FullbrightHandler {
     public static void tick(MinecraftClient client) {
         if (client.player == null) return;
 
-        if (ModConfig.fullbrightEnabled) {
+        // Active if fullbright is on OR xray needs it
+        boolean shouldBeActive = ModConfig.fullbrightEnabled || XrayHandler.isActive();
+
+        if (shouldBeActive) {
             if (!wasEnabled) {
                 originalGamma = client.options.getGamma().getValue();
                 wasEnabled = true;

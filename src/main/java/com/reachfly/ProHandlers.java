@@ -206,9 +206,6 @@ public class ProHandlers {
         }
     }
 
-    // Freecam requires more complex camera detachment - omitted for now
-    // It would need a mixin to override camera entity
-
     private static void tickTimer(MinecraftClient client) {
         if (!ModConfig.timerEnabled) return;
         ClientPlayerEntity p = client.player;

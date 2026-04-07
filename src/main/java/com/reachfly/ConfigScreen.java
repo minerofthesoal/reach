@@ -266,7 +266,7 @@ public class ConfigScreen extends Screen {
         if (ModConfig.proUnlocked) {
             ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a76\u00a7lPRO"), panelX + 32, panelTop + 6, GOLD);
         } else {
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78v2.1"), panelX + 32, panelTop + 6, TEXT_DIM);
+            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78v2.2"), panelX + 32, panelTop + 6, TEXT_DIM);
         }
 
         // Key icon (click to enter code)

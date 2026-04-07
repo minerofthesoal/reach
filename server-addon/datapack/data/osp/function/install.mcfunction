@@ -1,5 +1,5 @@
 # ============================================================
-# OSP Server Addon v2 - Datapack Edition
+# OSP Server Addon v3 - Datapack Edition
 # Run on load / /reload to set up scoreboards
 # ============================================================
 
@@ -36,7 +36,7 @@ scoreboard objectives add osp.speed_on dummy
 scoreboard objectives add osp.nofall_on dummy
 scoreboard objectives add osp.fly_on dummy
 
-tellraw @a [{"text":"[OSP] ","color":"gold","bold":true},{"text":"Server Addon v2 (Datapack) loaded!","color":"green"},{"text":"\n"},{"text":"  Use ","color":"gray"},{"text":"/trigger osp.help","color":"yellow","clickEvent":{"action":"run_command","value":"/trigger osp.help"}},{"text":" for commands","color":"gray"}]
+tellraw @a [{"text":"[OSP] ","color":"gold","bold":true},{"text":"Server Addon v3 (Datapack) loaded!","color":"green"},{"text":"\n"},{"text":"  Use ","color":"gray"},{"text":"/trigger osp.help","color":"yellow","clickEvent":{"action":"run_command","value":"/trigger osp.help"}},{"text":" for commands","color":"gray"}]
 
 # Help trigger
 scoreboard objectives add osp.help trigger "OSP Help"

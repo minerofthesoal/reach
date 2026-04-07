@@ -53,18 +53,8 @@ public class MeteorHandlers {
     }
 
     private static void tickSafeWalk(MinecraftClient client) {
-        if (!ModConfig.safeWalkEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null) return;
-        // When on ground and at a block edge, simulate sneaking to prevent falling
-        if (p.isOnGround() && !p.getAbilities().flying) {
-            // Check if player is near an edge by looking slightly ahead
-            double speed = Math.sqrt(p.getVelocity().x * p.getVelocity().x + p.getVelocity().z * p.getVelocity().z);
-            if (speed > 0.01) {
-                // Auto-sneak when moving on ground to get edge-stop behavior
-                p.setSneaking(true);
-            }
-        }
+        // SafeWalk is now handled by SafeWalkMixin using clipAtLedge()
+        // No tick logic needed - the mixin provides edge-clipping without speed reduction
     }
 
     private static boolean stepApplied = false;

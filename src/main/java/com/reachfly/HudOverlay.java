@@ -56,7 +56,7 @@ public class HudOverlay {
             brand = "OSP PRO";
             brandColor = 0xFFFFD700;
         } else {
-            brand = "OSP v2.1";
+            brand = "OSP v2.2";
             brandColor = 0xFFBB66FF;
         }
         int bw = tr.getWidth(brand);

@@ -3,31 +3,53 @@ package com.reachfly;
 import net.minecraft.client.MinecraftClient;
 
 /**
- * X-Ray - Makes non-ore blocks transparent so you can see ores through terrain.
- * Works by forcing block culling and making solid blocks invisible,
- * showing only valuable blocks like ores, chests, spawners, etc.
- * Uses internal rendering flag that triggers the xray mixin.
+ * X-Ray - Makes non-ore blocks invisible so you can see ores through terrain.
+ * Works via three mechanisms:
+ *   1. XrayBlockRenderMixin cancels BlockRenderManager.renderBlock() for non-valuable blocks
+ *   2. BlockRenderMixin forces shouldDrawSide=true for valuable blocks (all faces visible)
+ *   3. BlockStateMixin makes non-valuable blocks non-opaque (disables occlusion culling)
+ *
+ * When toggled, forces a full chunk rebuild so changes take effect immediately.
+ * Also applies fullbright so ores underground are visible.
  */
 public class XrayHandler {
 
     private static boolean wasEnabled = false;
+    private static boolean needsReload = false;
+    private static int reloadDelay = 0;
 
     public static void tick(MinecraftClient client) {
-        if (client.player == null) return;
+        if (client.player == null || client.worldRenderer == null) return;
+
+        // Handle delayed reload (wait a tick for state to propagate)
+        if (needsReload) {
+            reloadDelay--;
+            if (reloadDelay <= 0) {
+                needsReload = false;
+                client.worldRenderer.reload();
+            }
+        }
 
         if (ModConfig.xrayEnabled && !wasEnabled) {
             wasEnabled = true;
-            // Force chunk rebuild so xray takes effect
-            client.worldRenderer.reload();
+            // Schedule a chunk rebuild with a 1-tick delay
+            needsReload = true;
+            reloadDelay = 1;
         } else if (!ModConfig.xrayEnabled && wasEnabled) {
             wasEnabled = false;
-            // Rebuild chunks to restore normal rendering
-            client.worldRenderer.reload();
+            needsReload = true;
+            reloadDelay = 1;
+        }
+
+        // Force fullbright when xray is active so ores are visible underground
+        if (ModConfig.xrayEnabled) {
+            // Handled by FullbrightHandler integration - just ensure gamma is high
+            // This is a backup; the gamma approach in FullbrightHandler handles the main case
         }
     }
 
     /**
-     * Called from the block rendering mixin to determine if a block should be visible.
+     * Called from the block rendering mixins to determine if a block should be visible.
      * Returns true if the block should be rendered (is an ore/valuable block).
      */
     public static boolean shouldRenderBlock(net.minecraft.block.Block block) {
@@ -63,5 +85,13 @@ public class XrayHandler {
         if (blockId.equals("tnt")) return true;
 
         return false;
+    }
+
+    /**
+     * Returns true when X-Ray is active. Used by FullbrightHandler
+     * to force gamma high so ores are visible underground.
+     */
+    public static boolean isActive() {
+        return ModConfig.xrayEnabled;
     }
 }
