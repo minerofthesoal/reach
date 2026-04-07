@@ -50,7 +50,7 @@ public class FreecamHandler {
             p.onUpdateAbilities();
 
             p.displayClientMessage(
-                    net.minecraft.text.Component.literal("\u00a7b[Freecam] Enabled - fly around freely"),
+                    net.minecraft.network.chat.Component.literal("\u00a7b[Freecam] Enabled - fly around freely"),
                     true);
         } else if (!ModConfig.freecamEnabled && active) {
             // Exiting freecam - restore position
@@ -74,7 +74,7 @@ public class FreecamHandler {
             }
 
             p.displayClientMessage(
-                    net.minecraft.text.Component.literal("\u00a7b[Freecam] Disabled - returned to position"),
+                    net.minecraft.network.chat.Component.literal("\u00a7b[Freecam] Disabled - returned to position"),
                     true);
         }
 

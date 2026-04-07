@@ -26,8 +26,8 @@ public class ClientPlayerInteractionManagerMixin {
         MinecraftServer server = client.getSingleplayerServer();
         if (server == null) return;
 
-        for (ServerWorld world : server.getAllLevels()) {
-            Entity serverTarget = world.getEntity(target.type());
+        for (ServerLevel world : server.getAllLevels()) {
+            Entity serverTarget = world.getEntity(target.getId());
             if (serverTarget != null) {
                 Vec3 playerPos = new Vec3(player.getX(), player.getY(), player.getZ());
                 Vec3 targetPos = new Vec3(serverTarget.getX(), serverTarget.getY(), serverTarget.getZ());

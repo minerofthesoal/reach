@@ -18,7 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -341,11 +341,11 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     }
 
     private void sendEspData(ServerPlayer player, float range) {
-        ServerWorld world = player.getEntityWorld();
+        ServerLevel world = player.serverLevel();
         Vec3 pos = player.position();
         double r = Math.min(range, 500); // Cap at 500 blocks
 
-        Box searchBox = new Box(
+        AABB searchBox = new AABB(
                 pos.x - r, pos.y - r, pos.z - r,
                 pos.x + r, pos.y + r, pos.z + r);
 

@@ -115,7 +115,7 @@ public class EspRenderer {
         }
     }
 
-    private static double findGroundY(World world, double x, double startY, double z) {
+    private static double findGroundY(Level world, double x, double startY, double z) {
         int bx = (int) Math.floor(x);
         int bz = (int) Math.floor(z);
         int sy = (int) Math.floor(startY);

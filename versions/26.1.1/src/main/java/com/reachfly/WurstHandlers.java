@@ -242,7 +242,7 @@ public class WurstHandlers {
 
         if (client.player != null) {
             client.player.displayClientMessage(
-                    net.minecraft.text.Component.literal("\u00a7c[OSP] PANIC - All hacks disabled!"),
+                    net.minecraft.network.chat.Component.literal("\u00a7c[OSP] PANIC - All hacks disabled!"),
                     true);
         }
     }
@@ -590,7 +590,7 @@ public class WurstHandlers {
             ModConfig.blinkEnabled = false;
             blinkActive = false;
             blinkStartPos = null;
-            p.displayClientMessage(net.minecraft.text.Component.literal("\u00a7e[Blink] Auto-released (5s limit)"), true);
+            p.displayClientMessage(net.minecraft.network.chat.Component.literal("\u00a7e[Blink] Auto-released (5s limit)"), true);
         }
     }
 }
