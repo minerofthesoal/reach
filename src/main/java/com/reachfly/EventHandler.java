@@ -156,6 +156,8 @@ public class EventHandler {
         TeleportHandler.tick(client);
         MeteorHandlers.tick(client);
         ProHandlers.tick(client);
+        WurstHandlers.tick(client);
+        MeteorV2Handlers.tick(client);
         ServerSyncHandler.tick(client);
     }
 }

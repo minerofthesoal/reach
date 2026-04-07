@@ -7,7 +7,8 @@
     "BlockRenderMixin",
     "BlockStateMixin",
     "ClientPlayerInteractionManagerMixin",
-    "EntityGlowMixin"
+    "EntityGlowMixin",
+    "InvMoveMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -12,37 +12,24 @@ import net.minecraft.text.Text;
  * Teleport handler with three paths:
  *
  * 1. SINGLEPLAYER: Direct server requestTeleport()
- * 2. NORMAL MODE: Checks if Fabric addon can receive packets.
- *    If not, sends /trigger commands for the datapack.
- * 3. BETA MODE: Direct client-side position set + packet flood.
+ * 2. NORMAL MODE: Fabric addon packet, or datapack /trigger fallback
+ * 3. BETA MODE: Direct client-side position + packet flood
  */
 public class TeleportHandler {
 
     private static boolean pendingTeleport = false;
     private static int cooldownTicks = 0;
-
-    // Datapack command queue (spread across ticks)
-    private static String[] pendingCommands = null;
-    private static int commandIndex = 0;
+    private static long lastTeleportTime = 0;
 
     public static void triggerTeleport() {
+        // Prevent rapid trigger from held key - require 2 second gap minimum
+        long now = System.currentTimeMillis();
+        if (now - lastTeleportTime < 2000) return;
         pendingTeleport = true;
     }
 
     public static void tick(MinecraftClient client) {
         if (client.player == null) return;
-
-        // Process queued datapack commands (one per tick for reliability)
-        if (pendingCommands != null && client.getNetworkHandler() != null) {
-            if (commandIndex < pendingCommands.length) {
-                client.getNetworkHandler().sendChatCommand(pendingCommands[commandIndex]);
-                commandIndex++;
-            } else {
-                pendingCommands = null;
-                commandIndex = 0;
-            }
-            return;
-        }
 
         if (cooldownTicks > 0) {
             cooldownTicks--;
@@ -51,7 +38,8 @@ public class TeleportHandler {
 
         if (!pendingTeleport) return;
         pendingTeleport = false;
-        cooldownTicks = 20;
+        cooldownTicks = 60; // 3 second cooldown to prevent spam
+        lastTeleportTime = System.currentTimeMillis();
 
         double tx = ModConfig.tpX;
         double ty = ModConfig.tpY;
@@ -74,7 +62,6 @@ public class TeleportHandler {
             }
         }
 
-        // Path 2 & 3: Multiplayer
         if (ModConfig.tpUseServerAddon) {
             normalTeleport(client, player, tx, ty, tz);
         } else {
@@ -82,13 +69,8 @@ public class TeleportHandler {
         }
     }
 
-    /**
-     * Normal mode: Check if server has the Fabric addon registered.
-     * If yes, send custom packet. If no, use datapack /trigger commands.
-     */
     private static void normalTeleport(MinecraftClient client, ClientPlayerEntity player,
                                         double tx, double ty, double tz) {
-        // Check if the server actually supports our custom packet
         if (ClientPlayNetworking.canSend(TeleportPayload.ID)) {
             ClientPlayNetworking.send(new TeleportPayload(tx, ty, tz));
             player.sendMessage(
@@ -98,33 +80,31 @@ public class TeleportHandler {
             return;
         }
 
-        // Fallback: datapack mode via /trigger commands
-        // Queue commands to send one per tick (triggers need re-enabling between uses)
+        // Datapack fallback: send ALL trigger commands at once (they're different objectives)
         datapackTeleport(client, player, tx, ty, tz);
     }
 
     /**
-     * Datapack mode: Queue /trigger commands sent one per tick.
+     * Datapack mode: Send all /trigger commands in one tick.
+     * Each trigger objective is independent so they can all fire in the same tick.
+     * The datapack tick function processes osp.tp=1 next server tick.
      */
     private static void datapackTeleport(MinecraftClient client, ClientPlayerEntity player,
                                           double tx, double ty, double tz) {
-        pendingCommands = new String[]{
-                "trigger osp.tp_x set " + (int) tx,
-                "trigger osp.tp_y set " + (int) ty,
-                "trigger osp.tp_z set " + (int) tz,
-                "trigger osp.tp set 1"
-        };
-        commandIndex = 0;
+        if (client.getNetworkHandler() == null) return;
+
+        // Send all coordinates + trigger at once
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp_x set " + (int) tx);
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp_y set " + (int) ty);
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp_z set " + (int) tz);
+        client.getNetworkHandler().sendChatCommand("trigger osp.tp set 1");
 
         player.sendMessage(
-                Text.literal("\u00a7e[TP] Sending datapack teleport to " +
-                        String.format("%.0f, %.0f, %.0f", tx, ty, tz) + "..."),
+                Text.literal("\u00a7a[TP] Teleporting to " +
+                        String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
                 true);
     }
 
-    /**
-     * Beta mode: Direct client-side teleport with packet flood.
-     */
     private static void betaTeleport(MinecraftClient client, ClientPlayerEntity player,
                                       double tx, double ty, double tz) {
         if (client.getNetworkHandler() == null) return;

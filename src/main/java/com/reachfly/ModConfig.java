@@ -121,9 +121,62 @@ public class ModConfig {
     public static boolean betterSprintEnabled = false;
     public static boolean safeWalkEnabled = false;
     public static boolean stepEnabled = false;
+
+    // --- Meteor-style v2 ---
+    public static boolean elytraFlyEnabled = false;
+    public static float elytraFlySpeed = 2.0f;
+    public static final float ELYTRA_FLY_MIN = 0.5f;
+    public static final float ELYTRA_FLY_MAX = 10.0f;
+    public static boolean surroundEnabled = false;
+    public static boolean holeEspEnabled = false;
+    public static boolean crystalAuraEnabled = false;
+
+    // --- Wurst-style ---
+    public static boolean criticalsEnabled = false;
+    public static boolean bunnyHopEnabled = false;
+    public static boolean spiderEnabled = false;
+    public static boolean glideEnabled = false;
+    public static boolean highJumpEnabled = false;
+    public static float highJumpHeight = 2.0f;
+    public static final float HIGH_JUMP_MIN = 1.0f;
+    public static final float HIGH_JUMP_MAX = 10.0f;
+    public static boolean dolphinEnabled = false;
+    public static boolean autoSwordEnabled = false;
+    public static boolean sneakEnabled = false;
+    public static boolean panicEnabled = false;
+    public static boolean antiHungerEnabled = false;
+    public static boolean triggerBotEnabled = false;
+
+    // --- Inventory Move ---
+    public static boolean invMoveEnabled = false;
     public static float stepHeight = 2.0f;
     public static final float STEP_MIN = 1.0f;
     public static final float STEP_MAX = 10.0f;
+
+    // --- New Wurst features ---
+    public static boolean fastPlaceEnabled = false;
+    public static boolean parkourEnabled = false;
+    public static boolean noSlowdownEnabled = false;
+    public static boolean antiBlindEnabled = false;
+    public static boolean autoWalkEnabled = false;
+    public static boolean airJumpEnabled = false;
+    public static boolean noWebEnabled = false;
+    public static boolean flightPlusEnabled = false;
+    public static float flightPlusSpeed = 2.0f;
+    public static final float FLIGHT_PLUS_MIN = 0.5f;
+    public static final float FLIGHT_PLUS_MAX = 10.0f;
+    public static boolean longJumpEnabled = false;
+    public static float longJumpBoost = 2.0f;
+    public static final float LONG_JUMP_MIN = 0.5f;
+    public static final float LONG_JUMP_MAX = 5.0f;
+    public static boolean autoMLGEnabled = false;
+    public static boolean blinkEnabled = false;
+
+    // --- New Meteor features ---
+    public static boolean anchorAuraEnabled = false;
+    public static boolean holeFillerEnabled = false;
+    public static boolean autoTrapEnabled = false;
+    public static boolean reversalEnabled = false;
 
     // --- Teleport ---
     public static boolean tpUseServerAddon = true;
@@ -268,6 +321,41 @@ public class ModConfig {
                     safeWalkEnabled = data.safeWalkEnabled;
                     stepEnabled = data.stepEnabled;
                     stepHeight = clamp(data.stepHeight, STEP_MIN, STEP_MAX);
+                    elytraFlyEnabled = data.elytraFlyEnabled;
+                    elytraFlySpeed = clamp(data.elytraFlySpeed, ELYTRA_FLY_MIN, ELYTRA_FLY_MAX);
+                    surroundEnabled = data.surroundEnabled;
+                    holeEspEnabled = data.holeEspEnabled;
+                    crystalAuraEnabled = data.crystalAuraEnabled;
+                    criticalsEnabled = data.criticalsEnabled;
+                    bunnyHopEnabled = data.bunnyHopEnabled;
+                    spiderEnabled = data.spiderEnabled;
+                    glideEnabled = data.glideEnabled;
+                    highJumpEnabled = data.highJumpEnabled;
+                    highJumpHeight = clamp(data.highJumpHeight, HIGH_JUMP_MIN, HIGH_JUMP_MAX);
+                    dolphinEnabled = data.dolphinEnabled;
+                    autoSwordEnabled = data.autoSwordEnabled;
+                    sneakEnabled = data.sneakEnabled;
+                    panicEnabled = data.panicEnabled;
+                    antiHungerEnabled = data.antiHungerEnabled;
+                    triggerBotEnabled = data.triggerBotEnabled;
+                    invMoveEnabled = data.invMoveEnabled;
+                    fastPlaceEnabled = data.fastPlaceEnabled;
+                    parkourEnabled = data.parkourEnabled;
+                    noSlowdownEnabled = data.noSlowdownEnabled;
+                    antiBlindEnabled = data.antiBlindEnabled;
+                    autoWalkEnabled = data.autoWalkEnabled;
+                    airJumpEnabled = data.airJumpEnabled;
+                    noWebEnabled = data.noWebEnabled;
+                    flightPlusEnabled = data.flightPlusEnabled;
+                    flightPlusSpeed = clamp(data.flightPlusSpeed, FLIGHT_PLUS_MIN, FLIGHT_PLUS_MAX);
+                    longJumpEnabled = data.longJumpEnabled;
+                    longJumpBoost = clamp(data.longJumpBoost, LONG_JUMP_MIN, LONG_JUMP_MAX);
+                    autoMLGEnabled = data.autoMLGEnabled;
+                    blinkEnabled = data.blinkEnabled;
+                    anchorAuraEnabled = data.anchorAuraEnabled;
+                    holeFillerEnabled = data.holeFillerEnabled;
+                    autoTrapEnabled = data.autoTrapEnabled;
+                    reversalEnabled = data.reversalEnabled;
                     tpUseServerAddon = data.tpUseServerAddon;
                     tpX = data.tpX;
                     tpY = data.tpY;
@@ -368,6 +456,41 @@ public class ModConfig {
         data.safeWalkEnabled = safeWalkEnabled;
         data.stepEnabled = stepEnabled;
         data.stepHeight = stepHeight;
+        data.elytraFlyEnabled = elytraFlyEnabled;
+        data.elytraFlySpeed = elytraFlySpeed;
+        data.surroundEnabled = surroundEnabled;
+        data.holeEspEnabled = holeEspEnabled;
+        data.crystalAuraEnabled = crystalAuraEnabled;
+        data.criticalsEnabled = criticalsEnabled;
+        data.bunnyHopEnabled = bunnyHopEnabled;
+        data.spiderEnabled = spiderEnabled;
+        data.glideEnabled = glideEnabled;
+        data.highJumpEnabled = highJumpEnabled;
+        data.highJumpHeight = highJumpHeight;
+        data.dolphinEnabled = dolphinEnabled;
+        data.autoSwordEnabled = autoSwordEnabled;
+        data.sneakEnabled = sneakEnabled;
+        data.panicEnabled = panicEnabled;
+        data.antiHungerEnabled = antiHungerEnabled;
+        data.triggerBotEnabled = triggerBotEnabled;
+        data.invMoveEnabled = invMoveEnabled;
+        data.fastPlaceEnabled = fastPlaceEnabled;
+        data.parkourEnabled = parkourEnabled;
+        data.noSlowdownEnabled = noSlowdownEnabled;
+        data.antiBlindEnabled = antiBlindEnabled;
+        data.autoWalkEnabled = autoWalkEnabled;
+        data.airJumpEnabled = airJumpEnabled;
+        data.noWebEnabled = noWebEnabled;
+        data.flightPlusEnabled = flightPlusEnabled;
+        data.flightPlusSpeed = flightPlusSpeed;
+        data.longJumpEnabled = longJumpEnabled;
+        data.longJumpBoost = longJumpBoost;
+        data.autoMLGEnabled = autoMLGEnabled;
+        data.blinkEnabled = blinkEnabled;
+        data.anchorAuraEnabled = anchorAuraEnabled;
+        data.holeFillerEnabled = holeFillerEnabled;
+        data.autoTrapEnabled = autoTrapEnabled;
+        data.reversalEnabled = reversalEnabled;
         data.tpUseServerAddon = tpUseServerAddon;
         data.tpX = tpX;
         data.tpY = tpY;
@@ -510,5 +633,45 @@ public class ModConfig {
         boolean autoBridgeEnabled = false;
         boolean towerEnabled = false;
         boolean printerEnabled = false;
+        // Meteor v2
+        boolean elytraFlyEnabled = false;
+        float elytraFlySpeed = 2.0f;
+        boolean surroundEnabled = false;
+        boolean holeEspEnabled = false;
+        boolean crystalAuraEnabled = false;
+        // Wurst
+        boolean criticalsEnabled = false;
+        boolean bunnyHopEnabled = false;
+        boolean spiderEnabled = false;
+        boolean glideEnabled = false;
+        boolean highJumpEnabled = false;
+        float highJumpHeight = 2.0f;
+        boolean dolphinEnabled = false;
+        boolean autoSwordEnabled = false;
+        boolean sneakEnabled = false;
+        boolean panicEnabled = false;
+        boolean antiHungerEnabled = false;
+        boolean triggerBotEnabled = false;
+        // Inv Move
+        boolean invMoveEnabled = false;
+        // New Wurst
+        boolean fastPlaceEnabled = false;
+        boolean parkourEnabled = false;
+        boolean noSlowdownEnabled = false;
+        boolean antiBlindEnabled = false;
+        boolean autoWalkEnabled = false;
+        boolean airJumpEnabled = false;
+        boolean noWebEnabled = false;
+        boolean flightPlusEnabled = false;
+        float flightPlusSpeed = 2.0f;
+        boolean longJumpEnabled = false;
+        float longJumpBoost = 2.0f;
+        boolean autoMLGEnabled = false;
+        boolean blinkEnabled = false;
+        // New Meteor
+        boolean anchorAuraEnabled = false;
+        boolean holeFillerEnabled = false;
+        boolean autoTrapEnabled = false;
+        boolean reversalEnabled = false;
     }
 }

@@ -111,6 +111,41 @@ public class HudOverlay {
         if (ModConfig.autoLogEnabled) entries.add(new ModEntry(String.format("AutoLog \u00a7f<%.0fhp", ModConfig.autoLogHealth), COL_PLAYER));
         if (ModConfig.autoRespawnEnabled) entries.add(new ModEntry("AutoRespawn", COL_PLAYER));
 
+        // Wurst modules
+        if (ModConfig.killAuraPlusEnabled) entries.add(new ModEntry(String.format("KillAura+ \u00a7f%dCPS", ModConfig.killAuraPlusCps), COL_COMBAT));
+        if (ModConfig.criticalsEnabled) entries.add(new ModEntry("Criticals", COL_COMBAT));
+        if (ModConfig.triggerBotEnabled) entries.add(new ModEntry("TriggerBot", COL_COMBAT));
+        if (ModConfig.autoSwordEnabled) entries.add(new ModEntry("AutoSword", COL_COMBAT));
+        if (ModConfig.bunnyHopEnabled) entries.add(new ModEntry("BunnyHop", COL_MOVEMENT));
+        if (ModConfig.spiderEnabled) entries.add(new ModEntry("Spider", COL_MOVEMENT));
+        if (ModConfig.glideEnabled) entries.add(new ModEntry("Glide", COL_MOVEMENT));
+        if (ModConfig.highJumpEnabled) entries.add(new ModEntry(String.format("HighJump \u00a7f%.1f", ModConfig.highJumpHeight), COL_MOVEMENT));
+        if (ModConfig.dolphinEnabled) entries.add(new ModEntry("Dolphin", COL_MOVEMENT));
+        if (ModConfig.sneakEnabled) entries.add(new ModEntry("Sneak", COL_STEALTH));
+        if (ModConfig.antiHungerEnabled) entries.add(new ModEntry("AntiHunger", COL_STEALTH));
+        if (ModConfig.invMoveEnabled) entries.add(new ModEntry("InvMove", COL_UTILITY));
+        if (ModConfig.fastPlaceEnabled) entries.add(new ModEntry("FastPlace", COL_WORLD));
+        if (ModConfig.parkourEnabled) entries.add(new ModEntry("Parkour", COL_MOVEMENT));
+        if (ModConfig.noSlowdownEnabled) entries.add(new ModEntry("NoSlowdown", COL_MOVEMENT));
+        if (ModConfig.antiBlindEnabled) entries.add(new ModEntry("AntiBlind", COL_RENDER));
+        if (ModConfig.autoWalkEnabled) entries.add(new ModEntry("AutoWalk", COL_MOVEMENT));
+        if (ModConfig.airJumpEnabled) entries.add(new ModEntry("AirJump", COL_MOVEMENT));
+        if (ModConfig.noWebEnabled) entries.add(new ModEntry("NoWeb", COL_MOVEMENT));
+        if (ModConfig.flightPlusEnabled) entries.add(new ModEntry(String.format("Flight+ \u00a7f%.1f", ModConfig.flightPlusSpeed), COL_MOVEMENT));
+        if (ModConfig.longJumpEnabled) entries.add(new ModEntry(String.format("LongJump \u00a7f%.1f", ModConfig.longJumpBoost), COL_MOVEMENT));
+        if (ModConfig.autoMLGEnabled) entries.add(new ModEntry("AutoMLG", COL_PLAYER));
+        if (ModConfig.blinkEnabled) entries.add(new ModEntry("Blink", COL_EXPLOIT));
+
+        // Meteor v2 modules
+        if (ModConfig.elytraFlyEnabled) entries.add(new ModEntry(String.format("ElytraFly \u00a7f%.1f", ModConfig.elytraFlySpeed), COL_MOVEMENT));
+        if (ModConfig.surroundEnabled) entries.add(new ModEntry("Surround", COL_COMBAT));
+        if (ModConfig.crystalAuraEnabled) entries.add(new ModEntry("CrystalAura", COL_COMBAT));
+        if (ModConfig.holeEspEnabled) entries.add(new ModEntry("HoleESP", COL_RENDER));
+        if (ModConfig.anchorAuraEnabled) entries.add(new ModEntry("AnchorAura", COL_COMBAT));
+        if (ModConfig.holeFillerEnabled) entries.add(new ModEntry("HoleFiller", COL_COMBAT));
+        if (ModConfig.autoTrapEnabled) entries.add(new ModEntry("AutoTrap", COL_COMBAT));
+        if (ModConfig.reversalEnabled) entries.add(new ModEntry("Reversal", COL_COMBAT));
+
         // Pro modules
         if (ModConfig.proUnlocked) {
             if (ModConfig.antiKnockbackEnabled) entries.add(new ModEntry(String.format("AntiKB \u00a7f%.0f%%", ModConfig.antiKnockbackStrength), COL_STEALTH));

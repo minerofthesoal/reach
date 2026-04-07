@@ -3,6 +3,9 @@
 # Run on load / /reload to set up scoreboards
 # ============================================================
 
+# Suppress trigger feedback in chat
+gamerule sendCommandFeedback false
+
 # --- Feature toggles (0 = off, 1 = on) ---
 scoreboard objectives add osp.knockback trigger "OSP Knockback Toggle"
 scoreboard objectives add osp.reach trigger "OSP Reach Toggle"

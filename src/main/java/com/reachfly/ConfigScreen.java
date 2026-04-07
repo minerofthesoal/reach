@@ -196,6 +196,51 @@ public class ConfigScreen extends Screen {
             build.add(new Module("Printer", () -> ModConfig.printerEnabled, v -> ModConfig.printerEnabled = v));
             categories.put("\u00a7bBuild", build);
         }
+
+        // === WURST (always available) ===
+        List<Module> wurst = new ArrayList<>();
+        wurst.add(new Module("KillAura+", () -> ModConfig.killAuraPlusEnabled, v -> ModConfig.killAuraPlusEnabled = v)
+                .addNumber("CPS", () -> (float) ModConfig.killAuraPlusCps, ModConfig.KA_PLUS_CPS_MIN, ModConfig.KA_PLUS_CPS_MAX, v -> ModConfig.killAuraPlusCps = Math.round(v)));
+        wurst.add(new Module("Criticals", () -> ModConfig.criticalsEnabled, v -> ModConfig.criticalsEnabled = v));
+        wurst.add(new Module("BunnyHop", () -> ModConfig.bunnyHopEnabled, v -> ModConfig.bunnyHopEnabled = v));
+        wurst.add(new Module("Spider", () -> ModConfig.spiderEnabled, v -> ModConfig.spiderEnabled = v));
+        wurst.add(new Module("Glide", () -> ModConfig.glideEnabled, v -> ModConfig.glideEnabled = v));
+        wurst.add(new Module("HighJump", () -> ModConfig.highJumpEnabled, v -> ModConfig.highJumpEnabled = v)
+                .addNumber("Height", () -> ModConfig.highJumpHeight, ModConfig.HIGH_JUMP_MIN, ModConfig.HIGH_JUMP_MAX, v -> ModConfig.highJumpHeight = v));
+        wurst.add(new Module("Dolphin", () -> ModConfig.dolphinEnabled, v -> ModConfig.dolphinEnabled = v));
+        wurst.add(new Module("AutoSword", () -> ModConfig.autoSwordEnabled, v -> ModConfig.autoSwordEnabled = v));
+        wurst.add(new Module("Sneak", () -> ModConfig.sneakEnabled, v -> ModConfig.sneakEnabled = v));
+        wurst.add(new Module("AntiHunger", () -> ModConfig.antiHungerEnabled, v -> ModConfig.antiHungerEnabled = v));
+        wurst.add(new Module("TriggerBot", () -> ModConfig.triggerBotEnabled, v -> ModConfig.triggerBotEnabled = v));
+        wurst.add(new Module("Panic", () -> ModConfig.panicEnabled, v -> ModConfig.panicEnabled = v));
+        wurst.add(new Module("InvMove", () -> ModConfig.invMoveEnabled, v -> ModConfig.invMoveEnabled = v));
+        wurst.add(new Module("FastPlace", () -> ModConfig.fastPlaceEnabled, v -> ModConfig.fastPlaceEnabled = v));
+        wurst.add(new Module("Parkour", () -> ModConfig.parkourEnabled, v -> ModConfig.parkourEnabled = v));
+        wurst.add(new Module("NoSlowdown", () -> ModConfig.noSlowdownEnabled, v -> ModConfig.noSlowdownEnabled = v));
+        wurst.add(new Module("AntiBlind", () -> ModConfig.antiBlindEnabled, v -> ModConfig.antiBlindEnabled = v));
+        wurst.add(new Module("AutoWalk", () -> ModConfig.autoWalkEnabled, v -> ModConfig.autoWalkEnabled = v));
+        wurst.add(new Module("AirJump", () -> ModConfig.airJumpEnabled, v -> ModConfig.airJumpEnabled = v));
+        wurst.add(new Module("NoWeb", () -> ModConfig.noWebEnabled, v -> ModConfig.noWebEnabled = v));
+        wurst.add(new Module("Flight+", () -> ModConfig.flightPlusEnabled, v -> ModConfig.flightPlusEnabled = v)
+                .addNumber("Speed", () -> ModConfig.flightPlusSpeed, ModConfig.FLIGHT_PLUS_MIN, ModConfig.FLIGHT_PLUS_MAX, v -> ModConfig.flightPlusSpeed = v));
+        wurst.add(new Module("LongJump", () -> ModConfig.longJumpEnabled, v -> ModConfig.longJumpEnabled = v)
+                .addNumber("Boost", () -> ModConfig.longJumpBoost, ModConfig.LONG_JUMP_MIN, ModConfig.LONG_JUMP_MAX, v -> ModConfig.longJumpBoost = v));
+        wurst.add(new Module("AutoMLG", () -> ModConfig.autoMLGEnabled, v -> ModConfig.autoMLGEnabled = v));
+        wurst.add(new Module("Blink", () -> ModConfig.blinkEnabled, v -> ModConfig.blinkEnabled = v));
+        categories.put("Wurst", wurst);
+
+        // === METEOR+ (always available) ===
+        List<Module> meteor2 = new ArrayList<>();
+        meteor2.add(new Module("ElytraFly", () -> ModConfig.elytraFlyEnabled, v -> ModConfig.elytraFlyEnabled = v)
+                .addNumber("Speed", () -> ModConfig.elytraFlySpeed, ModConfig.ELYTRA_FLY_MIN, ModConfig.ELYTRA_FLY_MAX, v -> ModConfig.elytraFlySpeed = v));
+        meteor2.add(new Module("Surround", () -> ModConfig.surroundEnabled, v -> ModConfig.surroundEnabled = v));
+        meteor2.add(new Module("CrystalAura", () -> ModConfig.crystalAuraEnabled, v -> ModConfig.crystalAuraEnabled = v));
+        meteor2.add(new Module("HoleESP", () -> ModConfig.holeEspEnabled, v -> ModConfig.holeEspEnabled = v));
+        meteor2.add(new Module("AnchorAura", () -> ModConfig.anchorAuraEnabled, v -> ModConfig.anchorAuraEnabled = v));
+        meteor2.add(new Module("HoleFiller", () -> ModConfig.holeFillerEnabled, v -> ModConfig.holeFillerEnabled = v));
+        meteor2.add(new Module("AutoTrap", () -> ModConfig.autoTrapEnabled, v -> ModConfig.autoTrapEnabled = v));
+        meteor2.add(new Module("Reversal", () -> ModConfig.reversalEnabled, v -> ModConfig.reversalEnabled = v));
+        categories.put("Meteor+", meteor2);
     }
 
     @Override
