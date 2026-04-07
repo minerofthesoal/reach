@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "reachfly",
+  "version": "${version}",
+  "name": "Optimizer Super Premium",
+  "description": "The ultimate Minecraft optimization suite with premium features. Redesigned for MC 26.1.",
+  "authors": ["ReachFlyDev"],
+  "contact": {
+    "sources": "https://github.com/minerofthesoal/reach"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/reachfly/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.reachfly.ReachFlyClient"],
+    "modmenu": ["com.reachfly.ModMenuIntegration"]
+  },
+  "mixins": ["reachfly.mixins.json"],
+  "accessWidener": "reachfly.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~26.1",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}

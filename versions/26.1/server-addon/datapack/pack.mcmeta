@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "pack_format": 75,
+    "supported_formats": [71, 80],
+    "description": "OSP Server Addon v3 - MC 26.1\nTeleport, Knockback, Reach, Speed, NoFall, Fly"
+  }
+}
