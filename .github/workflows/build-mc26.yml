@@ -32,8 +32,21 @@ jobs:
         run: chmod +x ./versions/26.1/gradlew
 
       - name: Build client mod (MC 26.1)
+        id: build
         working-directory: versions/26.1
-        run: ./gradlew build --no-daemon --stacktrace 2>&1
+        continue-on-error: true
+        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-output.log
+
+      - name: Upload build log on failure
+        if: steps.build.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log-client-26.1
+          path: versions/26.1/build-output.log
+
+      - name: Fail if build failed
+        if: steps.build.outcome == 'failure'
+        run: exit 1
 
       - name: Upload client JAR (MC 26.1)
         uses: actions/upload-artifact@v4
@@ -59,8 +72,21 @@ jobs:
         run: chmod +x ./versions/26.1.1/gradlew
 
       - name: Build client mod (MC 26.1.1)
+        id: build
         working-directory: versions/26.1.1
-        run: ./gradlew build --no-daemon --stacktrace 2>&1
+        continue-on-error: true
+        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-output.log
+
+      - name: Upload build log on failure
+        if: steps.build.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log-client-26.1.1
+          path: versions/26.1.1/build-output.log
+
+      - name: Fail if build failed
+        if: steps.build.outcome == 'failure'
+        run: exit 1
 
       - name: Upload client JAR (MC 26.1.1)
         uses: actions/upload-artifact@v4
@@ -86,8 +112,21 @@ jobs:
         run: chmod +x ./versions/26.1/server-addon/gradlew
 
       - name: Build server addon (MC 26.1)
+        id: build
         working-directory: versions/26.1/server-addon
-        run: ./gradlew build --no-daemon --stacktrace 2>&1
+        continue-on-error: true
+        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-output.log
+
+      - name: Upload build log on failure
+        if: steps.build.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log-server-addon-26.1
+          path: versions/26.1/server-addon/build-output.log
+
+      - name: Fail if build failed
+        if: steps.build.outcome == 'failure'
+        run: exit 1
 
       - name: Upload server addon mod JAR
         uses: actions/upload-artifact@v4
