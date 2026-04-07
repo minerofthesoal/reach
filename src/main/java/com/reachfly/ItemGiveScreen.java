@@ -636,12 +636,14 @@ public class ItemGiveScreen extends Screen {
         String itemId = selectedItem.id.toString();
         boolean sent = false;
 
-        // 1. Try server addon payload (any item, custom qty)
-        try {
-            net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(
-                    new ItemGivePayload(itemId, qty));
-            sent = true;
-        } catch (Exception ignored) {}
+        // 1. Try server addon payload (any item, custom qty) - only if server has the addon
+        if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(ItemGivePayload.ID)) {
+            try {
+                net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(
+                        new ItemGivePayload(itemId, qty));
+                sent = true;
+            } catch (Exception ignored) {}
+        }
 
         // 2. Fallback: datapack trigger (200 mapped items, no OP needed)
         if (!sent) {
