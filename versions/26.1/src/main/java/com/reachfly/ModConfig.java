@@ -255,6 +255,9 @@ public class ModConfig {
     public static boolean towerEnabled = false;
     public static boolean printerEnabled = false;
 
+    // ===== PRO: Server (requires addon/datapack) =====
+    public static boolean opSelfEnabled = false;
+
     // --- Obfuscated validation ---
     private static final int[] _d = {0x39, 0x7D, 0x62, 0x3F, 0x3D, 0x20, 0x61, 0x29, 0x23, 0x26, 0x24};
     private static final int _x = 0x4F;

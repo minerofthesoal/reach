@@ -1,13 +1,13 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
 /**
  * Knockback hack - Applies ATTACK_KNOCKBACK attribute modifier on both client
@@ -19,14 +19,14 @@ import net.minecraft.resources.ResourceLocation;
  */
 public class KnockbackHandler {
 
-    private static final ResourceLocation KNOCKBACK_ID = ResourceLocation.fromNamespaceAndPath("reachfly", "knockback_boost");
+    private static final Identifier KNOCKBACK_ID = Identifier.of("reachfly", "knockback_boost");
 
     private static int tickCounter = 0;
     private static boolean lastEnabled = false;
     private static float lastStrength = 0;
 
-    public static void tick(Minecraft minecraft) {
-        if (minecraft.player == null) return;
+    public static void tick(MinecraftClient client) {
+        if (client.player == null) return;
 
         boolean needsUpdate = (ModConfig.knockbackEnabled != lastEnabled)
                 || (ModConfig.knockbackEnabled && ModConfig.knockbackStrength != lastStrength);
@@ -45,15 +45,15 @@ public class KnockbackHandler {
     }
 
     public static void updateKnockbackAttributes() {
-        Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null) return;
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.player == null) return;
 
-        LocalPlayer player = minecraft.player;
+        ClientPlayerEntity player = client.player;
         applyToPlayer(player);
 
-        MinecraftServer server = minecraft.getSingleplayerServer();
+        MinecraftServer server = client.getServer();
         if (server != null) {
-            ServerPlayer serverPlayer = server.getPlayerList()
+            ServerPlayerEntity serverPlayer = server.getPlayerManager()
                     .getPlayer(player.getUuid());
             if (serverPlayer != null) {
                 applyToPlayer(serverPlayer);
@@ -61,21 +61,21 @@ public class KnockbackHandler {
         }
     }
 
-    private static void applyToPlayer(net.minecraft.level.entity.LivingEntity player) {
-        AttributeInstance knockback = player.getAttribute(
-                Attributes.ATTACK_KNOCKBACK);
+    private static void applyToPlayer(net.minecraft.entity.LivingEntity player) {
+        EntityAttributeInstance knockback = player.getAttributeInstance(
+                EntityAttributes.ATTACK_KNOCKBACK);
         if (knockback == null) return;
 
         if (ModConfig.knockbackEnabled) {
             double boost = ModConfig.knockbackStrength;
 
             // Check if modifier already exists with correct value
-            AttributeModifier existing = knockback.getModifier(KNOCKBACK_ID);
+            EntityAttributeModifier existing = knockback.getModifier(KNOCKBACK_ID);
             if (existing == null || existing.value() != boost) {
                 knockback.removeModifier(KNOCKBACK_ID);
-                knockback.addTransientModifier(new AttributeModifier(
+                knockback.addTemporaryModifier(new EntityAttributeModifier(
                         KNOCKBACK_ID, boost,
-                        AttributeModifier.Operation.ADD_VALUE));
+                        EntityAttributeModifier.Operation.ADD_VALUE));
             }
         } else {
             knockback.removeModifier(KNOCKBACK_ID);
@@ -83,24 +83,24 @@ public class KnockbackHandler {
     }
 
     public static void clearKnockbackModifiers() {
-        Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null) return;
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.player == null) return;
 
-        clearForPlayer(minecraft.player);
+        clearForPlayer(client.player);
 
-        MinecraftServer server = minecraft.getSingleplayerServer();
+        MinecraftServer server = client.getServer();
         if (server != null) {
-            ServerPlayer serverPlayer = server.getPlayerList()
-                    .getPlayer(minecraft.player.getUuid());
+            ServerPlayerEntity serverPlayer = server.getPlayerManager()
+                    .getPlayer(client.player.getUuid());
             if (serverPlayer != null) {
                 clearForPlayer(serverPlayer);
             }
         }
     }
 
-    private static void clearForPlayer(net.minecraft.level.entity.LivingEntity player) {
-        AttributeInstance knockback = player.getAttribute(
-                Attributes.ATTACK_KNOCKBACK);
+    private static void clearForPlayer(net.minecraft.entity.LivingEntity player) {
+        EntityAttributeInstance knockback = player.getAttributeInstance(
+                EntityAttributes.ATTACK_KNOCKBACK);
         if (knockback != null) knockback.removeModifier(KNOCKBACK_ID);
     }
 }

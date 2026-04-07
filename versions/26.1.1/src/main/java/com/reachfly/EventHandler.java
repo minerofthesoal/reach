@@ -2,7 +2,7 @@ package com.reachfly;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 
 public class EventHandler {
 
@@ -12,153 +12,153 @@ public class EventHandler {
         EspRenderer.register();
     }
 
-    private static void onClientTick(Minecraft minecraft) {
-        if (minecraft.player == null) return;
+    private static void onClientTick(MinecraftClient client) {
+        if (client.player == null) return;
 
-        while (KeybindHandler.toggleHud.consumeClick()) {
+        while (KeybindHandler.toggleHud.wasPressed()) {
             ModConfig.hudVisible = !ModConfig.hudVisible;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleReach.consumeClick()) {
+        while (KeybindHandler.toggleReach.wasPressed()) {
             ModConfig.reachEnabled = !ModConfig.reachEnabled;
             ReachHandler.updateReachAttributes();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleFly.consumeClick()) {
+        while (KeybindHandler.toggleFly.wasPressed()) {
             ModConfig.flyEnabled = !ModConfig.flyEnabled;
             ModConfig.save();
-            if (!minecraft.player.getAbilities().instabuild) {
-                minecraft.player.getAbilities().mayFly = ModConfig.flyEnabled;
+            if (!client.player.getAbilities().creativeMode) {
+                client.player.getAbilities().allowFlying = ModConfig.flyEnabled;
                 if (!ModConfig.flyEnabled) {
-                    minecraft.player.getAbilities().flying = false;
+                    client.player.getAbilities().flying = false;
                 }
-                minecraft.player.onUpdateAbilities();
+                client.player.sendAbilitiesUpdate();
             }
         }
 
-        while (KeybindHandler.toggleEsp.consumeClick()) {
+        while (KeybindHandler.toggleEsp.wasPressed()) {
             ModConfig.espEnabled = !ModConfig.espEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoHit.consumeClick()) {
+        while (KeybindHandler.toggleAutoHit.wasPressed()) {
             ModConfig.autoHitEnabled = !ModConfig.autoHitEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleLowHealthKill.consumeClick()) {
+        while (KeybindHandler.toggleLowHealthKill.wasPressed()) {
             ModConfig.lowHealthKillEnabled = !ModConfig.lowHealthKillEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleEatingAssist.consumeClick()) {
+        while (KeybindHandler.toggleEatingAssist.wasPressed()) {
             ModConfig.eatingAssistEnabled = !ModConfig.eatingAssistEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoKillWhenLow.consumeClick()) {
+        while (KeybindHandler.toggleAutoKillWhenLow.wasPressed()) {
             ModConfig.autoKillWhenLowEnabled = !ModConfig.autoKillWhenLowEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleJesus.consumeClick()) {
+        while (KeybindHandler.toggleJesus.wasPressed()) {
             ModConfig.jesusEnabled = !ModConfig.jesusEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoElytraSwap.consumeClick()) {
+        while (KeybindHandler.toggleAutoElytraSwap.wasPressed()) {
             ModConfig.autoElytraSwapEnabled = !ModConfig.autoElytraSwapEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleFlyToCoords.consumeClick()) {
+        while (KeybindHandler.toggleFlyToCoords.wasPressed()) {
             ModConfig.flyToCoordsEnabled = !ModConfig.flyToCoordsEnabled;
             if (!ModConfig.flyToCoordsEnabled) FlyToCoordsHandler.onDisable();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleNoFall.consumeClick()) {
+        while (KeybindHandler.toggleNoFall.wasPressed()) {
             ModConfig.noFallEnabled = !ModConfig.noFallEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleFullbright.consumeClick()) {
+        while (KeybindHandler.toggleFullbright.wasPressed()) {
             ModConfig.fullbrightEnabled = !ModConfig.fullbrightEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleSpeed.consumeClick()) {
+        while (KeybindHandler.toggleSpeed.wasPressed()) {
             ModConfig.speedEnabled = !ModConfig.speedEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleWalkToCoords.consumeClick()) {
+        while (KeybindHandler.toggleWalkToCoords.wasPressed()) {
             ModConfig.walkToCoordsEnabled = !ModConfig.walkToCoordsEnabled;
             if (!ModConfig.walkToCoordsEnabled) WalkToCoordsHandler.onDisable();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleXray.consumeClick()) {
+        while (KeybindHandler.toggleXray.wasPressed()) {
             ModConfig.xrayEnabled = !ModConfig.xrayEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleKnockback.consumeClick()) {
+        while (KeybindHandler.toggleKnockback.wasPressed()) {
             ModConfig.knockbackEnabled = !ModConfig.knockbackEnabled;
             KnockbackHandler.updateKnockbackAttributes();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoTotem.consumeClick()) {
+        while (KeybindHandler.toggleAutoTotem.wasPressed()) {
             ModConfig.autoTotemEnabled = !ModConfig.autoTotemEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoArmor.consumeClick()) {
+        while (KeybindHandler.toggleAutoArmor.wasPressed()) {
             ModConfig.autoArmorEnabled = !ModConfig.autoArmorEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleScaffold.consumeClick()) {
+        while (KeybindHandler.toggleScaffold.wasPressed()) {
             ModConfig.scaffoldEnabled = !ModConfig.scaffoldEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.triggerTeleport.consumeClick()) {
+        while (KeybindHandler.triggerTeleport.wasPressed()) {
             TeleportHandler.triggerTeleport();
         }
 
-        while (KeybindHandler.openConfig.consumeClick()) {
-            minecraft.setScreen(new ConfigScreen(minecraft.screen));
+        while (KeybindHandler.openConfig.wasPressed()) {
+            client.setScreen(new ConfigScreen(client.currentScreen));
         }
 
         // Run feature tick handlers
-        ReachHandler.tick(minecraft);
-        FlyHandler.tick(minecraft);
-        AutoHitHandler.tick(minecraft);
-        LowHealthKillHandler.tick(minecraft);
-        AutoKillWhenLowHandler.tick(minecraft);
-        EatingAssistHandler.tick(minecraft);
-        JesusHandler.tick(minecraft);
-        AutoElytraSwapHandler.tick(minecraft);
-        FlyToCoordsHandler.tick(minecraft);
-        NoFallHandler.tick(minecraft);
-        FullbrightHandler.tick(minecraft);
-        SpeedHandler.tick(minecraft);
-        XrayHandler.tick(minecraft);
-        KnockbackHandler.tick(minecraft);
-        WalkToCoordsHandler.tick(minecraft);
-        AutoTotemHandler.tick(minecraft);
-        AutoArmorHandler.tick(minecraft);
-        ScaffoldHandler.tick(minecraft);
-        TeleportHandler.tick(minecraft);
-        MeteorHandlers.tick(minecraft);
-        ProHandlers.tick(minecraft);
-        FreecamHandler.tick(minecraft);
-        WurstHandlers.tick(minecraft);
-        MeteorV2Handlers.tick(minecraft);
-        ServerSyncHandler.tick(minecraft);
+        ReachHandler.tick(client);
+        FlyHandler.tick(client);
+        AutoHitHandler.tick(client);
+        LowHealthKillHandler.tick(client);
+        AutoKillWhenLowHandler.tick(client);
+        EatingAssistHandler.tick(client);
+        JesusHandler.tick(client);
+        AutoElytraSwapHandler.tick(client);
+        FlyToCoordsHandler.tick(client);
+        NoFallHandler.tick(client);
+        FullbrightHandler.tick(client);
+        SpeedHandler.tick(client);
+        XrayHandler.tick(client);
+        KnockbackHandler.tick(client);
+        WalkToCoordsHandler.tick(client);
+        AutoTotemHandler.tick(client);
+        AutoArmorHandler.tick(client);
+        ScaffoldHandler.tick(client);
+        TeleportHandler.tick(client);
+        MeteorHandlers.tick(client);
+        ProHandlers.tick(client);
+        FreecamHandler.tick(client);
+        WurstHandlers.tick(client);
+        MeteorV2Handlers.tick(client);
+        ServerSyncHandler.tick(client);
     }
 }

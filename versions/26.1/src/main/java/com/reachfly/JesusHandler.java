@@ -1,24 +1,24 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class JesusHandler {
 
-    public static void tick(Minecraft minecraft) {
+    public static void tick(MinecraftClient client) {
         if (!ModConfig.jesusEnabled) return;
-        if (minecraft.player == null || minecraft.level == null) return;
-        if (minecraft.screen != null) return;
+        if (client.player == null || client.world == null) return;
+        if (client.currentScreen != null) return;
 
-        LocalPlayer player = minecraft.player;
+        ClientPlayerEntity player = client.player;
 
         // Don't interfere if player is sneaking (allow them to sink)
-        if (player.isShiftKeyDown()) return;
+        if (player.isSneaking()) return;
 
         // Don't interfere if player is already flying
         if (player.getAbilities().flying) return;
@@ -32,9 +32,9 @@ public class JesusHandler {
                 (int) Math.floor(player.getY() - 0.5),
                 (int) Math.floor(player.getZ()));
 
-        boolean liquidAtFeet = isLiquid(minecraft.level.getBlockState(feetPos));
-        boolean liquidBelow = isLiquid(minecraft.level.getBlockState(belowFeet));
-        boolean inLiquid = player.isInWater() || player.isInLava();
+        boolean liquidAtFeet = isLiquid(client.world.getBlockState(feetPos));
+        boolean liquidBelow = isLiquid(client.world.getBlockState(belowFeet));
+        boolean inLiquid = player.isTouchingWater() || player.isInLava();
 
         if (!inLiquid && !liquidAtFeet && !liquidBelow) return;
 
@@ -44,7 +44,7 @@ public class JesusHandler {
         for (int y = (int) Math.floor(player.getY()) + 1; y > (int) Math.floor(player.getY()) - 5; y--) {
             BlockPos checkPos = new BlockPos(feetPos.getX(), y, feetPos.getZ());
             BlockPos aboveCheck = new BlockPos(feetPos.getX(), y + 1, feetPos.getZ());
-            if (isLiquid(minecraft.level.getBlockState(checkPos)) && !isLiquid(minecraft.level.getBlockState(aboveCheck))) {
+            if (isLiquid(client.world.getBlockState(checkPos)) && !isLiquid(client.world.getBlockState(aboveCheck))) {
                 surfaceY = y + 1;
                 break;
             }
@@ -52,28 +52,28 @@ public class JesusHandler {
 
         double targetY = surfaceY;
 
-        if (player.isUnderWater() || (player.isInLava() && player.getY() < targetY - 0.5)) {
+        if (player.isSubmergedInWater() || (player.isInLava() && player.getY() < targetY - 0.5)) {
             // Submerged - push up fast
-            player.setDeltaMovement(
-                    player.getDeltaMovement().x,
+            player.setVelocity(
+                    player.getVelocity().x,
                     0.3,
-                    player.getDeltaMovement().z);
+                    player.getVelocity().z);
         } else {
             // At or near the surface - snap to surface and simulate ground
             if (player.getY() < targetY) {
                 player.setPosition(player.getX(), targetY, player.getZ());
             }
-            player.setDeltaMovement(
-                    player.getDeltaMovement().x,
-                    player.getDeltaMovement().y > 0 ? player.getDeltaMovement().y : 0.0,
-                    player.getDeltaMovement().z);
+            player.setVelocity(
+                    player.getVelocity().x,
+                    player.getVelocity().y > 0 ? player.getVelocity().y : 0.0,
+                    player.getVelocity().z);
             player.setOnGround(true);
             player.fallDistance = 0.0f;
         }
     }
 
     private static boolean isLiquid(BlockState state) {
-        return state.is(Blocks.WATER) || state.is(Blocks.LAVA)
-                || state.getBlock() instanceof LiquidBlock;
+        return state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)
+                || state.getBlock() instanceof FluidBlock;
     }
 }

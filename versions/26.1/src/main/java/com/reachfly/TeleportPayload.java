@@ -3,7 +3,7 @@ package com.reachfly;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Identifier;
 
 /**
  * Custom payload for teleport requests sent from client to server.
@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 public record TeleportPayload(double x, double y, double z) implements CustomPayload {
 
     public static final Id<TeleportPayload> ID =
-            new Id<>(ResourceLocation.fromNamespaceAndPath("reachfly", "teleport"));
+            new Id<>(Identifier.of("reachfly", "teleport"));
 
     public static final PacketCodec<PacketByteBuf, TeleportPayload> CODEC =
             PacketCodec.of(TeleportPayload::write, TeleportPayload::read);

@@ -1,12 +1,12 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.network.chat.Component;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.block.BlockState;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 /**
  * Walk-to-Coords - Automatically walks the player to target coordinates.
@@ -24,24 +24,24 @@ public class WalkToCoordsHandler {
     private static boolean isNavigating = false;
     private static final double ARRIVAL_DISTANCE = 2.0;
     private static int tickCounter = 0;
-    private static Vec3 lastPos = null;
+    private static Vec3d lastPos = null;
     private static int stuckTicks = 0;
     private static float detourYawOffset = 0;
     private static int detourTicks = 0;
 
-    public static void tick(Minecraft minecraft) {
+    public static void tick(MinecraftClient client) {
         if (!ModConfig.walkToCoordsEnabled) return;
-        if (minecraft.player == null || minecraft.level == null) return;
-        if (minecraft.screen != null) return;
+        if (client.player == null || client.world == null) return;
+        if (client.currentScreen != null) return;
 
-        LocalPlayer player = minecraft.player;
+        ClientPlayerEntity player = client.player;
 
         double targetX = ModConfig.walkToX;
         double targetY = ModConfig.walkToY;
         double targetZ = ModConfig.walkToZ;
 
-        Vec3 target = new Vec3(targetX + 0.5, targetY, targetZ + 0.5);
-        Vec3 pos = player.position();
+        Vec3d target = new Vec3d(targetX + 0.5, targetY, targetZ + 0.5);
+        Vec3d pos = player.getEntityPos();
         double horizDist = Math.sqrt(
                 (pos.x - target.x) * (pos.x - target.x) +
                 (pos.z - target.z) * (pos.z - target.z));
@@ -53,8 +53,8 @@ public class WalkToCoordsHandler {
             detourYawOffset = 0;
             detourTicks = 0;
             tickCounter = 0;
-            player.sendSystemMessage(
-                    Component.literal("\u00a7b[OSP] \u00a7eWalking to X:%.0f Y:%.0f Z:%.0f (%.0f blocks)"
+            player.sendMessage(
+                    Text.literal("\u00a7b[OSP] \u00a7eWalking to X:%.0f Y:%.0f Z:%.0f (%.0f blocks)"
                             .formatted(targetX, targetY, targetZ, horizDist)),
                     true);
         }
@@ -63,9 +63,9 @@ public class WalkToCoordsHandler {
         if (horizDist < ARRIVAL_DISTANCE && Math.abs(pos.y - target.y) < 4) {
             ModConfig.walkToCoordsEnabled = false;
             isNavigating = false;
-            releaseAllKeys(minecraft);
-            player.sendSystemMessage(
-                    Component.literal("\u00a7b[OSP] \u00a7aArrived at destination!"),
+            releaseAllKeys(client);
+            player.sendMessage(
+                    Text.literal("\u00a7b[OSP] \u00a7aArrived at destination!"),
                     true);
             ModConfig.save();
             return;
@@ -95,8 +95,8 @@ public class WalkToCoordsHandler {
             lastPos = pos;
 
             // Progress update
-            player.sendSystemMessage(
-                    Component.literal(String.format(
+            player.sendMessage(
+                    Text.literal(String.format(
                             "\u00a7b[WalkTo] \u00a7f%.0f blocks remaining%s",
                             horizDist,
                             stuckTicks > 40 ? " \u00a7e(rerouting...)" : "")),
@@ -135,18 +135,18 @@ public class WalkToCoordsHandler {
         targetYaw += detourYawOffset;
 
         // Smooth rotation
-        float currentYaw = player.getYRot();
+        float currentYaw = player.getYaw();
         float yawDiff = targetYaw - currentYaw;
         while (yawDiff > 180) yawDiff -= 360;
         while (yawDiff < -180) yawDiff += 360;
-        player.setYRot(currentYaw + yawDiff * 0.25f);
+        player.setYaw(currentYaw + yawDiff * 0.25f);
 
         // Simulate pressing W (forward)
-        KeyBinding.setKeyPressed(minecraft.options.keyUp.getDefaultKey(), true);
-        minecraft.options.keyUp.setPressed(true);
+        KeyBinding.setKeyPressed(client.options.forwardKey.getDefaultKey(), true);
+        client.options.forwardKey.setPressed(true);
 
         // Calculate look direction for block checks (use actual facing, not target)
-        float facingYaw = player.getYRot();
+        float facingYaw = player.getYaw();
         double faceDx = -Math.sin(Math.toRadians(facingYaw));
         double faceDz = Math.cos(Math.toRadians(facingYaw));
 
@@ -164,23 +164,23 @@ public class WalkToCoordsHandler {
                 (int) Math.floor(pos.y),
                 (int) Math.floor(pos.z + faceDz * 2.0));
 
-        boolean solidAtFeet = isSolid(minecraft.level.getBlockState(feetAhead));
-        boolean solidAtHead = isSolid(minecraft.level.getBlockState(headAhead));
-        boolean solidAboveHead = isSolid(minecraft.level.getBlockState(headAhead.above()));
-        boolean clearAboveFeet = !isSolid(minecraft.level.getBlockState(feetAhead.above()))
-                && !isSolid(minecraft.level.getBlockState(feetAhead.above().above()));
+        boolean solidAtFeet = isSolid(client.world.getBlockState(feetAhead));
+        boolean solidAtHead = isSolid(client.world.getBlockState(headAhead));
+        boolean solidAboveHead = isSolid(client.world.getBlockState(headAhead.up()));
+        boolean clearAboveFeet = !isSolid(client.world.getBlockState(feetAhead.up()))
+                && !isSolid(client.world.getBlockState(feetAhead.up().up()));
 
         // Check for gaps/holes ahead
         BlockPos groundAhead = new BlockPos(
                 (int) Math.floor(pos.x + faceDx * 1.5),
                 (int) Math.floor(pos.y - 1),
                 (int) Math.floor(pos.z + faceDz * 1.5));
-        boolean gapAhead = !isSolid(minecraft.level.getBlockState(groundAhead))
-                && !isSolid(minecraft.level.getBlockState(groundAhead.below()))
-                && !minecraft.level.getBlockState(groundAhead).isLiquid();
+        boolean gapAhead = !isSolid(client.world.getBlockState(groundAhead))
+                && !isSolid(client.world.getBlockState(groundAhead.down()))
+                && !client.world.getBlockState(groundAhead).isLiquid();
 
         // Check if in liquid (escape by jumping)
-        boolean inLiquid = player.isInWater() || player.isInLava();
+        boolean inLiquid = player.isTouchingWater() || player.isInLava();
 
         // Jump logic
         boolean shouldJump = false;
@@ -209,7 +209,7 @@ public class WalkToCoordsHandler {
         if (solidAtFeet && solidAtHead) {
             // Try to break the block at feet level first
             if (stuckTicks > 30) {
-                BlockBreaker.tryBreak(minecraft, feetAhead);
+                BlockBreaker.tryBreak(client, feetAhead);
             } else if (detourTicks <= 0) {
                 detourYawOffset = (detourYawOffset >= 0) ? 90 : -90;
                 if (detourYawOffset == 0) detourYawOffset = 90;
@@ -220,21 +220,21 @@ public class WalkToCoordsHandler {
 
         // If severely stuck, break blocks aggressively
         if (stuckTicks > 80 && solidAtFeet) {
-            BlockBreaker.tryBreak(minecraft, feetAhead);
+            BlockBreaker.tryBreak(client, feetAhead);
         }
 
         if (shouldJump) {
-            KeyBinding.setKeyPressed(minecraft.options.keyJump.getDefaultKey(), true);
-            minecraft.options.keyJump.setPressed(true);
+            KeyBinding.setKeyPressed(client.options.jumpKey.getDefaultKey(), true);
+            client.options.jumpKey.setPressed(true);
         } else {
-            KeyBinding.setKeyPressed(minecraft.options.keyJump.getDefaultKey(), false);
-            minecraft.options.keyJump.setPressed(false);
+            KeyBinding.setKeyPressed(client.options.jumpKey.getDefaultKey(), false);
+            client.options.jumpKey.setPressed(false);
         }
 
         // Sprint if hunger is high enough (> 6) and not in liquid
-        boolean canSprint = player.getFoodData().getFoodLevel() > 6 && !inLiquid;
-        KeyBinding.setKeyPressed(minecraft.options.keySprint.getDefaultKey(), canSprint);
-        minecraft.options.keySprint.setPressed(canSprint);
+        boolean canSprint = player.getHungerManager().getFoodLevel() > 6 && !inLiquid;
+        KeyBinding.setKeyPressed(client.options.sprintKey.getDefaultKey(), canSprint);
+        client.options.sprintKey.setPressed(canSprint);
     }
 
     private static boolean isSolid(BlockState state) {
@@ -243,8 +243,8 @@ public class WalkToCoordsHandler {
 
     public static void onDisable() {
         if (isNavigating) {
-            Minecraft minecraft = Minecraft.getInstance();
-            releaseAllKeys(minecraft);
+            MinecraftClient client = MinecraftClient.getInstance();
+            releaseAllKeys(client);
         }
         isNavigating = false;
         lastPos = null;
@@ -254,12 +254,12 @@ public class WalkToCoordsHandler {
         tickCounter = 0;
     }
 
-    private static void releaseAllKeys(Minecraft minecraft) {
-        KeyBinding.setKeyPressed(minecraft.options.keyUp.getDefaultKey(), false);
-        minecraft.options.keyUp.setPressed(false);
-        KeyBinding.setKeyPressed(minecraft.options.keyJump.getDefaultKey(), false);
-        minecraft.options.keyJump.setPressed(false);
-        KeyBinding.setKeyPressed(minecraft.options.keySprint.getDefaultKey(), false);
-        minecraft.options.keySprint.setPressed(false);
+    private static void releaseAllKeys(MinecraftClient client) {
+        KeyBinding.setKeyPressed(client.options.forwardKey.getDefaultKey(), false);
+        client.options.forwardKey.setPressed(false);
+        KeyBinding.setKeyPressed(client.options.jumpKey.getDefaultKey(), false);
+        client.options.jumpKey.setPressed(false);
+        KeyBinding.setKeyPressed(client.options.sprintKey.getDefaultKey(), false);
+        client.options.sprintKey.setPressed(false);
     }
 }

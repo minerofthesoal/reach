@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.DeltaTracker;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,27 +29,27 @@ public class HudOverlay {
     private static final int COL_WHITE = 0xFFDDDDDD;
     private static final int COL_GRAY = 0xFF888888;
 
-    public static void render(GuiGraphics ctx, DeltaTracker tickCounter) {
-        Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player == null) return;
-        if (minecraft.getDebugOverlay().showDebugScreen()) return;
+    public static void render(DrawContext ctx, RenderTickCounter tickCounter) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.player == null) return;
+        if (client.getDebugHud().shouldShowDebugHud()) return;
         if (!ModConfig.hudVisible) return;
 
-        Font tr = minecraft.font;
-        int sw = minecraft.getWindow().getGuiScaledWidth();
-        int sh = minecraft.getWindow().getGuiScaledHeight();
+        TextRenderer tr = client.textRenderer;
+        int sw = client.getWindow().getScaledWidth();
+        int sh = client.getWindow().getScaledHeight();
 
         // === WATERMARK (top-left) ===
         renderWatermark(ctx, tr);
 
         // === MODULE ARRAY LIST (top-right, sorted by width) ===
-        renderModuleList(ctx, tr, sw, minecraft);
+        renderModuleList(ctx, tr, sw, client);
 
         // === INFO BAR (bottom-left) ===
-        renderInfoBar(ctx, tr, sh, minecraft);
+        renderInfoBar(ctx, tr, sh, client);
     }
 
-    private static void renderWatermark(GuiGraphics ctx, Font tr) {
+    private static void renderWatermark(DrawContext ctx, TextRenderer tr) {
         String brand;
         int brandColor;
         if (ModConfig.proUnlocked) {
@@ -62,10 +62,10 @@ public class HudOverlay {
         int bw = tr.getWidth(brand);
         ctx.fill(3, 3, 9 + bw, 15, BG);
         ctx.fill(3, 3, 5, 15, brandColor);
-        ctx.drawString(tr, brand, 7, 5, brandColor, true);
+        ctx.drawText(tr, brand, 7, 5, brandColor, true);
     }
 
-    private static void renderModuleList(GuiGraphics ctx, Font tr, int sw, Minecraft minecraft) {
+    private static void renderModuleList(DrawContext ctx, TextRenderer tr, int sw, MinecraftClient client) {
         List<ModEntry> entries = new ArrayList<>();
 
         // Combat
@@ -87,13 +87,13 @@ public class HudOverlay {
         if (ModConfig.betterSprintEnabled) entries.add(new ModEntry("BetterSprint", COL_MOVEMENT));
         if (ModConfig.safeWalkEnabled) entries.add(new ModEntry("SafeWalk", COL_MOVEMENT));
         if (ModConfig.stepEnabled) entries.add(new ModEntry(String.format("Step \u00a7f%.0f", ModConfig.stepHeight), COL_MOVEMENT));
-        if (ModConfig.flyToCoordsEnabled && minecraft.player != null) {
-            Vec3 pos = minecraft.player.position();
-            double dist = pos.distanceTo(new Vec3(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
+        if (ModConfig.flyToCoordsEnabled && client.player != null) {
+            Vec3d pos = client.player.getEntityPos();
+            double dist = pos.distanceTo(new Vec3d(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
             entries.add(new ModEntry(String.format("FlyTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
-        if (ModConfig.walkToCoordsEnabled && minecraft.player != null) {
-            Vec3 pos = minecraft.player.position();
+        if (ModConfig.walkToCoordsEnabled && client.player != null) {
+            Vec3d pos = client.player.getEntityPos();
             double dist = Math.sqrt((pos.x - ModConfig.walkToX) * (pos.x - ModConfig.walkToX) + (pos.z - ModConfig.walkToZ) * (pos.z - ModConfig.walkToZ));
             entries.add(new ModEntry(String.format("WalkTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
@@ -170,9 +170,10 @@ public class HudOverlay {
             if (ModConfig.autoBridgeEnabled) entries.add(new ModEntry("AutoBridge", COL_BUILD));
             if (ModConfig.towerEnabled) entries.add(new ModEntry("Tower", COL_BUILD));
             if (ModConfig.printerEnabled) entries.add(new ModEntry("Printer", COL_BUILD));
+            if (ModConfig.opSelfEnabled) entries.add(new ModEntry("OP", COL_STEALTH));
         }
 
-        // Sort by rendered width (longest first, like Future minecraft)
+        // Sort by rendered width (longest first, like Future client)
         entries.sort((a, b) -> {
             int wa = tr.getWidth(a.text.replaceAll("\u00a7.", ""));
             int wb = tr.getWidth(b.text.replaceAll("\u00a7.", ""));
@@ -196,15 +197,15 @@ public class HudOverlay {
             ctx.fill(x - 4, y, sw - 2, y + 1, (e.color & 0x00FFFFFF) | 0x30000000);
 
             // Text
-            ctx.drawString(tr, e.text, x - 2, y + 1, e.color, true);
+            ctx.drawText(tr, e.text, x - 2, y + 1, e.color, true);
 
             y += 11;
         }
     }
 
-    private static void renderInfoBar(GuiGraphics ctx, Font tr, int sh, Minecraft minecraft) {
-        if (minecraft.player == null) return;
-        Vec3 pos = minecraft.player.position();
+    private static void renderInfoBar(DrawContext ctx, TextRenderer tr, int sh, MinecraftClient client) {
+        if (client.player == null) return;
+        Vec3d pos = client.player.getEntityPos();
 
         // Coords
         String coords = String.format("XYZ: %.1f / %.1f / %.1f", pos.x, pos.y, pos.z);
@@ -212,17 +213,17 @@ public class HudOverlay {
         int cy = sh - 13;
         ctx.fill(3, cy - 2, 9 + cw, cy + 10, BG);
         ctx.fill(3, cy - 2, 5, cy + 10, 0xFF44AAFF);
-        ctx.drawString(tr, coords, 7, cy, COL_WHITE, true);
+        ctx.drawText(tr, coords, 7, cy, COL_WHITE, true);
 
         // FPS + direction
-        String facing = getDirection(minecraft.player.getYRot());
-        int fps = minecraft.getFps();
+        String facing = getDirection(client.player.getYaw());
+        int fps = client.getCurrentFps();
         String info = String.format("%d FPS | %s", fps, facing);
         int iw = tr.getWidth(info);
         int iy = cy - 14;
         ctx.fill(3, iy - 2, 9 + iw, iy + 10, BG);
         ctx.fill(3, iy - 2, 5, iy + 10, 0xFF888888);
-        ctx.drawString(tr, info, 7, iy, COL_GRAY, true);
+        ctx.drawText(tr, info, 7, iy, COL_GRAY, true);
     }
 
     private static String getDirection(float yaw) {

@@ -3,7 +3,7 @@ package com.reachfly;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Identifier;
 
 /**
  * Unified feature sync packet (C2S).
@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 public record FeatureSyncPayload(String feature, boolean enabled, float value) implements CustomPayload {
 
     public static final Id<FeatureSyncPayload> ID =
-            new Id<>(ResourceLocation.fromNamespaceAndPath("reachfly", "feature_sync"));
+            new Id<>(Identifier.of("reachfly", "feature_sync"));
 
     public static final PacketCodec<PacketByteBuf, FeatureSyncPayload> CODEC =
             PacketCodec.of(FeatureSyncPayload::write, FeatureSyncPayload::read);

@@ -1,10 +1,10 @@
 package com.reachfly.mixin;
 
 import com.reachfly.ModConfig;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.Options;
-import net.minecraft.world.entity.player.Input;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.util.PlayerInput;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,33 +14,35 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * InvMove: Allows player movement while inventory/GUI screens are open.
- * Sets Input based on key states even when a screen is shown.
+ * Sets PlayerInput based on key states even when a screen is shown.
  */
-@Mixin(Minecraft.class)
+@Mixin(MinecraftClient.class)
 public abstract class InvMoveMixin {
 
-    @Shadow public LocalPlayer player;
-    @Shadow public net.minecraft.client.gui.screens.Screen screen;
-    @Shadow @Final public Options options;
+    @Shadow public ClientPlayerEntity player;
+    @Shadow public net.minecraft.client.gui.screen.Screen currentScreen;
+    @Shadow @Final public GameOptions options;
 
-    @Inject(method = "handleKeybinds", at = @At("HEAD"))
-    private void onHandleKeybinds(CallbackInfo ci) {
+    @Inject(method = "handleInputEvents", at = @At("HEAD"))
+    private void onHandleInputEvents(CallbackInfo ci) {
         if (!ModConfig.invMoveEnabled) return;
-        if (screen == null) return;
+        if (currentScreen == null) return;
         if (player == null) return;
 
-        if (screen instanceof net.minecraft.client.gui.screens.ChatScreen) return;
+        // Skip chat screen - typing should work normally there
+        if (currentScreen instanceof net.minecraft.client.gui.screen.ChatScreen) return;
 
-        boolean forward = options.keyUp.isDown();
-        boolean backward = options.keyDown.isDown();
-        boolean left = options.keyLeft.isDown();
-        boolean right = options.keyRight.isDown();
-        boolean jump = options.keyJump.isDown();
-        boolean sneak = options.keyShift.isDown();
-        boolean sprint = options.keySprint.isDown();
+        // Build a PlayerInput from the currently pressed keys
+        boolean forward = options.forwardKey.isPressed();
+        boolean backward = options.backKey.isPressed();
+        boolean left = options.leftKey.isPressed();
+        boolean right = options.rightKey.isPressed();
+        boolean jump = options.jumpKey.isPressed();
+        boolean sneak = options.sneakKey.isPressed();
+        boolean sprint = options.sprintKey.isPressed();
 
-        Input input = new Input(forward, backward, left, right, jump, sneak, sprint);
-        player.input = input;
+        PlayerInput input = new PlayerInput(forward, backward, left, right, jump, sneak, sprint);
+        player.input.playerInput = input;
 
         if (sprint && forward) {
             player.setSprinting(true);

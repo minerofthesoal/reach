@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.item.ItemStack;
 
 public class EatingAssistHandler {
 
@@ -12,55 +12,55 @@ public class EatingAssistHandler {
     private static int eatTicks = 0;
     private static boolean isHoldingUse = false;
 
-    public static void tick(Minecraft minecraft) {
+    public static void tick(MinecraftClient client) {
         if (!ModConfig.eatingAssistEnabled) return;
-        if (minecraft.player == null || minecraft.level == null) return;
-        if (minecraft.screen != null) {
-            reset(minecraft);
+        if (client.player == null || client.world == null) return;
+        if (client.currentScreen != null) {
+            reset(client);
             return;
         }
-        if (minecraft.gameMode == null) return;
+        if (client.interactionManager == null) return;
 
-        LocalPlayer player = minecraft.player;
-        int foodLevel = player.getFoodData().getFoodLevel();
+        ClientPlayerEntity player = client.player;
+        int foodLevel = player.getHungerManager().getFoodLevel();
 
         // If hunger is satisfied, stop eating
         if (foodLevel >= ModConfig.eatingHungerThreshold) {
             if (previousSlot >= 0 || isHoldingUse) {
-                reset(minecraft);
+                reset(client);
             }
             return;
         }
 
         // If player is currently using an item (eating), hold the use key
         if (player.isUsingItem()) {
-            KeyBinding.setKeyPressed(minecraft.options.useKey.getDefaultKey(), true);
+            KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), true);
             isHoldingUse = true;
             eatTicks++;
             // Safety timeout - foods take max 40 ticks (2 sec), 72 with dried kelp
             if (eatTicks > 80) {
-                reset(minecraft);
+                reset(client);
             }
             return;
         }
 
         // If we just finished eating (were holding use but player stopped using item)
         if (isHoldingUse) {
-            KeyBinding.setKeyPressed(minecraft.options.useKey.getDefaultKey(), false);
+            KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), false);
             isHoldingUse = false;
             eatTicks = 0;
             // Check if still hungry
-            if (player.getFoodData().getFoodLevel() >= ModConfig.eatingHungerThreshold) {
-                reset(minecraft);
+            if (player.getHungerManager().getFoodLevel() >= ModConfig.eatingHungerThreshold) {
+                reset(client);
                 return;
             }
         }
 
         // If we were eating and the food ran out, find more
         if (previousSlot >= 0) {
-            ItemStack held = player.getMainHandItem();
+            ItemStack held = player.getMainHandStack();
             if (!isFood(held)) {
-                player.getInventory().selected = previousSlot;
+                player.getInventory().setSelectedSlot(previousSlot);
                 previousSlot = -1;
             }
         }
@@ -71,40 +71,40 @@ public class EatingAssistHandler {
 
         // Save original slot if not already saved
         if (previousSlot < 0) {
-            previousSlot = player.getInventory().selected;
+            previousSlot = player.getInventory().getSelectedSlot();
         }
 
         // Switch to food slot and start eating
-        player.getInventory().selected = foodSlot;
+        player.getInventory().setSelectedSlot(foodSlot);
         eatTicks = 0;
 
         // Start eating via interaction manager, then hold use key
-        minecraft.gameMode.useItem(player, net.minecraft.level.InteractionHand.MAIN_HAND);
-        KeyBinding.setKeyPressed(minecraft.options.useKey.getDefaultKey(), true);
+        client.interactionManager.interactItem(player, net.minecraft.util.Hand.MAIN_HAND);
+        KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), true);
         isHoldingUse = true;
     }
 
-    private static void reset(Minecraft minecraft) {
+    private static void reset(MinecraftClient client) {
         if (isHoldingUse) {
-            KeyBinding.setKeyPressed(minecraft.options.useKey.getDefaultKey(), false);
+            KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), false);
             isHoldingUse = false;
         }
-        if (previousSlot >= 0 && minecraft.player != null) {
-            minecraft.player.getInventory().selected = previousSlot;
+        if (previousSlot >= 0 && client.player != null) {
+            client.player.getInventory().setSelectedSlot(previousSlot);
         }
         previousSlot = -1;
         eatTicks = 0;
     }
 
-    private static int findBestFoodSlot(LocalPlayer player) {
+    private static int findBestFoodSlot(ClientPlayerEntity player) {
         int bestSlot = -1;
         int bestNutrition = 0;
 
         for (int i = 0; i < 9; i++) {
-            ItemStack stack = player.getInventory().getItem(i);
+            ItemStack stack = player.getInventory().getStack(i);
             if (!isFood(stack)) continue;
 
-            var foodComp = stack.get(DataComponents.FOOD);
+            var foodComp = stack.get(DataComponentTypes.FOOD);
             int nutrition = (foodComp != null) ? foodComp.nutrition() : 1;
 
             if (nutrition > bestNutrition) {
@@ -117,6 +117,6 @@ public class EatingAssistHandler {
 
     private static boolean isFood(ItemStack stack) {
         if (stack.isEmpty()) return false;
-        return stack.contains(DataComponents.FOOD);
+        return stack.contains(DataComponentTypes.FOOD);
     }
 }

@@ -1,8 +1,8 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.util.math.Vec3d;
 
 /**
  * Speed hack - Boosts ground movement speed using the player's facing direction.
@@ -10,16 +10,16 @@ import net.minecraft.world.phys.Vec3;
  */
 public class SpeedHandler {
 
-    public static void tick(Minecraft minecraft) {
+    public static void tick(MinecraftClient client) {
         if (!ModConfig.speedEnabled) return;
-        if (minecraft.player == null || minecraft.level == null) return;
-        if (minecraft.screen != null) return;
+        if (client.player == null || client.world == null) return;
+        if (client.currentScreen != null) return;
 
-        LocalPlayer player = minecraft.player;
+        ClientPlayerEntity player = client.player;
 
-        if (!player.onGround()) return;
+        if (!player.isOnGround()) return;
 
-        Vec3 velocity = player.getDeltaMovement();
+        Vec3d velocity = player.getVelocity();
         double currentSpeed = Math.sqrt(velocity.x * velocity.x + velocity.z * velocity.z);
 
         // Only boost if player is actually moving
@@ -28,16 +28,16 @@ public class SpeedHandler {
         // Detect movement direction from pressed keys
         float forward = 0;
         float strafe = 0;
-        if (minecraft.options.keyUp.isDown()) forward += 1;
-        if (minecraft.options.keyDown.isDown()) forward -= 1;
-        if (minecraft.options.keyLeft.isDown()) strafe += 1;
-        if (minecraft.options.keyRight.isDown()) strafe -= 1;
+        if (client.options.forwardKey.isPressed()) forward += 1;
+        if (client.options.backKey.isPressed()) forward -= 1;
+        if (client.options.leftKey.isPressed()) strafe += 1;
+        if (client.options.rightKey.isPressed()) strafe -= 1;
 
         // If no movement keys pressed, don't override velocity
         if (forward == 0 && strafe == 0) return;
 
         // Calculate movement direction from player yaw and input
-        float yaw = player.getYRot();
+        float yaw = player.getYaw();
         double yawRad = Math.toRadians(yaw);
         double moveAngle = yawRad - Math.atan2(strafe, forward);
 
@@ -49,7 +49,7 @@ public class SpeedHandler {
         double targetSpeed = baseSpeed * ModConfig.speedMultiplier;
 
         // Set velocity in the input direction at target speed
-        player.setDeltaMovement(
+        player.setVelocity(
                 dirX * targetSpeed,
                 velocity.y,
                 dirZ * targetSpeed);

@@ -1,11 +1,11 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 
 /**
  * X-Ray - Makes non-ore blocks invisible so you can see ores through terrain.
  * Works via three mechanisms:
- *   1. XrayBlockRenderMixin cancels BlockRenderDispatcher.renderBlock() for non-valuable blocks
+ *   1. XrayBlockRenderMixin cancels BlockRenderManager.renderBlock() for non-valuable blocks
  *   2. BlockRenderMixin forces shouldDrawSide=true for valuable blocks (all faces visible)
  *   3. BlockStateMixin makes non-valuable blocks non-opaque (disables occlusion culling)
  *
@@ -18,15 +18,15 @@ public class XrayHandler {
     private static boolean needsReload = false;
     private static int reloadDelay = 0;
 
-    public static void tick(Minecraft minecraft) {
-        if (minecraft.player == null || minecraft.levelRenderer == null) return;
+    public static void tick(MinecraftClient client) {
+        if (client.player == null || client.worldRenderer == null) return;
 
         // Handle delayed reload (wait a tick for state to propagate)
         if (needsReload) {
             reloadDelay--;
             if (reloadDelay <= 0) {
                 needsReload = false;
-                minecraft.levelRenderer.allChanged();
+                client.worldRenderer.reload();
             }
         }
 
@@ -55,7 +55,7 @@ public class XrayHandler {
     public static boolean shouldRenderBlock(net.minecraft.block.Block block) {
         if (!ModConfig.xrayEnabled) return true;
 
-        String blockId = net.minecraft.core.registries.BuiltInBuiltInRegistries.BLOCK.getKey(block).getPath();
+        String blockId = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
 
         // Ores
         if (blockId.contains("ore")) return true;

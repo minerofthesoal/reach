@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 /**
  * Shared utility for auto-breaking blocks in the way during FlyTo/WalkTo.
@@ -19,15 +19,15 @@ public class BlockBreaker {
      * Try to break a block at the given position.
      * Returns true if actively breaking (caller should wait).
      */
-    public static boolean tryBreak(Minecraft minecraft, BlockPos pos) {
-        if (minecraft.player == null || minecraft.gameMode == null) return false;
-        if (minecraft.level == null) return false;
+    public static boolean tryBreak(MinecraftClient client, BlockPos pos) {
+        if (client.player == null || client.interactionManager == null) return false;
+        if (client.world == null) return false;
 
-        BlockState state = minecraft.level.getBlockState(pos);
+        BlockState state = client.world.getBlockState(pos);
         if (state.isAir() || state.isLiquid()) return false;
 
         // Don't break bedrock or unbreakable blocks
-        if (state.getDestroySpeed(minecraft.level, pos) < 0) return false;
+        if (state.getHardness(client.world, pos) < 0) return false;
 
         // Start or continue breaking
         if (!pos.equals(currentTarget)) {
@@ -36,13 +36,13 @@ public class BlockBreaker {
         }
 
         // Attack the block (starts or continues breaking)
-        minecraft.gameMode.startDestroyBlock(pos, Direction.UP);
-        minecraft.gameMode.continueDestroyBlock(pos, Direction.UP);
-        minecraft.player.swing(net.minecraft.level.InteractionHand.MAIN_HAND);
+        client.interactionManager.attackBlock(pos, Direction.UP);
+        client.interactionManager.updateBlockBreakingProgress(pos, Direction.UP);
+        client.player.swingHand(net.minecraft.util.Hand.MAIN_HAND);
         breakProgress++;
 
         // Check if broken (becomes air)
-        if (minecraft.level.getBlockState(pos).isAir()) {
+        if (client.world.getBlockState(pos).isAir()) {
             currentTarget = null;
             breakProgress = 0;
             return false; // Done breaking

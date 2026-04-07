@@ -1,70 +1,70 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.SlotActionType;
 
 public class AutoElytraSwapHandler {
 
     private static int swapCooldown = 0;
 
-    public static void tick(Minecraft minecraft) {
+    public static void tick(MinecraftClient client) {
         if (!ModConfig.autoElytraSwapEnabled) return;
-        if (minecraft.player == null || minecraft.level == null) return;
-        if (minecraft.screen != null) return;
-        if (minecraft.gameMode == null) return;
+        if (client.player == null || client.world == null) return;
+        if (client.currentScreen != null) return;
+        if (client.interactionManager == null) return;
 
-        LocalPlayer player = minecraft.player;
+        ClientPlayerEntity player = client.player;
 
         if (swapCooldown > 0) {
             swapCooldown--;
             return;
         }
 
-        ItemStack chestSlot = player.getItemBySlot(EquipmentSlot.CHEST);
-        boolean hasElytra = chestSlot.is(Items.ELYTRA);
+        ItemStack chestSlot = player.getEquippedStack(EquipmentSlot.CHEST);
+        boolean hasElytra = chestSlot.isOf(Items.ELYTRA);
 
-        if (!player.onGround() && player.fallDistance > 0.5f && !hasElytra) {
+        if (!player.isOnGround() && player.fallDistance > 0.5f && !hasElytra) {
             int elytraSlot = findItem(player, Items.ELYTRA);
             if (elytraSlot != -1) {
-                swapToChestSlot(minecraft, player, elytraSlot);
+                swapToChestSlot(client, player, elytraSlot);
                 swapCooldown = 5;
             }
-        } else if (player.onGround() && hasElytra) {
+        } else if (player.isOnGround() && hasElytra) {
             int chestplateSlot = findChestplate(player);
             if (chestplateSlot != -1) {
-                swapToChestSlot(minecraft, player, chestplateSlot);
+                swapToChestSlot(client, player, chestplateSlot);
                 swapCooldown = 5;
             }
         }
     }
 
-    private static int findItem(LocalPlayer player, net.minecraft.level.item.Item item) {
+    private static int findItem(ClientPlayerEntity player, net.minecraft.item.Item item) {
         // Use getStack(slot) instead of accessing private 'main' field
         for (int i = 0; i < 36; i++) {
-            if (player.getInventory().getItem(i).is(item)) {
+            if (player.getInventory().getStack(i).isOf(item)) {
                 return i;
             }
         }
         return -1;
     }
 
-    private static int findChestplate(LocalPlayer player) {
+    private static int findChestplate(ClientPlayerEntity player) {
         for (int i = 0; i < 36; i++) {
-            ItemStack stack = player.getInventory().getItem(i);
-            if (stack.is(Items.NETHERITE_CHESTPLATE) || stack.is(Items.DIAMOND_CHESTPLATE)
-                    || stack.is(Items.IRON_CHESTPLATE) || stack.is(Items.GOLDEN_CHESTPLATE)
-                    || stack.is(Items.CHAINMAIL_CHESTPLATE) || stack.is(Items.LEATHER_CHESTPLATE)) {
+            ItemStack stack = player.getInventory().getStack(i);
+            if (stack.isOf(Items.NETHERITE_CHESTPLATE) || stack.isOf(Items.DIAMOND_CHESTPLATE)
+                    || stack.isOf(Items.IRON_CHESTPLATE) || stack.isOf(Items.GOLDEN_CHESTPLATE)
+                    || stack.isOf(Items.CHAINMAIL_CHESTPLATE) || stack.isOf(Items.LEATHER_CHESTPLATE)) {
                 return i;
             }
         }
         return -1;
     }
 
-    private static void swapToChestSlot(Minecraft minecraft, LocalPlayer player, int inventorySlot) {
+    private static void swapToChestSlot(MinecraftClient client, ClientPlayerEntity player, int inventorySlot) {
         int chestArmorScreenSlot = 6;
         int screenSlot;
         if (inventorySlot < 9) {
@@ -73,9 +73,9 @@ public class AutoElytraSwapHandler {
             screenSlot = inventorySlot;
         }
 
-        int syncId = player.screenHandler.containerId;
-        minecraft.gameMode.handleInventoryMouseClick(syncId, screenSlot, 0, ClickType.PICKUP, player);
-        minecraft.gameMode.handleInventoryMouseClick(syncId, chestArmorScreenSlot, 0, ClickType.PICKUP, player);
-        minecraft.gameMode.handleInventoryMouseClick(syncId, screenSlot, 0, ClickType.PICKUP, player);
+        int syncId = player.currentScreenHandler.syncId;
+        client.interactionManager.clickSlot(syncId, screenSlot, 0, SlotActionType.PICKUP, player);
+        client.interactionManager.clickSlot(syncId, chestArmorScreenSlot, 0, SlotActionType.PICKUP, player);
+        client.interactionManager.clickSlot(syncId, screenSlot, 0, SlotActionType.PICKUP, player);
     }
 }

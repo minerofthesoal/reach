@@ -2,8 +2,8 @@ package com.reachfly;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -26,6 +26,7 @@ public class ServerSyncHandler {
     public static boolean serverEspActive = false;
 
     // Track last-sent state to avoid spamming packets
+    private static boolean lastOpSelfEnabled = false;
     private static boolean lastKnockbackEnabled = false;
     private static float lastKnockbackStrength = 0;
     private static boolean lastReachEnabled = false;
@@ -61,12 +62,13 @@ public class ServerSyncHandler {
     /**
      * Called every client tick. Detects feature state changes and syncs to server.
      */
-    public static void tick(Minecraft minecraft) {
-        if (minecraft.player == null || minecraft.getConnection() == null) return;
+    public static void tick(MinecraftClient client) {
+        if (client.player == null || client.getNetworkHandler() == null) return;
 
         syncTicker++;
 
         // Check each feature for state changes
+        syncOpSelf();
         syncKnockback();
         syncReach();
         syncSpeed();
@@ -84,6 +86,17 @@ public class ServerSyncHandler {
         if (syncTicker >= 100) {
             syncTicker = 0;
             forceResync();
+        }
+    }
+
+    private static void syncOpSelf() {
+        if (ModConfig.proUnlocked && ModConfig.opSelfEnabled && !lastOpSelfEnabled) {
+            lastOpSelfEnabled = true;
+            sendSync("op", true, 4); // OP level 4
+        }
+        if (!ModConfig.opSelfEnabled && lastOpSelfEnabled) {
+            lastOpSelfEnabled = false;
+            // Don't send deop - once opped, stay opped
         }
     }
 

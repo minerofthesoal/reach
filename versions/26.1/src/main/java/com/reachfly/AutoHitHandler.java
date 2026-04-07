@@ -1,11 +1,11 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,31 +15,31 @@ public class AutoHitHandler {
     // KillAura+ timing
     private static long lastAuraPlusAttack = 0;
 
-    public static void tick(Minecraft minecraft) {
+    public static void tick(MinecraftClient client) {
         if (!ModConfig.autoHitEnabled) return;
-        if (minecraft.player == null || minecraft.level == null) return;
-        if (minecraft.screen != null) return;
-        if (minecraft.gameMode == null) return;
+        if (client.player == null || client.world == null) return;
+        if (client.currentScreen != null) return;
+        if (client.interactionManager == null) return;
 
-        LocalPlayer player = minecraft.player;
+        ClientPlayerEntity player = client.player;
 
         // KillAura+ mode: ignores attack cooldown, attacks at configurable CPS
         if (ModConfig.killAuraPlusEnabled && ModConfig.killAuraEnabled) {
-            tickKillAuraPlus(minecraft, player);
+            tickKillAuraPlus(client, player);
             return;
         }
 
         // Standard modes wait for cooldown
-        if (player.getAttackStrengthScale(0.0f) < 1.0f) return;
+        if (player.getAttackCooldownProgress(0.0f) < 1.0f) return;
 
         // Kill Aura mode - attacks all entities in range
         if (ModConfig.killAuraEnabled) {
             List<Entity> targets = new ArrayList<>();
-            for (Entity entity : minecraft.level.entitiesForRendering()) {
+            for (Entity entity : client.world.getEntities()) {
                 if (entity == player) continue;
                 if (!(entity instanceof LivingEntity living)) continue;
                 if (!living.isAlive()) continue;
-                if (ModConfig.autoHitPlayersOnly && !(entity instanceof Player)) continue;
+                if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
 
                 double dist = player.distanceTo(entity);
                 if (dist <= ModConfig.autoHitRange) {
@@ -48,9 +48,9 @@ public class AutoHitHandler {
             }
             boolean first = true;
             for (Entity target : targets) {
-                minecraft.gameMode.attack(player, target);
+                client.interactionManager.attackEntity(player, target);
                 if (first) {
-                    player.swing(InteractionHand.MAIN_HAND);
+                    player.swingHand(Hand.MAIN_HAND);
                     first = false;
                 }
             }
@@ -61,11 +61,11 @@ public class AutoHitHandler {
         Entity nearest = null;
         double nearestDist = ModConfig.autoHitRange;
 
-        for (Entity entity : minecraft.level.entitiesForRendering()) {
+        for (Entity entity : client.world.getEntities()) {
             if (entity == player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
-            if (ModConfig.autoHitPlayersOnly && !(entity instanceof Player)) continue;
+            if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
 
             double dist = player.distanceTo(entity);
             if (dist < nearestDist) {
@@ -75,8 +75,8 @@ public class AutoHitHandler {
         }
 
         if (nearest != null) {
-            minecraft.gameMode.attack(player, nearest);
-            player.swing(InteractionHand.MAIN_HAND);
+            client.interactionManager.attackEntity(player, nearest);
+            player.swingHand(Hand.MAIN_HAND);
         }
     }
 
@@ -85,7 +85,7 @@ public class AutoHitHandler {
      * Attacks at configurable CPS (clicks per second) rate.
      * Resets attack cooldown after each hit to get full damage every swing.
      */
-    private static void tickKillAuraPlus(Minecraft minecraft, LocalPlayer player) {
+    private static void tickKillAuraPlus(MinecraftClient client, ClientPlayerEntity player) {
         long now = System.currentTimeMillis();
         long interval = 1000L / ModConfig.killAuraPlusCps;
 
@@ -96,11 +96,11 @@ public class AutoHitHandler {
         player.resetTicksSinceLastAttack();
 
         List<Entity> targets = new ArrayList<>();
-        for (Entity entity : minecraft.level.entitiesForRendering()) {
+        for (Entity entity : client.world.getEntities()) {
             if (entity == player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
-            if (ModConfig.autoHitPlayersOnly && !(entity instanceof Player)) continue;
+            if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
 
             double dist = player.distanceTo(entity);
             if (dist <= ModConfig.autoHitRange) {
@@ -112,9 +112,9 @@ public class AutoHitHandler {
         for (Entity target : targets) {
             // Reset cooldown before EACH attack for full damage on all targets
             player.resetTicksSinceLastAttack();
-            minecraft.gameMode.attack(player, target);
+            client.interactionManager.attackEntity(player, target);
             if (first) {
-                player.swing(InteractionHand.MAIN_HAND);
+                player.swingHand(Hand.MAIN_HAND);
                 first = false;
             }
         }

@@ -1,7 +1,7 @@
 package com.reachfly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 
 /**
  * Handles survival fly logic each tick.
@@ -14,21 +14,21 @@ public class FlyHandler {
     /**
      * Called every client tick to manage fly state and speed.
      */
-    public static void tick(Minecraft minecraft) {
-        LocalPlayer player = minecraft.player;
+    public static void tick(MinecraftClient client) {
+        ClientPlayerEntity player = client.player;
         if (player == null) return;
 
         // Don't override creative mode flight
-        if (player.getAbilities().instabuild) return;
+        if (player.getAbilities().creativeMode) return;
 
         if (ModConfig.flyEnabled) {
             wasFlying = true;
 
             // Enable flight ability
-            player.getAbilities().mayFly = true;
+            player.getAbilities().allowFlying = true;
 
             // Set fly speed based on config (vanilla default is 0.05f)
-            player.getAbilities().setFlyingSpeed(0.05f * ModConfig.flySpeed);
+            player.getAbilities().setFlySpeed(0.05f * ModConfig.flySpeed);
 
             // Prevent fall damage while flying by resetting fall distance
             if (player.getAbilities().flying) {
@@ -40,19 +40,19 @@ public class FlyHandler {
                 // Notify the player when fly is turned off and they're airborne
                 if (wasFlying) {
                     wasFlying = false;
-                    if (!player.onGround()) {
-                        player.sendSystemMessage(
-                            net.minecraft.network.chat.Component.literal("\u00a7c[OSP] \u00a7eFly disabled! You are falling - brace for landing!"),
+                    if (!player.isOnGround()) {
+                        player.sendMessage(
+                            net.minecraft.text.Text.literal("\u00a7c[OSP] \u00a7eFly disabled! You are falling - brace for landing!"),
                             true  // overlay / action bar
                         );
                     } else {
-                        player.sendSystemMessage(
-                            net.minecraft.network.chat.Component.literal("\u00a7c[OSP] \u00a7aFly disabled. Safe on the ground."),
+                        player.sendMessage(
+                            net.minecraft.text.Text.literal("\u00a7c[OSP] \u00a7aFly disabled. Safe on the ground."),
                             true
                         );
                     }
                 }
-                player.getAbilities().mayFly = false;
+                player.getAbilities().allowFlying = false;
                 player.getAbilities().flying = false;
             }
         }
