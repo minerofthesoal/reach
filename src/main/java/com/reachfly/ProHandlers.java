@@ -333,8 +333,8 @@ public class ProHandlers {
             }
         }
 
-        if (bestSlot >= 0 && bestSlot != inv.selectedSlot) {
-            inv.selectedSlot = bestSlot;
+        if (bestSlot >= 0 && bestSlot != inv.getSelectedSlot()) {
+            inv.setSelectedSlot(bestSlot);
         }
     }
 
@@ -391,8 +391,8 @@ public class ProHandlers {
         int blockSlot = findBlockInHotbar(p);
         if (blockSlot < 0) return;
 
-        int prevSlot = p.getInventory().selectedSlot;
-        p.getInventory().selectedSlot = blockSlot;
+        int prevSlot = p.getInventory().getSelectedSlot();
+        p.getInventory().setSelectedSlot(blockSlot);
 
         client.interactionManager.interactBlock(p,
                 Hand.MAIN_HAND,
@@ -402,7 +402,7 @@ public class ProHandlers {
                         below,
                         false));
 
-        p.getInventory().selectedSlot = prevSlot;
+        p.getInventory().setSelectedSlot(prevSlot);
     }
 
     private static void tickTower(MinecraftClient client) {
@@ -419,8 +419,8 @@ public class ProHandlers {
         if (client.world.getBlockState(below).isAir()) {
             int blockSlot = findBlockInHotbar(p);
             if (blockSlot >= 0) {
-                int prevSlot = p.getInventory().selectedSlot;
-                p.getInventory().selectedSlot = blockSlot;
+                int prevSlot = p.getInventory().getSelectedSlot();
+                p.getInventory().setSelectedSlot(blockSlot);
 
                 client.interactionManager.interactBlock(p,
                         Hand.MAIN_HAND,
@@ -430,7 +430,7 @@ public class ProHandlers {
                                 below,
                                 false));
 
-                p.getInventory().selectedSlot = prevSlot;
+                p.getInventory().setSelectedSlot(prevSlot);
             }
         }
 

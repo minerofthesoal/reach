@@ -60,7 +60,7 @@ public class EatingAssistHandler {
         if (previousSlot >= 0) {
             ItemStack held = player.getMainHandStack();
             if (!isFood(held)) {
-                player.getInventory().selectedSlot = previousSlot;
+                player.getInventory().setSelectedSlot(previousSlot);
                 previousSlot = -1;
             }
         }
@@ -71,11 +71,11 @@ public class EatingAssistHandler {
 
         // Save original slot if not already saved
         if (previousSlot < 0) {
-            previousSlot = player.getInventory().selectedSlot;
+            previousSlot = player.getInventory().getSelectedSlot();
         }
 
         // Switch to food slot and start eating
-        player.getInventory().selectedSlot = foodSlot;
+        player.getInventory().setSelectedSlot(foodSlot);
         eatTicks = 0;
 
         // Start eating via interaction manager, then hold use key
@@ -90,7 +90,7 @@ public class EatingAssistHandler {
             isHoldingUse = false;
         }
         if (previousSlot >= 0 && client.player != null) {
-            client.player.getInventory().selectedSlot = previousSlot;
+            client.player.getInventory().setSelectedSlot(previousSlot);
         }
         previousSlot = -1;
         eatTicks = 0;
