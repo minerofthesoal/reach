@@ -16,8 +16,9 @@ repositories {
 }
 
 dependencies {
-    // Minecraft (26.1 - unobfuscated, no mappings needed)
+    // Minecraft 26.1 - use official Mojang mappings (identity for unobfuscated)
     minecraft "com.mojang:minecraft:26.1"
+    mappings loom.officialMojangMappings()
 
     // Fabric loader and API
     implementation "net.fabricmc:fabric-loader:0.18.6"
