@@ -315,7 +315,14 @@ public class ItemGiveScreen extends Screen {
         if (client == null || client.getConnection() == null) return;
 
         String itemId = selectedItem.id.toString();
-        client.getConnection().sendCommand("give @s " + itemId + " " + qty);
+        // Send via server addon payload (executes /give with server permissions)
+        try {
+            net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(
+                    new ItemGivePayload(itemId, qty));
+        } catch (Exception e) {
+            // Fallback: try chat command (requires OP or cheats)
+            client.getConnection().sendCommand("give @s " + itemId + " " + qty);
+        }
 
         toastMessage = "\u00a7aGave " + qty + "x " + selectedItem.name;
         toastTimer = 40;

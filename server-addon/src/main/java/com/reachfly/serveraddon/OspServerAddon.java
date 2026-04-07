@@ -54,6 +54,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
         // Register C2S payloads
         PayloadTypeRegistry.serverboundPlay().register(TeleportPayload.ID, TeleportPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(FeatureSyncPayload.ID, FeatureSyncPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ItemGivePayload.ID, ItemGivePayload.CODEC);
 
         // Register S2C payloads
         PayloadTypeRegistry.clientboundPlay().register(EspDataPayload.ID, EspDataPayload.CODEC);
@@ -76,6 +77,30 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                                 Component.literal("\u00a7a[OSP] Teleported to " +
                                         String.format("%.0f, %.0f, %.0f", x, finalY, z)),
                                 true);
+                    });
+                });
+
+        // Item give handler (bypasses OP requirement)
+        ServerPlayNetworking.registerGlobalReceiver(ItemGivePayload.ID,
+                (payload, context) -> {
+                    ServerPlayer player = context.player();
+                    String itemId = payload.itemId();
+                    int quantity = Math.max(1, Math.min(6400, payload.quantity()));
+
+                    context.server().execute(() -> {
+                        try {
+                            String cmd = "give " + player.getName().getString() + " " + itemId + " " + quantity;
+                            context.server().getCommands().getDispatcher().execute(
+                                    cmd, context.server().createCommandSourceStack());
+                            LOGGER.debug("[OSP] Gave {} {}x {} via server console",
+                                    player.getName().getString(), quantity, itemId);
+                        } catch (Exception e) {
+                            LOGGER.warn("[OSP] Failed to give item to {}: {}",
+                                    player.getName().getString(), e.getMessage());
+                            player.displayClientMessage(
+                                    Component.literal("\u00a7c[OSP] Failed to give item: " + e.getMessage()),
+                                    false);
+                        }
                     });
                 });
 

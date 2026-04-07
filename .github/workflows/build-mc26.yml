@@ -21,8 +21,17 @@ jobs:
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: '25-ea'
           distribution: 'temurin'
+        id: setup-temurin
+        continue-on-error: true
+
+      - name: Fallback to Oracle JDK 25
+        if: steps.setup-temurin.outcome == 'failure'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'oracle'
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
@@ -47,8 +56,17 @@ jobs:
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: '25-ea'
           distribution: 'temurin'
+        id: setup-temurin-server
+        continue-on-error: true
+
+      - name: Fallback to Oracle JDK 25
+        if: steps.setup-temurin-server.outcome == 'failure'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'oracle'
 
       - name: Make Gradle wrapper executable
         run: chmod +x server-addon/gradlew

@@ -45,8 +45,9 @@ public class ServerSyncHandler {
      * Called during mod initialization.
      */
     public static void registerPayloads() {
-        // Register C2S payload type
+        // Register C2S payload types
         PayloadTypeRegistry.serverboundPlay().register(FeatureSyncPayload.ID, FeatureSyncPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ItemGivePayload.ID, ItemGivePayload.CODEC);
 
         // Register S2C payload type + receiver
         PayloadTypeRegistry.clientboundPlay().register(EspDataPayload.ID, EspDataPayload.CODEC);
