@@ -1,4 +1,4 @@
-name: Build & Release Server Addon v2
+name: Build & Release Server Addon v3
 
 on:
   push:
@@ -38,12 +38,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: osp-server-addon-mod
-          path: server-addon/build/libs/osp-server-addon-2.0.0.jar
+          path: server-addon/build/libs/osp-server-addon-3.0.0.jar
           if-no-files-found: error
 
       - name: Upload Data Pack ZIP
         uses: actions/upload-artifact@v4
         with:
           name: osp-server-addon-datapack
-          path: server-addon/build/libs/osp-server-addon-datapack-2.0.0.zip
+          path: server-addon/build/libs/osp-server-addon-datapack-3.0.0.zip
           if-no-files-found: error

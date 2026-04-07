@@ -38,7 +38,7 @@ jobs:
           if-no-files-found: error
 
   build-server-addon:
-    name: Build Server Addon v2 (Mod + Datapack)
+    name: Build Server Addon v3 (Mod + Datapack)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -60,15 +60,15 @@ jobs:
       - name: Upload server addon mod JAR
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon-v2-mod
-          path: server-addon/build/libs/osp-server-addon-2.0.0.jar
+          name: osp-server-addon-v3-mod
+          path: server-addon/build/libs/osp-server-addon-3.0.0.jar
           if-no-files-found: error
 
       - name: Upload server addon data pack ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: osp-server-addon-v2-datapack
-          path: server-addon/build/libs/osp-server-addon-datapack-2.0.0.zip
+          name: osp-server-addon-v3-datapack
+          path: server-addon/build/libs/osp-server-addon-datapack-3.0.0.zip
           if-no-files-found: error
 
   release:
@@ -86,20 +86,20 @@ jobs:
       - name: Download server addon mod
         uses: actions/download-artifact@v4
         with:
-          name: osp-server-addon-v2-mod
+          name: osp-server-addon-v3-mod
           path: artifacts/server
 
       - name: Download server addon data pack
         uses: actions/download-artifact@v4
         with:
-          name: osp-server-addon-v2-datapack
+          name: osp-server-addon-v3-datapack
           path: artifacts/datapack
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.0.0-build.${{ github.run_number }}
-          name: "OSP v2.0.0 + Server Addon v2 (Build #${{ github.run_number }})"
+          tag_name: v2.2.0-build.${{ github.run_number }}
+          name: "OSP v2.2.0 + Server Addon v3 (Build #${{ github.run_number }})"
           body: |
             ## Downloads
             - **Client Mod** - Install in `.minecraft/mods/` (requires Fabric)
