@@ -163,6 +163,9 @@ public class ConfigScreen extends Screen {
             exploit.add(new Module("Freecam", () -> ModConfig.freecamEnabled, v -> ModConfig.freecamEnabled = v));
             exploit.add(new Module("Timer", () -> ModConfig.timerEnabled, v -> ModConfig.timerEnabled = v)
                     .addNumber("Speed", () -> ModConfig.timerSpeed, ModConfig.TIMER_MIN, ModConfig.TIMER_MAX, v -> ModConfig.timerSpeed = v));
+            exploit.add(new Module("Item Give", () -> false, v -> {
+                if (v && this.client != null) this.client.setScreen(new ItemGiveScreen(this));
+            }));
             categories.put("\u00a74Exploit", exploit);
 
             // === PRO: VISUAL ===
