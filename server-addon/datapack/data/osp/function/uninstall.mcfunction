@@ -1,6 +1,6 @@
 # ============================================================
-# OSP Server Addon v2 - Uninstall
-# Removes all scoreboards and attribute modifiers from all players
+# OSP Server Addon v3 - Uninstall
+# Removes all scoreboards, tags, and attribute modifiers
 # ============================================================
 
 # Remove all attribute modifiers from all players
@@ -11,6 +11,9 @@ execute as @a run attribute @s minecraft:movement_speed modifier remove reachfly
 execute as @a run attribute @s minecraft:fall_damage_multiplier modifier remove reachfly:nofall
 execute as @a run attribute @s minecraft:safe_fall_distance modifier remove reachfly:nofall_safe
 execute as @a run attribute @s minecraft:flying_speed modifier remove reachfly:fly_speed
+
+# Remove tags
+tag @a remove osp.kb_active
 
 # Remove all scoreboards
 scoreboard objectives remove osp.knockback
@@ -37,4 +40,8 @@ scoreboard objectives remove osp.help
 data remove storage osp:temp {}
 data remove storage osp:tp {}
 
-tellraw @a [{"text":"[OSP] ","color":"gold","bold":true},{"text":"Server Addon uninstalled. You can now safely remove the datapack.","color":"red"}]
+# Restore gamerules
+gamerule sendCommandFeedback true
+gamerule logAdminCommands true
+
+tellraw @a [{"text":"[OSP] ","color":"gold","bold":true},{"text":"Server Addon v3 uninstalled.","color":"red"}]

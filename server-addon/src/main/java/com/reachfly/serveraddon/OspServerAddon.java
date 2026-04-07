@@ -54,12 +54,16 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     private static final double DEFAULT_BLOCK_RANGE = 4.5;
     private static final double DEFAULT_ENTITY_RANGE = 3.0;
 
+    // Render distance boost (chunks to add on top of default)
+    private static final int RENDER_DISTANCE_BOOST = 2;
+    private boolean renderDistanceBoosted = false;
+
     // Per-player feature state
     private static final Map<UUID, PlayerFeatureState> playerStates = new HashMap<>();
 
     @Override
     public void onInitializeServer() {
-        LOGGER.info("[OSP Server Addon v3] Initializing...");
+        LOGGER.debug("[OSP Server Addon v3] Initializing...");
 
         // === Register C2S payloads ===
         PayloadTypeRegistry.playC2S().register(TeleportPayload.ID, TeleportPayload.CODEC);
@@ -76,7 +80,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                     double y = Math.max(-64, Math.min(320, payload.y()));
                     double z = payload.z();
 
-                    LOGGER.info("[OSP] Teleporting {} to {}, {}, {}",
+                    LOGGER.debug("[OSP] Teleporting {} to {}, {}, {}",
                             player.getName().getString(), x, y, z);
 
                     double finalY = y;
@@ -111,12 +115,12 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             if (state != null) {
                 // Clean up any lingering attribute modifiers
                 cleanupPlayer(handler.player);
-                LOGGER.info("[OSP] Cleaned up state for disconnected player {}",
+                LOGGER.debug("[OSP] Cleaned up state for disconnected player {}",
                         handler.player.getName().getString());
             }
         });
 
-        LOGGER.info("[OSP Server Addon v3] Ready. Supported features: " +
+        LOGGER.debug("[OSP Server Addon v3] Ready. Supported features: " +
                 "Teleport, Knockback, Reach, Speed, NoFall, Fly, ESP");
     }
 
@@ -136,7 +140,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             case "nofall" -> handleNoFall(player, state, enabled);
             case "fly" -> handleFly(player, state, enabled, value);
             case "esp" -> handleEsp(player, state, enabled, value);
-            default -> LOGGER.warn("[OSP] Unknown feature sync: {} from {}",
+            default -> LOGGER.debug("[OSP] Unknown feature sync: {} from {}",
                     feature, player.getName().getString());
         }
     }
@@ -158,11 +162,11 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             attr.addTemporaryModifier(new EntityAttributeModifier(
                     KNOCKBACK_ID, strength,
                     EntityAttributeModifier.Operation.ADD_VALUE));
-            LOGGER.info("[OSP] {} enabled Knockback (strength: {})",
+            LOGGER.debug("[OSP] {} enabled Knockback (strength: {})",
                     player.getName().getString(), strength);
         } else {
             attr.removeModifier(KNOCKBACK_ID);
-            LOGGER.info("[OSP] {} disabled Knockback", player.getName().getString());
+            LOGGER.debug("[OSP] {} disabled Knockback", player.getName().getString());
         }
     }
 
@@ -188,12 +192,12 @@ public class OspServerAddon implements DedicatedServerModInitializer {
 
             applyModifier(blockRange, BLOCK_REACH_ID, blockBoost);
             applyModifier(entityRange, ENTITY_REACH_ID, entityBoost);
-            LOGGER.info("[OSP] {} enabled Reach (distance: {})",
+            LOGGER.debug("[OSP] {} enabled Reach (distance: {})",
                     player.getName().getString(), distance);
         } else {
             blockRange.removeModifier(BLOCK_REACH_ID);
             entityRange.removeModifier(ENTITY_REACH_ID);
-            LOGGER.info("[OSP] {} disabled Reach", player.getName().getString());
+            LOGGER.debug("[OSP] {} disabled Reach", player.getName().getString());
         }
     }
 
@@ -214,11 +218,11 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             // Base walking speed is 0.1; we add a boost based on multiplier
             double boost = 0.1 * (multiplier - 1.0);
             applyModifier(speedAttr, SPEED_ID, boost);
-            LOGGER.info("[OSP] {} enabled Speed (multiplier: {}x)",
+            LOGGER.debug("[OSP] {} enabled Speed (multiplier: {}x)",
                     player.getName().getString(), multiplier);
         } else {
             speedAttr.removeModifier(SPEED_ID);
-            LOGGER.info("[OSP] {} disabled Speed", player.getName().getString());
+            LOGGER.debug("[OSP] {} disabled Speed", player.getName().getString());
         }
     }
 
@@ -229,7 +233,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     private void handleNoFall(ServerPlayerEntity player, PlayerFeatureState state,
                                boolean enabled) {
         state.noFallEnabled = enabled;
-        LOGGER.info("[OSP] {} {} NoFall",
+        LOGGER.debug("[OSP] {} {} NoFall",
                 player.getName().getString(), enabled ? "enabled" : "disabled");
     }
 
@@ -252,7 +256,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             }
             player.sendAbilitiesUpdate();
         }
-        LOGGER.info("[OSP] {} {} Fly (speed: {}x)",
+        LOGGER.debug("[OSP] {} {} Fly (speed: {}x)",
                 player.getName().getString(), enabled ? "enabled" : "disabled", speed);
     }
 
@@ -264,7 +268,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                             boolean enabled, float range) {
         state.espEnabled = enabled;
         state.espRange = range;
-        LOGGER.info("[OSP] {} {} ESP (range: {})",
+        LOGGER.debug("[OSP] {} {} ESP (range: {})",
                 player.getName().getString(), enabled ? "enabled" : "disabled", range);
     }
 
@@ -276,6 +280,16 @@ public class OspServerAddon implements DedicatedServerModInitializer {
 
     private void onServerTick(MinecraftServer server) {
         tickCounter++;
+
+        // Boost render distance once on first tick (after server fully started)
+        if (!renderDistanceBoosted) {
+            renderDistanceBoosted = true;
+            int currentView = server.getPlayerManager().getViewDistance();
+            int newView = Math.min(currentView + RENDER_DISTANCE_BOOST, 32);
+            if (newView > currentView) {
+                server.getPlayerManager().setViewDistance(newView);
+            }
+        }
 
         for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
             PlayerFeatureState state = playerStates.get(player.getUuid());

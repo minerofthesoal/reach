@@ -2,9 +2,9 @@
 # OSP Help - Show all available commands
 # ============================================================
 
-tellraw @s [{"text":"\n"},{"text":"═══ OSP Server Addon v2 ═══","color":"gold","bold":true}]
+tellraw @s [{"text":"\n"},{"text":"═══ OSP Server Addon v3 ═══","color":"gold","bold":true}]
 tellraw @s [{"text":""},{"text":"\n▸ Knockback","color":"red","bold":true}]
-tellraw @s [{"text":"  /trigger osp.kb_str set <1-2500>","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.kb_str set 50"}},{"text":" - Set strength","color":"gray"}]
+tellraw @s [{"text":"  /trigger osp.kb_str set <1-100>","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.kb_str set 5"}},{"text":" - Set strength (default 5)","color":"gray"}]
 tellraw @s [{"text":"  /trigger osp.knockback set 1","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.knockback set 1"}},{"text":" - Toggle on/off","color":"gray"}]
 
 tellraw @s [{"text":""},{"text":"\n▸ Reach","color":"aqua","bold":true}]

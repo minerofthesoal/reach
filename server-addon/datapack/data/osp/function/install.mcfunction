@@ -3,8 +3,9 @@
 # Run on load / /reload to set up scoreboards
 # ============================================================
 
-# Suppress trigger feedback in chat
+# Suppress command feedback and admin log output
 gamerule sendCommandFeedback false
+gamerule logAdminCommands false
 
 # --- Feature toggles (0 = off, 1 = on) ---
 scoreboard objectives add osp.knockback trigger "OSP Knockback Toggle"
@@ -15,7 +16,7 @@ scoreboard objectives add osp.fly trigger "OSP Fly Toggle"
 scoreboard objectives add osp.tp trigger "OSP Teleport Trigger"
 
 # --- Feature values (integer, scaled x10 for decimals) ---
-# knockback: strength (default 0, range 1-2500)
+# knockback: strength (default 5, range 1-100)
 # reach: distance in blocks x10 (e.g. 100 = 10.0 blocks)
 # speed: multiplier x10 (e.g. 20 = 2.0x)
 # fly_speed: multiplier x10 (e.g. 15 = 1.5x)
@@ -35,8 +36,6 @@ scoreboard objectives add osp.reach_on dummy
 scoreboard objectives add osp.speed_on dummy
 scoreboard objectives add osp.nofall_on dummy
 scoreboard objectives add osp.fly_on dummy
-
-tellraw @a [{"text":"[OSP] ","color":"gold","bold":true},{"text":"Server Addon v3 (Datapack) loaded!","color":"green"},{"text":"\n"},{"text":"  Use ","color":"gray"},{"text":"/trigger osp.help","color":"yellow","clickEvent":{"action":"run_command","value":"/trigger osp.help"}},{"text":" for commands","color":"gray"}]
 
 # Help trigger
 scoreboard objectives add osp.help trigger "OSP Help"

@@ -1,5 +1,5 @@
 # ============================================================
-# OSP Server Addon v2 - Main tick function (runs every tick)
+# OSP Server Addon v3 - Main tick function (runs every tick)
 # ============================================================
 
 # Enable triggers for all players each tick
@@ -22,7 +22,7 @@ scoreboard players enable @a osp.help
 execute as @a[scores={osp.help=1..}] run function osp:help
 execute as @a[scores={osp.help=1..}] run scoreboard players set @s osp.help 0
 
-# Process value-setting triggers (store values then reset trigger)
+# Process value-setting triggers (these now reset their own scores)
 execute as @a[scores={osp.kb_str=1..}] run function osp:features/set_knockback_str
 execute as @a[scores={osp.reach_dist=1..}] run function osp:features/set_reach_dist
 execute as @a[scores={osp.speed_mult=1..}] run function osp:features/set_speed_mult
