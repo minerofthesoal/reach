@@ -242,7 +242,7 @@ public class ModConfig {
 
     // ===== PRO: Social =====
     public static boolean chatSpamEnabled = false;
-    public static String chatSpamMessage = "OSP Pro";
+    public static String chatSpamMessage = "f1sch Pro";
     public static int chatSpamDelay = 100;
     public static final int SPAM_DELAY_MIN = 20;
     public static final int SPAM_DELAY_MAX = 1200;
@@ -400,9 +400,9 @@ public class ModConfig {
                     towerEnabled = data.towerEnabled;
                     printerEnabled = data.printerEnabled;
                 }
-                ReachFlyClient.LOGGER.info("[OSP] Config loaded.");
+                ReachFlyClient.LOGGER.info("[f1sch] Config loaded.");
             } catch (IOException e) {
-                ReachFlyClient.LOGGER.error("[OSP] Failed to load config", e);
+                ReachFlyClient.LOGGER.error("[f1sch] Failed to load config", e);
             }
         } else {
             save();
@@ -539,7 +539,7 @@ public class ModConfig {
             Files.createDirectories(CONFIG_PATH.getParent());
             Files.writeString(CONFIG_PATH, GSON.toJson(data));
         } catch (IOException e) {
-            ReachFlyClient.LOGGER.error("[OSP] Failed to save config", e);
+            ReachFlyClient.LOGGER.error("[f1sch] Failed to save config", e);
         }
     }
 
@@ -628,7 +628,7 @@ public class ModConfig {
         boolean autoToolEnabled = false;
         boolean invSortEnabled = false;
         boolean chatSpamEnabled = false;
-        String chatSpamMessage = "OSP Pro";
+        String chatSpamMessage = "f1sch Pro";
         int chatSpamDelay = 100;
         boolean autoReplyEnabled = false;
         String autoReplyMessage = "I'm AFK";

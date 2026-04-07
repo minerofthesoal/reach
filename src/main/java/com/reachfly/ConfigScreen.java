@@ -54,7 +54,7 @@ public class ConfigScreen extends Screen {
     private int codeMessageColor = 0xFFFFFF;
 
     public ConfigScreen(Screen parent) {
-        super(Text.literal("ReachFly ClickGUI"));
+        super(Text.literal("f1sch ClickGUI"));
         this.parent = parent;
         buildCategories();
     }
@@ -278,7 +278,14 @@ public class ConfigScreen extends Screen {
             return;
         }
         context.fill(0, 0, this.width, this.height, 0xC0101010);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a7b\u00a7lReachFly \u00a7r\u00a77ClickGUI"), this.width / 2, 8, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a7b\u00a7lf1sch \u00a7r\u00a77ClickGUI"), this.width / 2, 8, 0xFFFFFF);
+
+        // Item Give button
+        int giveX = this.width / 2 - 90;
+        int giveY = 4;
+        boolean giveHover = mouseX >= giveX && mouseX <= giveX + 50 && mouseY >= giveY && mouseY <= giveY + 14;
+        context.fill(giveX, giveY, giveX + 50, giveY + 14, giveHover ? 0xFF2A2A4A : 0xFF1A1A3A);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(giveHover ? "\u00a7a[Give]" : "\u00a72[Give]"), giveX + 25, giveY + 3, 0xFFFFFF);
 
         // Star icon for pro activation
         int starX = this.width / 2 + 60;
@@ -388,6 +395,14 @@ public class ConfigScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        // Item Give button
+        int giveX = this.width / 2 - 90;
+        int giveY = 4;
+        if (!showCodeEntry && mouseX >= giveX && mouseX <= giveX + 50 && mouseY >= giveY && mouseY <= giveY + 14) {
+            if (this.client != null) this.client.setScreen(new ItemGiveScreen(this));
+            return true;
+        }
+
         // Star icon click
         int starX = this.width / 2 + 60;
         int starY = 6;

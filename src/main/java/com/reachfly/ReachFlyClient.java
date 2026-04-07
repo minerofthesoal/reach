@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Client-side mod initializer for Reach & Fly mod.
+ * Client-side mod initializer for f1sch client.
  * Registers keybinds, config, and event handlers.
  */
 public class ReachFlyClient implements ClientModInitializer {
@@ -15,7 +15,7 @@ public class ReachFlyClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        LOGGER.info("[ReachFly] Initializing Reach & Fly Mod...");
+        LOGGER.info("[f1sch] Initializing f1sch client...");
 
         // Load saved config from disk
         ModConfig.load();
@@ -26,6 +26,6 @@ public class ReachFlyClient implements ClientModInitializer {
         // Register tick and render event handlers
         EventHandler.register();
 
-        LOGGER.info("[ReachFly] Initialization complete.");
+        LOGGER.info("[f1sch] Initialization complete.");
     }
 }
