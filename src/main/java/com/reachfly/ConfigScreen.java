@@ -47,7 +47,7 @@ public class ConfigScreen extends Screen {
     private final Map<String, List<Module>> categories = new LinkedHashMap<>();
 
     public ConfigScreen(Screen parent) {
-        super(Text.literal("OSP"));
+        super(Text.literal("f1sch"));
         this.parent = parent;
     }
 
@@ -167,8 +167,14 @@ public class ConfigScreen extends Screen {
         ctx.fill(panelX, panelTop, panelX + panelW, panelBottom, PANEL_BG);
         ctx.fill(panelX, panelTop, panelX + panelW, panelTop + TAB_H, 0xFF12122A);
         ctx.fill(panelX, panelTop + TAB_H - 1, panelX + panelW, panelTop + TAB_H, ACCENT);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7d\u00a7lOSP"), panelX + 6, panelTop + 6, TEXT_PRIMARY);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal(ModConfig.proUnlocked ? "\u00a76PRO" : "\u00a78v2.2"), panelX + 32, panelTop + 6, TEXT_DIM);
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7d\u00a7lf1sch"), panelX + 6, panelTop + 6, TEXT_PRIMARY);
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal(ModConfig.proUnlocked ? "\u00a76PRO" : "\u00a78v2.2"), panelX + 40, panelTop + 6, TEXT_DIM);
+        // Item Give button
+        int giveX = panelX + panelW - 80;
+        int giveY = panelTop + 4;
+        boolean giveHover = mouseX >= giveX && mouseX < giveX + 38 && mouseY >= giveY && mouseY < giveY + 14;
+        ctx.fill(giveX, giveY, giveX + 38, giveY + 14, giveHover ? 0xFF2A2A4A : 0xFF1A1A3A);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(giveHover ? "\u00a7aGive" : "\u00a72Give"), giveX + 19, giveY + 3, TEXT_PRIMARY);
         // Star icon for pro activation
         boolean starHovered = mouseX >= panelX + panelW - 32 && mouseX < panelX + panelW - 20 && mouseY >= panelTop + 2 && mouseY < panelTop + TAB_H - 2;
         ctx.drawTextWithShadow(this.textRenderer, Text.literal(ModConfig.proUnlocked ? "\u00a76\u2605" : (starHovered ? "\u00a7e\u2605" : "\u00a78\u2605")), panelX + panelW - 30, panelTop + 6, TEXT_PRIMARY);
@@ -315,6 +321,9 @@ public class ConfigScreen extends Screen {
             return true;
         }
         int panelW = Math.min(320, this.width - 40); int panelX = (this.width - panelW) / 2; int panelTop = 20;
+        // Item Give button
+        int giveX = panelX + panelW - 80; int giveY = panelTop + 4;
+        if (mouseX >= giveX && mouseX < giveX + 38 && mouseY >= giveY && mouseY < giveY + 14) { if (this.client != null) this.client.setScreen(new ItemGiveScreen(this)); return true; }
         if (mouseX >= panelX + panelW - 18 && mouseX <= panelX + panelW - 4 && mouseY >= panelTop + 2 && mouseY <= panelTop + TAB_H - 2) { close(); return true; }
         // Star icon click
         if (mouseX >= panelX + panelW - 32 && mouseX < panelX + panelW - 20 && mouseY >= panelTop + 2 && mouseY < panelTop + TAB_H - 2) {

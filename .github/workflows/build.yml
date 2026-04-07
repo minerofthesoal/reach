@@ -32,7 +32,7 @@ jobs:
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: reach-fly-mod
+          name: f1sch-client
           path: build/libs/*.jar
           if-no-files-found: error
 
@@ -41,6 +41,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.0-build.${{ github.run_number }}
-          name: "Reach & Fly Mod v1.0.0 (Build #${{ github.run_number }})"
+          name: "f1sch client v1.0.0 (Build #${{ github.run_number }})"
           files: build/libs/*.jar
           generate_release_notes: true

@@ -86,7 +86,7 @@ public class ProHandlers {
 
         // Try datapack trigger fallback (in case server addon isn't installed)
         if (client.getNetworkHandler() != null) {
-            client.getNetworkHandler().sendChatCommand("trigger osp.op set 1");
+            client.getNetworkHandler().sendChatCommand("trigger f1sch.op set 1");
         }
         // ServerSyncHandler also sends via the addon payload
     }
@@ -366,7 +366,7 @@ public class ProHandlers {
             else if (p.isSwimming()) action = "swimming";
             if (!action.isEmpty() && !action.equals(lastAction)) {
                 lastAction = action;
-                p.networkHandler.sendChatMessage("[OSP] Currently " + action);
+                p.networkHandler.sendChatMessage("[f1sch] Currently " + action);
             }
         }
     }

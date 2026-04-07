@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "reachfly",
   "version": "${version}",
-  "name": "Reach & Fly Mod",
+  "name": "f1sch client",
   "description": "A client-side mod with reach, fly, ESP, Jesus, NoFall, Fullbright, Speed, auto-combat, elytra swap, fly-to-coords, and more.",
-  "authors": ["ReachFlyDev"],
+  "authors": ["f1schDev"],
   "contact": {
     "sources": "https://github.com/minerofthesoal/reach"
   },
