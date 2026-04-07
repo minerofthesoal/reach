@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.15-SNAPSHOT'
+    id 'fabric-loom' version '1.15.5'
     id 'maven-publish'
 }
 
@@ -51,7 +51,7 @@ tasks.register('buildDatapack', Zip) {
     archiveBaseName = 'osp-server-addon-datapack'
     archiveVersion = project.version
     archiveExtension = 'zip'
-    destinationDirectory = file("${buildDir}/libs")
+    destinationDirectory = layout.buildDirectory.dir("libs")
 }
 
 build.dependsOn buildDatapack

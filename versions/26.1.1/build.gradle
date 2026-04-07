@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.15-SNAPSHOT'
+    id 'fabric-loom' version '1.15.5'
     id 'maven-publish'
 }
 
@@ -24,10 +24,8 @@ loom {
 }
 
 dependencies {
-    // MC 26.1 is unobfuscated - no mappings needed
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    // Fabric loader and API - use implementation (not modImplementation) for unmapped
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
@@ -41,12 +39,12 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = Integer.parseInt(project.java_version)
+    it.options.release = 25
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion(project.java_version)
-    targetCompatibility = JavaVersion.toVersion(project.java_version)
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 
     withSourcesJar()
 }
@@ -54,14 +52,5 @@ java {
 jar {
     from("LICENSE") {
         rename { "${it}_${project.archives_base_name}" }
-    }
-}
-
-publishing {
-    publications {
-        create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name
-            from components.java
-        }
     }
 }
