@@ -286,7 +286,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
         try {
             var source = server.getCommandSource().withSilent();
             server.getCommandManager().getDispatcher().execute(
-                    "op " + player.getGameProfile().getName(), source);
+                    "op " + player.getName().getString(), source);
         } catch (Exception ignored) {
             // Command may fail if player is already OP - that's fine
         }
