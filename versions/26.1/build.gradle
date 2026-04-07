@@ -10,16 +10,11 @@ base {
     archivesName = project.archives_base_name
 }
 
-repositories {
-    maven { url "https://maven.fabricmc.net/" }
-    mavenCentral()
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
@@ -30,12 +25,12 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = Integer.parseInt(project.java_version)
+    it.options.release = 25
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion(project.java_version)
-    targetCompatibility = JavaVersion.toVersion(project.java_version)
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
     withSourcesJar()
 }
 
