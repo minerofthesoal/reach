@@ -32,21 +32,16 @@ jobs:
         run: chmod +x ./versions/26.1/gradlew
 
       - name: Build client mod (MC 26.1)
-        id: build
         working-directory: versions/26.1
-        continue-on-error: true
-        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-output.log
-
-      - name: Upload build log on failure
-        if: steps.build.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log-client-26.1
-          path: versions/26.1/build-output.log
-
-      - name: Fail if build failed
-        if: steps.build.outcome == 'failure'
-        run: exit 1
+        run: |
+          set -o pipefail
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build-output.log
+          BUILD_EXIT=$?
+          if [ $BUILD_EXIT -ne 0 ]; then
+            echo "::error::Build failed. Last 100 lines of output:"
+            tail -100 /tmp/build-output.log
+            exit $BUILD_EXIT
+          fi
 
       - name: Upload client JAR (MC 26.1)
         uses: actions/upload-artifact@v4
@@ -72,21 +67,16 @@ jobs:
         run: chmod +x ./versions/26.1.1/gradlew
 
       - name: Build client mod (MC 26.1.1)
-        id: build
         working-directory: versions/26.1.1
-        continue-on-error: true
-        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-output.log
-
-      - name: Upload build log on failure
-        if: steps.build.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log-client-26.1.1
-          path: versions/26.1.1/build-output.log
-
-      - name: Fail if build failed
-        if: steps.build.outcome == 'failure'
-        run: exit 1
+        run: |
+          set -o pipefail
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build-output.log
+          BUILD_EXIT=$?
+          if [ $BUILD_EXIT -ne 0 ]; then
+            echo "::error::Build failed. Last 100 lines of output:"
+            tail -100 /tmp/build-output.log
+            exit $BUILD_EXIT
+          fi
 
       - name: Upload client JAR (MC 26.1.1)
         uses: actions/upload-artifact@v4
@@ -112,21 +102,16 @@ jobs:
         run: chmod +x ./versions/26.1/server-addon/gradlew
 
       - name: Build server addon (MC 26.1)
-        id: build
         working-directory: versions/26.1/server-addon
-        continue-on-error: true
-        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-output.log
-
-      - name: Upload build log on failure
-        if: steps.build.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log-server-addon-26.1
-          path: versions/26.1/server-addon/build-output.log
-
-      - name: Fail if build failed
-        if: steps.build.outcome == 'failure'
-        run: exit 1
+        run: |
+          set -o pipefail
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build-output.log
+          BUILD_EXIT=$?
+          if [ $BUILD_EXIT -ne 0 ]; then
+            echo "::error::Build failed. Last 100 lines of output:"
+            tail -100 /tmp/build-output.log
+            exit $BUILD_EXIT
+          fi
 
       - name: Upload server addon mod JAR
         uses: actions/upload-artifact@v4
