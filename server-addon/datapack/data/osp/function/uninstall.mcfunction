@@ -36,13 +36,17 @@ scoreboard objectives remove osp.nofall_on
 scoreboard objectives remove osp.fly_on
 scoreboard objectives remove osp.help
 scoreboard objectives remove osp.op
+scoreboard objectives remove osp.give
 
 # Clear data storage
-data remove storage osp:temp {}
-data remove storage osp:tp {}
+data remove storage osp:temp block_boost
+data remove storage osp:temp entity_boost
+data remove storage osp:tp x
+data remove storage osp:tp y
+data remove storage osp:tp z
 
 # Restore gamerules
-gamerule sendCommandFeedback true
-gamerule logAdminCommands true
+gamerule send_command_feedback true
+gamerule log_admin_commands true
 
 tellraw @a [{"text":"[OSP] ","color":"gold","bold":true},{"text":"Server Addon v3 uninstalled.","color":"red"}]

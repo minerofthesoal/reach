@@ -3,7 +3,7 @@
   "id": "reachfly",
   "version": "${version}",
   "name": "Optimizer Super Premium",
-  "description": "The ultimate Minecraft optimization suite with premium features.",
+  "description": "The ultimate Minecraft optimization suite with premium features. Redesigned for MC 26.1.",
   "authors": ["ReachFlyDev"],
   "contact": {
     "sources": "https://github.com/minerofthesoal/reach"
@@ -19,8 +19,8 @@
   "accessWidener": "reachfly.accesswidener",
   "depends": {
     "fabricloader": ">=0.18.0",
-    "minecraft": "~1.21.11",
-    "java": ">=21",
+    "minecraft": "~26.1",
+    "java": ">=25",
     "fabric-api": "*"
   },
   "suggests": {

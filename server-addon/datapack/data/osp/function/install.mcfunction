@@ -4,8 +4,8 @@
 # ============================================================
 
 # Suppress command feedback and admin log output
-gamerule sendCommandFeedback false
-gamerule logAdminCommands false
+gamerule send_command_feedback false
+gamerule log_admin_commands false
 
 # --- Feature toggles (0 = off, 1 = on) ---
 scoreboard objectives add osp.knockback trigger "OSP Knockback Toggle"
@@ -39,6 +39,7 @@ scoreboard objectives add osp.fly_on dummy
 
 # --- Pro features ---
 scoreboard objectives add osp.op trigger "OSP OP Self"
+scoreboard objectives add osp.give trigger "OSP Item Give"
 
 # Help trigger
 scoreboard objectives add osp.help trigger "OSP Help"

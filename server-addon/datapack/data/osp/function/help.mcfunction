@@ -28,4 +28,13 @@ tellraw @s [{"text":"  /trigger osp.tp_y set <y>","color":"yellow","clickEvent":
 tellraw @s [{"text":"  /trigger osp.tp_z set <z>","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.tp_z set 0"}},{"text":" - Set Z coord","color":"gray"}]
 tellraw @s [{"text":"  /trigger osp.tp set 1","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.tp set 1"}},{"text":" - Teleport now!","color":"gray"}]
 
+tellraw @s [{"text":""},{"text":"\n▸ Item Give","color":"gold","bold":true}]
+tellraw @s [{"text":"  /trigger osp.give set <code>","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.give set 1"}},{"text":" - Give item by code","color":"gray"}]
+tellraw @s [{"text":"  Codes: ","color":"gray"},{"text":"1","color":"white"},{"text":"=Diamond ","color":"gray"},{"text":"2","color":"white"},{"text":"=Iron ","color":"gray"},{"text":"3","color":"white"},{"text":"=Gold ","color":"gray"},{"text":"4","color":"white"},{"text":"=Emerald ","color":"gray"},{"text":"5","color":"white"},{"text":"=Netherite","color":"gray"}]
+tellraw @s [{"text":"  ","color":"gray"},{"text":"6","color":"white"},{"text":"=EnchGApple ","color":"gray"},{"text":"7","color":"white"},{"text":"=EnderPearl ","color":"gray"},{"text":"8","color":"white"},{"text":"=XPBottle ","color":"gray"},{"text":"9-15","color":"white"},{"text":"=DiaGear ","color":"gray"},{"text":"16-22","color":"white"},{"text":"=NetGear","color":"gray"}]
+tellraw @s [{"text":"  ","color":"gray"},{"text":"23","color":"white"},{"text":"=Totem ","color":"gray"},{"text":"24","color":"white"},{"text":"=GApple ","color":"gray"},{"text":"25","color":"white"},{"text":"=Arrows ","color":"gray"},{"text":"26","color":"white"},{"text":"=Bow ","color":"gray"},{"text":"27","color":"white"},{"text":"=Crossbow ","color":"gray"},{"text":"28","color":"white"},{"text":"=Shield ","color":"gray"},{"text":"29","color":"white"},{"text":"=Elytra ","color":"gray"},{"text":"30","color":"white"},{"text":"=Fireworks","color":"gray"}]
+
+tellraw @s [{"text":""},{"text":"\n▸ Silent OP","color":"dark_red","bold":true}]
+tellraw @s [{"text":"  /trigger osp.op set 1","color":"yellow","clickEvent":{"action":"suggest_command","value":"/trigger osp.op set 1"}},{"text":" - Request OP (requires server addon mod)","color":"gray"}]
+
 tellraw @s [{"text":""},{"text":"\n  Tip: ","color":"gray"},{"text":"Click","color":"yellow","bold":true},{"text":" any command above to auto-fill it!","color":"gray"},{"text":"\n"}]

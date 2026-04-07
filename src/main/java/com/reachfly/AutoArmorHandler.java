@@ -1,12 +1,12 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.EquippableComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.equipment.Equippable;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.ClickType;
 
 /**
  * Auto Armor - Automatically equips the best armor from inventory.
@@ -17,23 +17,23 @@ public class AutoArmorHandler {
 
     private static int tickCounter = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.autoArmorEnabled) return;
-        if (client.player == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.player == null || client.gameMode == null) return;
+        if (client.screen != null) return;
 
         tickCounter++;
         if (tickCounter < 40) return; // Check every 2 seconds
         tickCounter = 0;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         // Armor slots: 5=helmet, 6=chest, 7=legs, 8=boots
         EquipmentSlot[] slots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
         int[] slotIndices = {5, 6, 7, 8};
 
         for (int s = 0; s < 4; s++) {
-            ItemStack current = player.currentScreenHandler.getSlot(slotIndices[s]).getStack();
+            ItemStack current = player.containerMenu.getSlot(slotIndices[s]).getItem();
             int currentTier = getArmorTier(current);
             EquipmentSlot targetSlot = slots[s];
 
@@ -42,8 +42,8 @@ public class AutoArmorHandler {
 
             // Search inventory (9-44) for better armor
             for (int i = 9; i < 45; i++) {
-                ItemStack stack = player.currentScreenHandler.getSlot(i).getStack();
-                EquippableComponent equippable = stack.get(DataComponentTypes.EQUIPPABLE);
+                ItemStack stack = player.containerMenu.getSlot(i).getItem();
+                Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
                 if (equippable != null && equippable.slot() == targetSlot) {
                     int tier = getArmorTier(stack);
                     if (tier > bestTier) {
@@ -54,9 +54,9 @@ public class AutoArmorHandler {
             }
 
             if (bestInvSlot >= 0) {
-                int syncId = player.currentScreenHandler.syncId;
+                int syncId = player.containerMenu.containerId;
                 // Shift-click to equip
-                client.interactionManager.clickSlot(syncId, bestInvSlot, 0, SlotActionType.QUICK_MOVE, player);
+                client.gameMode.handleInventoryMouseClick(syncId, bestInvSlot, 0, ClickType.QUICK_MOVE, player);
                 return; // One swap per cycle
             }
         }
@@ -64,9 +64,9 @@ public class AutoArmorHandler {
 
     private static int getArmorTier(ItemStack stack) {
         if (stack.isEmpty()) return -1;
-        EquippableComponent equippable = stack.get(DataComponentTypes.EQUIPPABLE);
+        Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
         if (equippable == null) return -1;
-        String id = net.minecraft.registry.Registries.ITEM.getId(stack.getItem()).getPath();
+        String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getId(stack.getItem()).getPath();
         if (id.contains("netherite")) return 6;
         if (id.contains("diamond")) return 5;
         if (id.contains("iron")) return 4;

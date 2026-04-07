@@ -1,13 +1,13 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * Manages reach attribute modifiers on BOTH client and server side.
@@ -15,8 +15,8 @@ import net.minecraft.util.Identifier;
  */
 public class ReachHandler {
 
-    private static final Identifier BLOCK_REACH_ID = Identifier.of("reachfly", "block_reach");
-    private static final Identifier ENTITY_REACH_ID = Identifier.of("reachfly", "entity_reach");
+    private static final ResourceLocation BLOCK_REACH_ID = ResourceLocation.fromNamespaceAndPath("reachfly", "block_reach");
+    private static final ResourceLocation ENTITY_REACH_ID = ResourceLocation.fromNamespaceAndPath("reachfly", "entity_reach");
 
     private static final double DEFAULT_BLOCK_RANGE = 4.5;
     private static final double DEFAULT_ENTITY_RANGE = 3.0;
@@ -25,7 +25,7 @@ public class ReachHandler {
     private static boolean lastEnabled = false;
     private static float lastDistance = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (client.player == null) return;
 
         // Only update when state actually changes
@@ -47,27 +47,27 @@ public class ReachHandler {
     }
 
     public static void updateReachAttributes() {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
         applyToPlayer(player);
 
-        MinecraftServer server = client.getServer();
+        MinecraftServer server = client.getSingleplayerServer();
         if (server != null) {
-            ServerPlayerEntity serverPlayer = server.getPlayerManager()
-                    .getPlayer(player.getUuid());
+            ServerPlayer serverPlayer = server.getPlayerList()
+                    .getPlayer(player.getUUID());
             if (serverPlayer != null) {
                 applyToPlayer(serverPlayer);
             }
         }
     }
 
-    private static void applyToPlayer(net.minecraft.entity.LivingEntity player) {
-        EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.BLOCK_INTERACTION_RANGE);
-        EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.ENTITY_INTERACTION_RANGE);
+    private static void applyToPlayer(net.minecraft.world.entity.LivingEntity player) {
+        AttributeInstance blockRange = player.getAttribute(
+                Attributes.BLOCK_INTERACTION_RANGE);
+        AttributeInstance entityRange = player.getAttribute(
+                Attributes.ENTITY_INTERACTION_RANGE);
 
         if (blockRange == null || entityRange == null) return;
 
@@ -76,20 +76,20 @@ public class ReachHandler {
             double entityBoost = ModConfig.reachDistance - DEFAULT_ENTITY_RANGE;
 
             // Check if modifier already exists with correct value to avoid flickering
-            EntityAttributeModifier existingBlock = blockRange.getModifier(BLOCK_REACH_ID);
+            AttributeModifier existingBlock = blockRange.getModifier(BLOCK_REACH_ID);
             if (existingBlock == null || existingBlock.value() != blockBoost) {
                 blockRange.removeModifier(BLOCK_REACH_ID);
-                blockRange.addTemporaryModifier(new EntityAttributeModifier(
+                blockRange.addTemporaryModifier(new AttributeModifier(
                         BLOCK_REACH_ID, blockBoost,
-                        EntityAttributeModifier.Operation.ADD_VALUE));
+                        AttributeModifier.Operation.ADD_VALUE));
             }
 
-            EntityAttributeModifier existingEntity = entityRange.getModifier(ENTITY_REACH_ID);
+            AttributeModifier existingEntity = entityRange.getModifier(ENTITY_REACH_ID);
             if (existingEntity == null || existingEntity.value() != entityBoost) {
                 entityRange.removeModifier(ENTITY_REACH_ID);
-                entityRange.addTemporaryModifier(new EntityAttributeModifier(
+                entityRange.addTemporaryModifier(new AttributeModifier(
                         ENTITY_REACH_ID, entityBoost,
-                        EntityAttributeModifier.Operation.ADD_VALUE));
+                        AttributeModifier.Operation.ADD_VALUE));
             }
         } else {
             blockRange.removeModifier(BLOCK_REACH_ID);
@@ -98,26 +98,26 @@ public class ReachHandler {
     }
 
     public static void clearReachModifiers() {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
 
         clearForPlayer(client.player);
 
-        MinecraftServer server = client.getServer();
+        MinecraftServer server = client.getSingleplayerServer();
         if (server != null) {
-            ServerPlayerEntity serverPlayer = server.getPlayerManager()
-                    .getPlayer(client.player.getUuid());
+            ServerPlayer serverPlayer = server.getPlayerList()
+                    .getPlayer(client.player.getUUID());
             if (serverPlayer != null) {
                 clearForPlayer(serverPlayer);
             }
         }
     }
 
-    private static void clearForPlayer(net.minecraft.entity.LivingEntity player) {
-        EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.BLOCK_INTERACTION_RANGE);
-        EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.ENTITY_INTERACTION_RANGE);
+    private static void clearForPlayer(net.minecraft.world.entity.LivingEntity player) {
+        AttributeInstance blockRange = player.getAttribute(
+                Attributes.BLOCK_INTERACTION_RANGE);
+        AttributeInstance entityRange = player.getAttribute(
+                Attributes.ENTITY_INTERACTION_RANGE);
 
         if (blockRange != null) blockRange.removeModifier(BLOCK_REACH_ID);
         if (entityRange != null) entityRange.removeModifier(ENTITY_REACH_ID);

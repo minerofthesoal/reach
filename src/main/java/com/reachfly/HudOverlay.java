@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +29,15 @@ public class HudOverlay {
     private static final int COL_WHITE = 0xFFDDDDDD;
     private static final int COL_GRAY = 0xFF888888;
 
-    public static void render(DrawContext ctx, RenderTickCounter tickCounter) {
-        MinecraftClient client = MinecraftClient.getInstance();
+    public static void render(GuiGraphics ctx, DeltaTracker tickCounter) {
+        Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
-        if (client.getDebugHud().shouldShowDebugHud()) return;
+        if (client.getDebugOverlay().showDebugScreen()) return;
         if (!ModConfig.hudVisible) return;
 
-        TextRenderer tr = client.textRenderer;
-        int sw = client.getWindow().getScaledWidth();
-        int sh = client.getWindow().getScaledHeight();
+        Font tr = client.font;
+        int sw = client.getWindow().getGuiScaledWidth();
+        int sh = client.getWindow().getGuiScaledHeight();
 
         // === WATERMARK (top-left) ===
         renderWatermark(ctx, tr);
@@ -49,7 +49,7 @@ public class HudOverlay {
         renderInfoBar(ctx, tr, sh, client);
     }
 
-    private static void renderWatermark(DrawContext ctx, TextRenderer tr) {
+    private static void renderWatermark(GuiGraphics ctx, Font tr) {
         String brand;
         int brandColor;
         if (ModConfig.proUnlocked) {
@@ -59,13 +59,13 @@ public class HudOverlay {
             brand = "OSP v2.2";
             brandColor = 0xFFBB66FF;
         }
-        int bw = tr.getWidth(brand);
+        int bw = tr.width(brand);
         ctx.fill(3, 3, 9 + bw, 15, BG);
         ctx.fill(3, 3, 5, 15, brandColor);
-        ctx.drawText(tr, brand, 7, 5, brandColor, true);
+        ctx.drawString(tr, brand, 7, 5, brandColor, true);
     }
 
-    private static void renderModuleList(DrawContext ctx, TextRenderer tr, int sw, MinecraftClient client) {
+    private static void renderModuleList(GuiGraphics ctx, Font tr, int sw, Minecraft client) {
         List<ModEntry> entries = new ArrayList<>();
 
         // Combat
@@ -88,12 +88,12 @@ public class HudOverlay {
         if (ModConfig.safeWalkEnabled) entries.add(new ModEntry("SafeWalk", COL_MOVEMENT));
         if (ModConfig.stepEnabled) entries.add(new ModEntry(String.format("Step \u00a7f%.0f", ModConfig.stepHeight), COL_MOVEMENT));
         if (ModConfig.flyToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getEntityPos();
-            double dist = pos.distanceTo(new Vec3d(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
+            Vec3 pos = client.player.position();
+            double dist = pos.distanceTo(new Vec3(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
             entries.add(new ModEntry(String.format("FlyTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
         if (ModConfig.walkToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getEntityPos();
+            Vec3 pos = client.player.position();
             double dist = Math.sqrt((pos.x - ModConfig.walkToX) * (pos.x - ModConfig.walkToX) + (pos.z - ModConfig.walkToZ) * (pos.z - ModConfig.walkToZ));
             entries.add(new ModEntry(String.format("WalkTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
@@ -175,8 +175,8 @@ public class HudOverlay {
 
         // Sort by rendered width (longest first, like Future client)
         entries.sort((a, b) -> {
-            int wa = tr.getWidth(a.text.replaceAll("\u00a7.", ""));
-            int wb = tr.getWidth(b.text.replaceAll("\u00a7.", ""));
+            int wa = tr.width(a.text.replaceAll("\u00a7.", ""));
+            int wb = tr.width(b.text.replaceAll("\u00a7.", ""));
             return wb - wa;
         });
 
@@ -184,7 +184,7 @@ public class HudOverlay {
         int y = 2;
         for (ModEntry e : entries) {
             String clean = e.text.replaceAll("\u00a7.", "");
-            int tw = tr.getWidth(clean);
+            int tw = tr.width(clean);
             int x = sw - tw - 6;
 
             // Background with slight gradient feel
@@ -197,33 +197,33 @@ public class HudOverlay {
             ctx.fill(x - 4, y, sw - 2, y + 1, (e.color & 0x00FFFFFF) | 0x30000000);
 
             // Text
-            ctx.drawText(tr, e.text, x - 2, y + 1, e.color, true);
+            ctx.drawString(tr, e.text, x - 2, y + 1, e.color, true);
 
             y += 11;
         }
     }
 
-    private static void renderInfoBar(DrawContext ctx, TextRenderer tr, int sh, MinecraftClient client) {
+    private static void renderInfoBar(GuiGraphics ctx, Font tr, int sh, Minecraft client) {
         if (client.player == null) return;
-        Vec3d pos = client.player.getEntityPos();
+        Vec3 pos = client.player.position();
 
         // Coords
         String coords = String.format("XYZ: %.1f / %.1f / %.1f", pos.x, pos.y, pos.z);
-        int cw = tr.getWidth(coords);
+        int cw = tr.width(coords);
         int cy = sh - 13;
         ctx.fill(3, cy - 2, 9 + cw, cy + 10, BG);
         ctx.fill(3, cy - 2, 5, cy + 10, 0xFF44AAFF);
-        ctx.drawText(tr, coords, 7, cy, COL_WHITE, true);
+        ctx.drawString(tr, coords, 7, cy, COL_WHITE, true);
 
         // FPS + direction
-        String facing = getDirection(client.player.getYaw());
-        int fps = client.getCurrentFps();
+        String facing = getDirection(client.player.getYRot());
+        int fps = client.getFps();
         String info = String.format("%d FPS | %s", fps, facing);
-        int iw = tr.getWidth(info);
+        int iw = tr.width(info);
         int iy = cy - 14;
         ctx.fill(3, iy - 2, 9 + iw, iy + 10, BG);
         ctx.fill(3, iy - 2, 5, iy + 10, 0xFF888888);
-        ctx.drawText(tr, info, 7, iy, COL_GRAY, true);
+        ctx.drawString(tr, info, 7, iy, COL_GRAY, true);
     }
 
     private static String getDirection(float yaw) {

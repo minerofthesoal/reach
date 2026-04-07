@@ -1,11 +1,11 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
 
 /**
  * Low Health Kill - Automatically targets and attacks entities below a health threshold.
@@ -16,15 +16,15 @@ public class LowHealthKillHandler {
     /**
      * Called every client tick. Finds low-health entities and finishes them off.
      */
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.lowHealthKillEnabled) return;
-        if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) return;
+        if (client.player == null || client.level == null) return;
+        if (client.screen != null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         // Respect attack cooldown
-        if (player.getAttackCooldownProgress(0.0f) < 1.0f) return;
+        if (player.getAttackStrengthScale(0.0f) < 1.0f) return;
 
         // Use reach distance if reach is enabled, otherwise use default
         double range = ModConfig.reachEnabled ? ModConfig.reachDistance : 4.5;
@@ -32,7 +32,7 @@ public class LowHealthKillHandler {
         LivingEntity weakest = null;
         float lowestHealth = Float.MAX_VALUE;
 
-        for (Entity entity : client.world.getEntities()) {
+        for (Entity entity : client.level.entitiesForRendering()) {
             if (entity == player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
@@ -51,8 +51,8 @@ public class LowHealthKillHandler {
         }
 
         if (weakest != null) {
-            client.interactionManager.attackEntity(player, weakest);
-            player.swingHand(Hand.MAIN_HAND);
+            client.gameMode.attack(player, weakest);
+            player.swing(InteractionHand.MAIN_HAND);
         }
     }
 }
