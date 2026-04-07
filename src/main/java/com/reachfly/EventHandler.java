@@ -118,5 +118,6 @@ public class EventHandler {
         FullbrightHandler.tick(client);
         SpeedHandler.tick(client);
         WalkToCoordsHandler.tick(client);
+        ProHandlers.tick(client);
     }
 }
