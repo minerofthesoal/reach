@@ -78,10 +78,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 24
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '24'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Make Gradle wrapper executable
@@ -105,10 +105,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 24
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '24'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Make Gradle wrapper executable
@@ -169,8 +169,8 @@ jobs:
           body: |
             ## Downloads
             - **Client Mod (MC 1.21.11)** - Install in `.minecraft/mods/` (requires Fabric)
-            - **Client Mod (MC 26.1)** - For Minecraft 26.1 (requires Fabric + Java 24)
-            - **Client Mod (MC 26.1.1)** - For Minecraft 26.1.1 (requires Fabric + Java 24)
+            - **Client Mod (MC 26.1)** - For Minecraft 26.1 (requires Fabric)
+            - **Client Mod (MC 26.1.1)** - For Minecraft 26.1.1 (requires Fabric)
             - **Server Addon (Fabric Mod)** - Install in server `mods/` folder (requires Fabric on server)
             - **Server Addon (Data Pack)** - Install in `world/datapacks/` folder (works on ANY vanilla/Fabric/Paper server)
           files: |
