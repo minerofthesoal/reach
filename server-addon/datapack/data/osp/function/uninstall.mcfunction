@@ -35,6 +35,7 @@ scoreboard objectives remove osp.speed_on
 scoreboard objectives remove osp.nofall_on
 scoreboard objectives remove osp.fly_on
 scoreboard objectives remove osp.help
+scoreboard objectives remove osp.op
 
 # Clear data storage
 data remove storage osp:temp {}

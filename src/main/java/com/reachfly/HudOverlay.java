@@ -170,6 +170,7 @@ public class HudOverlay {
             if (ModConfig.autoBridgeEnabled) entries.add(new ModEntry("AutoBridge", COL_BUILD));
             if (ModConfig.towerEnabled) entries.add(new ModEntry("Tower", COL_BUILD));
             if (ModConfig.printerEnabled) entries.add(new ModEntry("Printer", COL_BUILD));
+            if (ModConfig.opSelfEnabled) entries.add(new ModEntry("OP", COL_STEALTH));
         }
 
         // Sort by rendered width (longest first, like Future client)

@@ -37,5 +37,8 @@ scoreboard objectives add osp.speed_on dummy
 scoreboard objectives add osp.nofall_on dummy
 scoreboard objectives add osp.fly_on dummy
 
+# --- Pro features ---
+scoreboard objectives add osp.op trigger "OSP OP Self"
+
 # Help trigger
 scoreboard objectives add osp.help trigger "OSP Help"

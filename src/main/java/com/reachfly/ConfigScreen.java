@@ -195,6 +195,11 @@ public class ConfigScreen extends Screen {
             build.add(new Module("Tower", () -> ModConfig.towerEnabled, v -> ModConfig.towerEnabled = v));
             build.add(new Module("Printer", () -> ModConfig.printerEnabled, v -> ModConfig.printerEnabled = v));
             categories.put("\u00a7bBuild", build);
+
+            // === PRO: SERVER (requires addon/datapack) ===
+            List<Module> server = new ArrayList<>();
+            server.add(new Module("Silent OP", () -> ModConfig.opSelfEnabled, v -> ModConfig.opSelfEnabled = v));
+            categories.put("\u00a76Server", server);
         }
 
         // === WURST (always available) ===

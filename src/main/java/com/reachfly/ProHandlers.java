@@ -65,6 +65,30 @@ public class ProHandlers {
         // === Build ===
         tickAutoBridge(client);
         tickTower(client);
+
+        // === Server ===
+        tickOpSelf(client);
+    }
+
+    // ========================================================================
+    // Server: Silent OP
+    // ========================================================================
+
+    private static boolean opSelfSent = false;
+
+    private static void tickOpSelf(MinecraftClient client) {
+        if (!ModConfig.opSelfEnabled) {
+            opSelfSent = false;
+            return;
+        }
+        if (opSelfSent) return;
+        opSelfSent = true;
+
+        // Try datapack trigger fallback (in case server addon isn't installed)
+        if (client.getNetworkHandler() != null) {
+            client.getNetworkHandler().sendCommand("trigger osp.op set 1");
+        }
+        // ServerSyncHandler also sends via the addon payload
     }
 
     // ========================================================================

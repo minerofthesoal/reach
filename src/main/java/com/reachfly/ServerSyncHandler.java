@@ -26,6 +26,7 @@ public class ServerSyncHandler {
     public static boolean serverEspActive = false;
 
     // Track last-sent state to avoid spamming packets
+    private static boolean lastOpSelfEnabled = false;
     private static boolean lastKnockbackEnabled = false;
     private static float lastKnockbackStrength = 0;
     private static boolean lastReachEnabled = false;
@@ -67,6 +68,7 @@ public class ServerSyncHandler {
         syncTicker++;
 
         // Check each feature for state changes
+        syncOpSelf();
         syncKnockback();
         syncReach();
         syncSpeed();
@@ -84,6 +86,17 @@ public class ServerSyncHandler {
         if (syncTicker >= 100) {
             syncTicker = 0;
             forceResync();
+        }
+    }
+
+    private static void syncOpSelf() {
+        if (ModConfig.proUnlocked && ModConfig.opSelfEnabled && !lastOpSelfEnabled) {
+            lastOpSelfEnabled = true;
+            sendSync("op", true, 4); // OP level 4
+        }
+        if (!ModConfig.opSelfEnabled && lastOpSelfEnabled) {
+            lastOpSelfEnabled = false;
+            // Don't send deop - once opped, stay opped
         }
     }
 

