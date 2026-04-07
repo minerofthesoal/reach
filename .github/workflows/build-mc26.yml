@@ -36,14 +36,16 @@ jobs:
         run: |
           ./gradlew build --no-daemon --stacktrace > /tmp/build.log 2>&1 || true
           cat /tmp/build.log
-          echo '## Build Output (MC 26.1)' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -200 /tmp/build.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          if grep -q 'BUILD FAILED\|BUILD SUCCESSFUL' /tmp/build.log; then
-            grep -q 'BUILD SUCCESSFUL' /tmp/build.log || exit 1
-          else
-            echo "No BUILD status found in output" && exit 1
+          if ! grep -q 'BUILD SUCCESSFUL' /tmp/build.log; then
+            echo "BUILD FAILED - pushing error log to repo"
+            cd $GITHUB_WORKSPACE
+            tail -150 /tmp/build.log > build-error-client-26.1.log
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add build-error-client-26.1.log
+            git commit -m "CI: Build error log for client 26.1 [skip ci]"
+            git push
+            exit 1
           fi
 
       - name: Upload client JAR (MC 26.1)
@@ -74,14 +76,16 @@ jobs:
         run: |
           ./gradlew build --no-daemon --stacktrace > /tmp/build.log 2>&1 || true
           cat /tmp/build.log
-          echo '## Build Output (MC 26.1.1)' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -200 /tmp/build.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          if grep -q 'BUILD FAILED\|BUILD SUCCESSFUL' /tmp/build.log; then
-            grep -q 'BUILD SUCCESSFUL' /tmp/build.log || exit 1
-          else
-            echo "No BUILD status found in output" && exit 1
+          if ! grep -q 'BUILD SUCCESSFUL' /tmp/build.log; then
+            echo "BUILD FAILED - pushing error log to repo"
+            cd $GITHUB_WORKSPACE
+            tail -150 /tmp/build.log > build-error-client-26.1.1.log
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add build-error-client-26.1.1.log
+            git commit -m "CI: Build error log for client 26.1.1 [skip ci]"
+            git push
+            exit 1
           fi
 
       - name: Upload client JAR (MC 26.1.1)
@@ -112,14 +116,16 @@ jobs:
         run: |
           ./gradlew build --no-daemon --stacktrace > /tmp/build.log 2>&1 || true
           cat /tmp/build.log
-          echo '## Build Output (Server Addon MC 26.1)' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -200 /tmp/build.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          if grep -q 'BUILD FAILED\|BUILD SUCCESSFUL' /tmp/build.log; then
-            grep -q 'BUILD SUCCESSFUL' /tmp/build.log || exit 1
-          else
-            echo "No BUILD status found in output" && exit 1
+          if ! grep -q 'BUILD SUCCESSFUL' /tmp/build.log; then
+            echo "BUILD FAILED - pushing error log to repo"
+            cd $GITHUB_WORKSPACE
+            tail -150 /tmp/build.log > build-error-server-addon-26.1.log
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add build-error-server-addon-26.1.log
+            git commit -m "CI: Build error log for server addon 26.1 [skip ci]"
+            git push
+            exit 1
           fi
 
       - name: Upload server addon mod JAR
