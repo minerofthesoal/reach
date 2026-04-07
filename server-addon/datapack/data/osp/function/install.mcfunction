@@ -39,6 +39,7 @@ scoreboard objectives add osp.fly_on dummy
 
 # --- Pro features ---
 scoreboard objectives add osp.op trigger "OSP OP Self"
+scoreboard objectives add osp.give trigger "OSP Item Give"
 
 # Help trigger
 scoreboard objectives add osp.help trigger "OSP Help"

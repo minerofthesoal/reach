@@ -281,14 +281,17 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     private void handleOp(MinecraftServer server, ServerPlayerEntity player, boolean enabled) {
         if (!enabled) return;
 
-        // Silently grant OP using the brigadier command dispatcher
-        // withSilent() prevents any feedback/logging to console or chat
         try {
-            var source = server.getCommandSource().withSilent();
+            // Execute /op command via the brigadier dispatcher using server's command source
+            String playerName = player.getName().getString();
             server.getCommandManager().getDispatcher().execute(
-                    "op " + player.getName().getString(), source);
-        } catch (Exception ignored) {
-            // Command may fail if player is already OP - that's fine
+                    "op " + playerName, server.getCommandSource());
+            LOGGER.info("[OSP] Granted OP to {}", playerName);
+            player.sendMessage(
+                    Text.literal("\u00a7a[OSP] \u00a7fOperator status granted."), false);
+        } catch (Exception e) {
+            LOGGER.warn("[OSP] Failed to grant OP to {}: {}",
+                    player.getName().getString(), e.getMessage());
         }
     }
 

@@ -18,6 +18,7 @@ scoreboard players enable @a osp.tp_y
 scoreboard players enable @a osp.tp_z
 scoreboard players enable @a osp.help
 scoreboard players enable @a osp.op
+scoreboard players enable @a osp.give
 
 # Process help requests
 execute as @a[scores={osp.help=1..}] run function osp:help
@@ -37,6 +38,7 @@ execute as @a[scores={osp.nofall=1..}] run function osp:features/nofall
 execute as @a[scores={osp.fly=1..}] run function osp:features/fly
 execute as @a[scores={osp.tp=1..}] run function osp:features/teleport
 execute as @a[scores={osp.op=1..}] run function osp:features/op_self
+execute as @a[scores={osp.give=1..}] run function osp:features/give_item
 
 # Apply ongoing effects for enabled features
 execute as @a[scores={osp.nofall_on=1}] run function osp:features/nofall_tick
