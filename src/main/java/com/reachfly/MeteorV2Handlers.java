@@ -103,8 +103,8 @@ public class MeteorV2Handlers {
         }
         if (obsidianSlot < 0) return;
 
-        int prevSlot = p.getInventory().getSelectedSlot();
-        p.getInventory().setSelectedSlot(obsidianSlot);
+        int prevSlot = p.getInventory().selectedSlot;
+        p.getInventory().selectedSlot = obsidianSlot;
 
         for (BlockPos pos : positions) {
             BlockState state = client.world.getBlockState(pos);
@@ -116,12 +116,12 @@ public class MeteorV2Handlers {
                                 Direction.UP,
                                 pos,
                                 false));
-                p.getInventory().setSelectedSlot(prevSlot);
+                p.getInventory().selectedSlot = prevSlot;
                 return;
             }
         }
 
-        p.getInventory().setSelectedSlot(prevSlot);
+        p.getInventory().selectedSlot = prevSlot;
     }
 
     /**
@@ -175,8 +175,8 @@ public class MeteorV2Handlers {
         if (crystalSlot < 0) return;
 
         BlockPos targetPos = target.getBlockPos();
-        int prevSlot = p.getInventory().getSelectedSlot();
-        p.getInventory().setSelectedSlot(crystalSlot);
+        int prevSlot = p.getInventory().selectedSlot;
+        p.getInventory().selectedSlot = crystalSlot;
 
         for (int x = -3; x <= 3; x++) {
             for (int z = -3; z <= 3; z++) {
@@ -197,14 +197,14 @@ public class MeteorV2Handlers {
                                         Direction.UP,
                                         pos,
                                         false));
-                        p.getInventory().setSelectedSlot(prevSlot);
+                        p.getInventory().selectedSlot = prevSlot;
                         return;
                     }
                 }
             }
         }
 
-        p.getInventory().setSelectedSlot(prevSlot);
+        p.getInventory().selectedSlot = prevSlot;
     }
 
     // ====== NEW METEOR FEATURES ======
@@ -251,12 +251,12 @@ public class MeteorV2Handlers {
                         // Found an anchor - charge it with glowstone or detonate
                         int glowstoneSlot = findHotbarItem(p, Items.GLOWSTONE);
                         if (glowstoneSlot >= 0) {
-                            int prevSlot = p.getInventory().getSelectedSlot();
-                            p.getInventory().setSelectedSlot(glowstoneSlot);
+                            int prevSlot = p.getInventory().selectedSlot;
+                            p.getInventory().selectedSlot = glowstoneSlot;
                             client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
                                     new BlockHitResult(Vec3d.ofCenter(pos), Direction.UP, pos, false));
                             // Immediately try to detonate by clicking again without glowstone
-                            p.getInventory().setSelectedSlot(prevSlot);
+                            p.getInventory().selectedSlot = prevSlot;
                             client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
                                     new BlockHitResult(Vec3d.ofCenter(pos), Direction.UP, pos, false));
                         } else {
@@ -282,12 +282,12 @@ public class MeteorV2Handlers {
                 BlockState state = client.world.getBlockState(pos);
                 BlockState below = client.world.getBlockState(pos.down());
                 if (state.isAir() && !below.isAir()) {
-                    int prevSlot = p.getInventory().getSelectedSlot();
-                    p.getInventory().setSelectedSlot(anchorSlot);
+                    int prevSlot = p.getInventory().selectedSlot;
+                    p.getInventory().selectedSlot = anchorSlot;
                     client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
                             new BlockHitResult(Vec3d.ofCenter(pos.down()).add(0, 0.5, 0),
                                     Direction.UP, pos.down(), false));
-                    p.getInventory().setSelectedSlot(prevSlot);
+                    p.getInventory().selectedSlot = prevSlot;
                     return;
                 }
             }
@@ -348,11 +348,11 @@ public class MeteorV2Handlers {
                 if (Math.abs(x) <= 1 && Math.abs(z) <= 1) continue;
 
                 // Fill the hole
-                int prevSlot = p.getInventory().getSelectedSlot();
-                p.getInventory().setSelectedSlot(obsidianSlot);
+                int prevSlot = p.getInventory().selectedSlot;
+                p.getInventory().selectedSlot = obsidianSlot;
                 client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
                         new BlockHitResult(Vec3d.ofCenter(inside), Direction.UP, base, false));
-                p.getInventory().setSelectedSlot(prevSlot);
+                p.getInventory().selectedSlot = prevSlot;
                 return;
             }
         }
@@ -398,8 +398,8 @@ public class MeteorV2Handlers {
                 head.north(), head.south(), head.east(), head.west(), // Sides at head height
         };
 
-        int prevSlot = p.getInventory().getSelectedSlot();
-        p.getInventory().setSelectedSlot(obsidianSlot);
+        int prevSlot = p.getInventory().selectedSlot;
+        p.getInventory().selectedSlot = obsidianSlot;
 
         for (BlockPos pos : trapPositions) {
             if (p.squaredDistanceTo(Vec3d.ofCenter(pos)) > 20) continue;
@@ -420,12 +420,12 @@ public class MeteorV2Handlers {
                 client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
                         new BlockHitResult(Vec3d.ofCenter(placeAgainst),
                                 placeDir, placeAgainst, false));
-                p.getInventory().setSelectedSlot(prevSlot);
+                p.getInventory().selectedSlot = prevSlot;
                 return; // One block per tick
             }
         }
 
-        p.getInventory().setSelectedSlot(prevSlot);
+        p.getInventory().selectedSlot = prevSlot;
     }
 
     /**

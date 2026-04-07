@@ -178,8 +178,8 @@ public class WurstHandlers {
             }
         }
 
-        if (bestSlot >= 0 && bestSlot != p.getInventory().getSelectedSlot()) {
-            p.getInventory().setSelectedSlot(bestSlot);
+        if (bestSlot >= 0 && bestSlot != p.getInventory().selectedSlot) {
+            p.getInventory().selectedSlot = bestSlot;
         }
     }
 
@@ -540,8 +540,8 @@ public class WurstHandlers {
                 }
                 if (waterSlot < 0) return;
 
-                int prevSlot = p.getInventory().getSelectedSlot();
-                p.getInventory().setSelectedSlot(waterSlot);
+                int prevSlot = p.getInventory().selectedSlot;
+                p.getInventory().selectedSlot = waterSlot;
 
                 // Look straight down
                 p.setPitch(90.0f);
@@ -551,7 +551,7 @@ public class WurstHandlers {
                 p.swingHand(Hand.MAIN_HAND);
 
                 // Restore slot after a tick
-                p.getInventory().setSelectedSlot(prevSlot);
+                p.getInventory().selectedSlot = prevSlot;
                 autoMLGCooldown = 40;
                 return;
             }

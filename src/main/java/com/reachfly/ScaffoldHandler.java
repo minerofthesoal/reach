@@ -41,7 +41,7 @@ public class ScaffoldHandler {
         if (!belowState.isAir() && !belowState.isLiquid()) return;
 
         // Find a block item in hotbar
-        int origSlot = player.getInventory().getSelectedSlot();
+        int origSlot = player.getInventory().selectedSlot;
         int blockSlot = -1;
         for (int i = 0; i < 9; i++) {
             if (player.getInventory().getStack(i).getItem() instanceof BlockItem) {
@@ -52,7 +52,7 @@ public class ScaffoldHandler {
         if (blockSlot < 0) return;
 
         // Switch to block slot
-        player.getInventory().setSelectedSlot(blockSlot);
+        player.getInventory().selectedSlot = blockSlot;
 
         // Find a solid face to place against
         Direction[] dirs = {Direction.DOWN, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
@@ -72,6 +72,6 @@ public class ScaffoldHandler {
         }
 
         // Restore slot
-        player.getInventory().setSelectedSlot(origSlot);
+        player.getInventory().selectedSlot = origSlot;
     }
 }
