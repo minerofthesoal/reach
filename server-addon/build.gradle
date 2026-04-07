@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.15.5'
+    id 'net.fabricmc.fabric-loom' version '1.15.5'
     id 'maven-publish'
 }
 
@@ -16,9 +16,8 @@ repositories {
 }
 
 dependencies {
-    // Minecraft 26.1 - use official Mojang mappings (identity for unobfuscated)
+    // Minecraft 26.1 - unobfuscated, no mappings needed
     minecraft "com.mojang:minecraft:26.1"
-    mappings loom.officialMojangMappings()
 
     // Fabric loader and API
     implementation "net.fabricmc:fabric-loader:0.18.6"
