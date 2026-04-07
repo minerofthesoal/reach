@@ -1,11 +1,11 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
 /**
  * X-Ray - Makes non-ore blocks invisible so you can see ores through terrain.
  * Works via three mechanisms:
- *   1. XrayBlockRenderMixin cancels BlockRenderManager.renderBlock() for non-valuable blocks
+ *   1. XrayBlockRenderMixin cancels BlockRenderDispatcher.renderBlock() for non-valuable blocks
  *   2. BlockRenderMixin forces shouldDrawSide=true for valuable blocks (all faces visible)
  *   3. BlockStateMixin makes non-valuable blocks non-opaque (disables occlusion culling)
  *
@@ -18,15 +18,15 @@ public class XrayHandler {
     private static boolean needsReload = false;
     private static int reloadDelay = 0;
 
-    public static void tick(MinecraftClient client) {
-        if (client.player == null || client.worldRenderer == null) return;
+    public static void tick(Minecraft client) {
+        if (client.player == null || client.levelRenderer == null) return;
 
         // Handle delayed reload (wait a tick for state to propagate)
         if (needsReload) {
             reloadDelay--;
             if (reloadDelay <= 0) {
                 needsReload = false;
-                client.worldRenderer.reload();
+                client.levelRenderer.allChanged();
             }
         }
 
@@ -52,10 +52,10 @@ public class XrayHandler {
      * Called from the block rendering mixins to determine if a block should be visible.
      * Returns true if the block should be rendered (is an ore/valuable block).
      */
-    public static boolean shouldRenderBlock(net.minecraft.block.Block block) {
+    public static boolean shouldRenderBlock(net.minecraft.world.level.block.Block block) {
         if (!ModConfig.xrayEnabled) return true;
 
-        String blockId = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
+        String blockId = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getId(block).getPath();
 
         // Ores
         if (blockId.contains("ore")) return true;

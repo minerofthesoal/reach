@@ -1,9 +1,9 @@
 package com.reachfly;
 
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +13,18 @@ import java.util.List;
  * Server sends extended entity positions to the client.
  * Mirrors the server addon's EspDataPayload.
  */
-public record EspDataPayload(List<EntityEntry> entities) implements CustomPayload {
+public record EspDataPayload(List<EntityEntry> entities) implements CustomPacketPayload {
 
     public static final Id<EspDataPayload> ID =
-            new Id<>(Identifier.of("reachfly", "esp_entities"));
+            new Id<>(ResourceLocation.fromNamespaceAndPath("reachfly", "esp_entities"));
 
-    public static final PacketCodec<PacketByteBuf, EspDataPayload> CODEC =
-            PacketCodec.of(EspDataPayload::write, EspDataPayload::read);
+    public static final StreamCodec<FriendlyByteBuf, EspDataPayload> CODEC =
+            StreamCodec.of(EspDataPayload::write, EspDataPayload::read);
 
     public record EntityEntry(int entityId, double x, double y, double z,
                                String type, float health) {}
 
-    private void write(PacketByteBuf buf) {
+    private void write(FriendlyByteBuf buf) {
         buf.writeVarInt(entities.size());
         for (EntityEntry e : entities) {
             buf.writeVarInt(e.entityId());
@@ -36,7 +36,7 @@ public record EspDataPayload(List<EntityEntry> entities) implements CustomPayloa
         }
     }
 
-    private static EspDataPayload read(PacketByteBuf buf) {
+    private static EspDataPayload read(FriendlyByteBuf buf) {
         int count = buf.readVarInt();
         List<EntityEntry> entries = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
@@ -50,7 +50,7 @@ public record EspDataPayload(List<EntityEntry> entities) implements CustomPayloa
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Id<? extends CustomPacketPayload> getId() {
         return ID;
     }
 }

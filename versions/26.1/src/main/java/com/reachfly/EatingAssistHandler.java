@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemStack;
 
 public class EatingAssistHandler {
 
@@ -12,16 +12,16 @@ public class EatingAssistHandler {
     private static int eatTicks = 0;
     private static boolean isHoldingUse = false;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.eatingAssistEnabled) return;
-        if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) {
+        if (client.player == null || client.level == null) return;
+        if (client.screen != null) {
             reset(client);
             return;
         }
-        if (client.interactionManager == null) return;
+        if (client.gameMode == null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
         int foodLevel = player.getHungerManager().getFoodLevel();
 
         // If hunger is satisfied, stop eating
@@ -34,7 +34,7 @@ public class EatingAssistHandler {
 
         // If player is currently using an item (eating), hold the use key
         if (player.isUsingItem()) {
-            KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), true);
+            KeyMapping.setKeyPressed(client.options.keyUse.getDefaultKey(), true);
             isHoldingUse = true;
             eatTicks++;
             // Safety timeout - foods take max 40 ticks (2 sec), 72 with dried kelp
@@ -46,7 +46,7 @@ public class EatingAssistHandler {
 
         // If we just finished eating (were holding use but player stopped using item)
         if (isHoldingUse) {
-            KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), false);
+            KeyMapping.setKeyPressed(client.options.keyUse.getDefaultKey(), false);
             isHoldingUse = false;
             eatTicks = 0;
             // Check if still hungry
@@ -79,14 +79,14 @@ public class EatingAssistHandler {
         eatTicks = 0;
 
         // Start eating via interaction manager, then hold use key
-        client.interactionManager.interactItem(player, net.minecraft.util.Hand.MAIN_HAND);
-        KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), true);
+        client.gameMode.interactItem(player, net.minecraft.world.InteractionHand.MAIN_HAND);
+        KeyMapping.setKeyPressed(client.options.keyUse.getDefaultKey(), true);
         isHoldingUse = true;
     }
 
-    private static void reset(MinecraftClient client) {
+    private static void reset(Minecraft client) {
         if (isHoldingUse) {
-            KeyBinding.setKeyPressed(client.options.useKey.getDefaultKey(), false);
+            KeyMapping.setKeyPressed(client.options.keyUse.getDefaultKey(), false);
             isHoldingUse = false;
         }
         if (previousSlot >= 0 && client.player != null) {
@@ -96,7 +96,7 @@ public class EatingAssistHandler {
         eatTicks = 0;
     }
 
-    private static int findBestFoodSlot(ClientPlayerEntity player) {
+    private static int findBestFoodSlot(LocalPlayer player) {
         int bestSlot = -1;
         int bestNutrition = 0;
 
@@ -104,7 +104,7 @@ public class EatingAssistHandler {
             ItemStack stack = player.getInventory().getStack(i);
             if (!isFood(stack)) continue;
 
-            var foodComp = stack.get(DataComponentTypes.FOOD);
+            var foodComp = stack.get(DataComponents.FOOD);
             int nutrition = (foodComp != null) ? foodComp.nutrition() : 1;
 
             if (nutrition > bestNutrition) {
@@ -117,6 +117,6 @@ public class EatingAssistHandler {
 
     private static boolean isFood(ItemStack stack) {
         if (stack.isEmpty()) return false;
-        return stack.contains(DataComponentTypes.FOOD);
+        return stack.contains(DataComponents.FOOD);
     }
 }

@@ -1,15 +1,15 @@
 package com.reachfly;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Scaffold - Automatically places blocks under your feet as you walk.
@@ -19,25 +19,25 @@ public class ScaffoldHandler {
 
     private static int cooldown = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.scaffoldEnabled) return;
-        if (client.player == null || client.world == null) return;
-        if (client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.player == null || client.level == null) return;
+        if (client.gameMode == null) return;
+        if (client.screen != null) return;
 
         if (cooldown > 0) {
             cooldown--;
             return;
         }
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
         BlockPos below = new BlockPos(
                 (int) Math.floor(player.getX()),
                 (int) Math.floor(player.getY() - 1),
                 (int) Math.floor(player.getZ()));
 
         // Only place if air/liquid below us
-        BlockState belowState = client.world.getBlockState(below);
+        BlockState belowState = client.level.getBlockState(below);
         if (!belowState.isAir() && !belowState.isLiquid()) return;
 
         // Find a block item in hotbar
@@ -58,14 +58,14 @@ public class ScaffoldHandler {
         Direction[] dirs = {Direction.DOWN, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
         for (Direction dir : dirs) {
             BlockPos neighbor = below.offset(dir);
-            BlockState neighborState = client.world.getBlockState(neighbor);
+            BlockState neighborState = client.level.getBlockState(neighbor);
             if (!neighborState.isAir() && !neighborState.isLiquid()) {
                 // Place against this neighbor
                 BlockHitResult hit = new BlockHitResult(
-                        Vec3d.ofCenter(neighbor),
+                        Vec3.ofCenter(neighbor),
                         dir.getOpposite(),
                         below, false);
-                client.interactionManager.interactBlock(player, Hand.MAIN_HAND, hit);
+                client.gameMode.interactBlock(player, InteractionHand.MAIN_HAND, hit);
                 cooldown = 2; // Small cooldown to prevent spam
                 break;
             }

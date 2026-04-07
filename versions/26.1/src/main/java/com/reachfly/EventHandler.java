@@ -2,7 +2,7 @@ package com.reachfly;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
 public class EventHandler {
 
@@ -12,126 +12,126 @@ public class EventHandler {
         EspRenderer.register();
     }
 
-    private static void onClientTick(MinecraftClient client) {
+    private static void onClientTick(Minecraft client) {
         if (client.player == null) return;
 
-        while (KeybindHandler.toggleHud.wasPressed()) {
+        while (KeybindHandler.toggleHud.consumeClick()) {
             ModConfig.hudVisible = !ModConfig.hudVisible;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleReach.wasPressed()) {
+        while (KeybindHandler.toggleReach.consumeClick()) {
             ModConfig.reachEnabled = !ModConfig.reachEnabled;
             ReachHandler.updateReachAttributes();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleFly.wasPressed()) {
+        while (KeybindHandler.toggleFly.consumeClick()) {
             ModConfig.flyEnabled = !ModConfig.flyEnabled;
             ModConfig.save();
-            if (!client.player.getAbilities().creativeMode) {
-                client.player.getAbilities().allowFlying = ModConfig.flyEnabled;
+            if (!client.player.getAbilities().instabuild) {
+                client.player.getAbilities().mayFly = ModConfig.flyEnabled;
                 if (!ModConfig.flyEnabled) {
                     client.player.getAbilities().flying = false;
                 }
-                client.player.sendAbilitiesUpdate();
+                client.player.sendPlayerAbilities();
             }
         }
 
-        while (KeybindHandler.toggleEsp.wasPressed()) {
+        while (KeybindHandler.toggleEsp.consumeClick()) {
             ModConfig.espEnabled = !ModConfig.espEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoHit.wasPressed()) {
+        while (KeybindHandler.toggleAutoHit.consumeClick()) {
             ModConfig.autoHitEnabled = !ModConfig.autoHitEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleLowHealthKill.wasPressed()) {
+        while (KeybindHandler.toggleLowHealthKill.consumeClick()) {
             ModConfig.lowHealthKillEnabled = !ModConfig.lowHealthKillEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleEatingAssist.wasPressed()) {
+        while (KeybindHandler.toggleEatingAssist.consumeClick()) {
             ModConfig.eatingAssistEnabled = !ModConfig.eatingAssistEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoKillWhenLow.wasPressed()) {
+        while (KeybindHandler.toggleAutoKillWhenLow.consumeClick()) {
             ModConfig.autoKillWhenLowEnabled = !ModConfig.autoKillWhenLowEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleJesus.wasPressed()) {
+        while (KeybindHandler.toggleJesus.consumeClick()) {
             ModConfig.jesusEnabled = !ModConfig.jesusEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoElytraSwap.wasPressed()) {
+        while (KeybindHandler.toggleAutoElytraSwap.consumeClick()) {
             ModConfig.autoElytraSwapEnabled = !ModConfig.autoElytraSwapEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleFlyToCoords.wasPressed()) {
+        while (KeybindHandler.toggleFlyToCoords.consumeClick()) {
             ModConfig.flyToCoordsEnabled = !ModConfig.flyToCoordsEnabled;
             if (!ModConfig.flyToCoordsEnabled) FlyToCoordsHandler.onDisable();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleNoFall.wasPressed()) {
+        while (KeybindHandler.toggleNoFall.consumeClick()) {
             ModConfig.noFallEnabled = !ModConfig.noFallEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleFullbright.wasPressed()) {
+        while (KeybindHandler.toggleFullbright.consumeClick()) {
             ModConfig.fullbrightEnabled = !ModConfig.fullbrightEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleSpeed.wasPressed()) {
+        while (KeybindHandler.toggleSpeed.consumeClick()) {
             ModConfig.speedEnabled = !ModConfig.speedEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleWalkToCoords.wasPressed()) {
+        while (KeybindHandler.toggleWalkToCoords.consumeClick()) {
             ModConfig.walkToCoordsEnabled = !ModConfig.walkToCoordsEnabled;
             if (!ModConfig.walkToCoordsEnabled) WalkToCoordsHandler.onDisable();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleXray.wasPressed()) {
+        while (KeybindHandler.toggleXray.consumeClick()) {
             ModConfig.xrayEnabled = !ModConfig.xrayEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleKnockback.wasPressed()) {
+        while (KeybindHandler.toggleKnockback.consumeClick()) {
             ModConfig.knockbackEnabled = !ModConfig.knockbackEnabled;
             KnockbackHandler.updateKnockbackAttributes();
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoTotem.wasPressed()) {
+        while (KeybindHandler.toggleAutoTotem.consumeClick()) {
             ModConfig.autoTotemEnabled = !ModConfig.autoTotemEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleAutoArmor.wasPressed()) {
+        while (KeybindHandler.toggleAutoArmor.consumeClick()) {
             ModConfig.autoArmorEnabled = !ModConfig.autoArmorEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.toggleScaffold.wasPressed()) {
+        while (KeybindHandler.toggleScaffold.consumeClick()) {
             ModConfig.scaffoldEnabled = !ModConfig.scaffoldEnabled;
             ModConfig.save();
         }
 
-        while (KeybindHandler.triggerTeleport.wasPressed()) {
+        while (KeybindHandler.triggerTeleport.consumeClick()) {
             TeleportHandler.triggerTeleport();
         }
 
-        while (KeybindHandler.openConfig.wasPressed()) {
-            client.setScreen(new ConfigScreen(client.currentScreen));
+        while (KeybindHandler.openConfig.consumeClick()) {
+            client.setScreen(new ConfigScreen(client.screen));
         }
 
         // Run feature tick handlers

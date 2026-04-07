@@ -1,6 +1,6 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
 /**
  * Fullbright - Sets gamma to maximum so the player can see in the dark.
@@ -12,7 +12,7 @@ public class FullbrightHandler {
     private static double originalGamma = -1;
     private static boolean wasEnabled = false;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (client.player == null) return;
 
         // Active if fullbright is on OR xray needs it
@@ -20,15 +20,15 @@ public class FullbrightHandler {
 
         if (shouldBeActive) {
             if (!wasEnabled) {
-                originalGamma = client.options.getGamma().getValue();
+                originalGamma = client.options.gamma().getValue();
                 wasEnabled = true;
             }
             // Set gamma very high for fullbright
-            client.options.getGamma().setValue(16.0);
+            client.options.gamma().setValue(16.0);
         } else {
             if (wasEnabled) {
                 // Restore original gamma
-                client.options.getGamma().setValue(originalGamma >= 0 ? originalGamma : 1.0);
+                client.options.gamma().setValue(originalGamma >= 0 ? originalGamma : 1.0);
                 wasEnabled = false;
             }
         }

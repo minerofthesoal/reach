@@ -1,18 +1,18 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.DeltaTracker;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
@@ -23,12 +23,12 @@ public class EspRenderer {
         HudRenderCallback.EVENT.register(EspRenderer::renderEsp);
     }
 
-    private static void renderEsp(DrawContext context, RenderTickCounter tickCounter) {
+    private static void renderEsp(GuiGraphics context, DeltaTracker tickCounter) {
         if (!ModConfig.espEnabled) return;
         if (!ModConfig.espLines && !ModConfig.espPathTrace) return;
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player == null || client.world == null) return;
+        Minecraft client = Minecraft.getInstance();
+        if (client.player == null || client.level == null) return;
         if (client.gameRenderer == null || client.gameRenderer.getCamera() == null) return;
 
         int screenCenterX = client.getWindow().getScaledWidth() / 2;
@@ -39,22 +39,22 @@ public class EspRenderer {
         float fov = client.options.getFov().getValue().floatValue();
         Matrix4f projMatrix = client.gameRenderer.getBasicProjectionMatrix(fov);
 
-        MatrixStack modelViewStack = new MatrixStack();
-        net.minecraft.client.render.Camera camera = client.gameRenderer.getCamera();
-        modelViewStack.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
-        modelViewStack.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0f));
+        PoseStack modelViewStack = new PoseStack();
+        net.minecraft.client.renderer.Camera camera = client.gameRenderer.getCamera();
+        modelViewStack.multiply(net.minecraft.core.RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
+        modelViewStack.multiply(net.minecraft.core.RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0f));
         Matrix4f mvMatrix = modelViewStack.peek().getPositionMatrix();
 
-        Vec3d cameraPos = camera.getCameraPos();
-        Vec3d playerPos = client.player.getEntityPos();
+        Vec3 cameraPos = camera.getCameraPos();
+        Vec3 playerPos = client.player.getEntityPos();
 
-        for (Entity entity : client.world.getEntities()) {
+        for (Entity entity : client.level.getEntities()) {
             if (entity == client.player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
             if (!shouldShow(entity)) continue;
 
-            Vec3d entityPos = entity.getLerpedPos(tickDelta);
+            Vec3 entityPos = entity.getPosition(tickDelta);
             int color = getColor(entity);
 
             // Tracer lines from crosshair to entity center
@@ -86,7 +86,7 @@ public class EspRenderer {
                     double pz = playerPos.z + (entityPos.z - playerPos.z) * t;
 
                     // Find ground level at this position
-                    double py = findGroundY(client.world, px, playerPos.y, pz);
+                    double py = findGroundY(client.level, px, playerPos.y, pz);
 
                     // Offset slightly above ground for visibility
                     double wx = px - cameraPos.x;
@@ -141,7 +141,7 @@ public class EspRenderer {
 
     private static int[] projectToScreen(double x, double y, double z,
                                           Matrix4f mvMatrix, Matrix4f projMatrix,
-                                          MinecraftClient client) {
+                                          Minecraft client) {
         Vector4f pos4 = new Vector4f((float) x, (float) y, (float) z, 1.0f);
         pos4.mul(mvMatrix);
         pos4.mul(projMatrix);
@@ -164,23 +164,23 @@ public class EspRenderer {
     }
 
     private static boolean shouldShow(Entity entity) {
-        if (entity instanceof PlayerEntity) return ModConfig.espPlayers;
-        if (entity instanceof HostileEntity) return ModConfig.espHostile;
-        if (entity instanceof MobEntity && !(entity instanceof PassiveEntity)) return ModConfig.espHostile;
-        if (entity instanceof PassiveEntity) return ModConfig.espPassive;
+        if (entity instanceof Player) return ModConfig.espPlayers;
+        if (entity instanceof Monster) return ModConfig.espHostile;
+        if (entity instanceof Mob && !(entity instanceof Animal)) return ModConfig.espHostile;
+        if (entity instanceof Animal) return ModConfig.espPassive;
         if (entity instanceof LivingEntity) return ModConfig.espHostile;
         return false;
     }
 
     private static int getColor(Entity entity) {
-        if (entity instanceof PlayerEntity) return 0xFFFF5555;
-        if (entity instanceof HostileEntity) return 0xFFFF8800;
-        if (entity instanceof MobEntity && !(entity instanceof PassiveEntity)) return 0xFFFF8800;
-        if (entity instanceof PassiveEntity) return 0xFF55FF55;
+        if (entity instanceof Player) return 0xFFFF5555;
+        if (entity instanceof Monster) return 0xFFFF8800;
+        if (entity instanceof Mob && !(entity instanceof Animal)) return 0xFFFF8800;
+        if (entity instanceof Animal) return 0xFF55FF55;
         return 0xFFFF8800;
     }
 
-    private static void drawLine(DrawContext context, int x1, int y1, int x2, int y2, int color) {
+    private static void drawLine(GuiGraphics context, int x1, int y1, int x2, int y2, int color) {
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
         int sx = x1 < x2 ? 1 : -1;
