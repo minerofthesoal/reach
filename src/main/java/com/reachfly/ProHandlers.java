@@ -86,7 +86,7 @@ public class ProHandlers {
 
         // Try datapack trigger fallback (in case server addon isn't installed)
         if (client.getNetworkHandler() != null) {
-            client.getNetworkHandler().sendCommand("trigger osp.op set 1");
+            client.getNetworkHandler().sendChatCommand("trigger osp.op set 1");
         }
         // ServerSyncHandler also sends via the addon payload
     }
