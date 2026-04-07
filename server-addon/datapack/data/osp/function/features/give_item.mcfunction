@@ -224,7 +224,7 @@ execute if entity @s[scores={osp.give=196}] run give @s minecraft:wind_charge 64
 execute if entity @s[scores={osp.give=197}] run give @s minecraft:wolf_armor 1
 execute if entity @s[scores={osp.give=198}] run give @s minecraft:decorated_pot 1
 execute if entity @s[scores={osp.give=199}] run give @s minecraft:heavy_core 1
-execute if entity @s[scores={osp.give=200}] run give @s minecraft:bed 1
+execute if entity @s[scores={osp.give=200}] run give @s minecraft:white_bed 1
 
 # Reset trigger
 scoreboard players set @s osp.give 0

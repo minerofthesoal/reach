@@ -266,7 +266,7 @@ public class ItemGiveScreen extends Screen {
         TRIGGER_CODES.put("minecraft:wolf_armor", 197);
         TRIGGER_CODES.put("minecraft:decorated_pot", 198);
         TRIGGER_CODES.put("minecraft:heavy_core", 199);
-        TRIGGER_CODES.put("minecraft:bed", 200);
+        TRIGGER_CODES.put("minecraft:white_bed", 200);
     }
 
     public ItemGiveScreen(Screen parent) {
