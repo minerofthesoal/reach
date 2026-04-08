@@ -183,19 +183,30 @@ public class ItemGiveScreen extends Screen {
     protected void init() {
         allItems = new ArrayList<>();
 
-        // Regular items from registry
+        // Build trigger code map first so we can assign codes to entries
+        Map<String, Integer> codes = getTriggerCodes();
+
+        // Regular items from registry, sorted alphabetically by ID (same order as mcfunction)
+        List<ItemEntry> regularItems = new ArrayList<>();
         for (Item item : Registries.ITEM) {
             Identifier id = Registries.ITEM.getId(item);
             ItemStack stack = new ItemStack(item);
             if (stack.isEmpty()) continue;
-            String name;
+            String displayName;
             try {
-                name = stack.getName().getString();
+                displayName = stack.getName().getString();
             } catch (Exception e) {
-                name = id.getPath();
+                displayName = id.getPath();
             }
-            allItems.add(new ItemEntry(item, id, stack, name, 0, id.toString()));
+            // Format: "Display Name" with subtitle showing ID path
+            String idPath = id.getPath();
+            Integer triggerCode = codes.get(id.toString());
+            regularItems.add(new ItemEntry(item, id, stack, displayName,
+                    triggerCode != null ? triggerCode : 0, idPath));
         }
+        // Sort alphabetically by full ID (matches mcfunction trigger code order)
+        regularItems.sort((a, b) -> a.id.toString().compareTo(b.id.toString()));
+        allItems.addAll(regularItems);
 
         // Special items: potions, splash potions, lingering potions, tipped arrows, enchanted books
         int code = SPECIAL_START;
@@ -230,7 +241,7 @@ public class ItemGiveScreen extends Screen {
             String effectId = POTION_EFFECTS[i][0];
             allItems.add(new ItemEntry(containerItem, containerId,
                     new ItemStack(containerItem), prefix + effectName,
-                    startCode + i, "Effect: " + effectId));
+                    startCode + i, containerId.getPath() + " [" + effectId + "]"));
         }
         return startCode + POTION_EFFECTS.length;
     }
@@ -242,7 +253,7 @@ public class ItemGiveScreen extends Screen {
             String enchId = (String) ENCHANTMENTS[i][0];
             allItems.add(new ItemEntry(Items.ENCHANTED_BOOK, bookId,
                     new ItemStack(Items.ENCHANTED_BOOK), "Book: " + enchName,
-                    startCode + i, "Enchantment: " + enchId));
+                    startCode + i, "enchanted_book [" + enchId + "]"));
         }
     }
 
@@ -303,6 +314,7 @@ public class ItemGiveScreen extends Screen {
         // Render item grid
         String tooltipName = null;
         String tooltipSub = null;
+        int tooltipCode = 0;
         for (int i = 0; i < filteredItems.size(); i++) {
             int col = i % cols;
             int row = i / cols;
@@ -319,6 +331,7 @@ public class ItemGiveScreen extends Screen {
                 ctx.fill(ix - 1, iy - 1, ix + ITEM_SIZE + 1, iy + ITEM_SIZE + 1, HOVER_BG);
                 tooltipName = entry.name;
                 tooltipSub = entry.subtitle;
+                tooltipCode = entry.triggerCode;
             }
 
             ctx.drawItem(entry.stack, ix + 2, iy + 2);
@@ -339,13 +352,21 @@ public class ItemGiveScreen extends Screen {
 
         // Tooltip
         if (tooltipName != null && qtyField == null) {
-            int tw = Math.max(this.textRenderer.getWidth(tooltipName), this.textRenderer.getWidth(tooltipSub)) + 8;
+            String codeLine = tooltipCode > 0 ? "\u00a7aTrigger: " + tooltipCode : "";
+            int tw = Math.max(this.textRenderer.getWidth(tooltipName),
+                    Math.max(this.textRenderer.getWidth(tooltipSub),
+                            this.textRenderer.getWidth(codeLine))) + 8;
             int tx = Math.min(mouseX + 12, this.width - tw - 4);
-            int ty = mouseY - 24;
-            ctx.fill(tx - 2, ty - 2, tx + tw + 2, ty + 22, 0xE0101020);
+            int lines = codeLine.isEmpty() ? 2 : 3;
+            int th = lines * 11 + 2;
+            int ty = mouseY - th - 4;
+            ctx.fill(tx - 2, ty - 2, tx + tw + 2, ty + th, 0xE0101020);
             ctx.fill(tx - 2, ty - 2, tx + tw + 2, ty - 1, ACCENT);
             ctx.drawTextWithShadow(this.textRenderer, Text.literal(tooltipName), tx + 2, ty, TEXT_PRIMARY);
             ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + tooltipSub), tx + 2, ty + 11, TEXT_DIM);
+            if (!codeLine.isEmpty()) {
+                ctx.drawTextWithShadow(this.textRenderer, Text.literal(codeLine), tx + 2, ty + 22, GREEN);
+            }
         }
 
         // Quantity modal
@@ -379,7 +400,7 @@ public class ItemGiveScreen extends Screen {
         // Item preview
         ctx.drawItem(selectedItem.stack, boxX + 10, boxY + 8);
         ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7f\u00a7l" + selectedItem.name), boxX + 32, boxY + 12, TEXT_PRIMARY);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + selectedItem.subtitle), boxX + 32, boxY + 23, TEXT_DIM);
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + selectedItem.id.getPath()), boxX + 32, boxY + 23, TEXT_DIM);
 
         // Quantity label
         ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a77Quantity:"), boxX + 10, boxY + 42, TEXT_DIM);
@@ -595,7 +616,7 @@ public class ItemGiveScreen extends Screen {
 
         if (code > 0) {
             client.getNetworkHandler().sendChatCommand("trigger f1sch.give set " + code);
-            toastMessage = "\u00a7aGave " + selectedItem.name;
+            toastMessage = "\u00a7aGave " + selectedItem.name + " \u00a78(" + selectedItem.subtitle + ")";
             toastTimer = 40;
         } else {
             toastMessage = "\u00a7cItem not available via trigger";
