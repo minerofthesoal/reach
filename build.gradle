@@ -42,6 +42,11 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
+
+    // Bundle the server-addon datapack into the client mod JAR
+    from("server-addon/datapack/data") {
+        into "data"
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
