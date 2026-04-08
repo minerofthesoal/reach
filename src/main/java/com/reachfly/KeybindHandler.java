@@ -122,5 +122,19 @@ public class KeybindHandler {
         openConfig = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.reachfly.open_config",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, CATEGORY));
+
+        // Apply saved keybind overrides from our cross-version config
+        ModConfig.applyKeybinds();
+    }
+
+    /** Returns all registered f1sch keybinds for config save/load. */
+    public static KeyBinding[] allKeybinds() {
+        return new KeyBinding[] {
+            toggleReach, toggleFly, toggleEsp, toggleAutoHit, toggleLowHealthKill,
+            toggleEatingAssist, toggleAutoKillWhenLow, toggleJesus, toggleAutoElytraSwap,
+            toggleFlyToCoords, toggleNoFall, toggleFullbright, toggleSpeed, toggleWalkToCoords,
+            toggleXray, toggleKnockback, toggleAutoTotem, toggleAutoArmor, toggleScaffold,
+            toggleHud, triggerTeleport, openConfig
+        };
     }
 }

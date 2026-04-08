@@ -1,1 +1,1 @@
-$give @s minecraft:lingering_potion[potion_contents={potion:"minecraft:$(effect)"}] 1
+$give @s minecraft:lingering_potion[potion_contents={potion:"minecraft:$(effect)"}] 64

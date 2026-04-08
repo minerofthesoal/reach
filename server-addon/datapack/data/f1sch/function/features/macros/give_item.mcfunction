@@ -1,1 +1,1 @@
-$give @s $(item) 1
+$give @s $(item) 64

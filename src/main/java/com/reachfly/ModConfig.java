@@ -3,10 +3,15 @@ package com.reachfly;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModConfig {
 
@@ -399,6 +404,7 @@ public class ModConfig {
                     autoBridgeEnabled = data.autoBridgeEnabled;
                     towerEnabled = data.towerEnabled;
                     printerEnabled = data.printerEnabled;
+                    savedKeybinds = data.keybinds;
                 }
                 ReachFlyClient.LOGGER.info("[f1sch] Config loaded.");
             } catch (IOException e) {
@@ -535,6 +541,15 @@ public class ModConfig {
         data.towerEnabled = towerEnabled;
         data.printerEnabled = printerEnabled;
 
+        // Capture current keybind assignments
+        KeyBinding[] kbs = KeybindHandler.allKeybinds();
+        if (kbs != null && kbs.length > 0) {
+            data.keybinds = new HashMap<>();
+            for (KeyBinding kb : kbs) {
+                data.keybinds.put(kb.getId(), kb.getBoundKeyTranslationKey());
+            }
+        }
+
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
             Files.writeString(CONFIG_PATH, GSON.toJson(data));
@@ -542,6 +557,29 @@ public class ModConfig {
             ReachFlyClient.LOGGER.error("[f1sch] Failed to save config", e);
         }
     }
+
+    /** Save current keybind assignments to our config so they transfer between MC versions. */
+    public static void saveKeybinds() {
+        // Re-save the full config which now captures keybinds
+        save();
+    }
+
+    /** Apply saved keybind overrides to the registered KeyBindings. Call after KeybindHandler.register(). */
+    public static void applyKeybinds() {
+        if (savedKeybinds == null || savedKeybinds.isEmpty()) return;
+        for (KeyBinding kb : KeybindHandler.allKeybinds()) {
+            String saved = savedKeybinds.get(kb.getId());
+            if (saved != null) {
+                try {
+                    InputUtil.Key key = InputUtil.fromTranslationKey(saved);
+                    kb.setBoundKey(key);
+                } catch (Exception ignored) {}
+            }
+        }
+        KeyBinding.updateKeysByCode();
+    }
+
+    private static Map<String, String> savedKeybinds = null;
 
     public static float clamp(float value, float min, float max) {
         return Math.max(min, Math.min(max, value));
@@ -676,5 +714,7 @@ public class ModConfig {
         boolean holeFillerEnabled = false;
         boolean autoTrapEnabled = false;
         boolean reversalEnabled = false;
+        // Keybind overrides (translation key -> bound key translation key)
+        Map<String, String> keybinds = null;
     }
 }

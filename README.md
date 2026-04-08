@@ -141,7 +141,7 @@ All features auto-sync when toggled in-game. The server addon cleans up all attr
 
 ## Wiki
 
-Detailed documentation for every feature is in the [docs/wiki](docs/wiki/) folder:
+Detailed documentation is in the [docs/wiki](docs/wiki/) folder. Start with the [Home page](docs/wiki/Home.md).
 
 - [Features Overview](docs/wiki/Features.md) - All features with config options and details
 - [Keybinds](docs/wiki/Keybinds.md) - Complete keybind reference

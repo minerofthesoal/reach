@@ -544,7 +544,7 @@ public class ItemGiveScreen extends Screen {
     private void openQtyModal(ItemEntry entry) {
         selectedItem = entry;
         qtyField = new TextFieldWidget(this.textRenderer, 0, 0, 100, 16, Text.literal("Qty"));
-        qtyField.setText("1");
+        qtyField.setText("64");
         qtyField.setMaxLength(4);
         qtyField.setEditable(true);
         setFocused(qtyField);
