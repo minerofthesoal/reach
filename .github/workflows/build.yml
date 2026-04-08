@@ -78,7 +78,7 @@ jobs:
 
   release:
     name: Create Release
-    needs: [build-client]
+    needs: [build-client, build-server-addon]
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
@@ -109,9 +109,9 @@ jobs:
           name: "f1sch v2.3.0 (Build #${{ github.run_number }})"
           body: |
             ## Downloads
-            - **Client Mod (MC 1.21.11)** - Install in `.minecraft/mods/` (requires Fabric Loader only, Fabric API is bundled)
-            - **Server Addon (Fabric Mod)** - Install in server `mods/` folder (requires Fabric on server)
-            - **Server Addon (Data Pack)** - Install in `world/datapacks/` folder (works on ANY server)
+            - **Client Mod (MC 1.21.11)** - Install in `.minecraft/mods/` (requires Fabric Loader only, Fabric API + datapack bundled)
+            - **Server Addon (Fabric Mod)** - For dedicated servers: install in server `mods/` folder
+            - **Server Addon (Data Pack)** - For vanilla/Paper servers: install in `world/datapacks/` folder
           files: |
             artifacts/**/*.jar
             artifacts/**/*.zip

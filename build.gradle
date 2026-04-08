@@ -45,6 +45,13 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
+
+    // Bundle the server-addon datapack into the client mod JAR
+    // This makes f1sch triggers (give, knockback, reach, etc.) work
+    // automatically in singleplayer without needing a separate datapack install
+    from("server-addon/datapack/data") {
+        into "data"
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
