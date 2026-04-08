@@ -9,13 +9,17 @@ import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.gui.Click;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ItemGiveScreen extends Screen {
@@ -41,7 +45,6 @@ public class ItemGiveScreen extends Screen {
     private static final int CELL = ITEM_SIZE + GRID_PAD;
 
     // Colors (matching ConfigScreen style)
-    private static final int BG = 0xF0101020;
     private static final int PANEL_BG = 0xF0181828;
     private static final int ACCENT = 0xFF8B5CF6;
     private static final int ACCENT_DIM = 0xFF5B3CB6;
@@ -51,7 +54,125 @@ public class ItemGiveScreen extends Screen {
     private static final int RED = 0xFFEF4444;
     private static final int GOLD = 0xFFFFD700;
     private static final int HOVER_BG = 0xFF282848;
-    private static final int SELECTED_BG = 0xFF2A1F4E;
+
+    // Special items start code (must match give_item.mcfunction)
+    private static final int SPECIAL_START = 1371;
+
+    // Potion effects sorted alphabetically (must match mcfunction order exactly)
+    private static final String[][] POTION_EFFECTS = {
+        {"awkward", "Awkward"},
+        {"fire_resistance", "Fire Resistance"},
+        {"harming", "Harming"},
+        {"healing", "Healing"},
+        {"infested", "Infested"},
+        {"invisibility", "Invisibility"},
+        {"leaping", "Leaping"},
+        {"long_fire_resistance", "Fire Resistance (Long)"},
+        {"long_invisibility", "Invisibility (Long)"},
+        {"long_leaping", "Leaping (Long)"},
+        {"long_night_vision", "Night Vision (Long)"},
+        {"long_poison", "Poison (Long)"},
+        {"long_regeneration", "Regeneration (Long)"},
+        {"long_slow_falling", "Slow Falling (Long)"},
+        {"long_slowness", "Slowness (Long)"},
+        {"long_strength", "Strength (Long)"},
+        {"long_swiftness", "Swiftness (Long)"},
+        {"long_turtle_master", "Turtle Master (Long)"},
+        {"long_water_breathing", "Water Breathing (Long)"},
+        {"long_weakness", "Weakness (Long)"},
+        {"luck", "Luck"},
+        {"mundane", "Mundane"},
+        {"night_vision", "Night Vision"},
+        {"oozing", "Oozing"},
+        {"poison", "Poison"},
+        {"regeneration", "Regeneration"},
+        {"slow_falling", "Slow Falling"},
+        {"slowness", "Slowness"},
+        {"strength", "Strength"},
+        {"strong_harming", "Harming II"},
+        {"strong_healing", "Healing II"},
+        {"strong_leaping", "Leaping II"},
+        {"strong_poison", "Poison II"},
+        {"strong_regeneration", "Regeneration II"},
+        {"strong_slowness", "Slowness IV"},
+        {"strong_strength", "Strength II"},
+        {"strong_swiftness", "Swiftness II"},
+        {"strong_turtle_master", "Turtle Master II"},
+        {"swiftness", "Swiftness"},
+        {"thick", "Thick"},
+        {"turtle_master", "Turtle Master"},
+        {"water", "Water Bottle"},
+        {"water_breathing", "Water Breathing"},
+        {"weakness", "Weakness"},
+        {"weaving", "Weaving"},
+        {"wind_charged", "Wind Charged"},
+    };
+
+    // Enchantments sorted alphabetically: {id, maxLevel, displayName}
+    private static final Object[][] ENCHANTMENTS = {
+        {"aqua_affinity", 1, "Aqua Affinity"},
+        {"bane_of_arthropods", 5, "Bane of Arthropods V"},
+        {"binding_curse", 1, "Curse of Binding"},
+        {"blast_protection", 4, "Blast Protection IV"},
+        {"breach", 4, "Breach IV"},
+        {"channeling", 1, "Channeling"},
+        {"density", 5, "Density V"},
+        {"depth_strider", 3, "Depth Strider III"},
+        {"efficiency", 5, "Efficiency V"},
+        {"feather_falling", 4, "Feather Falling IV"},
+        {"fire_aspect", 2, "Fire Aspect II"},
+        {"fire_protection", 4, "Fire Protection IV"},
+        {"flame", 1, "Flame"},
+        {"fortune", 3, "Fortune III"},
+        {"frost_walker", 2, "Frost Walker II"},
+        {"impaling", 5, "Impaling V"},
+        {"infinity", 1, "Infinity"},
+        {"knockback", 2, "Knockback II"},
+        {"looting", 3, "Looting III"},
+        {"loyalty", 3, "Loyalty III"},
+        {"luck_of_the_sea", 3, "Luck of the Sea III"},
+        {"lure", 3, "Lure III"},
+        {"mending", 1, "Mending"},
+        {"multishot", 1, "Multishot"},
+        {"piercing", 4, "Piercing IV"},
+        {"power", 5, "Power V"},
+        {"projectile_protection", 4, "Projectile Protection IV"},
+        {"protection", 4, "Protection IV"},
+        {"punch", 2, "Punch II"},
+        {"quick_charge", 3, "Quick Charge III"},
+        {"respiration", 3, "Respiration III"},
+        {"riptide", 3, "Riptide III"},
+        {"sharpness", 5, "Sharpness V"},
+        {"silk_touch", 1, "Silk Touch"},
+        {"smite", 5, "Smite V"},
+        {"soul_speed", 3, "Soul Speed III"},
+        {"sweeping_edge", 3, "Sweeping Edge III"},
+        {"swift_sneak", 3, "Swift Sneak III"},
+        {"thorns", 3, "Thorns III"},
+        {"unbreaking", 3, "Unbreaking III"},
+        {"vanishing_curse", 1, "Curse of Vanishing"},
+        {"wind_burst", 3, "Wind Burst III"},
+    };
+
+    // Trigger codes: sorted item IDs -> code number (matching mcfunction)
+    private static Map<String, Integer> triggerCodes = null;
+
+    private static Map<String, Integer> getTriggerCodes() {
+        if (triggerCodes == null) {
+            triggerCodes = new HashMap<>();
+            List<String> ids = new ArrayList<>();
+            for (Item item : Registries.ITEM) {
+                ItemStack stack = new ItemStack(item);
+                if (stack.isEmpty()) continue; // Skip air - not in mcfunction
+                ids.add(Registries.ITEM.getId(item).toString());
+            }
+            Collections.sort(ids);
+            for (int i = 0; i < ids.size(); i++) {
+                triggerCodes.put(ids.get(i), i + 1);
+            }
+        }
+        return triggerCodes;
+    }
 
     public ItemGiveScreen(Screen parent) {
         super(Text.literal("Item Give"));
@@ -60,8 +181,9 @@ public class ItemGiveScreen extends Screen {
 
     @Override
     protected void init() {
-        // Build item list from registry
         allItems = new ArrayList<>();
+
+        // Regular items from registry
         for (Item item : Registries.ITEM) {
             Identifier id = Registries.ITEM.getId(item);
             ItemStack stack = new ItemStack(item);
@@ -72,8 +194,16 @@ public class ItemGiveScreen extends Screen {
             } catch (Exception e) {
                 name = id.getPath();
             }
-            allItems.add(new ItemEntry(item, id, stack, name));
+            allItems.add(new ItemEntry(item, id, stack, name, 0, id.toString()));
         }
+
+        // Special items: potions, splash potions, lingering potions, tipped arrows, enchanted books
+        int code = SPECIAL_START;
+        code = addPotionEntries(Items.POTION, "Potion of ", code);
+        code = addPotionEntries(Items.SPLASH_POTION, "Splash P. of ", code);
+        code = addPotionEntries(Items.LINGERING_POTION, "Lingering P. of ", code);
+        code = addPotionEntries(Items.TIPPED_ARROW, "Arrow of ", code);
+        addEnchantedBookEntries(code);
 
         // Search field
         int panelW = Math.min(400, this.width - 40);
@@ -93,6 +223,29 @@ public class ItemGiveScreen extends Screen {
         filterItems();
     }
 
+    private int addPotionEntries(Item containerItem, String prefix, int startCode) {
+        Identifier containerId = Registries.ITEM.getId(containerItem);
+        for (int i = 0; i < POTION_EFFECTS.length; i++) {
+            String effectName = POTION_EFFECTS[i][1];
+            String effectId = POTION_EFFECTS[i][0];
+            allItems.add(new ItemEntry(containerItem, containerId,
+                    new ItemStack(containerItem), prefix + effectName,
+                    startCode + i, "Effect: " + effectId));
+        }
+        return startCode + POTION_EFFECTS.length;
+    }
+
+    private void addEnchantedBookEntries(int startCode) {
+        Identifier bookId = Registries.ITEM.getId(Items.ENCHANTED_BOOK);
+        for (int i = 0; i < ENCHANTMENTS.length; i++) {
+            String enchName = (String) ENCHANTMENTS[i][2];
+            String enchId = (String) ENCHANTMENTS[i][0];
+            allItems.add(new ItemEntry(Items.ENCHANTED_BOOK, bookId,
+                    new ItemStack(Items.ENCHANTED_BOOK), "Book: " + enchName,
+                    startCode + i, "Enchantment: " + enchId));
+        }
+    }
+
     private void filterItems() {
         String query = lastQuery.toLowerCase(Locale.ROOT).trim();
         if (query.isEmpty()) {
@@ -101,7 +254,8 @@ public class ItemGiveScreen extends Screen {
             filteredItems = allItems.stream()
                     .filter(e -> e.name.toLowerCase(Locale.ROOT).contains(query)
                             || e.id.getPath().contains(query)
-                            || e.id.toString().contains(query))
+                            || e.id.toString().contains(query)
+                            || e.subtitle.toLowerCase(Locale.ROOT).contains(query))
                     .collect(Collectors.toList());
         }
     }
@@ -148,7 +302,7 @@ public class ItemGiveScreen extends Screen {
 
         // Render item grid
         String tooltipName = null;
-        String tooltipId = null;
+        String tooltipSub = null;
         for (int i = 0; i < filteredItems.size(); i++) {
             int col = i % cols;
             int row = i / cols;
@@ -164,10 +318,9 @@ public class ItemGiveScreen extends Screen {
             if (hovered) {
                 ctx.fill(ix - 1, iy - 1, ix + ITEM_SIZE + 1, iy + ITEM_SIZE + 1, HOVER_BG);
                 tooltipName = entry.name;
-                tooltipId = entry.id.toString();
+                tooltipSub = entry.subtitle;
             }
 
-            // Render item icon
             ctx.drawItem(entry.stack, ix + 2, iy + 2);
         }
 
@@ -186,13 +339,13 @@ public class ItemGiveScreen extends Screen {
 
         // Tooltip
         if (tooltipName != null && qtyField == null) {
-            int tw = Math.max(this.textRenderer.getWidth(tooltipName), this.textRenderer.getWidth(tooltipId)) + 8;
+            int tw = Math.max(this.textRenderer.getWidth(tooltipName), this.textRenderer.getWidth(tooltipSub)) + 8;
             int tx = Math.min(mouseX + 12, this.width - tw - 4);
             int ty = mouseY - 24;
             ctx.fill(tx - 2, ty - 2, tx + tw + 2, ty + 22, 0xE0101020);
             ctx.fill(tx - 2, ty - 2, tx + tw + 2, ty - 1, ACCENT);
             ctx.drawTextWithShadow(this.textRenderer, Text.literal(tooltipName), tx + 2, ty, TEXT_PRIMARY);
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + tooltipId), tx + 2, ty + 11, TEXT_DIM);
+            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + tooltipSub), tx + 2, ty + 11, TEXT_DIM);
         }
 
         // Quantity modal
@@ -226,7 +379,7 @@ public class ItemGiveScreen extends Screen {
         // Item preview
         ctx.drawItem(selectedItem.stack, boxX + 10, boxY + 8);
         ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7f\u00a7l" + selectedItem.name), boxX + 32, boxY + 12, TEXT_PRIMARY);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + selectedItem.id), boxX + 32, boxY + 23, TEXT_DIM);
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + selectedItem.subtitle), boxX + 32, boxY + 23, TEXT_DIM);
 
         // Quantity label
         ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a77Quantity:"), boxX + 10, boxY + 42, TEXT_DIM);
@@ -391,7 +544,7 @@ public class ItemGiveScreen extends Screen {
     private void openQtyModal(ItemEntry entry) {
         selectedItem = entry;
         qtyField = new TextFieldWidget(this.textRenderer, 0, 0, 100, 16, Text.literal("Qty"));
-        qtyField.setText("64");
+        qtyField.setText("1");
         qtyField.setMaxLength(4);
         qtyField.setEditable(true);
         setFocused(qtyField);
@@ -419,23 +572,35 @@ public class ItemGiveScreen extends Screen {
 
         String itemId = selectedItem.id.toString();
 
-        // 1. Try server addon payload (any item, custom qty) - only if server has the addon
+        // 1. Try server addon payload (supports custom qty)
         if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(ItemGivePayload.ID)) {
             try {
                 net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(
                         new ItemGivePayload(itemId, qty));
-            } catch (Exception ignored) {
-                // Fallback to /give if payload fails
-                client.getNetworkHandler().sendChatCommand("give @s " + itemId + " " + qty);
-            }
-        } else {
-            // No server addon: use /give command (works with OP or singleplayer)
-            // For quantities > 64, split into multiple stacks
-            client.getNetworkHandler().sendChatCommand("give @s " + itemId + " " + qty);
+                toastMessage = "\u00a7aGave \u00a7f" + qty + "x " + selectedItem.name;
+                toastTimer = 40;
+                closeQtyModal();
+                return;
+            } catch (Exception ignored) {}
         }
 
-        toastMessage = "\u00a7aGave " + selectedItem.name;
-        toastTimer = 40;
+        // 2. Use datapack trigger (gives 1 item per trigger)
+        int code = 0;
+        if (selectedItem.triggerCode > 0) {
+            code = selectedItem.triggerCode;
+        } else {
+            Integer c = getTriggerCodes().get(itemId);
+            if (c != null) code = c;
+        }
+
+        if (code > 0) {
+            client.getNetworkHandler().sendChatCommand("trigger f1sch.give set " + code);
+            toastMessage = "\u00a7aGave " + selectedItem.name;
+            toastTimer = 40;
+        } else {
+            toastMessage = "\u00a7cItem not found in trigger list";
+            toastTimer = 40;
+        }
 
         closeQtyModal();
     }
@@ -454,12 +619,16 @@ public class ItemGiveScreen extends Screen {
         final Identifier id;
         final ItemStack stack;
         final String name;
+        final int triggerCode; // 0 = compute from registry, >0 = hardcoded
+        final String subtitle;
 
-        ItemEntry(Item item, Identifier id, ItemStack stack, String name) {
+        ItemEntry(Item item, Identifier id, ItemStack stack, String name, int triggerCode, String subtitle) {
             this.item = item;
             this.id = id;
             this.stack = stack;
             this.name = name;
+            this.triggerCode = triggerCode;
+            this.subtitle = subtitle;
         }
     }
 }

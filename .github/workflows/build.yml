@@ -105,8 +105,8 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.2.0-build.${{ github.run_number }}
-          name: "f1sch v2.2.0 (Build #${{ github.run_number }})"
+          tag_name: v2.3.0-build.${{ github.run_number }}
+          name: "f1sch v2.3.0 (Build #${{ github.run_number }})"
           body: |
             ## Downloads
             - **Client Mod (MC 1.21.11)** - Install in `.minecraft/mods/` (requires Fabric Loader only, Fabric API is bundled)
