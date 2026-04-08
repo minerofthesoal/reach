@@ -14,9 +14,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,7 +56,7 @@ public class ItemGiveScreen extends Screen {
     private static final int HOVER_BG = 0xFF282848;
 
     // Special items start code (must match give_item.mcfunction)
-    private static final int SPECIAL_START = 1371;
+    private static final int SPECIAL_START = 1481;
 
     // Potion effects sorted alphabetically (must match mcfunction order exactly)
     private static final String[][] POTION_EFFECTS = {
@@ -157,49 +154,21 @@ public class ItemGiveScreen extends Screen {
         {"wind_burst", 3, "Wind Burst III"},
     };
 
-    // Trigger codes parsed from the bundled mcfunction (guaranteed to match)
+    // Trigger codes computed from sorted item registry (must match give_item.mcfunction order)
     private static Map<String, Integer> triggerCodes = null;
 
     private static Map<String, Integer> getTriggerCodes() {
         if (triggerCodes == null) {
             triggerCodes = new HashMap<>();
-            // Parse the bundled give_item.mcfunction to get exact item -> code mapping
-            try (InputStream is = ItemGiveScreen.class.getResourceAsStream(
-                    "/data/f1sch/function/features/give_item.mcfunction")) {
-                if (is != null) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        // Match: ...{f1sch.give=N}] run function f1sch:features/macros/give_item {item:"minecraft:xxx"}
-                        int scoreIdx = line.indexOf("f1sch.give=");
-                        int itemIdx = line.indexOf("give_item {item:\"");
-                        if (scoreIdx < 0 || itemIdx < 0) continue;
-                        scoreIdx += "f1sch.give=".length();
-                        int scoreEnd = line.indexOf('}', scoreIdx);
-                        itemIdx += "give_item {item:\"".length();
-                        int itemEnd = line.indexOf("\"}", itemIdx);
-                        if (scoreEnd < 0 || itemEnd < 0) continue;
-                        try {
-                            int code = Integer.parseInt(line.substring(scoreIdx, scoreEnd));
-                            String itemId = line.substring(itemIdx, itemEnd);
-                            triggerCodes.put(itemId, code);
-                        } catch (NumberFormatException ignored) {}
-                    }
-                }
-            } catch (Exception ignored) {}
-
-            // Fallback: if mcfunction wasn't found, compute from registry
-            if (triggerCodes.isEmpty()) {
-                List<String> ids = new ArrayList<>();
-                for (Item item : Registries.ITEM) {
-                    ItemStack stack = new ItemStack(item);
-                    if (stack.isEmpty()) continue;
-                    ids.add(Registries.ITEM.getId(item).toString());
-                }
-                Collections.sort(ids);
-                for (int i = 0; i < ids.size(); i++) {
-                    triggerCodes.put(ids.get(i), i + 1);
-                }
+            List<String> ids = new ArrayList<>();
+            for (Item item : Registries.ITEM) {
+                ItemStack stack = new ItemStack(item);
+                if (stack.isEmpty()) continue; // Skip air
+                ids.add(Registries.ITEM.getId(item).toString());
+            }
+            Collections.sort(ids);
+            for (int i = 0; i < ids.size(); i++) {
+                triggerCodes.put(ids.get(i), i + 1);
             }
         }
         return triggerCodes;
@@ -625,14 +594,11 @@ public class ItemGiveScreen extends Screen {
         }
 
         if (code > 0) {
-            // Item is in the mcfunction - use trigger (works without OP)
             client.getNetworkHandler().sendChatCommand("trigger f1sch.give set " + code);
             toastMessage = "\u00a7aGave " + selectedItem.name;
             toastTimer = 40;
         } else {
-            // Item not in mcfunction (e.g. iron_door) - fallback to /give
-            client.getNetworkHandler().sendChatCommand("give @s " + itemId + " " + qty);
-            toastMessage = "\u00a7eGave " + selectedItem.name + " \u00a77(via /give)";
+            toastMessage = "\u00a7cItem not available via trigger";
             toastTimer = 40;
         }
 
