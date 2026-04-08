@@ -304,6 +304,22 @@ Baritone-like automatic walking to target coordinates.
 
 ---
 
+## Item Give
+
+Give yourself any item in the game without needing OP or `/give` permission. Uses the datapack trigger system.
+
+- Access from the Config Screen
+- Search bar to filter all 1706 items by name or ID
+- Supports **all 1480 regular items** from MC 1.21.11
+- **46 potion variants** (normal, splash, lingering) plus tipped arrows
+- **42 enchanted books** at max level
+- Works on any server with the f1sch datapack installed
+- No operator permissions required -- uses `/trigger` commands
+
+See [Item IDs](ItemIDs.md) for the complete list of all trigger codes.
+
+---
+
 ## HUD Overlay
 
 On-screen status display showing all active features.

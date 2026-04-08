@@ -1,6 +1,6 @@
 # Server Addon
 
-The f1sch Server Addon is an optional server-side Fabric mod that enables reliable teleportation for players running the f1sch client client mod.
+The f1sch Server Addon is an optional server-side component that extends the client mod with server-authoritative features. It includes a Fabric mod (full features) and a datapack (item give, trigger-based features).
 
 ## How It Works
 
@@ -55,6 +55,18 @@ In the client mod's config screen (Right Shift):
 - All teleports are logged to the server console
 
 If you want to restrict who can teleport, you would need to add a permission check (e.g., check if the player is an operator or has a specific permission node).
+
+## Item Give System (Datapack)
+
+The datapack includes an item give system that lets players give themselves any of 1706 items using trigger commands. No OP required.
+
+```
+/trigger f1sch.give set <code>
+```
+
+The client mod's Item Give screen handles this automatically -- just search and click. For the full list of codes, see [Item IDs](ItemIDs.md).
+
+---
 
 ## Logs
 

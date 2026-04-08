@@ -37,6 +37,7 @@ A client-side Fabric mod for Minecraft with 25+ hack features including extended
 | **Auto Respawn** | Auto-respawn on death | GUI |
 | **HUD Toggle** | Show/hide status overlay | `H` |
 | **Config Screen** | ClickGUI with categories and toggles | `Right Shift` |
+| **Item Give** | Give yourself any item (1706 items, no OP needed) | Config Screen |
 
 All keybinds are configurable in Minecraft's Controls menu under the "f1sch client" category.
 
@@ -145,6 +146,7 @@ Detailed documentation for every feature is in the [docs/wiki](docs/wiki/) folde
 - [Features Overview](docs/wiki/Features.md) - All features with config options and details
 - [Keybinds](docs/wiki/Keybinds.md) - Complete keybind reference
 - [Configuration](docs/wiki/Configuration.md) - Config file and GUI settings
+- [Item IDs](docs/wiki/ItemIDs.md) - All 1706 datapack item trigger codes
 - [Building from Source](docs/wiki/Building.md) - Build instructions for all versions
 - [Server Addon](docs/wiki/ServerAddon.md) - Server-side teleport addon setup
 
