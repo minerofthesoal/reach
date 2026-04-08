@@ -32,6 +32,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    // Bundle Fabric API inside the JAR (Jar-in-Jar) so users only need this one mod file
+    include "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
     // Mod Menu (compile-only soft dependency)
     modCompileOnly "maven.modrinth:modmenu:17.0.0"
 }

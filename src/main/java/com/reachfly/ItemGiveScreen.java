@@ -14,11 +14,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ItemGiveScreen extends Screen {
@@ -55,25 +52,6 @@ public class ItemGiveScreen extends Screen {
     private static final int GOLD = 0xFFFFD700;
     private static final int HOVER_BG = 0xFF282848;
     private static final int SELECTED_BG = 0xFF2A1F4E;
-
-    // Trigger codes: computed lazily from sorted item registry.
-    // Matches the alphabetically-sorted give_item.mcfunction in the datapack.
-    private static Map<String, Integer> triggerCodes = null;
-
-    private static Map<String, Integer> getTriggerCodes() {
-        if (triggerCodes == null) {
-            triggerCodes = new HashMap<>();
-            List<String> ids = new ArrayList<>();
-            for (Item item : Registries.ITEM) {
-                ids.add(Registries.ITEM.getId(item).toString());
-            }
-            Collections.sort(ids);
-            for (int i = 0; i < ids.size(); i++) {
-                triggerCodes.put(ids.get(i), i + 1);
-            }
-        }
-        return triggerCodes;
-    }
 
     public ItemGiveScreen(Screen parent) {
         super(Text.literal("Item Give"));
@@ -440,28 +418,19 @@ public class ItemGiveScreen extends Screen {
         if (client == null || client.getNetworkHandler() == null) return;
 
         String itemId = selectedItem.id.toString();
-        boolean sent = false;
 
         // 1. Try server addon payload (any item, custom qty) - only if server has the addon
         if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(ItemGivePayload.ID)) {
             try {
                 net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(
                         new ItemGivePayload(itemId, qty));
-                sent = true;
-            } catch (Exception ignored) {}
-        }
-
-        // 2. Fallback: datapack trigger (200 mapped items, no OP needed)
-        if (!sent) {
-            Integer code = getTriggerCodes().get(itemId);
-            if (code != null) {
-                client.getNetworkHandler().sendChatCommand("trigger f1sch.give set " + code);
-                sent = true;
+            } catch (Exception ignored) {
+                // Fallback to /give if payload fails
+                client.getNetworkHandler().sendChatCommand("give @s " + itemId + " " + qty);
             }
-        }
-
-        // 3. Last resort: /give chat command (requires OP)
-        if (!sent) {
+        } else {
+            // No server addon: use /give command (works with OP or singleplayer)
+            // For quantities > 64, split into multiple stacks
             client.getNetworkHandler().sendChatCommand("give @s " + itemId + " " + qty);
         }
 

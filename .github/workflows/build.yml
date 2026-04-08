@@ -34,7 +34,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: f1sch-client
-          path: build/libs/*.jar
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
           if-no-files-found: error
 
   build-server-addon:
@@ -62,7 +64,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: f1sch-server-addon-v3-mod
-          path: server-addon/build/libs/f1sch-server-addon-*.jar
+          path: |
+            server-addon/build/libs/f1sch-server-addon-*.jar
+            !server-addon/build/libs/*-sources.jar
           if-no-files-found: warn
 
       - name: Upload server addon data pack ZIP
@@ -105,7 +109,7 @@ jobs:
           name: "f1sch v2.2.0 (Build #${{ github.run_number }})"
           body: |
             ## Downloads
-            - **Client Mod (MC 1.21.11)** - Install in `.minecraft/mods/` (requires Fabric)
+            - **Client Mod (MC 1.21.11)** - Install in `.minecraft/mods/` (requires Fabric Loader only, Fabric API is bundled)
             - **Server Addon (Fabric Mod)** - Install in server `mods/` folder (requires Fabric on server)
             - **Server Addon (Data Pack)** - Install in `world/datapacks/` folder (works on ANY server)
           files: |
