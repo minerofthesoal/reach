@@ -259,10 +259,11 @@ public class ConfigScreen extends Screen {
         if (showCodeEntry) { renderCodeEntry(ctx, mouseX, mouseY, delta); return; }
         if (editField != null) { renderEditModal(ctx, mouseX, mouseY, delta); return; }
 
-        int panelW = Math.min(320, this.width - 40);
+        int sidebarW = 90;
+        int panelW = Math.min(520, this.width - 20);
         int panelX = (this.width - panelW) / 2;
-        int panelTop = 20;
-        int panelBottom = this.height - 20;
+        int panelTop = 10;
+        int panelBottom = this.height - 10;
 
         ctx.fill(panelX - 1, panelTop - 1, panelX + panelW + 1, panelBottom + 1, ACCENT_DIM);
         ctx.fill(panelX, panelTop, panelX + panelW, panelBottom, PANEL_BG);
@@ -270,72 +271,89 @@ public class ConfigScreen extends Screen {
         // Title bar
         ctx.fill(panelX, panelTop, panelX + panelW, panelTop + TAB_H, 0xFF12122A);
         ctx.fill(panelX, panelTop + TAB_H - 1, panelX + panelW, panelTop + TAB_H, ModConfig.proUnlocked ? GOLD : ACCENT);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7d\u00a7lOSP"), panelX + 6, panelTop + 6, TEXT_PRIMARY);
-        if (ModConfig.proUnlocked) {
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a76\u00a7lPRO"), panelX + 32, panelTop + 6, GOLD);
-        } else {
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78v2.2"), panelX + 32, panelTop + 6, TEXT_DIM);
-        }
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7d\u00a7lf1sch"), panelX + 6, panelTop + 9, TEXT_PRIMARY);
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal(ModConfig.proUnlocked ? "\u00a76PRO" : "\u00a78v2.2"), panelX + 40, panelTop + 9, ModConfig.proUnlocked ? GOLD : TEXT_DIM);
 
-        // Key icon (click to enter code)
-        int keyX = panelX + panelW - 32;
-        boolean keyHover = mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 2 && mouseY < panelTop + TAB_H - 2;
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal(keyHover ? "\u00a7e\u2605" : "\u00a78\u2605"), keyX, panelTop + 6, TEXT_DIM);
+        // Give button
+        int giveX = panelX + panelW - 96;
+        boolean giveHover = mouseX >= giveX && mouseX < giveX + 38 && mouseY >= panelTop + 6 && mouseY < panelTop + 20;
+        ctx.fill(giveX, panelTop + 6, giveX + 38, panelTop + 20, giveHover ? 0xFF2A2A4A : 0xFF1A1A3A);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(giveHover ? "\u00a7aGive" : "\u00a72Give"), giveX + 19, panelTop + 9, TEXT_PRIMARY);
 
-        // Close button
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7cx"), panelX + panelW - 16, panelTop + 6, RED);
+        // Star icon
+        int keyX = panelX + panelW - 48;
+        boolean keyHover = mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 4 && mouseY < panelTop + TAB_H - 4;
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal(ModConfig.proUnlocked ? "\u00a76\u2605" : (keyHover ? "\u00a7e\u2605" : "\u00a78\u2605")), keyX, panelTop + 9, TEXT_DIM);
+        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7cx"), panelX + panelW - 16, panelTop + 9, RED);
 
-        // Category tabs (scrollable if many)
-        int tabY = panelTop + TAB_H;
-        int tabCount = categories.size();
-        int tabW = Math.max(40, panelW / Math.min(tabCount, 6));
-        int tabIdx = 0;
-        int tabScrollX = 0;
+        // === LEFT SIDEBAR ===
+        int sideTop = panelTop + TAB_H;
+        ctx.fill(panelX, sideTop, panelX + sidebarW, panelBottom, 0xFF141428);
+        ctx.fill(panelX + sidebarW - 1, sideTop, panelX + sidebarW, panelBottom, 0x30FFFFFF);
+
+        int catY = sideTop + 2;
+        int catH = 16;
         for (String cat : categories.keySet()) {
-            int tx = panelX + tabIdx * tabW - tabScrollX;
-            if (tx + tabW > panelX && tx < panelX + panelW) {
-                boolean selected = cat.equals(activeCategory);
-                boolean hovered = mouseX >= tx && mouseX < tx + tabW && mouseY >= tabY && mouseY < tabY + 20;
-                boolean isPro = cat.contains("\u00a7") && !cat.equals("Combat") && !cat.equals("Movement") && !cat.equals("Render") && !cat.equals("Player");
-                ctx.fill(tx, tabY, tx + tabW, tabY + 20, selected ? (isPro ? 0xFF2A2210 : 0xFF222244) : (hovered ? 0xFF1A1A38 : 0xFF141430));
-                if (selected) ctx.fill(tx, tabY + 18, tx + tabW, tabY + 20, isPro ? GOLD : ACCENT);
-                String displayCat = cat.replaceAll("\u00a7.", "");
-                int textW = this.textRenderer.getWidth(displayCat);
-                String prefix = selected ? "\u00a7f" : "\u00a78";
-                if (isPro && selected) prefix = "\u00a76";
-                ctx.drawTextWithShadow(this.textRenderer, Text.literal(prefix + displayCat), tx + (tabW - textW) / 2, tabY + 5, TEXT_PRIMARY);
+            boolean selected = cat.equals(activeCategory);
+            boolean hovered = mouseX >= panelX && mouseX < panelX + sidebarW && mouseY >= catY && mouseY < catY + catH;
+            boolean isPro = cat.contains("\u00a7");
+            if (selected) {
+                ctx.fill(panelX, catY, panelX + sidebarW - 1, catY + catH, isPro ? 0xFF2A2210 : 0xFF1E1E40);
+                ctx.fill(panelX, catY, panelX + 2, catY + catH, isPro ? GOLD : ACCENT);
+            } else if (hovered) {
+                ctx.fill(panelX, catY, panelX + sidebarW - 1, catY + catH, 0xFF1A1A38);
             }
-            tabIdx++;
+            String displayName = cat.replaceAll("\u00a7.", "");
+            String color = selected ? (isPro ? "\u00a76" : "\u00a7f") : (isPro ? "\u00a78" : "\u00a77");
+            ctx.drawTextWithShadow(this.textRenderer, Text.literal(color + displayName), panelX + 6, catY + 4, TEXT_PRIMARY);
+            catY += catH;
         }
 
-        // Module list area
-        int listTop = tabY + 20;
-        int listBottom = panelBottom - 2;
-        ctx.enableScissor(panelX, listTop, panelX + panelW, listBottom);
+        // === RIGHT: 2-column module grid ===
+        int gridX = panelX + sidebarW + 4;
+        int gridTop = panelTop + TAB_H + 2;
+        int gridBottom = panelBottom - 2;
+        int gridW = panelW - sidebarW - 8;
+        int colW = (gridW - 4) / 2;
 
+        ctx.enableScissor(gridX, gridTop, gridX + gridW, gridBottom);
         List<Module> modules = categories.get(activeCategory);
         if (modules != null) {
-            int y = listTop - (int) scrollOffset;
+            int y0 = gridTop - (int) scrollOffset;
+            int y1 = y0;
             for (Module mod : modules) {
-                y = renderModule(ctx, mod, panelX + 2, y, panelW - 4, mouseX, mouseY);
+                if (y0 <= y1) {
+                    y0 = renderModule(ctx, mod, gridX, y0, colW, mouseX, mouseY);
+                } else {
+                    y1 = renderModule(ctx, mod, gridX + colW + 4, y1, colW, mouseX, mouseY);
+                }
             }
         }
         ctx.disableScissor();
 
-        // Scrollbar
         if (modules != null) {
-            int contentH = getContentHeight(modules);
-            int viewH = listBottom - listTop;
+            int contentH = getContentHeight2Col(modules);
+            int viewH = gridBottom - gridTop;
             if (contentH > viewH) {
-                int barX = panelX + panelW - 4;
+                int barX = panelX + panelW - 5;
                 float ratio = (float) viewH / contentH;
                 int thumbH = Math.max(15, (int) (viewH * ratio));
                 int maxScroll = contentH - viewH;
-                int thumbY = listTop + (maxScroll > 0 ? (int) (scrollOffset / maxScroll * (viewH - thumbH)) : 0);
-                ctx.fill(barX, listTop, barX + 3, listBottom, 0x20FFFFFF);
+                int thumbY = gridTop + (maxScroll > 0 ? (int) (scrollOffset / maxScroll * (viewH - thumbH)) : 0);
+                ctx.fill(barX, gridTop, barX + 3, gridBottom, 0x20FFFFFF);
                 ctx.fill(barX, thumbY, barX + 3, thumbY + thumbH, ACCENT);
             }
         }
+    }
+
+    private int getContentHeight2Col(List<Module> modules) {
+        int y0 = 0, y1 = 0;
+        for (Module mod : modules) {
+            boolean expanded = mod.name.equals(expandedModule) && !mod.settings.isEmpty();
+            int h = MODULE_H + (expanded ? mod.settings.size() * SETTING_H : 0);
+            if (y0 <= y1) y0 += h; else y1 += h;
+        }
+        return Math.max(y0, y1);
     }
 
     private int renderModule(DrawContext ctx, Module mod, int x, int y, int w, int mx, int my) {
@@ -452,19 +470,24 @@ public class ConfigScreen extends Screen {
             return true;
         }
 
-        int panelW = Math.min(320, this.width - 40);
+        int sidebarW = 90;
+        int panelW = Math.min(520, this.width - 20);
         int panelX = (this.width - panelW) / 2;
-        int panelTop = 20;
+        int panelTop = 10;
 
-        // Key icon (code entry)
-        int keyX = panelX + panelW - 32;
-        if (mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 2 && mouseY < panelTop + TAB_H - 2) {
+        // Give button
+        int giveX = panelX + panelW - 96;
+        if (mouseX >= giveX && mouseX < giveX + 38 && mouseY >= panelTop + 6 && mouseY < panelTop + 20) {
+            if (this.client != null) this.client.setScreen(new ItemGiveScreen(this)); return true;
+        }
+
+        // Star icon (code entry)
+        int keyX = panelX + panelW - 48;
+        if (mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 4 && mouseY < panelTop + TAB_H - 4) {
             if (!ModConfig.proUnlocked) {
                 showCodeEntry = true;
                 codeField = new TextFieldWidget(this.textRenderer, 0, 0, 200, 20, Text.literal("Code"));
-                codeField.setMaxLength(20);
-                codeField.setEditable(true);
-                setFocused(codeField);
+                codeField.setMaxLength(20); codeField.setEditable(true); setFocused(codeField);
             }
             return true;
         }
@@ -474,42 +497,50 @@ public class ConfigScreen extends Screen {
             close(); return true;
         }
 
-        // Category tabs
-        int tabY = panelTop + TAB_H;
-        if (mouseY >= tabY && mouseY < tabY + 20) {
-            int tabCount = categories.size();
-            int tabW = Math.max(40, panelW / Math.min(tabCount, 6));
-            int idx = 0;
+        // Sidebar categories
+        int sideTop = panelTop + TAB_H;
+        if (mouseX >= panelX && mouseX < panelX + sidebarW) {
+            int catY = sideTop + 2;
+            int catH = 16;
             for (String cat : categories.keySet()) {
-                int tx = panelX + idx * tabW;
-                if (mouseX >= tx && mouseX < tx + tabW) {
+                if (mouseY >= catY && mouseY < catY + catH) {
                     activeCategory = cat; scrollOffset = 0; expandedModule = null; return true;
                 }
-                idx++;
+                catY += catH;
             }
         }
 
-        // Module list
-        int listTop = tabY + 20;
+        // 2-column module grid
+        int gridX = panelX + sidebarW + 4;
+        int gridTop = panelTop + TAB_H + 2;
+        int gridW = panelW - sidebarW - 8;
+        int colW = (gridW - 4) / 2;
+
         List<Module> modules = categories.get(activeCategory);
         if (modules == null) return false;
-        int y = listTop - (int) scrollOffset;
+        int y0 = gridTop - (int) scrollOffset;
+        int y1 = y0;
         for (Module mod : modules) {
             boolean expanded = mod.name.equals(expandedModule) && !mod.settings.isEmpty();
-            if (mouseX >= panelX + 2 && mouseX < panelX + panelW - 2 && mouseY >= y && mouseY < y + MODULE_H) {
-                if (mouseX >= panelX + panelW - 30 && !mod.settings.isEmpty()) { expandedModule = expanded ? null : mod.name; }
+            int modH = MODULE_H + (expanded ? mod.settings.size() * SETTING_H : 0);
+            int cx, cy;
+            if (y0 <= y1) { cx = gridX; cy = y0; y0 += modH; }
+            else { cx = gridX + colW + 4; cy = y1; y1 += modH; }
+
+            if (mouseX >= cx && mouseX < cx + colW && mouseY >= cy && mouseY < cy + MODULE_H) {
+                if (mouseX >= cx + colW - 20 && !mod.settings.isEmpty()) { expandedModule = expanded ? null : mod.name; }
                 else { mod.setter.accept(!mod.enabled.get()); ModConfig.save(); }
                 return true;
             }
-            y += MODULE_H;
             if (expanded) {
+                int sy = cy + MODULE_H;
                 for (Setting s : mod.settings) {
-                    if (mouseX >= panelX + 2 && mouseX < panelX + panelW - 2 && mouseY >= y && mouseY < y + SETTING_H) {
+                    if (mouseX >= cx && mouseX < cx + colW && mouseY >= sy && mouseY < sy + SETTING_H) {
                         if (s.type == SettingType.TOGGLE) { s.boolSetter.accept(!s.boolGetter.get()); ModConfig.save(); }
                         else { openEditModal(s.name, s.floatGetter.get(), s.min, s.max, s.floatSetter); }
                         return true;
                     }
-                    y += SETTING_H;
+                    sy += SETTING_H;
                 }
             }
         }
@@ -521,10 +552,10 @@ public class ConfigScreen extends Screen {
         if (editField != null || showCodeEntry) return true;
         List<Module> modules = categories.get(activeCategory);
         if (modules == null) return true;
-        int panelTop = 20 + TAB_H + 20;
-        int panelBottom = this.height - 20;
-        int viewH = panelBottom - panelTop;
-        int contentH = getContentHeight(modules);
+        int gridTop = 10 + TAB_H + 2;
+        int gridBottom = this.height - 10 - 2;
+        int viewH = gridBottom - gridTop;
+        int contentH = getContentHeight2Col(modules);
         int maxScroll = Math.max(0, contentH - viewH);
         scrollOffset = Math.max(0, Math.min(maxScroll, scrollOffset - verticalAmount * 16));
         return true;
