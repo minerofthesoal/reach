@@ -369,8 +369,8 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     }
 
     private void sendEspData(ServerPlayerEntity player, float range) {
-        ServerWorld world = player.getEntityWorld();
-        Vec3d pos = player.getEntityPos();
+        ServerWorld world = player.getWorld();
+        Vec3d pos = player.getPos();
         double r = Math.min(range, 500); // Cap at 500 blocks
 
         Box searchBox = new Box(

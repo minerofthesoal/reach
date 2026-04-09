@@ -34,7 +34,7 @@ public class EspRenderer {
         int screenCenterX = client.getWindow().getScaledWidth() / 2;
         int screenCenterY = client.getWindow().getScaledHeight() / 2;
 
-        float tickDelta = tickCounter.getTickProgress(true);
+        float tickDelta = tickCounter.getTickDelta(true);
 
         float fov = client.options.getFov().getValue().floatValue();
         Matrix4f projMatrix = client.gameRenderer.getBasicProjectionMatrix(fov);
@@ -45,8 +45,8 @@ public class EspRenderer {
         modelViewStack.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0f));
         Matrix4f mvMatrix = modelViewStack.peek().getPositionMatrix();
 
-        Vec3d cameraPos = camera.getCameraPos();
-        Vec3d playerPos = client.player.getEntityPos();
+        Vec3d cameraPos = camera.getPos();
+        Vec3d playerPos = client.player.getPos();
 
         for (Entity entity : client.world.getEntities()) {
             if (entity == client.player) continue;

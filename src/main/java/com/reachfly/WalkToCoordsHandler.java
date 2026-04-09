@@ -41,7 +41,7 @@ public class WalkToCoordsHandler {
         double targetZ = ModConfig.walkToZ;
 
         Vec3d target = new Vec3d(targetX + 0.5, targetY, targetZ + 0.5);
-        Vec3d pos = player.getEntityPos();
+        Vec3d pos = player.getPos();
         double horizDist = Math.sqrt(
                 (pos.x - target.x) * (pos.x - target.x) +
                 (pos.z - target.z) * (pos.z - target.z));
