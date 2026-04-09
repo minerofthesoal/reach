@@ -2,7 +2,7 @@ name: Build & Release Server Addon v3
 
 on:
   push:
-    branches: [ main, 'claude/**' ]
+    branches: [ main, 'claude/**', 'mc-*' ]
     paths:
       - 'server-addon/**'
   pull_request:
