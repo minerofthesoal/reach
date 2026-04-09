@@ -34,7 +34,7 @@ public class EspRenderer {
         int screenCenterX = client.getWindow().getScaledWidth() / 2;
         int screenCenterY = client.getWindow().getScaledHeight() / 2;
 
-        float tickDelta = tickCounter.getTickDelta(true);
+        float tickDelta = tickCounter.getTickProgress(true);
 
         float fov = client.options.getFov().getValue().floatValue();
         Matrix4f projMatrix = client.gameRenderer.getBasicProjectionMatrix(fov);
