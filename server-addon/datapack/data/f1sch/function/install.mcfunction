@@ -3,9 +3,10 @@
 # Run on load / /reload to set up scoreboards
 # ============================================================
 
-# Suppress command feedback and admin log output
-gamerule send_command_feedback false
-gamerule log_admin_commands false
+# Suppress all command output
+gamerule sendCommandFeedback false
+gamerule commandBlockOutput false
+gamerule logAdminCommands false
 
 # --- Feature toggles (0 = off, 1 = on) ---
 scoreboard objectives add f1sch.knockback trigger "f1sch Knockback Toggle"
