@@ -92,9 +92,6 @@ public class AutoHitHandler {
         if (now - lastAuraPlusAttack < interval) return;
         lastAuraPlusAttack = now;
 
-        // Reset attack cooldown so every hit does full damage
-        player.resetTicksSinceLastAttack();
-
         List<Entity> targets = new ArrayList<>();
         for (Entity entity : client.world.getEntities()) {
             if (entity == player) continue;
@@ -110,8 +107,6 @@ public class AutoHitHandler {
 
         boolean first = true;
         for (Entity target : targets) {
-            // Reset cooldown before EACH attack for full damage on all targets
-            player.resetTicksSinceLastAttack();
             client.interactionManager.attackEntity(player, target);
             if (first) {
                 player.swingHand(Hand.MAIN_HAND);
