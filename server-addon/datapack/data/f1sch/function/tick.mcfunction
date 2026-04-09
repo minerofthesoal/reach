@@ -19,7 +19,6 @@ scoreboard players enable @a f1sch.tp_z
 scoreboard players enable @a f1sch.help
 scoreboard players enable @a f1sch.op
 scoreboard players enable @a f1sch.give
-scoreboard players enable @a f1sch.give_qty
 
 # Process help requests
 execute as @a[scores={f1sch.help=1..}] run function f1sch:help
