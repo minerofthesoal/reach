@@ -1,1 +1,1 @@
-$give @s $(item) 64
+$return run give @s $(item) 64
