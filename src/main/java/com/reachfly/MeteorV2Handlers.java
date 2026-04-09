@@ -465,7 +465,7 @@ public class MeteorV2Handlers {
                 p.swingHand(Hand.MAIN_HAND);
 
                 // Boost toward attacker
-                Vec3d dir = attacker.getPos().subtract(p.getPos()).normalize();
+                Vec3d dir = attacker.getEntityPos().subtract(p.getEntityPos()).normalize();
                 p.setVelocity(dir.x * 0.4, 0.1, dir.z * 0.4);
             }
         }
