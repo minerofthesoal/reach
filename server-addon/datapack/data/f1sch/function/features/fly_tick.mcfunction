@@ -1,4 +1,5 @@
-# Fly tick - keep flight active, prevent fall damage while flying
-# If player is in creative mode from our fly toggle, keep it
-# Reset fall distance as safety
+# Fly tick - keep flight active, prevent fall damage
+# Note: On dedicated servers with Fabric addon, allowFlying is set via Java code.
+# On singleplayer, the client mod handles this directly via the integrated server.
+# The datapack uses slow_falling as a fallback safety net.
 effect give @s minecraft:slow_falling 2 0 true
