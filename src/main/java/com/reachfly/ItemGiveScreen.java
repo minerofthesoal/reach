@@ -14,6 +14,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -154,21 +157,49 @@ public class ItemGiveScreen extends Screen {
         {"wind_burst", 3, "Wind Burst III"},
     };
 
-    // Trigger codes computed from sorted item registry (must match give_item.mcfunction order)
+    // Trigger codes parsed from the bundled mcfunction (single source of truth)
     private static Map<String, Integer> triggerCodes = null;
 
     private static Map<String, Integer> getTriggerCodes() {
         if (triggerCodes == null) {
             triggerCodes = new HashMap<>();
-            List<String> ids = new ArrayList<>();
-            for (Item item : Registries.ITEM) {
-                ItemStack stack = new ItemStack(item);
-                if (stack.isEmpty()) continue; // Skip air
-                ids.add(Registries.ITEM.getId(item).toString());
-            }
-            Collections.sort(ids);
-            for (int i = 0; i < ids.size(); i++) {
-                triggerCodes.put(ids.get(i), i + 1);
+            // Parse the bundled give_item.mcfunction for item -> code mapping
+            // Format: execute if entity @s[scores={f1sch.give=N}] run data modify storage f1sch:temp item set value "minecraft:xxx"
+            try (InputStream is = ItemGiveScreen.class.getResourceAsStream(
+                    "/data/f1sch/function/features/give_item.mcfunction")) {
+                if (is != null) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        int scoreIdx = line.indexOf("f1sch.give=");
+                        int itemIdx = line.indexOf("item set value \"");
+                        if (scoreIdx < 0 || itemIdx < 0) continue;
+                        scoreIdx += "f1sch.give=".length();
+                        int scoreEnd = line.indexOf('}', scoreIdx);
+                        itemIdx += "item set value \"".length();
+                        int itemEnd = line.indexOf('"', itemIdx);
+                        if (scoreEnd < 0 || itemEnd < 0) continue;
+                        try {
+                            int code = Integer.parseInt(line.substring(scoreIdx, scoreEnd));
+                            String itemId = line.substring(itemIdx, itemEnd);
+                            triggerCodes.put(itemId, code);
+                        } catch (NumberFormatException ignored) {}
+                    }
+                }
+            } catch (Exception ignored) {}
+
+            // Fallback: if mcfunction not found, compute from sorted registry
+            if (triggerCodes.isEmpty()) {
+                List<String> ids = new ArrayList<>();
+                for (Item item : Registries.ITEM) {
+                    ItemStack stack = new ItemStack(item);
+                    if (stack.isEmpty()) continue;
+                    ids.add(Registries.ITEM.getId(item).toString());
+                }
+                Collections.sort(ids);
+                for (int i = 0; i < ids.size(); i++) {
+                    triggerCodes.put(ids.get(i), i + 1);
+                }
             }
         }
         return triggerCodes;
@@ -605,7 +636,7 @@ public class ItemGiveScreen extends Screen {
             } catch (Exception ignored) {}
         }
 
-        // 2. Use datapack trigger (gives 1 item per trigger)
+        // 2. Use datapack trigger (supports custom qty via f1sch.give_qty)
         int code = 0;
         if (selectedItem.triggerCode > 0) {
             code = selectedItem.triggerCode;
@@ -615,8 +646,10 @@ public class ItemGiveScreen extends Screen {
         }
 
         if (code > 0) {
+            // Send qty first, then item code
+            client.getNetworkHandler().sendChatCommand("trigger f1sch.give_qty set " + qty);
             client.getNetworkHandler().sendChatCommand("trigger f1sch.give set " + code);
-            toastMessage = "\u00a7aGave " + selectedItem.name + " \u00a78(" + selectedItem.subtitle + ")";
+            toastMessage = "\u00a7aGave \u00a7f" + qty + "x " + selectedItem.name + " \u00a78(" + selectedItem.subtitle + ")";
             toastTimer = 40;
         } else {
             toastMessage = "\u00a7cItem not available via trigger";

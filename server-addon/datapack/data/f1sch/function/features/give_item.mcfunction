@@ -1,1719 +1,1773 @@
-execute if entity @s[scores={f1sch.give=1}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_boat"}
-execute if entity @s[scores={f1sch.give=2}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_button"}
-execute if entity @s[scores={f1sch.give=3}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_chest_boat"}
-execute if entity @s[scores={f1sch.give=4}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_door"}
-execute if entity @s[scores={f1sch.give=5}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_fence"}
-execute if entity @s[scores={f1sch.give=6}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_fence_gate"}
-execute if entity @s[scores={f1sch.give=7}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_hanging_sign"}
-execute if entity @s[scores={f1sch.give=8}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_leaves"}
-execute if entity @s[scores={f1sch.give=9}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_log"}
-execute if entity @s[scores={f1sch.give=10}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_planks"}
-execute if entity @s[scores={f1sch.give=11}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_pressure_plate"}
-execute if entity @s[scores={f1sch.give=12}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_sapling"}
-execute if entity @s[scores={f1sch.give=13}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_shelf"}
-execute if entity @s[scores={f1sch.give=14}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_sign"}
-execute if entity @s[scores={f1sch.give=15}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_slab"}
-execute if entity @s[scores={f1sch.give=16}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_stairs"}
-execute if entity @s[scores={f1sch.give=17}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_trapdoor"}
-execute if entity @s[scores={f1sch.give=18}] run function f1sch:features/macros/give_item {item:"minecraft:acacia_wood"}
-execute if entity @s[scores={f1sch.give=19}] run function f1sch:features/macros/give_item {item:"minecraft:activator_rail"}
-execute if entity @s[scores={f1sch.give=20}] run function f1sch:features/macros/give_item {item:"minecraft:allay_spawn_egg"}
-execute if entity @s[scores={f1sch.give=21}] run function f1sch:features/macros/give_item {item:"minecraft:allium"}
-execute if entity @s[scores={f1sch.give=22}] run function f1sch:features/macros/give_item {item:"minecraft:amethyst_block"}
-execute if entity @s[scores={f1sch.give=23}] run function f1sch:features/macros/give_item {item:"minecraft:amethyst_cluster"}
-execute if entity @s[scores={f1sch.give=24}] run function f1sch:features/macros/give_item {item:"minecraft:amethyst_shard"}
-execute if entity @s[scores={f1sch.give=25}] run function f1sch:features/macros/give_item {item:"minecraft:ancient_debris"}
-execute if entity @s[scores={f1sch.give=26}] run function f1sch:features/macros/give_item {item:"minecraft:andesite"}
-execute if entity @s[scores={f1sch.give=27}] run function f1sch:features/macros/give_item {item:"minecraft:andesite_slab"}
-execute if entity @s[scores={f1sch.give=28}] run function f1sch:features/macros/give_item {item:"minecraft:andesite_stairs"}
-execute if entity @s[scores={f1sch.give=29}] run function f1sch:features/macros/give_item {item:"minecraft:andesite_wall"}
-execute if entity @s[scores={f1sch.give=30}] run function f1sch:features/macros/give_item {item:"minecraft:angler_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=31}] run function f1sch:features/macros/give_item {item:"minecraft:anvil"}
-execute if entity @s[scores={f1sch.give=32}] run function f1sch:features/macros/give_item {item:"minecraft:apple"}
-execute if entity @s[scores={f1sch.give=33}] run function f1sch:features/macros/give_item {item:"minecraft:archer_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=34}] run function f1sch:features/macros/give_item {item:"minecraft:armadillo_scute"}
-execute if entity @s[scores={f1sch.give=35}] run function f1sch:features/macros/give_item {item:"minecraft:armadillo_spawn_egg"}
-execute if entity @s[scores={f1sch.give=36}] run function f1sch:features/macros/give_item {item:"minecraft:armor_stand"}
-execute if entity @s[scores={f1sch.give=37}] run function f1sch:features/macros/give_item {item:"minecraft:arms_up_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=38}] run function f1sch:features/macros/give_item {item:"minecraft:arrow"}
-execute if entity @s[scores={f1sch.give=39}] run function f1sch:features/macros/give_item {item:"minecraft:axolotl_bucket"}
-execute if entity @s[scores={f1sch.give=40}] run function f1sch:features/macros/give_item {item:"minecraft:axolotl_spawn_egg"}
-execute if entity @s[scores={f1sch.give=41}] run function f1sch:features/macros/give_item {item:"minecraft:azalea"}
-execute if entity @s[scores={f1sch.give=42}] run function f1sch:features/macros/give_item {item:"minecraft:azalea_leaves"}
-execute if entity @s[scores={f1sch.give=43}] run function f1sch:features/macros/give_item {item:"minecraft:azure_bluet"}
-execute if entity @s[scores={f1sch.give=44}] run function f1sch:features/macros/give_item {item:"minecraft:baked_potato"}
-execute if entity @s[scores={f1sch.give=45}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo"}
-execute if entity @s[scores={f1sch.give=46}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_block"}
-execute if entity @s[scores={f1sch.give=47}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_button"}
-execute if entity @s[scores={f1sch.give=48}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_chest_raft"}
-execute if entity @s[scores={f1sch.give=49}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_door"}
-execute if entity @s[scores={f1sch.give=50}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_fence"}
-execute if entity @s[scores={f1sch.give=51}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_fence_gate"}
-execute if entity @s[scores={f1sch.give=52}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_hanging_sign"}
-execute if entity @s[scores={f1sch.give=53}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_mosaic"}
-execute if entity @s[scores={f1sch.give=54}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_mosaic_slab"}
-execute if entity @s[scores={f1sch.give=55}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_mosaic_stairs"}
-execute if entity @s[scores={f1sch.give=56}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_planks"}
-execute if entity @s[scores={f1sch.give=57}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_pressure_plate"}
-execute if entity @s[scores={f1sch.give=58}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_raft"}
-execute if entity @s[scores={f1sch.give=59}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_shelf"}
-execute if entity @s[scores={f1sch.give=60}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_sign"}
-execute if entity @s[scores={f1sch.give=61}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_slab"}
-execute if entity @s[scores={f1sch.give=62}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_stairs"}
-execute if entity @s[scores={f1sch.give=63}] run function f1sch:features/macros/give_item {item:"minecraft:bamboo_trapdoor"}
-execute if entity @s[scores={f1sch.give=64}] run function f1sch:features/macros/give_item {item:"minecraft:barrel"}
-execute if entity @s[scores={f1sch.give=65}] run function f1sch:features/macros/give_item {item:"minecraft:barrier"}
-execute if entity @s[scores={f1sch.give=66}] run function f1sch:features/macros/give_item {item:"minecraft:basalt"}
-execute if entity @s[scores={f1sch.give=67}] run function f1sch:features/macros/give_item {item:"minecraft:bat_spawn_egg"}
-execute if entity @s[scores={f1sch.give=68}] run function f1sch:features/macros/give_item {item:"minecraft:beacon"}
-execute if entity @s[scores={f1sch.give=69}] run function f1sch:features/macros/give_item {item:"minecraft:bedrock"}
-execute if entity @s[scores={f1sch.give=70}] run function f1sch:features/macros/give_item {item:"minecraft:bee_nest"}
-execute if entity @s[scores={f1sch.give=71}] run function f1sch:features/macros/give_item {item:"minecraft:bee_spawn_egg"}
-execute if entity @s[scores={f1sch.give=72}] run function f1sch:features/macros/give_item {item:"minecraft:beef"}
-execute if entity @s[scores={f1sch.give=73}] run function f1sch:features/macros/give_item {item:"minecraft:beehive"}
-execute if entity @s[scores={f1sch.give=74}] run function f1sch:features/macros/give_item {item:"minecraft:beetroot"}
-execute if entity @s[scores={f1sch.give=75}] run function f1sch:features/macros/give_item {item:"minecraft:beetroot_seeds"}
-execute if entity @s[scores={f1sch.give=76}] run function f1sch:features/macros/give_item {item:"minecraft:beetroot_soup"}
-execute if entity @s[scores={f1sch.give=77}] run function f1sch:features/macros/give_item {item:"minecraft:bell"}
-execute if entity @s[scores={f1sch.give=78}] run function f1sch:features/macros/give_item {item:"minecraft:big_dripleaf"}
-execute if entity @s[scores={f1sch.give=79}] run function f1sch:features/macros/give_item {item:"minecraft:birch_boat"}
-execute if entity @s[scores={f1sch.give=80}] run function f1sch:features/macros/give_item {item:"minecraft:birch_button"}
-execute if entity @s[scores={f1sch.give=81}] run function f1sch:features/macros/give_item {item:"minecraft:birch_chest_boat"}
-execute if entity @s[scores={f1sch.give=82}] run function f1sch:features/macros/give_item {item:"minecraft:birch_door"}
-execute if entity @s[scores={f1sch.give=83}] run function f1sch:features/macros/give_item {item:"minecraft:birch_fence"}
-execute if entity @s[scores={f1sch.give=84}] run function f1sch:features/macros/give_item {item:"minecraft:birch_fence_gate"}
-execute if entity @s[scores={f1sch.give=85}] run function f1sch:features/macros/give_item {item:"minecraft:birch_hanging_sign"}
-execute if entity @s[scores={f1sch.give=86}] run function f1sch:features/macros/give_item {item:"minecraft:birch_leaves"}
-execute if entity @s[scores={f1sch.give=87}] run function f1sch:features/macros/give_item {item:"minecraft:birch_log"}
-execute if entity @s[scores={f1sch.give=88}] run function f1sch:features/macros/give_item {item:"minecraft:birch_planks"}
-execute if entity @s[scores={f1sch.give=89}] run function f1sch:features/macros/give_item {item:"minecraft:birch_pressure_plate"}
-execute if entity @s[scores={f1sch.give=90}] run function f1sch:features/macros/give_item {item:"minecraft:birch_sapling"}
-execute if entity @s[scores={f1sch.give=91}] run function f1sch:features/macros/give_item {item:"minecraft:birch_shelf"}
-execute if entity @s[scores={f1sch.give=92}] run function f1sch:features/macros/give_item {item:"minecraft:birch_sign"}
-execute if entity @s[scores={f1sch.give=93}] run function f1sch:features/macros/give_item {item:"minecraft:birch_slab"}
-execute if entity @s[scores={f1sch.give=94}] run function f1sch:features/macros/give_item {item:"minecraft:birch_stairs"}
-execute if entity @s[scores={f1sch.give=95}] run function f1sch:features/macros/give_item {item:"minecraft:birch_trapdoor"}
-execute if entity @s[scores={f1sch.give=96}] run function f1sch:features/macros/give_item {item:"minecraft:birch_wood"}
-execute if entity @s[scores={f1sch.give=97}] run function f1sch:features/macros/give_item {item:"minecraft:black_banner"}
-execute if entity @s[scores={f1sch.give=98}] run function f1sch:features/macros/give_item {item:"minecraft:black_bed"}
-execute if entity @s[scores={f1sch.give=99}] run function f1sch:features/macros/give_item {item:"minecraft:black_bundle"}
-execute if entity @s[scores={f1sch.give=100}] run function f1sch:features/macros/give_item {item:"minecraft:black_candle"}
-execute if entity @s[scores={f1sch.give=101}] run function f1sch:features/macros/give_item {item:"minecraft:black_carpet"}
-execute if entity @s[scores={f1sch.give=102}] run function f1sch:features/macros/give_item {item:"minecraft:black_concrete"}
-execute if entity @s[scores={f1sch.give=103}] run function f1sch:features/macros/give_item {item:"minecraft:black_concrete_powder"}
-execute if entity @s[scores={f1sch.give=104}] run function f1sch:features/macros/give_item {item:"minecraft:black_dye"}
-execute if entity @s[scores={f1sch.give=105}] run function f1sch:features/macros/give_item {item:"minecraft:black_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=106}] run function f1sch:features/macros/give_item {item:"minecraft:black_harness"}
-execute if entity @s[scores={f1sch.give=107}] run function f1sch:features/macros/give_item {item:"minecraft:black_shulker_box"}
-execute if entity @s[scores={f1sch.give=108}] run function f1sch:features/macros/give_item {item:"minecraft:black_stained_glass"}
-execute if entity @s[scores={f1sch.give=109}] run function f1sch:features/macros/give_item {item:"minecraft:black_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=110}] run function f1sch:features/macros/give_item {item:"minecraft:black_terracotta"}
-execute if entity @s[scores={f1sch.give=111}] run function f1sch:features/macros/give_item {item:"minecraft:black_wool"}
-execute if entity @s[scores={f1sch.give=112}] run function f1sch:features/macros/give_item {item:"minecraft:blackstone"}
-execute if entity @s[scores={f1sch.give=113}] run function f1sch:features/macros/give_item {item:"minecraft:blackstone_slab"}
-execute if entity @s[scores={f1sch.give=114}] run function f1sch:features/macros/give_item {item:"minecraft:blackstone_stairs"}
-execute if entity @s[scores={f1sch.give=115}] run function f1sch:features/macros/give_item {item:"minecraft:blackstone_wall"}
-execute if entity @s[scores={f1sch.give=116}] run function f1sch:features/macros/give_item {item:"minecraft:blade_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=117}] run function f1sch:features/macros/give_item {item:"minecraft:blast_furnace"}
-execute if entity @s[scores={f1sch.give=118}] run function f1sch:features/macros/give_item {item:"minecraft:blaze_powder"}
-execute if entity @s[scores={f1sch.give=119}] run function f1sch:features/macros/give_item {item:"minecraft:blaze_rod"}
-execute if entity @s[scores={f1sch.give=120}] run function f1sch:features/macros/give_item {item:"minecraft:blaze_spawn_egg"}
-execute if entity @s[scores={f1sch.give=121}] run function f1sch:features/macros/give_item {item:"minecraft:blue_banner"}
-execute if entity @s[scores={f1sch.give=122}] run function f1sch:features/macros/give_item {item:"minecraft:blue_bed"}
-execute if entity @s[scores={f1sch.give=123}] run function f1sch:features/macros/give_item {item:"minecraft:blue_bundle"}
-execute if entity @s[scores={f1sch.give=124}] run function f1sch:features/macros/give_item {item:"minecraft:blue_candle"}
-execute if entity @s[scores={f1sch.give=125}] run function f1sch:features/macros/give_item {item:"minecraft:blue_carpet"}
-execute if entity @s[scores={f1sch.give=126}] run function f1sch:features/macros/give_item {item:"minecraft:blue_concrete"}
-execute if entity @s[scores={f1sch.give=127}] run function f1sch:features/macros/give_item {item:"minecraft:blue_concrete_powder"}
-execute if entity @s[scores={f1sch.give=128}] run function f1sch:features/macros/give_item {item:"minecraft:blue_dye"}
-execute if entity @s[scores={f1sch.give=129}] run function f1sch:features/macros/give_item {item:"minecraft:blue_egg"}
-execute if entity @s[scores={f1sch.give=130}] run function f1sch:features/macros/give_item {item:"minecraft:blue_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=131}] run function f1sch:features/macros/give_item {item:"minecraft:blue_harness"}
-execute if entity @s[scores={f1sch.give=132}] run function f1sch:features/macros/give_item {item:"minecraft:blue_ice"}
-execute if entity @s[scores={f1sch.give=133}] run function f1sch:features/macros/give_item {item:"minecraft:blue_orchid"}
-execute if entity @s[scores={f1sch.give=134}] run function f1sch:features/macros/give_item {item:"minecraft:blue_shulker_box"}
-execute if entity @s[scores={f1sch.give=135}] run function f1sch:features/macros/give_item {item:"minecraft:blue_stained_glass"}
-execute if entity @s[scores={f1sch.give=136}] run function f1sch:features/macros/give_item {item:"minecraft:blue_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=137}] run function f1sch:features/macros/give_item {item:"minecraft:blue_terracotta"}
-execute if entity @s[scores={f1sch.give=138}] run function f1sch:features/macros/give_item {item:"minecraft:blue_wool"}
-execute if entity @s[scores={f1sch.give=139}] run function f1sch:features/macros/give_item {item:"minecraft:bogged_spawn_egg"}
-execute if entity @s[scores={f1sch.give=140}] run function f1sch:features/macros/give_item {item:"minecraft:bolt_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=141}] run function f1sch:features/macros/give_item {item:"minecraft:bone"}
-execute if entity @s[scores={f1sch.give=142}] run function f1sch:features/macros/give_item {item:"minecraft:bone_block"}
-execute if entity @s[scores={f1sch.give=143}] run function f1sch:features/macros/give_item {item:"minecraft:bone_meal"}
-execute if entity @s[scores={f1sch.give=144}] run function f1sch:features/macros/give_item {item:"minecraft:book"}
-execute if entity @s[scores={f1sch.give=145}] run function f1sch:features/macros/give_item {item:"minecraft:bookshelf"}
-execute if entity @s[scores={f1sch.give=146}] run function f1sch:features/macros/give_item {item:"minecraft:bordure_indented_banner_pattern"}
-execute if entity @s[scores={f1sch.give=147}] run function f1sch:features/macros/give_item {item:"minecraft:bow"}
-execute if entity @s[scores={f1sch.give=148}] run function f1sch:features/macros/give_item {item:"minecraft:bowl"}
-execute if entity @s[scores={f1sch.give=149}] run function f1sch:features/macros/give_item {item:"minecraft:brain_coral"}
-execute if entity @s[scores={f1sch.give=150}] run function f1sch:features/macros/give_item {item:"minecraft:brain_coral_block"}
-execute if entity @s[scores={f1sch.give=151}] run function f1sch:features/macros/give_item {item:"minecraft:brain_coral_fan"}
-execute if entity @s[scores={f1sch.give=152}] run function f1sch:features/macros/give_item {item:"minecraft:bread"}
-execute if entity @s[scores={f1sch.give=153}] run function f1sch:features/macros/give_item {item:"minecraft:breeze_rod"}
-execute if entity @s[scores={f1sch.give=154}] run function f1sch:features/macros/give_item {item:"minecraft:breeze_spawn_egg"}
-execute if entity @s[scores={f1sch.give=155}] run function f1sch:features/macros/give_item {item:"minecraft:brewer_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=156}] run function f1sch:features/macros/give_item {item:"minecraft:brewing_stand"}
-execute if entity @s[scores={f1sch.give=157}] run function f1sch:features/macros/give_item {item:"minecraft:brick"}
-execute if entity @s[scores={f1sch.give=158}] run function f1sch:features/macros/give_item {item:"minecraft:brick_slab"}
-execute if entity @s[scores={f1sch.give=159}] run function f1sch:features/macros/give_item {item:"minecraft:brick_stairs"}
-execute if entity @s[scores={f1sch.give=160}] run function f1sch:features/macros/give_item {item:"minecraft:brick_wall"}
-execute if entity @s[scores={f1sch.give=161}] run function f1sch:features/macros/give_item {item:"minecraft:bricks"}
-execute if entity @s[scores={f1sch.give=162}] run function f1sch:features/macros/give_item {item:"minecraft:brown_banner"}
-execute if entity @s[scores={f1sch.give=163}] run function f1sch:features/macros/give_item {item:"minecraft:brown_bed"}
-execute if entity @s[scores={f1sch.give=164}] run function f1sch:features/macros/give_item {item:"minecraft:brown_bundle"}
-execute if entity @s[scores={f1sch.give=165}] run function f1sch:features/macros/give_item {item:"minecraft:brown_candle"}
-execute if entity @s[scores={f1sch.give=166}] run function f1sch:features/macros/give_item {item:"minecraft:brown_carpet"}
-execute if entity @s[scores={f1sch.give=167}] run function f1sch:features/macros/give_item {item:"minecraft:brown_concrete"}
-execute if entity @s[scores={f1sch.give=168}] run function f1sch:features/macros/give_item {item:"minecraft:brown_concrete_powder"}
-execute if entity @s[scores={f1sch.give=169}] run function f1sch:features/macros/give_item {item:"minecraft:brown_dye"}
-execute if entity @s[scores={f1sch.give=170}] run function f1sch:features/macros/give_item {item:"minecraft:brown_egg"}
-execute if entity @s[scores={f1sch.give=171}] run function f1sch:features/macros/give_item {item:"minecraft:brown_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=172}] run function f1sch:features/macros/give_item {item:"minecraft:brown_harness"}
-execute if entity @s[scores={f1sch.give=173}] run function f1sch:features/macros/give_item {item:"minecraft:brown_mushroom"}
-execute if entity @s[scores={f1sch.give=174}] run function f1sch:features/macros/give_item {item:"minecraft:brown_mushroom_block"}
-execute if entity @s[scores={f1sch.give=175}] run function f1sch:features/macros/give_item {item:"minecraft:brown_shulker_box"}
-execute if entity @s[scores={f1sch.give=176}] run function f1sch:features/macros/give_item {item:"minecraft:brown_stained_glass"}
-execute if entity @s[scores={f1sch.give=177}] run function f1sch:features/macros/give_item {item:"minecraft:brown_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=178}] run function f1sch:features/macros/give_item {item:"minecraft:brown_terracotta"}
-execute if entity @s[scores={f1sch.give=179}] run function f1sch:features/macros/give_item {item:"minecraft:brown_wool"}
-execute if entity @s[scores={f1sch.give=180}] run function f1sch:features/macros/give_item {item:"minecraft:brush"}
-execute if entity @s[scores={f1sch.give=181}] run function f1sch:features/macros/give_item {item:"minecraft:bubble_coral"}
-execute if entity @s[scores={f1sch.give=182}] run function f1sch:features/macros/give_item {item:"minecraft:bubble_coral_block"}
-execute if entity @s[scores={f1sch.give=183}] run function f1sch:features/macros/give_item {item:"minecraft:bubble_coral_fan"}
-execute if entity @s[scores={f1sch.give=184}] run function f1sch:features/macros/give_item {item:"minecraft:bucket"}
-execute if entity @s[scores={f1sch.give=185}] run function f1sch:features/macros/give_item {item:"minecraft:budding_amethyst"}
-execute if entity @s[scores={f1sch.give=186}] run function f1sch:features/macros/give_item {item:"minecraft:bundle"}
-execute if entity @s[scores={f1sch.give=187}] run function f1sch:features/macros/give_item {item:"minecraft:burn_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=188}] run function f1sch:features/macros/give_item {item:"minecraft:bush"}
-execute if entity @s[scores={f1sch.give=189}] run function f1sch:features/macros/give_item {item:"minecraft:cactus"}
-execute if entity @s[scores={f1sch.give=190}] run function f1sch:features/macros/give_item {item:"minecraft:cactus_flower"}
-execute if entity @s[scores={f1sch.give=191}] run function f1sch:features/macros/give_item {item:"minecraft:cake"}
-execute if entity @s[scores={f1sch.give=192}] run function f1sch:features/macros/give_item {item:"minecraft:calcite"}
-execute if entity @s[scores={f1sch.give=193}] run function f1sch:features/macros/give_item {item:"minecraft:calibrated_sculk_sensor"}
-execute if entity @s[scores={f1sch.give=194}] run function f1sch:features/macros/give_item {item:"minecraft:camel_husk_spawn_egg"}
-execute if entity @s[scores={f1sch.give=195}] run function f1sch:features/macros/give_item {item:"minecraft:camel_spawn_egg"}
-execute if entity @s[scores={f1sch.give=196}] run function f1sch:features/macros/give_item {item:"minecraft:campfire"}
-execute if entity @s[scores={f1sch.give=197}] run function f1sch:features/macros/give_item {item:"minecraft:candle"}
-execute if entity @s[scores={f1sch.give=198}] run function f1sch:features/macros/give_item {item:"minecraft:carrot"}
-execute if entity @s[scores={f1sch.give=199}] run function f1sch:features/macros/give_item {item:"minecraft:carrot_on_a_stick"}
-execute if entity @s[scores={f1sch.give=200}] run function f1sch:features/macros/give_item {item:"minecraft:cartography_table"}
-execute if entity @s[scores={f1sch.give=201}] run function f1sch:features/macros/give_item {item:"minecraft:carved_pumpkin"}
-execute if entity @s[scores={f1sch.give=202}] run function f1sch:features/macros/give_item {item:"minecraft:cat_spawn_egg"}
-execute if entity @s[scores={f1sch.give=203}] run function f1sch:features/macros/give_item {item:"minecraft:cauldron"}
-execute if entity @s[scores={f1sch.give=204}] run function f1sch:features/macros/give_item {item:"minecraft:cave_spider_spawn_egg"}
-execute if entity @s[scores={f1sch.give=205}] run function f1sch:features/macros/give_item {item:"minecraft:chain_command_block"}
-execute if entity @s[scores={f1sch.give=206}] run function f1sch:features/macros/give_item {item:"minecraft:chainmail_boots"}
-execute if entity @s[scores={f1sch.give=207}] run function f1sch:features/macros/give_item {item:"minecraft:chainmail_chestplate"}
-execute if entity @s[scores={f1sch.give=208}] run function f1sch:features/macros/give_item {item:"minecraft:chainmail_helmet"}
-execute if entity @s[scores={f1sch.give=209}] run function f1sch:features/macros/give_item {item:"minecraft:chainmail_leggings"}
-execute if entity @s[scores={f1sch.give=210}] run function f1sch:features/macros/give_item {item:"minecraft:charcoal"}
-execute if entity @s[scores={f1sch.give=211}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_boat"}
-execute if entity @s[scores={f1sch.give=212}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_button"}
-execute if entity @s[scores={f1sch.give=213}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_chest_boat"}
-execute if entity @s[scores={f1sch.give=214}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_door"}
-execute if entity @s[scores={f1sch.give=215}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_fence"}
-execute if entity @s[scores={f1sch.give=216}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_fence_gate"}
-execute if entity @s[scores={f1sch.give=217}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_hanging_sign"}
-execute if entity @s[scores={f1sch.give=218}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_leaves"}
-execute if entity @s[scores={f1sch.give=219}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_log"}
-execute if entity @s[scores={f1sch.give=220}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_planks"}
-execute if entity @s[scores={f1sch.give=221}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_pressure_plate"}
-execute if entity @s[scores={f1sch.give=222}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_sapling"}
-execute if entity @s[scores={f1sch.give=223}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_shelf"}
-execute if entity @s[scores={f1sch.give=224}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_sign"}
-execute if entity @s[scores={f1sch.give=225}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_slab"}
-execute if entity @s[scores={f1sch.give=226}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_stairs"}
-execute if entity @s[scores={f1sch.give=227}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_trapdoor"}
-execute if entity @s[scores={f1sch.give=228}] run function f1sch:features/macros/give_item {item:"minecraft:cherry_wood"}
-execute if entity @s[scores={f1sch.give=229}] run function f1sch:features/macros/give_item {item:"minecraft:chest"}
-execute if entity @s[scores={f1sch.give=230}] run function f1sch:features/macros/give_item {item:"minecraft:chest_minecart"}
-execute if entity @s[scores={f1sch.give=231}] run function f1sch:features/macros/give_item {item:"minecraft:chicken"}
-execute if entity @s[scores={f1sch.give=232}] run function f1sch:features/macros/give_item {item:"minecraft:chicken_spawn_egg"}
-execute if entity @s[scores={f1sch.give=233}] run function f1sch:features/macros/give_item {item:"minecraft:chipped_anvil"}
-execute if entity @s[scores={f1sch.give=234}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_bookshelf"}
-execute if entity @s[scores={f1sch.give=235}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_copper"}
-execute if entity @s[scores={f1sch.give=236}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_deepslate"}
-execute if entity @s[scores={f1sch.give=237}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_nether_bricks"}
-execute if entity @s[scores={f1sch.give=238}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_polished_blackstone"}
-execute if entity @s[scores={f1sch.give=239}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_quartz_block"}
-execute if entity @s[scores={f1sch.give=240}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_red_sandstone"}
-execute if entity @s[scores={f1sch.give=241}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_resin_bricks"}
-execute if entity @s[scores={f1sch.give=242}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_sandstone"}
-execute if entity @s[scores={f1sch.give=243}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_stone_bricks"}
-execute if entity @s[scores={f1sch.give=244}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_tuff"}
-execute if entity @s[scores={f1sch.give=245}] run function f1sch:features/macros/give_item {item:"minecraft:chiseled_tuff_bricks"}
-execute if entity @s[scores={f1sch.give=246}] run function f1sch:features/macros/give_item {item:"minecraft:chorus_flower"}
-execute if entity @s[scores={f1sch.give=247}] run function f1sch:features/macros/give_item {item:"minecraft:chorus_fruit"}
-execute if entity @s[scores={f1sch.give=248}] run function f1sch:features/macros/give_item {item:"minecraft:chorus_plant"}
-execute if entity @s[scores={f1sch.give=249}] run function f1sch:features/macros/give_item {item:"minecraft:clay"}
-execute if entity @s[scores={f1sch.give=250}] run function f1sch:features/macros/give_item {item:"minecraft:clay_ball"}
-execute if entity @s[scores={f1sch.give=251}] run function f1sch:features/macros/give_item {item:"minecraft:clock"}
-execute if entity @s[scores={f1sch.give=252}] run function f1sch:features/macros/give_item {item:"minecraft:closed_eyeblossom"}
-execute if entity @s[scores={f1sch.give=253}] run function f1sch:features/macros/give_item {item:"minecraft:coal"}
-execute if entity @s[scores={f1sch.give=254}] run function f1sch:features/macros/give_item {item:"minecraft:coal_block"}
-execute if entity @s[scores={f1sch.give=255}] run function f1sch:features/macros/give_item {item:"minecraft:coal_ore"}
-execute if entity @s[scores={f1sch.give=256}] run function f1sch:features/macros/give_item {item:"minecraft:coarse_dirt"}
-execute if entity @s[scores={f1sch.give=257}] run function f1sch:features/macros/give_item {item:"minecraft:coast_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=258}] run function f1sch:features/macros/give_item {item:"minecraft:cobbled_deepslate"}
-execute if entity @s[scores={f1sch.give=259}] run function f1sch:features/macros/give_item {item:"minecraft:cobbled_deepslate_slab"}
-execute if entity @s[scores={f1sch.give=260}] run function f1sch:features/macros/give_item {item:"minecraft:cobbled_deepslate_stairs"}
-execute if entity @s[scores={f1sch.give=261}] run function f1sch:features/macros/give_item {item:"minecraft:cobbled_deepslate_wall"}
-execute if entity @s[scores={f1sch.give=262}] run function f1sch:features/macros/give_item {item:"minecraft:cobblestone"}
-execute if entity @s[scores={f1sch.give=263}] run function f1sch:features/macros/give_item {item:"minecraft:cobblestone_slab"}
-execute if entity @s[scores={f1sch.give=264}] run function f1sch:features/macros/give_item {item:"minecraft:cobblestone_stairs"}
-execute if entity @s[scores={f1sch.give=265}] run function f1sch:features/macros/give_item {item:"minecraft:cobblestone_wall"}
-execute if entity @s[scores={f1sch.give=266}] run function f1sch:features/macros/give_item {item:"minecraft:cobweb"}
-execute if entity @s[scores={f1sch.give=267}] run function f1sch:features/macros/give_item {item:"minecraft:cocoa_beans"}
-execute if entity @s[scores={f1sch.give=268}] run function f1sch:features/macros/give_item {item:"minecraft:cod"}
-execute if entity @s[scores={f1sch.give=269}] run function f1sch:features/macros/give_item {item:"minecraft:cod_bucket"}
-execute if entity @s[scores={f1sch.give=270}] run function f1sch:features/macros/give_item {item:"minecraft:cod_spawn_egg"}
-execute if entity @s[scores={f1sch.give=271}] run function f1sch:features/macros/give_item {item:"minecraft:command_block"}
-execute if entity @s[scores={f1sch.give=272}] run function f1sch:features/macros/give_item {item:"minecraft:command_block_minecart"}
-execute if entity @s[scores={f1sch.give=273}] run function f1sch:features/macros/give_item {item:"minecraft:comparator"}
-execute if entity @s[scores={f1sch.give=274}] run function f1sch:features/macros/give_item {item:"minecraft:compass"}
-execute if entity @s[scores={f1sch.give=275}] run function f1sch:features/macros/give_item {item:"minecraft:composter"}
-execute if entity @s[scores={f1sch.give=276}] run function f1sch:features/macros/give_item {item:"minecraft:conduit"}
-execute if entity @s[scores={f1sch.give=277}] run function f1sch:features/macros/give_item {item:"minecraft:cooked_beef"}
-execute if entity @s[scores={f1sch.give=278}] run function f1sch:features/macros/give_item {item:"minecraft:cooked_chicken"}
-execute if entity @s[scores={f1sch.give=279}] run function f1sch:features/macros/give_item {item:"minecraft:cooked_cod"}
-execute if entity @s[scores={f1sch.give=280}] run function f1sch:features/macros/give_item {item:"minecraft:cooked_mutton"}
-execute if entity @s[scores={f1sch.give=281}] run function f1sch:features/macros/give_item {item:"minecraft:cooked_porkchop"}
-execute if entity @s[scores={f1sch.give=282}] run function f1sch:features/macros/give_item {item:"minecraft:cooked_rabbit"}
-execute if entity @s[scores={f1sch.give=283}] run function f1sch:features/macros/give_item {item:"minecraft:cooked_salmon"}
-execute if entity @s[scores={f1sch.give=284}] run function f1sch:features/macros/give_item {item:"minecraft:cookie"}
-execute if entity @s[scores={f1sch.give=285}] run function f1sch:features/macros/give_item {item:"minecraft:copper_axe"}
-execute if entity @s[scores={f1sch.give=286}] run function f1sch:features/macros/give_item {item:"minecraft:copper_block"}
-execute if entity @s[scores={f1sch.give=287}] run function f1sch:features/macros/give_item {item:"minecraft:copper_boots"}
-execute if entity @s[scores={f1sch.give=288}] run function f1sch:features/macros/give_item {item:"minecraft:copper_bulb"}
-execute if entity @s[scores={f1sch.give=289}] run function f1sch:features/macros/give_item {item:"minecraft:copper_chest"}
-execute if entity @s[scores={f1sch.give=290}] run function f1sch:features/macros/give_item {item:"minecraft:copper_chestplate"}
-execute if entity @s[scores={f1sch.give=291}] run function f1sch:features/macros/give_item {item:"minecraft:copper_door"}
-execute if entity @s[scores={f1sch.give=292}] run function f1sch:features/macros/give_item {item:"minecraft:copper_golem_spawn_egg"}
-execute if entity @s[scores={f1sch.give=293}] run function f1sch:features/macros/give_item {item:"minecraft:copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=294}] run function f1sch:features/macros/give_item {item:"minecraft:copper_grate"}
-execute if entity @s[scores={f1sch.give=295}] run function f1sch:features/macros/give_item {item:"minecraft:copper_helmet"}
-execute if entity @s[scores={f1sch.give=296}] run function f1sch:features/macros/give_item {item:"minecraft:copper_hoe"}
-execute if entity @s[scores={f1sch.give=297}] run function f1sch:features/macros/give_item {item:"minecraft:copper_horse_armor"}
-execute if entity @s[scores={f1sch.give=298}] run function f1sch:features/macros/give_item {item:"minecraft:copper_ingot"}
-execute if entity @s[scores={f1sch.give=299}] run function f1sch:features/macros/give_item {item:"minecraft:copper_leggings"}
-execute if entity @s[scores={f1sch.give=300}] run function f1sch:features/macros/give_item {item:"minecraft:copper_nautilus_armor"}
-execute if entity @s[scores={f1sch.give=301}] run function f1sch:features/macros/give_item {item:"minecraft:copper_nugget"}
-execute if entity @s[scores={f1sch.give=302}] run function f1sch:features/macros/give_item {item:"minecraft:copper_ore"}
-execute if entity @s[scores={f1sch.give=303}] run function f1sch:features/macros/give_item {item:"minecraft:copper_pickaxe"}
-execute if entity @s[scores={f1sch.give=304}] run function f1sch:features/macros/give_item {item:"minecraft:copper_shovel"}
-execute if entity @s[scores={f1sch.give=305}] run function f1sch:features/macros/give_item {item:"minecraft:copper_spear"}
-execute if entity @s[scores={f1sch.give=306}] run function f1sch:features/macros/give_item {item:"minecraft:copper_sword"}
-execute if entity @s[scores={f1sch.give=307}] run function f1sch:features/macros/give_item {item:"minecraft:copper_torch"}
-execute if entity @s[scores={f1sch.give=308}] run function f1sch:features/macros/give_item {item:"minecraft:copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=309}] run function f1sch:features/macros/give_item {item:"minecraft:cornflower"}
-execute if entity @s[scores={f1sch.give=310}] run function f1sch:features/macros/give_item {item:"minecraft:cow_spawn_egg"}
-execute if entity @s[scores={f1sch.give=311}] run function f1sch:features/macros/give_item {item:"minecraft:cracked_deepslate_bricks"}
-execute if entity @s[scores={f1sch.give=312}] run function f1sch:features/macros/give_item {item:"minecraft:cracked_deepslate_tiles"}
-execute if entity @s[scores={f1sch.give=313}] run function f1sch:features/macros/give_item {item:"minecraft:cracked_nether_bricks"}
-execute if entity @s[scores={f1sch.give=314}] run function f1sch:features/macros/give_item {item:"minecraft:cracked_polished_blackstone_bricks"}
-execute if entity @s[scores={f1sch.give=315}] run function f1sch:features/macros/give_item {item:"minecraft:cracked_stone_bricks"}
-execute if entity @s[scores={f1sch.give=316}] run function f1sch:features/macros/give_item {item:"minecraft:crafter"}
-execute if entity @s[scores={f1sch.give=317}] run function f1sch:features/macros/give_item {item:"minecraft:crafting_table"}
-execute if entity @s[scores={f1sch.give=318}] run function f1sch:features/macros/give_item {item:"minecraft:creaking_heart"}
-execute if entity @s[scores={f1sch.give=319}] run function f1sch:features/macros/give_item {item:"minecraft:creaking_spawn_egg"}
-execute if entity @s[scores={f1sch.give=320}] run function f1sch:features/macros/give_item {item:"minecraft:creeper_banner_pattern"}
-execute if entity @s[scores={f1sch.give=321}] run function f1sch:features/macros/give_item {item:"minecraft:creeper_head"}
-execute if entity @s[scores={f1sch.give=322}] run function f1sch:features/macros/give_item {item:"minecraft:creeper_spawn_egg"}
-execute if entity @s[scores={f1sch.give=323}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_button"}
-execute if entity @s[scores={f1sch.give=324}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_door"}
-execute if entity @s[scores={f1sch.give=325}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_fence"}
-execute if entity @s[scores={f1sch.give=326}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_fence_gate"}
-execute if entity @s[scores={f1sch.give=327}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_fungus"}
-execute if entity @s[scores={f1sch.give=328}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_hanging_sign"}
-execute if entity @s[scores={f1sch.give=329}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_hyphae"}
-execute if entity @s[scores={f1sch.give=330}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_nylium"}
-execute if entity @s[scores={f1sch.give=331}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_planks"}
-execute if entity @s[scores={f1sch.give=332}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_pressure_plate"}
-execute if entity @s[scores={f1sch.give=333}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_roots"}
-execute if entity @s[scores={f1sch.give=334}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_shelf"}
-execute if entity @s[scores={f1sch.give=335}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_sign"}
-execute if entity @s[scores={f1sch.give=336}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_slab"}
-execute if entity @s[scores={f1sch.give=337}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_stairs"}
-execute if entity @s[scores={f1sch.give=338}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_stem"}
-execute if entity @s[scores={f1sch.give=339}] run function f1sch:features/macros/give_item {item:"minecraft:crimson_trapdoor"}
-execute if entity @s[scores={f1sch.give=340}] run function f1sch:features/macros/give_item {item:"minecraft:crossbow"}
-execute if entity @s[scores={f1sch.give=341}] run function f1sch:features/macros/give_item {item:"minecraft:crying_obsidian"}
-execute if entity @s[scores={f1sch.give=342}] run function f1sch:features/macros/give_item {item:"minecraft:cut_copper"}
-execute if entity @s[scores={f1sch.give=343}] run function f1sch:features/macros/give_item {item:"minecraft:cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=344}] run function f1sch:features/macros/give_item {item:"minecraft:cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=345}] run function f1sch:features/macros/give_item {item:"minecraft:cut_red_sandstone"}
-execute if entity @s[scores={f1sch.give=346}] run function f1sch:features/macros/give_item {item:"minecraft:cut_red_sandstone_slab"}
-execute if entity @s[scores={f1sch.give=347}] run function f1sch:features/macros/give_item {item:"minecraft:cut_sandstone"}
-execute if entity @s[scores={f1sch.give=348}] run function f1sch:features/macros/give_item {item:"minecraft:cut_sandstone_slab"}
-execute if entity @s[scores={f1sch.give=349}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_banner"}
-execute if entity @s[scores={f1sch.give=350}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_bed"}
-execute if entity @s[scores={f1sch.give=351}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_bundle"}
-execute if entity @s[scores={f1sch.give=352}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_candle"}
-execute if entity @s[scores={f1sch.give=353}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_carpet"}
-execute if entity @s[scores={f1sch.give=354}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_concrete"}
-execute if entity @s[scores={f1sch.give=355}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_concrete_powder"}
-execute if entity @s[scores={f1sch.give=356}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_dye"}
-execute if entity @s[scores={f1sch.give=357}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=358}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_harness"}
-execute if entity @s[scores={f1sch.give=359}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_shulker_box"}
-execute if entity @s[scores={f1sch.give=360}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_stained_glass"}
-execute if entity @s[scores={f1sch.give=361}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=362}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_terracotta"}
-execute if entity @s[scores={f1sch.give=363}] run function f1sch:features/macros/give_item {item:"minecraft:cyan_wool"}
-execute if entity @s[scores={f1sch.give=364}] run function f1sch:features/macros/give_item {item:"minecraft:damaged_anvil"}
-execute if entity @s[scores={f1sch.give=365}] run function f1sch:features/macros/give_item {item:"minecraft:dandelion"}
-execute if entity @s[scores={f1sch.give=366}] run function f1sch:features/macros/give_item {item:"minecraft:danger_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=367}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_boat"}
-execute if entity @s[scores={f1sch.give=368}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_button"}
-execute if entity @s[scores={f1sch.give=369}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_chest_boat"}
-execute if entity @s[scores={f1sch.give=370}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_door"}
-execute if entity @s[scores={f1sch.give=371}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_fence"}
-execute if entity @s[scores={f1sch.give=372}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_fence_gate"}
-execute if entity @s[scores={f1sch.give=373}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_hanging_sign"}
-execute if entity @s[scores={f1sch.give=374}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_leaves"}
-execute if entity @s[scores={f1sch.give=375}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_log"}
-execute if entity @s[scores={f1sch.give=376}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_planks"}
-execute if entity @s[scores={f1sch.give=377}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_pressure_plate"}
-execute if entity @s[scores={f1sch.give=378}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_sapling"}
-execute if entity @s[scores={f1sch.give=379}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_shelf"}
-execute if entity @s[scores={f1sch.give=380}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_sign"}
-execute if entity @s[scores={f1sch.give=381}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_slab"}
-execute if entity @s[scores={f1sch.give=382}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_stairs"}
-execute if entity @s[scores={f1sch.give=383}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_trapdoor"}
-execute if entity @s[scores={f1sch.give=384}] run function f1sch:features/macros/give_item {item:"minecraft:dark_oak_wood"}
-execute if entity @s[scores={f1sch.give=385}] run function f1sch:features/macros/give_item {item:"minecraft:dark_prismarine"}
-execute if entity @s[scores={f1sch.give=386}] run function f1sch:features/macros/give_item {item:"minecraft:dark_prismarine_slab"}
-execute if entity @s[scores={f1sch.give=387}] run function f1sch:features/macros/give_item {item:"minecraft:dark_prismarine_stairs"}
-execute if entity @s[scores={f1sch.give=388}] run function f1sch:features/macros/give_item {item:"minecraft:daylight_detector"}
-execute if entity @s[scores={f1sch.give=389}] run function f1sch:features/macros/give_item {item:"minecraft:dead_brain_coral"}
-execute if entity @s[scores={f1sch.give=390}] run function f1sch:features/macros/give_item {item:"minecraft:dead_brain_coral_block"}
-execute if entity @s[scores={f1sch.give=391}] run function f1sch:features/macros/give_item {item:"minecraft:dead_brain_coral_fan"}
-execute if entity @s[scores={f1sch.give=392}] run function f1sch:features/macros/give_item {item:"minecraft:dead_bubble_coral"}
-execute if entity @s[scores={f1sch.give=393}] run function f1sch:features/macros/give_item {item:"minecraft:dead_bubble_coral_block"}
-execute if entity @s[scores={f1sch.give=394}] run function f1sch:features/macros/give_item {item:"minecraft:dead_bubble_coral_fan"}
-execute if entity @s[scores={f1sch.give=395}] run function f1sch:features/macros/give_item {item:"minecraft:dead_bush"}
-execute if entity @s[scores={f1sch.give=396}] run function f1sch:features/macros/give_item {item:"minecraft:dead_fire_coral"}
-execute if entity @s[scores={f1sch.give=397}] run function f1sch:features/macros/give_item {item:"minecraft:dead_fire_coral_block"}
-execute if entity @s[scores={f1sch.give=398}] run function f1sch:features/macros/give_item {item:"minecraft:dead_fire_coral_fan"}
-execute if entity @s[scores={f1sch.give=399}] run function f1sch:features/macros/give_item {item:"minecraft:dead_horn_coral"}
-execute if entity @s[scores={f1sch.give=400}] run function f1sch:features/macros/give_item {item:"minecraft:dead_horn_coral_block"}
-execute if entity @s[scores={f1sch.give=401}] run function f1sch:features/macros/give_item {item:"minecraft:dead_horn_coral_fan"}
-execute if entity @s[scores={f1sch.give=402}] run function f1sch:features/macros/give_item {item:"minecraft:dead_tube_coral"}
-execute if entity @s[scores={f1sch.give=403}] run function f1sch:features/macros/give_item {item:"minecraft:dead_tube_coral_block"}
-execute if entity @s[scores={f1sch.give=404}] run function f1sch:features/macros/give_item {item:"minecraft:dead_tube_coral_fan"}
-execute if entity @s[scores={f1sch.give=405}] run function f1sch:features/macros/give_item {item:"minecraft:debug_stick"}
-execute if entity @s[scores={f1sch.give=406}] run function f1sch:features/macros/give_item {item:"minecraft:decorated_pot"}
-execute if entity @s[scores={f1sch.give=407}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate"}
-execute if entity @s[scores={f1sch.give=408}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_brick_slab"}
-execute if entity @s[scores={f1sch.give=409}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_brick_stairs"}
-execute if entity @s[scores={f1sch.give=410}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_brick_wall"}
-execute if entity @s[scores={f1sch.give=411}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_bricks"}
-execute if entity @s[scores={f1sch.give=412}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_coal_ore"}
-execute if entity @s[scores={f1sch.give=413}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_copper_ore"}
-execute if entity @s[scores={f1sch.give=414}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_diamond_ore"}
-execute if entity @s[scores={f1sch.give=415}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_emerald_ore"}
-execute if entity @s[scores={f1sch.give=416}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_gold_ore"}
-execute if entity @s[scores={f1sch.give=417}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_iron_ore"}
-execute if entity @s[scores={f1sch.give=418}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_lapis_ore"}
-execute if entity @s[scores={f1sch.give=419}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_redstone_ore"}
-execute if entity @s[scores={f1sch.give=420}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_tile_slab"}
-execute if entity @s[scores={f1sch.give=421}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_tile_stairs"}
-execute if entity @s[scores={f1sch.give=422}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_tile_wall"}
-execute if entity @s[scores={f1sch.give=423}] run function f1sch:features/macros/give_item {item:"minecraft:deepslate_tiles"}
-execute if entity @s[scores={f1sch.give=424}] run function f1sch:features/macros/give_item {item:"minecraft:detector_rail"}
-execute if entity @s[scores={f1sch.give=425}] run function f1sch:features/macros/give_item {item:"minecraft:diamond"}
-execute if entity @s[scores={f1sch.give=426}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_axe"}
-execute if entity @s[scores={f1sch.give=427}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_block"}
-execute if entity @s[scores={f1sch.give=428}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_boots"}
-execute if entity @s[scores={f1sch.give=429}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_chestplate"}
-execute if entity @s[scores={f1sch.give=430}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_helmet"}
-execute if entity @s[scores={f1sch.give=431}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_hoe"}
-execute if entity @s[scores={f1sch.give=432}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_horse_armor"}
-execute if entity @s[scores={f1sch.give=433}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_leggings"}
-execute if entity @s[scores={f1sch.give=434}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_nautilus_armor"}
-execute if entity @s[scores={f1sch.give=435}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_ore"}
-execute if entity @s[scores={f1sch.give=436}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_pickaxe"}
-execute if entity @s[scores={f1sch.give=437}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_shovel"}
-execute if entity @s[scores={f1sch.give=438}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_spear"}
-execute if entity @s[scores={f1sch.give=439}] run function f1sch:features/macros/give_item {item:"minecraft:diamond_sword"}
-execute if entity @s[scores={f1sch.give=440}] run function f1sch:features/macros/give_item {item:"minecraft:diorite"}
-execute if entity @s[scores={f1sch.give=441}] run function f1sch:features/macros/give_item {item:"minecraft:diorite_slab"}
-execute if entity @s[scores={f1sch.give=442}] run function f1sch:features/macros/give_item {item:"minecraft:diorite_stairs"}
-execute if entity @s[scores={f1sch.give=443}] run function f1sch:features/macros/give_item {item:"minecraft:diorite_wall"}
-execute if entity @s[scores={f1sch.give=444}] run function f1sch:features/macros/give_item {item:"minecraft:dirt"}
-execute if entity @s[scores={f1sch.give=445}] run function f1sch:features/macros/give_item {item:"minecraft:dirt_path"}
-execute if entity @s[scores={f1sch.give=446}] run function f1sch:features/macros/give_item {item:"minecraft:disc_fragment_5"}
-execute if entity @s[scores={f1sch.give=447}] run function f1sch:features/macros/give_item {item:"minecraft:dispenser"}
-execute if entity @s[scores={f1sch.give=448}] run function f1sch:features/macros/give_item {item:"minecraft:dolphin_spawn_egg"}
-execute if entity @s[scores={f1sch.give=449}] run function f1sch:features/macros/give_item {item:"minecraft:donkey_spawn_egg"}
-execute if entity @s[scores={f1sch.give=450}] run function f1sch:features/macros/give_item {item:"minecraft:dragon_breath"}
-execute if entity @s[scores={f1sch.give=451}] run function f1sch:features/macros/give_item {item:"minecraft:dragon_egg"}
-execute if entity @s[scores={f1sch.give=452}] run function f1sch:features/macros/give_item {item:"minecraft:dragon_head"}
-execute if entity @s[scores={f1sch.give=453}] run function f1sch:features/macros/give_item {item:"minecraft:dried_ghast"}
-execute if entity @s[scores={f1sch.give=454}] run function f1sch:features/macros/give_item {item:"minecraft:dried_kelp"}
-execute if entity @s[scores={f1sch.give=455}] run function f1sch:features/macros/give_item {item:"minecraft:dried_kelp_block"}
-execute if entity @s[scores={f1sch.give=456}] run function f1sch:features/macros/give_item {item:"minecraft:dripstone_block"}
-execute if entity @s[scores={f1sch.give=457}] run function f1sch:features/macros/give_item {item:"minecraft:dropper"}
-execute if entity @s[scores={f1sch.give=458}] run function f1sch:features/macros/give_item {item:"minecraft:drowned_spawn_egg"}
-execute if entity @s[scores={f1sch.give=459}] run function f1sch:features/macros/give_item {item:"minecraft:dune_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=460}] run function f1sch:features/macros/give_item {item:"minecraft:echo_shard"}
-execute if entity @s[scores={f1sch.give=461}] run function f1sch:features/macros/give_item {item:"minecraft:egg"}
-execute if entity @s[scores={f1sch.give=462}] run function f1sch:features/macros/give_item {item:"minecraft:elder_guardian_spawn_egg"}
-execute if entity @s[scores={f1sch.give=463}] run function f1sch:features/macros/give_item {item:"minecraft:elytra"}
-execute if entity @s[scores={f1sch.give=464}] run function f1sch:features/macros/give_item {item:"minecraft:emerald"}
-execute if entity @s[scores={f1sch.give=465}] run function f1sch:features/macros/give_item {item:"minecraft:emerald_block"}
-execute if entity @s[scores={f1sch.give=466}] run function f1sch:features/macros/give_item {item:"minecraft:emerald_ore"}
-execute if entity @s[scores={f1sch.give=467}] run function f1sch:features/macros/give_item {item:"minecraft:enchanted_book"}
-execute if entity @s[scores={f1sch.give=468}] run function f1sch:features/macros/give_item {item:"minecraft:enchanted_golden_apple"}
-execute if entity @s[scores={f1sch.give=469}] run function f1sch:features/macros/give_item {item:"minecraft:enchanting_table"}
-execute if entity @s[scores={f1sch.give=470}] run function f1sch:features/macros/give_item {item:"minecraft:end_crystal"}
-execute if entity @s[scores={f1sch.give=471}] run function f1sch:features/macros/give_item {item:"minecraft:end_portal_frame"}
-execute if entity @s[scores={f1sch.give=472}] run function f1sch:features/macros/give_item {item:"minecraft:end_rod"}
-execute if entity @s[scores={f1sch.give=473}] run function f1sch:features/macros/give_item {item:"minecraft:end_stone"}
-execute if entity @s[scores={f1sch.give=474}] run function f1sch:features/macros/give_item {item:"minecraft:end_stone_brick_slab"}
-execute if entity @s[scores={f1sch.give=475}] run function f1sch:features/macros/give_item {item:"minecraft:end_stone_brick_stairs"}
-execute if entity @s[scores={f1sch.give=476}] run function f1sch:features/macros/give_item {item:"minecraft:end_stone_brick_wall"}
-execute if entity @s[scores={f1sch.give=477}] run function f1sch:features/macros/give_item {item:"minecraft:end_stone_bricks"}
-execute if entity @s[scores={f1sch.give=478}] run function f1sch:features/macros/give_item {item:"minecraft:ender_chest"}
-execute if entity @s[scores={f1sch.give=479}] run function f1sch:features/macros/give_item {item:"minecraft:ender_dragon_spawn_egg"}
-execute if entity @s[scores={f1sch.give=480}] run function f1sch:features/macros/give_item {item:"minecraft:ender_eye"}
-execute if entity @s[scores={f1sch.give=481}] run function f1sch:features/macros/give_item {item:"minecraft:ender_pearl"}
-execute if entity @s[scores={f1sch.give=482}] run function f1sch:features/macros/give_item {item:"minecraft:enderman_spawn_egg"}
-execute if entity @s[scores={f1sch.give=483}] run function f1sch:features/macros/give_item {item:"minecraft:endermite_spawn_egg"}
-execute if entity @s[scores={f1sch.give=484}] run function f1sch:features/macros/give_item {item:"minecraft:evoker_spawn_egg"}
-execute if entity @s[scores={f1sch.give=485}] run function f1sch:features/macros/give_item {item:"minecraft:experience_bottle"}
-execute if entity @s[scores={f1sch.give=486}] run function f1sch:features/macros/give_item {item:"minecraft:explorer_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=487}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_chiseled_copper"}
-execute if entity @s[scores={f1sch.give=488}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_copper"}
-execute if entity @s[scores={f1sch.give=489}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_copper_bulb"}
-execute if entity @s[scores={f1sch.give=490}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_copper_chest"}
-execute if entity @s[scores={f1sch.give=491}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_copper_door"}
-execute if entity @s[scores={f1sch.give=492}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=493}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_copper_grate"}
-execute if entity @s[scores={f1sch.give=494}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=495}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_cut_copper"}
-execute if entity @s[scores={f1sch.give=496}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=497}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=498}] run function f1sch:features/macros/give_item {item:"minecraft:exposed_lightning_rod"}
-execute if entity @s[scores={f1sch.give=499}] run function f1sch:features/macros/give_item {item:"minecraft:eye_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=500}] run function f1sch:features/macros/give_item {item:"minecraft:farmland"}
-execute if entity @s[scores={f1sch.give=501}] run function f1sch:features/macros/give_item {item:"minecraft:feather"}
-execute if entity @s[scores={f1sch.give=502}] run function f1sch:features/macros/give_item {item:"minecraft:fermented_spider_eye"}
-execute if entity @s[scores={f1sch.give=503}] run function f1sch:features/macros/give_item {item:"minecraft:fern"}
-execute if entity @s[scores={f1sch.give=504}] run function f1sch:features/macros/give_item {item:"minecraft:field_masoned_banner_pattern"}
-execute if entity @s[scores={f1sch.give=505}] run function f1sch:features/macros/give_item {item:"minecraft:filled_map"}
-execute if entity @s[scores={f1sch.give=506}] run function f1sch:features/macros/give_item {item:"minecraft:fire_charge"}
-execute if entity @s[scores={f1sch.give=507}] run function f1sch:features/macros/give_item {item:"minecraft:fire_coral"}
-execute if entity @s[scores={f1sch.give=508}] run function f1sch:features/macros/give_item {item:"minecraft:fire_coral_block"}
-execute if entity @s[scores={f1sch.give=509}] run function f1sch:features/macros/give_item {item:"minecraft:fire_coral_fan"}
-execute if entity @s[scores={f1sch.give=510}] run function f1sch:features/macros/give_item {item:"minecraft:firefly_bush"}
-execute if entity @s[scores={f1sch.give=511}] run function f1sch:features/macros/give_item {item:"minecraft:firework_rocket"}
-execute if entity @s[scores={f1sch.give=512}] run function f1sch:features/macros/give_item {item:"minecraft:firework_star"}
-execute if entity @s[scores={f1sch.give=513}] run function f1sch:features/macros/give_item {item:"minecraft:fishing_rod"}
-execute if entity @s[scores={f1sch.give=514}] run function f1sch:features/macros/give_item {item:"minecraft:fletching_table"}
-execute if entity @s[scores={f1sch.give=515}] run function f1sch:features/macros/give_item {item:"minecraft:flint"}
-execute if entity @s[scores={f1sch.give=516}] run function f1sch:features/macros/give_item {item:"minecraft:flint_and_steel"}
-execute if entity @s[scores={f1sch.give=517}] run function f1sch:features/macros/give_item {item:"minecraft:flow_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=518}] run function f1sch:features/macros/give_item {item:"minecraft:flow_banner_pattern"}
-execute if entity @s[scores={f1sch.give=519}] run function f1sch:features/macros/give_item {item:"minecraft:flow_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=520}] run function f1sch:features/macros/give_item {item:"minecraft:flower_banner_pattern"}
-execute if entity @s[scores={f1sch.give=521}] run function f1sch:features/macros/give_item {item:"minecraft:flower_pot"}
-execute if entity @s[scores={f1sch.give=522}] run function f1sch:features/macros/give_item {item:"minecraft:flowering_azalea"}
-execute if entity @s[scores={f1sch.give=523}] run function f1sch:features/macros/give_item {item:"minecraft:flowering_azalea_leaves"}
-execute if entity @s[scores={f1sch.give=524}] run function f1sch:features/macros/give_item {item:"minecraft:fox_spawn_egg"}
-execute if entity @s[scores={f1sch.give=525}] run function f1sch:features/macros/give_item {item:"minecraft:friend_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=526}] run function f1sch:features/macros/give_item {item:"minecraft:frog_spawn_egg"}
-execute if entity @s[scores={f1sch.give=527}] run function f1sch:features/macros/give_item {item:"minecraft:frogspawn"}
-execute if entity @s[scores={f1sch.give=528}] run function f1sch:features/macros/give_item {item:"minecraft:furnace"}
-execute if entity @s[scores={f1sch.give=529}] run function f1sch:features/macros/give_item {item:"minecraft:furnace_minecart"}
-execute if entity @s[scores={f1sch.give=530}] run function f1sch:features/macros/give_item {item:"minecraft:ghast_spawn_egg"}
-execute if entity @s[scores={f1sch.give=531}] run function f1sch:features/macros/give_item {item:"minecraft:ghast_tear"}
-execute if entity @s[scores={f1sch.give=532}] run function f1sch:features/macros/give_item {item:"minecraft:gilded_blackstone"}
-execute if entity @s[scores={f1sch.give=533}] run function f1sch:features/macros/give_item {item:"minecraft:glass"}
-execute if entity @s[scores={f1sch.give=534}] run function f1sch:features/macros/give_item {item:"minecraft:glass_bottle"}
-execute if entity @s[scores={f1sch.give=535}] run function f1sch:features/macros/give_item {item:"minecraft:glass_pane"}
-execute if entity @s[scores={f1sch.give=536}] run function f1sch:features/macros/give_item {item:"minecraft:glistering_melon_slice"}
-execute if entity @s[scores={f1sch.give=537}] run function f1sch:features/macros/give_item {item:"minecraft:globe_banner_pattern"}
-execute if entity @s[scores={f1sch.give=538}] run function f1sch:features/macros/give_item {item:"minecraft:glow_berries"}
-execute if entity @s[scores={f1sch.give=539}] run function f1sch:features/macros/give_item {item:"minecraft:glow_ink_sac"}
-execute if entity @s[scores={f1sch.give=540}] run function f1sch:features/macros/give_item {item:"minecraft:glow_item_frame"}
-execute if entity @s[scores={f1sch.give=541}] run function f1sch:features/macros/give_item {item:"minecraft:glow_lichen"}
-execute if entity @s[scores={f1sch.give=542}] run function f1sch:features/macros/give_item {item:"minecraft:glow_squid_spawn_egg"}
-execute if entity @s[scores={f1sch.give=543}] run function f1sch:features/macros/give_item {item:"minecraft:glowstone"}
-execute if entity @s[scores={f1sch.give=544}] run function f1sch:features/macros/give_item {item:"minecraft:glowstone_dust"}
-execute if entity @s[scores={f1sch.give=545}] run function f1sch:features/macros/give_item {item:"minecraft:goat_horn"}
-execute if entity @s[scores={f1sch.give=546}] run function f1sch:features/macros/give_item {item:"minecraft:goat_spawn_egg"}
-execute if entity @s[scores={f1sch.give=547}] run function f1sch:features/macros/give_item {item:"minecraft:gold_block"}
-execute if entity @s[scores={f1sch.give=548}] run function f1sch:features/macros/give_item {item:"minecraft:gold_ingot"}
-execute if entity @s[scores={f1sch.give=549}] run function f1sch:features/macros/give_item {item:"minecraft:gold_nugget"}
-execute if entity @s[scores={f1sch.give=550}] run function f1sch:features/macros/give_item {item:"minecraft:gold_ore"}
-execute if entity @s[scores={f1sch.give=551}] run function f1sch:features/macros/give_item {item:"minecraft:golden_apple"}
-execute if entity @s[scores={f1sch.give=552}] run function f1sch:features/macros/give_item {item:"minecraft:golden_axe"}
-execute if entity @s[scores={f1sch.give=553}] run function f1sch:features/macros/give_item {item:"minecraft:golden_boots"}
-execute if entity @s[scores={f1sch.give=554}] run function f1sch:features/macros/give_item {item:"minecraft:golden_carrot"}
-execute if entity @s[scores={f1sch.give=555}] run function f1sch:features/macros/give_item {item:"minecraft:golden_chestplate"}
-execute if entity @s[scores={f1sch.give=556}] run function f1sch:features/macros/give_item {item:"minecraft:golden_helmet"}
-execute if entity @s[scores={f1sch.give=557}] run function f1sch:features/macros/give_item {item:"minecraft:golden_hoe"}
-execute if entity @s[scores={f1sch.give=558}] run function f1sch:features/macros/give_item {item:"minecraft:golden_horse_armor"}
-execute if entity @s[scores={f1sch.give=559}] run function f1sch:features/macros/give_item {item:"minecraft:golden_leggings"}
-execute if entity @s[scores={f1sch.give=560}] run function f1sch:features/macros/give_item {item:"minecraft:golden_nautilus_armor"}
-execute if entity @s[scores={f1sch.give=561}] run function f1sch:features/macros/give_item {item:"minecraft:golden_pickaxe"}
-execute if entity @s[scores={f1sch.give=562}] run function f1sch:features/macros/give_item {item:"minecraft:golden_shovel"}
-execute if entity @s[scores={f1sch.give=563}] run function f1sch:features/macros/give_item {item:"minecraft:golden_spear"}
-execute if entity @s[scores={f1sch.give=564}] run function f1sch:features/macros/give_item {item:"minecraft:golden_sword"}
-execute if entity @s[scores={f1sch.give=565}] run function f1sch:features/macros/give_item {item:"minecraft:granite"}
-execute if entity @s[scores={f1sch.give=566}] run function f1sch:features/macros/give_item {item:"minecraft:granite_slab"}
-execute if entity @s[scores={f1sch.give=567}] run function f1sch:features/macros/give_item {item:"minecraft:granite_stairs"}
-execute if entity @s[scores={f1sch.give=568}] run function f1sch:features/macros/give_item {item:"minecraft:granite_wall"}
-execute if entity @s[scores={f1sch.give=569}] run function f1sch:features/macros/give_item {item:"minecraft:grass_block"}
-execute if entity @s[scores={f1sch.give=570}] run function f1sch:features/macros/give_item {item:"minecraft:gravel"}
-execute if entity @s[scores={f1sch.give=571}] run function f1sch:features/macros/give_item {item:"minecraft:gray_banner"}
-execute if entity @s[scores={f1sch.give=572}] run function f1sch:features/macros/give_item {item:"minecraft:gray_bed"}
-execute if entity @s[scores={f1sch.give=573}] run function f1sch:features/macros/give_item {item:"minecraft:gray_bundle"}
-execute if entity @s[scores={f1sch.give=574}] run function f1sch:features/macros/give_item {item:"minecraft:gray_candle"}
-execute if entity @s[scores={f1sch.give=575}] run function f1sch:features/macros/give_item {item:"minecraft:gray_carpet"}
-execute if entity @s[scores={f1sch.give=576}] run function f1sch:features/macros/give_item {item:"minecraft:gray_concrete"}
-execute if entity @s[scores={f1sch.give=577}] run function f1sch:features/macros/give_item {item:"minecraft:gray_concrete_powder"}
-execute if entity @s[scores={f1sch.give=578}] run function f1sch:features/macros/give_item {item:"minecraft:gray_dye"}
-execute if entity @s[scores={f1sch.give=579}] run function f1sch:features/macros/give_item {item:"minecraft:gray_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=580}] run function f1sch:features/macros/give_item {item:"minecraft:gray_harness"}
-execute if entity @s[scores={f1sch.give=581}] run function f1sch:features/macros/give_item {item:"minecraft:gray_shulker_box"}
-execute if entity @s[scores={f1sch.give=582}] run function f1sch:features/macros/give_item {item:"minecraft:gray_stained_glass"}
-execute if entity @s[scores={f1sch.give=583}] run function f1sch:features/macros/give_item {item:"minecraft:gray_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=584}] run function f1sch:features/macros/give_item {item:"minecraft:gray_terracotta"}
-execute if entity @s[scores={f1sch.give=585}] run function f1sch:features/macros/give_item {item:"minecraft:gray_wool"}
-execute if entity @s[scores={f1sch.give=586}] run function f1sch:features/macros/give_item {item:"minecraft:green_banner"}
-execute if entity @s[scores={f1sch.give=587}] run function f1sch:features/macros/give_item {item:"minecraft:green_bed"}
-execute if entity @s[scores={f1sch.give=588}] run function f1sch:features/macros/give_item {item:"minecraft:green_bundle"}
-execute if entity @s[scores={f1sch.give=589}] run function f1sch:features/macros/give_item {item:"minecraft:green_candle"}
-execute if entity @s[scores={f1sch.give=590}] run function f1sch:features/macros/give_item {item:"minecraft:green_carpet"}
-execute if entity @s[scores={f1sch.give=591}] run function f1sch:features/macros/give_item {item:"minecraft:green_concrete"}
-execute if entity @s[scores={f1sch.give=592}] run function f1sch:features/macros/give_item {item:"minecraft:green_concrete_powder"}
-execute if entity @s[scores={f1sch.give=593}] run function f1sch:features/macros/give_item {item:"minecraft:green_dye"}
-execute if entity @s[scores={f1sch.give=594}] run function f1sch:features/macros/give_item {item:"minecraft:green_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=595}] run function f1sch:features/macros/give_item {item:"minecraft:green_harness"}
-execute if entity @s[scores={f1sch.give=596}] run function f1sch:features/macros/give_item {item:"minecraft:green_shulker_box"}
-execute if entity @s[scores={f1sch.give=597}] run function f1sch:features/macros/give_item {item:"minecraft:green_stained_glass"}
-execute if entity @s[scores={f1sch.give=598}] run function f1sch:features/macros/give_item {item:"minecraft:green_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=599}] run function f1sch:features/macros/give_item {item:"minecraft:green_terracotta"}
-execute if entity @s[scores={f1sch.give=600}] run function f1sch:features/macros/give_item {item:"minecraft:green_wool"}
-execute if entity @s[scores={f1sch.give=601}] run function f1sch:features/macros/give_item {item:"minecraft:grindstone"}
-execute if entity @s[scores={f1sch.give=602}] run function f1sch:features/macros/give_item {item:"minecraft:guardian_spawn_egg"}
-execute if entity @s[scores={f1sch.give=603}] run function f1sch:features/macros/give_item {item:"minecraft:gunpowder"}
-execute if entity @s[scores={f1sch.give=604}] run function f1sch:features/macros/give_item {item:"minecraft:guster_banner_pattern"}
-execute if entity @s[scores={f1sch.give=605}] run function f1sch:features/macros/give_item {item:"minecraft:guster_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=606}] run function f1sch:features/macros/give_item {item:"minecraft:hanging_roots"}
-execute if entity @s[scores={f1sch.give=607}] run function f1sch:features/macros/give_item {item:"minecraft:happy_ghast_spawn_egg"}
-execute if entity @s[scores={f1sch.give=608}] run function f1sch:features/macros/give_item {item:"minecraft:hay_block"}
-execute if entity @s[scores={f1sch.give=609}] run function f1sch:features/macros/give_item {item:"minecraft:heart_of_the_sea"}
-execute if entity @s[scores={f1sch.give=610}] run function f1sch:features/macros/give_item {item:"minecraft:heart_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=611}] run function f1sch:features/macros/give_item {item:"minecraft:heartbreak_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=612}] run function f1sch:features/macros/give_item {item:"minecraft:heavy_core"}
-execute if entity @s[scores={f1sch.give=613}] run function f1sch:features/macros/give_item {item:"minecraft:heavy_weighted_pressure_plate"}
-execute if entity @s[scores={f1sch.give=614}] run function f1sch:features/macros/give_item {item:"minecraft:hoglin_spawn_egg"}
-execute if entity @s[scores={f1sch.give=615}] run function f1sch:features/macros/give_item {item:"minecraft:honey_block"}
-execute if entity @s[scores={f1sch.give=616}] run function f1sch:features/macros/give_item {item:"minecraft:honey_bottle"}
-execute if entity @s[scores={f1sch.give=617}] run function f1sch:features/macros/give_item {item:"minecraft:honeycomb"}
-execute if entity @s[scores={f1sch.give=618}] run function f1sch:features/macros/give_item {item:"minecraft:honeycomb_block"}
-execute if entity @s[scores={f1sch.give=619}] run function f1sch:features/macros/give_item {item:"minecraft:hopper"}
-execute if entity @s[scores={f1sch.give=620}] run function f1sch:features/macros/give_item {item:"minecraft:hopper_minecart"}
-execute if entity @s[scores={f1sch.give=621}] run function f1sch:features/macros/give_item {item:"minecraft:horn_coral"}
-execute if entity @s[scores={f1sch.give=622}] run function f1sch:features/macros/give_item {item:"minecraft:horn_coral_block"}
-execute if entity @s[scores={f1sch.give=623}] run function f1sch:features/macros/give_item {item:"minecraft:horn_coral_fan"}
-execute if entity @s[scores={f1sch.give=624}] run function f1sch:features/macros/give_item {item:"minecraft:horse_spawn_egg"}
-execute if entity @s[scores={f1sch.give=625}] run function f1sch:features/macros/give_item {item:"minecraft:host_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=626}] run function f1sch:features/macros/give_item {item:"minecraft:howl_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=627}] run function f1sch:features/macros/give_item {item:"minecraft:husk_spawn_egg"}
-execute if entity @s[scores={f1sch.give=628}] run function f1sch:features/macros/give_item {item:"minecraft:ice"}
-execute if entity @s[scores={f1sch.give=629}] run function f1sch:features/macros/give_item {item:"minecraft:infested_chiseled_stone_bricks"}
-execute if entity @s[scores={f1sch.give=630}] run function f1sch:features/macros/give_item {item:"minecraft:infested_cobblestone"}
-execute if entity @s[scores={f1sch.give=631}] run function f1sch:features/macros/give_item {item:"minecraft:infested_cracked_stone_bricks"}
-execute if entity @s[scores={f1sch.give=632}] run function f1sch:features/macros/give_item {item:"minecraft:infested_deepslate"}
-execute if entity @s[scores={f1sch.give=633}] run function f1sch:features/macros/give_item {item:"minecraft:infested_mossy_stone_bricks"}
-execute if entity @s[scores={f1sch.give=634}] run function f1sch:features/macros/give_item {item:"minecraft:infested_stone"}
-execute if entity @s[scores={f1sch.give=635}] run function f1sch:features/macros/give_item {item:"minecraft:infested_stone_bricks"}
-execute if entity @s[scores={f1sch.give=636}] run function f1sch:features/macros/give_item {item:"minecraft:ink_sac"}
-execute if entity @s[scores={f1sch.give=637}] run function f1sch:features/macros/give_item {item:"minecraft:iron_axe"}
-execute if entity @s[scores={f1sch.give=638}] run function f1sch:features/macros/give_item {item:"minecraft:iron_bars"}
-execute if entity @s[scores={f1sch.give=639}] run function f1sch:features/macros/give_item {item:"minecraft:iron_block"}
-execute if entity @s[scores={f1sch.give=640}] run function f1sch:features/macros/give_item {item:"minecraft:iron_boots"}
-execute if entity @s[scores={f1sch.give=641}] run function f1sch:features/macros/give_item {item:"minecraft:iron_chain"}
-execute if entity @s[scores={f1sch.give=642}] run function f1sch:features/macros/give_item {item:"minecraft:iron_chestplate"}
-execute if entity @s[scores={f1sch.give=643}] run function f1sch:features/macros/give_item {item:"minecraft:iron_door"}
-execute if entity @s[scores={f1sch.give=644}] run function f1sch:features/macros/give_item {item:"minecraft:iron_golem_spawn_egg"}
-execute if entity @s[scores={f1sch.give=645}] run function f1sch:features/macros/give_item {item:"minecraft:iron_helmet"}
-execute if entity @s[scores={f1sch.give=646}] run function f1sch:features/macros/give_item {item:"minecraft:iron_hoe"}
-execute if entity @s[scores={f1sch.give=647}] run function f1sch:features/macros/give_item {item:"minecraft:iron_horse_armor"}
-execute if entity @s[scores={f1sch.give=648}] run function f1sch:features/macros/give_item {item:"minecraft:iron_ingot"}
-execute if entity @s[scores={f1sch.give=649}] run function f1sch:features/macros/give_item {item:"minecraft:iron_leggings"}
-execute if entity @s[scores={f1sch.give=650}] run function f1sch:features/macros/give_item {item:"minecraft:iron_nautilus_armor"}
-execute if entity @s[scores={f1sch.give=651}] run function f1sch:features/macros/give_item {item:"minecraft:iron_nugget"}
-execute if entity @s[scores={f1sch.give=652}] run function f1sch:features/macros/give_item {item:"minecraft:iron_ore"}
-execute if entity @s[scores={f1sch.give=653}] run function f1sch:features/macros/give_item {item:"minecraft:iron_pickaxe"}
-execute if entity @s[scores={f1sch.give=654}] run function f1sch:features/macros/give_item {item:"minecraft:iron_shovel"}
-execute if entity @s[scores={f1sch.give=655}] run function f1sch:features/macros/give_item {item:"minecraft:iron_spear"}
-execute if entity @s[scores={f1sch.give=656}] run function f1sch:features/macros/give_item {item:"minecraft:iron_sword"}
-execute if entity @s[scores={f1sch.give=657}] run function f1sch:features/macros/give_item {item:"minecraft:iron_trapdoor"}
-execute if entity @s[scores={f1sch.give=658}] run function f1sch:features/macros/give_item {item:"minecraft:item_frame"}
-execute if entity @s[scores={f1sch.give=659}] run function f1sch:features/macros/give_item {item:"minecraft:jack_o_lantern"}
-execute if entity @s[scores={f1sch.give=660}] run function f1sch:features/macros/give_item {item:"minecraft:jigsaw"}
-execute if entity @s[scores={f1sch.give=661}] run function f1sch:features/macros/give_item {item:"minecraft:jukebox"}
-execute if entity @s[scores={f1sch.give=662}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_boat"}
-execute if entity @s[scores={f1sch.give=663}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_button"}
-execute if entity @s[scores={f1sch.give=664}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_chest_boat"}
-execute if entity @s[scores={f1sch.give=665}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_door"}
-execute if entity @s[scores={f1sch.give=666}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_fence"}
-execute if entity @s[scores={f1sch.give=667}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_fence_gate"}
-execute if entity @s[scores={f1sch.give=668}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_hanging_sign"}
-execute if entity @s[scores={f1sch.give=669}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_leaves"}
-execute if entity @s[scores={f1sch.give=670}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_log"}
-execute if entity @s[scores={f1sch.give=671}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_planks"}
-execute if entity @s[scores={f1sch.give=672}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_pressure_plate"}
-execute if entity @s[scores={f1sch.give=673}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_sapling"}
-execute if entity @s[scores={f1sch.give=674}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_shelf"}
-execute if entity @s[scores={f1sch.give=675}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_sign"}
-execute if entity @s[scores={f1sch.give=676}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_slab"}
-execute if entity @s[scores={f1sch.give=677}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_stairs"}
-execute if entity @s[scores={f1sch.give=678}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_trapdoor"}
-execute if entity @s[scores={f1sch.give=679}] run function f1sch:features/macros/give_item {item:"minecraft:jungle_wood"}
-execute if entity @s[scores={f1sch.give=680}] run function f1sch:features/macros/give_item {item:"minecraft:kelp"}
-execute if entity @s[scores={f1sch.give=681}] run function f1sch:features/macros/give_item {item:"minecraft:knowledge_book"}
-execute if entity @s[scores={f1sch.give=682}] run function f1sch:features/macros/give_item {item:"minecraft:ladder"}
-execute if entity @s[scores={f1sch.give=683}] run function f1sch:features/macros/give_item {item:"minecraft:lantern"}
-execute if entity @s[scores={f1sch.give=684}] run function f1sch:features/macros/give_item {item:"minecraft:lapis_block"}
-execute if entity @s[scores={f1sch.give=685}] run function f1sch:features/macros/give_item {item:"minecraft:lapis_lazuli"}
-execute if entity @s[scores={f1sch.give=686}] run function f1sch:features/macros/give_item {item:"minecraft:lapis_ore"}
-execute if entity @s[scores={f1sch.give=687}] run function f1sch:features/macros/give_item {item:"minecraft:large_amethyst_bud"}
-execute if entity @s[scores={f1sch.give=688}] run function f1sch:features/macros/give_item {item:"minecraft:large_fern"}
-execute if entity @s[scores={f1sch.give=689}] run function f1sch:features/macros/give_item {item:"minecraft:lava_bucket"}
-execute if entity @s[scores={f1sch.give=690}] run function f1sch:features/macros/give_item {item:"minecraft:lead"}
-execute if entity @s[scores={f1sch.give=691}] run function f1sch:features/macros/give_item {item:"minecraft:leaf_litter"}
-execute if entity @s[scores={f1sch.give=692}] run function f1sch:features/macros/give_item {item:"minecraft:leather"}
-execute if entity @s[scores={f1sch.give=693}] run function f1sch:features/macros/give_item {item:"minecraft:leather_boots"}
-execute if entity @s[scores={f1sch.give=694}] run function f1sch:features/macros/give_item {item:"minecraft:leather_chestplate"}
-execute if entity @s[scores={f1sch.give=695}] run function f1sch:features/macros/give_item {item:"minecraft:leather_helmet"}
-execute if entity @s[scores={f1sch.give=696}] run function f1sch:features/macros/give_item {item:"minecraft:leather_horse_armor"}
-execute if entity @s[scores={f1sch.give=697}] run function f1sch:features/macros/give_item {item:"minecraft:leather_leggings"}
-execute if entity @s[scores={f1sch.give=698}] run function f1sch:features/macros/give_item {item:"minecraft:lectern"}
-execute if entity @s[scores={f1sch.give=699}] run function f1sch:features/macros/give_item {item:"minecraft:lever"}
-execute if entity @s[scores={f1sch.give=700}] run function f1sch:features/macros/give_item {item:"minecraft:light"}
-execute if entity @s[scores={f1sch.give=701}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_banner"}
-execute if entity @s[scores={f1sch.give=702}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_bed"}
-execute if entity @s[scores={f1sch.give=703}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_bundle"}
-execute if entity @s[scores={f1sch.give=704}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_candle"}
-execute if entity @s[scores={f1sch.give=705}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_carpet"}
-execute if entity @s[scores={f1sch.give=706}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_concrete"}
-execute if entity @s[scores={f1sch.give=707}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_concrete_powder"}
-execute if entity @s[scores={f1sch.give=708}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_dye"}
-execute if entity @s[scores={f1sch.give=709}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=710}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_harness"}
-execute if entity @s[scores={f1sch.give=711}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_shulker_box"}
-execute if entity @s[scores={f1sch.give=712}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_stained_glass"}
-execute if entity @s[scores={f1sch.give=713}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=714}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_terracotta"}
-execute if entity @s[scores={f1sch.give=715}] run function f1sch:features/macros/give_item {item:"minecraft:light_blue_wool"}
-execute if entity @s[scores={f1sch.give=716}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_banner"}
-execute if entity @s[scores={f1sch.give=717}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_bed"}
-execute if entity @s[scores={f1sch.give=718}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_bundle"}
-execute if entity @s[scores={f1sch.give=719}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_candle"}
-execute if entity @s[scores={f1sch.give=720}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_carpet"}
-execute if entity @s[scores={f1sch.give=721}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_concrete"}
-execute if entity @s[scores={f1sch.give=722}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_concrete_powder"}
-execute if entity @s[scores={f1sch.give=723}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_dye"}
-execute if entity @s[scores={f1sch.give=724}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=725}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_harness"}
-execute if entity @s[scores={f1sch.give=726}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_shulker_box"}
-execute if entity @s[scores={f1sch.give=727}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_stained_glass"}
-execute if entity @s[scores={f1sch.give=728}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=729}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_terracotta"}
-execute if entity @s[scores={f1sch.give=730}] run function f1sch:features/macros/give_item {item:"minecraft:light_gray_wool"}
-execute if entity @s[scores={f1sch.give=731}] run function f1sch:features/macros/give_item {item:"minecraft:light_weighted_pressure_plate"}
-execute if entity @s[scores={f1sch.give=732}] run function f1sch:features/macros/give_item {item:"minecraft:lightning_rod"}
-execute if entity @s[scores={f1sch.give=733}] run function f1sch:features/macros/give_item {item:"minecraft:lilac"}
-execute if entity @s[scores={f1sch.give=734}] run function f1sch:features/macros/give_item {item:"minecraft:lily_of_the_valley"}
-execute if entity @s[scores={f1sch.give=735}] run function f1sch:features/macros/give_item {item:"minecraft:lily_pad"}
-execute if entity @s[scores={f1sch.give=736}] run function f1sch:features/macros/give_item {item:"minecraft:lime_banner"}
-execute if entity @s[scores={f1sch.give=737}] run function f1sch:features/macros/give_item {item:"minecraft:lime_bed"}
-execute if entity @s[scores={f1sch.give=738}] run function f1sch:features/macros/give_item {item:"minecraft:lime_bundle"}
-execute if entity @s[scores={f1sch.give=739}] run function f1sch:features/macros/give_item {item:"minecraft:lime_candle"}
-execute if entity @s[scores={f1sch.give=740}] run function f1sch:features/macros/give_item {item:"minecraft:lime_carpet"}
-execute if entity @s[scores={f1sch.give=741}] run function f1sch:features/macros/give_item {item:"minecraft:lime_concrete"}
-execute if entity @s[scores={f1sch.give=742}] run function f1sch:features/macros/give_item {item:"minecraft:lime_concrete_powder"}
-execute if entity @s[scores={f1sch.give=743}] run function f1sch:features/macros/give_item {item:"minecraft:lime_dye"}
-execute if entity @s[scores={f1sch.give=744}] run function f1sch:features/macros/give_item {item:"minecraft:lime_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=745}] run function f1sch:features/macros/give_item {item:"minecraft:lime_harness"}
-execute if entity @s[scores={f1sch.give=746}] run function f1sch:features/macros/give_item {item:"minecraft:lime_shulker_box"}
-execute if entity @s[scores={f1sch.give=747}] run function f1sch:features/macros/give_item {item:"minecraft:lime_stained_glass"}
-execute if entity @s[scores={f1sch.give=748}] run function f1sch:features/macros/give_item {item:"minecraft:lime_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=749}] run function f1sch:features/macros/give_item {item:"minecraft:lime_terracotta"}
-execute if entity @s[scores={f1sch.give=750}] run function f1sch:features/macros/give_item {item:"minecraft:lime_wool"}
-execute if entity @s[scores={f1sch.give=751}] run function f1sch:features/macros/give_item {item:"minecraft:lingering_potion"}
-execute if entity @s[scores={f1sch.give=752}] run function f1sch:features/macros/give_item {item:"minecraft:llama_spawn_egg"}
-execute if entity @s[scores={f1sch.give=753}] run function f1sch:features/macros/give_item {item:"minecraft:lodestone"}
-execute if entity @s[scores={f1sch.give=754}] run function f1sch:features/macros/give_item {item:"minecraft:loom"}
-execute if entity @s[scores={f1sch.give=755}] run function f1sch:features/macros/give_item {item:"minecraft:mace"}
-execute if entity @s[scores={f1sch.give=756}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_banner"}
-execute if entity @s[scores={f1sch.give=757}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_bed"}
-execute if entity @s[scores={f1sch.give=758}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_bundle"}
-execute if entity @s[scores={f1sch.give=759}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_candle"}
-execute if entity @s[scores={f1sch.give=760}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_carpet"}
-execute if entity @s[scores={f1sch.give=761}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_concrete"}
-execute if entity @s[scores={f1sch.give=762}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_concrete_powder"}
-execute if entity @s[scores={f1sch.give=763}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_dye"}
-execute if entity @s[scores={f1sch.give=764}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=765}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_harness"}
-execute if entity @s[scores={f1sch.give=766}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_shulker_box"}
-execute if entity @s[scores={f1sch.give=767}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_stained_glass"}
-execute if entity @s[scores={f1sch.give=768}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=769}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_terracotta"}
-execute if entity @s[scores={f1sch.give=770}] run function f1sch:features/macros/give_item {item:"minecraft:magenta_wool"}
-execute if entity @s[scores={f1sch.give=771}] run function f1sch:features/macros/give_item {item:"minecraft:magma_block"}
-execute if entity @s[scores={f1sch.give=772}] run function f1sch:features/macros/give_item {item:"minecraft:magma_cream"}
-execute if entity @s[scores={f1sch.give=773}] run function f1sch:features/macros/give_item {item:"minecraft:magma_cube_spawn_egg"}
-execute if entity @s[scores={f1sch.give=774}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_boat"}
-execute if entity @s[scores={f1sch.give=775}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_button"}
-execute if entity @s[scores={f1sch.give=776}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_chest_boat"}
-execute if entity @s[scores={f1sch.give=777}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_door"}
-execute if entity @s[scores={f1sch.give=778}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_fence"}
-execute if entity @s[scores={f1sch.give=779}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_fence_gate"}
-execute if entity @s[scores={f1sch.give=780}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_hanging_sign"}
-execute if entity @s[scores={f1sch.give=781}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_leaves"}
-execute if entity @s[scores={f1sch.give=782}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_log"}
-execute if entity @s[scores={f1sch.give=783}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_planks"}
-execute if entity @s[scores={f1sch.give=784}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_pressure_plate"}
-execute if entity @s[scores={f1sch.give=785}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_propagule"}
-execute if entity @s[scores={f1sch.give=786}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_roots"}
-execute if entity @s[scores={f1sch.give=787}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_shelf"}
-execute if entity @s[scores={f1sch.give=788}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_sign"}
-execute if entity @s[scores={f1sch.give=789}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_slab"}
-execute if entity @s[scores={f1sch.give=790}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_stairs"}
-execute if entity @s[scores={f1sch.give=791}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_trapdoor"}
-execute if entity @s[scores={f1sch.give=792}] run function f1sch:features/macros/give_item {item:"minecraft:mangrove_wood"}
-execute if entity @s[scores={f1sch.give=793}] run function f1sch:features/macros/give_item {item:"minecraft:map"}
-execute if entity @s[scores={f1sch.give=794}] run function f1sch:features/macros/give_item {item:"minecraft:medium_amethyst_bud"}
-execute if entity @s[scores={f1sch.give=795}] run function f1sch:features/macros/give_item {item:"minecraft:melon"}
-execute if entity @s[scores={f1sch.give=796}] run function f1sch:features/macros/give_item {item:"minecraft:melon_seeds"}
-execute if entity @s[scores={f1sch.give=797}] run function f1sch:features/macros/give_item {item:"minecraft:melon_slice"}
-execute if entity @s[scores={f1sch.give=798}] run function f1sch:features/macros/give_item {item:"minecraft:milk_bucket"}
-execute if entity @s[scores={f1sch.give=799}] run function f1sch:features/macros/give_item {item:"minecraft:minecart"}
-execute if entity @s[scores={f1sch.give=800}] run function f1sch:features/macros/give_item {item:"minecraft:miner_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=801}] run function f1sch:features/macros/give_item {item:"minecraft:mojang_banner_pattern"}
-execute if entity @s[scores={f1sch.give=802}] run function f1sch:features/macros/give_item {item:"minecraft:mooshroom_spawn_egg"}
-execute if entity @s[scores={f1sch.give=803}] run function f1sch:features/macros/give_item {item:"minecraft:moss_block"}
-execute if entity @s[scores={f1sch.give=804}] run function f1sch:features/macros/give_item {item:"minecraft:moss_carpet"}
-execute if entity @s[scores={f1sch.give=805}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_cobblestone"}
-execute if entity @s[scores={f1sch.give=806}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_cobblestone_slab"}
-execute if entity @s[scores={f1sch.give=807}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_cobblestone_stairs"}
-execute if entity @s[scores={f1sch.give=808}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_cobblestone_wall"}
-execute if entity @s[scores={f1sch.give=809}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_stone_brick_slab"}
-execute if entity @s[scores={f1sch.give=810}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_stone_brick_stairs"}
-execute if entity @s[scores={f1sch.give=811}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_stone_brick_wall"}
-execute if entity @s[scores={f1sch.give=812}] run function f1sch:features/macros/give_item {item:"minecraft:mossy_stone_bricks"}
-execute if entity @s[scores={f1sch.give=813}] run function f1sch:features/macros/give_item {item:"minecraft:mourner_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=814}] run function f1sch:features/macros/give_item {item:"minecraft:mud"}
-execute if entity @s[scores={f1sch.give=815}] run function f1sch:features/macros/give_item {item:"minecraft:mud_brick_slab"}
-execute if entity @s[scores={f1sch.give=816}] run function f1sch:features/macros/give_item {item:"minecraft:mud_brick_stairs"}
-execute if entity @s[scores={f1sch.give=817}] run function f1sch:features/macros/give_item {item:"minecraft:mud_brick_wall"}
-execute if entity @s[scores={f1sch.give=818}] run function f1sch:features/macros/give_item {item:"minecraft:mud_bricks"}
-execute if entity @s[scores={f1sch.give=819}] run function f1sch:features/macros/give_item {item:"minecraft:muddy_mangrove_roots"}
-execute if entity @s[scores={f1sch.give=820}] run function f1sch:features/macros/give_item {item:"minecraft:mule_spawn_egg"}
-execute if entity @s[scores={f1sch.give=821}] run function f1sch:features/macros/give_item {item:"minecraft:mushroom_stem"}
-execute if entity @s[scores={f1sch.give=822}] run function f1sch:features/macros/give_item {item:"minecraft:mushroom_stew"}
-execute if entity @s[scores={f1sch.give=823}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_11"}
-execute if entity @s[scores={f1sch.give=824}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_13"}
-execute if entity @s[scores={f1sch.give=825}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_5"}
-execute if entity @s[scores={f1sch.give=826}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_blocks"}
-execute if entity @s[scores={f1sch.give=827}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_cat"}
-execute if entity @s[scores={f1sch.give=828}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_chirp"}
-execute if entity @s[scores={f1sch.give=829}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_creator"}
-execute if entity @s[scores={f1sch.give=830}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_creator_music_box"}
-execute if entity @s[scores={f1sch.give=831}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_far"}
-execute if entity @s[scores={f1sch.give=832}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_lava_chicken"}
-execute if entity @s[scores={f1sch.give=833}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_mall"}
-execute if entity @s[scores={f1sch.give=834}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_mellohi"}
-execute if entity @s[scores={f1sch.give=835}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_otherside"}
-execute if entity @s[scores={f1sch.give=836}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_pigstep"}
-execute if entity @s[scores={f1sch.give=837}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_precipice"}
-execute if entity @s[scores={f1sch.give=838}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_relic"}
-execute if entity @s[scores={f1sch.give=839}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_stal"}
-execute if entity @s[scores={f1sch.give=840}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_strad"}
-execute if entity @s[scores={f1sch.give=841}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_tears"}
-execute if entity @s[scores={f1sch.give=842}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_wait"}
-execute if entity @s[scores={f1sch.give=843}] run function f1sch:features/macros/give_item {item:"minecraft:music_disc_ward"}
-execute if entity @s[scores={f1sch.give=844}] run function f1sch:features/macros/give_item {item:"minecraft:mutton"}
-execute if entity @s[scores={f1sch.give=845}] run function f1sch:features/macros/give_item {item:"minecraft:mycelium"}
-execute if entity @s[scores={f1sch.give=846}] run function f1sch:features/macros/give_item {item:"minecraft:name_tag"}
-execute if entity @s[scores={f1sch.give=847}] run function f1sch:features/macros/give_item {item:"minecraft:nautilus_shell"}
-execute if entity @s[scores={f1sch.give=848}] run function f1sch:features/macros/give_item {item:"minecraft:nautilus_spawn_egg"}
-execute if entity @s[scores={f1sch.give=849}] run function f1sch:features/macros/give_item {item:"minecraft:nether_brick"}
-execute if entity @s[scores={f1sch.give=850}] run function f1sch:features/macros/give_item {item:"minecraft:nether_brick_fence"}
-execute if entity @s[scores={f1sch.give=851}] run function f1sch:features/macros/give_item {item:"minecraft:nether_brick_slab"}
-execute if entity @s[scores={f1sch.give=852}] run function f1sch:features/macros/give_item {item:"minecraft:nether_brick_stairs"}
-execute if entity @s[scores={f1sch.give=853}] run function f1sch:features/macros/give_item {item:"minecraft:nether_brick_wall"}
-execute if entity @s[scores={f1sch.give=854}] run function f1sch:features/macros/give_item {item:"minecraft:nether_bricks"}
-execute if entity @s[scores={f1sch.give=855}] run function f1sch:features/macros/give_item {item:"minecraft:nether_gold_ore"}
-execute if entity @s[scores={f1sch.give=856}] run function f1sch:features/macros/give_item {item:"minecraft:nether_quartz_ore"}
-execute if entity @s[scores={f1sch.give=857}] run function f1sch:features/macros/give_item {item:"minecraft:nether_sprouts"}
-execute if entity @s[scores={f1sch.give=858}] run function f1sch:features/macros/give_item {item:"minecraft:nether_star"}
-execute if entity @s[scores={f1sch.give=859}] run function f1sch:features/macros/give_item {item:"minecraft:nether_wart"}
-execute if entity @s[scores={f1sch.give=860}] run function f1sch:features/macros/give_item {item:"minecraft:nether_wart_block"}
-execute if entity @s[scores={f1sch.give=861}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_axe"}
-execute if entity @s[scores={f1sch.give=862}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_block"}
-execute if entity @s[scores={f1sch.give=863}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_boots"}
-execute if entity @s[scores={f1sch.give=864}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_chestplate"}
-execute if entity @s[scores={f1sch.give=865}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_helmet"}
-execute if entity @s[scores={f1sch.give=866}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_hoe"}
-execute if entity @s[scores={f1sch.give=867}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_horse_armor"}
-execute if entity @s[scores={f1sch.give=868}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_ingot"}
-execute if entity @s[scores={f1sch.give=869}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_leggings"}
-execute if entity @s[scores={f1sch.give=870}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_nautilus_armor"}
-execute if entity @s[scores={f1sch.give=871}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_pickaxe"}
-execute if entity @s[scores={f1sch.give=872}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_scrap"}
-execute if entity @s[scores={f1sch.give=873}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_shovel"}
-execute if entity @s[scores={f1sch.give=874}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_spear"}
-execute if entity @s[scores={f1sch.give=875}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_sword"}
-execute if entity @s[scores={f1sch.give=876}] run function f1sch:features/macros/give_item {item:"minecraft:netherite_upgrade_smithing_template"}
-execute if entity @s[scores={f1sch.give=877}] run function f1sch:features/macros/give_item {item:"minecraft:netherrack"}
-execute if entity @s[scores={f1sch.give=878}] run function f1sch:features/macros/give_item {item:"minecraft:note_block"}
-execute if entity @s[scores={f1sch.give=879}] run function f1sch:features/macros/give_item {item:"minecraft:oak_boat"}
-execute if entity @s[scores={f1sch.give=880}] run function f1sch:features/macros/give_item {item:"minecraft:oak_button"}
-execute if entity @s[scores={f1sch.give=881}] run function f1sch:features/macros/give_item {item:"minecraft:oak_chest_boat"}
-execute if entity @s[scores={f1sch.give=882}] run function f1sch:features/macros/give_item {item:"minecraft:oak_door"}
-execute if entity @s[scores={f1sch.give=883}] run function f1sch:features/macros/give_item {item:"minecraft:oak_fence"}
-execute if entity @s[scores={f1sch.give=884}] run function f1sch:features/macros/give_item {item:"minecraft:oak_fence_gate"}
-execute if entity @s[scores={f1sch.give=885}] run function f1sch:features/macros/give_item {item:"minecraft:oak_hanging_sign"}
-execute if entity @s[scores={f1sch.give=886}] run function f1sch:features/macros/give_item {item:"minecraft:oak_leaves"}
-execute if entity @s[scores={f1sch.give=887}] run function f1sch:features/macros/give_item {item:"minecraft:oak_log"}
-execute if entity @s[scores={f1sch.give=888}] run function f1sch:features/macros/give_item {item:"minecraft:oak_planks"}
-execute if entity @s[scores={f1sch.give=889}] run function f1sch:features/macros/give_item {item:"minecraft:oak_pressure_plate"}
-execute if entity @s[scores={f1sch.give=890}] run function f1sch:features/macros/give_item {item:"minecraft:oak_sapling"}
-execute if entity @s[scores={f1sch.give=891}] run function f1sch:features/macros/give_item {item:"minecraft:oak_shelf"}
-execute if entity @s[scores={f1sch.give=892}] run function f1sch:features/macros/give_item {item:"minecraft:oak_sign"}
-execute if entity @s[scores={f1sch.give=893}] run function f1sch:features/macros/give_item {item:"minecraft:oak_slab"}
-execute if entity @s[scores={f1sch.give=894}] run function f1sch:features/macros/give_item {item:"minecraft:oak_stairs"}
-execute if entity @s[scores={f1sch.give=895}] run function f1sch:features/macros/give_item {item:"minecraft:oak_trapdoor"}
-execute if entity @s[scores={f1sch.give=896}] run function f1sch:features/macros/give_item {item:"minecraft:oak_wood"}
-execute if entity @s[scores={f1sch.give=897}] run function f1sch:features/macros/give_item {item:"minecraft:observer"}
-execute if entity @s[scores={f1sch.give=898}] run function f1sch:features/macros/give_item {item:"minecraft:obsidian"}
-execute if entity @s[scores={f1sch.give=899}] run function f1sch:features/macros/give_item {item:"minecraft:ocelot_spawn_egg"}
-execute if entity @s[scores={f1sch.give=900}] run function f1sch:features/macros/give_item {item:"minecraft:ochre_froglight"}
-execute if entity @s[scores={f1sch.give=901}] run function f1sch:features/macros/give_item {item:"minecraft:ominous_bottle"}
-execute if entity @s[scores={f1sch.give=902}] run function f1sch:features/macros/give_item {item:"minecraft:ominous_trial_key"}
-execute if entity @s[scores={f1sch.give=903}] run function f1sch:features/macros/give_item {item:"minecraft:open_eyeblossom"}
-execute if entity @s[scores={f1sch.give=904}] run function f1sch:features/macros/give_item {item:"minecraft:orange_banner"}
-execute if entity @s[scores={f1sch.give=905}] run function f1sch:features/macros/give_item {item:"minecraft:orange_bed"}
-execute if entity @s[scores={f1sch.give=906}] run function f1sch:features/macros/give_item {item:"minecraft:orange_bundle"}
-execute if entity @s[scores={f1sch.give=907}] run function f1sch:features/macros/give_item {item:"minecraft:orange_candle"}
-execute if entity @s[scores={f1sch.give=908}] run function f1sch:features/macros/give_item {item:"minecraft:orange_carpet"}
-execute if entity @s[scores={f1sch.give=909}] run function f1sch:features/macros/give_item {item:"minecraft:orange_concrete"}
-execute if entity @s[scores={f1sch.give=910}] run function f1sch:features/macros/give_item {item:"minecraft:orange_concrete_powder"}
-execute if entity @s[scores={f1sch.give=911}] run function f1sch:features/macros/give_item {item:"minecraft:orange_dye"}
-execute if entity @s[scores={f1sch.give=912}] run function f1sch:features/macros/give_item {item:"minecraft:orange_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=913}] run function f1sch:features/macros/give_item {item:"minecraft:orange_harness"}
-execute if entity @s[scores={f1sch.give=914}] run function f1sch:features/macros/give_item {item:"minecraft:orange_shulker_box"}
-execute if entity @s[scores={f1sch.give=915}] run function f1sch:features/macros/give_item {item:"minecraft:orange_stained_glass"}
-execute if entity @s[scores={f1sch.give=916}] run function f1sch:features/macros/give_item {item:"minecraft:orange_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=917}] run function f1sch:features/macros/give_item {item:"minecraft:orange_terracotta"}
-execute if entity @s[scores={f1sch.give=918}] run function f1sch:features/macros/give_item {item:"minecraft:orange_tulip"}
-execute if entity @s[scores={f1sch.give=919}] run function f1sch:features/macros/give_item {item:"minecraft:orange_wool"}
-execute if entity @s[scores={f1sch.give=920}] run function f1sch:features/macros/give_item {item:"minecraft:oxeye_daisy"}
-execute if entity @s[scores={f1sch.give=921}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_chiseled_copper"}
-execute if entity @s[scores={f1sch.give=922}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_copper"}
-execute if entity @s[scores={f1sch.give=923}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_copper_bulb"}
-execute if entity @s[scores={f1sch.give=924}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_copper_chest"}
-execute if entity @s[scores={f1sch.give=925}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_copper_door"}
-execute if entity @s[scores={f1sch.give=926}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=927}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_copper_grate"}
-execute if entity @s[scores={f1sch.give=928}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=929}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_cut_copper"}
-execute if entity @s[scores={f1sch.give=930}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=931}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=932}] run function f1sch:features/macros/give_item {item:"minecraft:oxidized_lightning_rod"}
-execute if entity @s[scores={f1sch.give=933}] run function f1sch:features/macros/give_item {item:"minecraft:packed_ice"}
-execute if entity @s[scores={f1sch.give=934}] run function f1sch:features/macros/give_item {item:"minecraft:packed_mud"}
-execute if entity @s[scores={f1sch.give=935}] run function f1sch:features/macros/give_item {item:"minecraft:painting"}
-execute if entity @s[scores={f1sch.give=936}] run function f1sch:features/macros/give_item {item:"minecraft:pale_hanging_moss"}
-execute if entity @s[scores={f1sch.give=937}] run function f1sch:features/macros/give_item {item:"minecraft:pale_moss_block"}
-execute if entity @s[scores={f1sch.give=938}] run function f1sch:features/macros/give_item {item:"minecraft:pale_moss_carpet"}
-execute if entity @s[scores={f1sch.give=939}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_boat"}
-execute if entity @s[scores={f1sch.give=940}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_button"}
-execute if entity @s[scores={f1sch.give=941}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_chest_boat"}
-execute if entity @s[scores={f1sch.give=942}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_door"}
-execute if entity @s[scores={f1sch.give=943}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_fence"}
-execute if entity @s[scores={f1sch.give=944}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_fence_gate"}
-execute if entity @s[scores={f1sch.give=945}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_hanging_sign"}
-execute if entity @s[scores={f1sch.give=946}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_leaves"}
-execute if entity @s[scores={f1sch.give=947}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_log"}
-execute if entity @s[scores={f1sch.give=948}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_planks"}
-execute if entity @s[scores={f1sch.give=949}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_pressure_plate"}
-execute if entity @s[scores={f1sch.give=950}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_sapling"}
-execute if entity @s[scores={f1sch.give=951}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_shelf"}
-execute if entity @s[scores={f1sch.give=952}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_sign"}
-execute if entity @s[scores={f1sch.give=953}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_slab"}
-execute if entity @s[scores={f1sch.give=954}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_stairs"}
-execute if entity @s[scores={f1sch.give=955}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_trapdoor"}
-execute if entity @s[scores={f1sch.give=956}] run function f1sch:features/macros/give_item {item:"minecraft:pale_oak_wood"}
-execute if entity @s[scores={f1sch.give=957}] run function f1sch:features/macros/give_item {item:"minecraft:panda_spawn_egg"}
-execute if entity @s[scores={f1sch.give=958}] run function f1sch:features/macros/give_item {item:"minecraft:paper"}
-execute if entity @s[scores={f1sch.give=959}] run function f1sch:features/macros/give_item {item:"minecraft:parched_spawn_egg"}
-execute if entity @s[scores={f1sch.give=960}] run function f1sch:features/macros/give_item {item:"minecraft:parrot_spawn_egg"}
-execute if entity @s[scores={f1sch.give=961}] run function f1sch:features/macros/give_item {item:"minecraft:pearlescent_froglight"}
-execute if entity @s[scores={f1sch.give=962}] run function f1sch:features/macros/give_item {item:"minecraft:peony"}
-execute if entity @s[scores={f1sch.give=963}] run function f1sch:features/macros/give_item {item:"minecraft:petrified_oak_slab"}
-execute if entity @s[scores={f1sch.give=964}] run function f1sch:features/macros/give_item {item:"minecraft:phantom_membrane"}
-execute if entity @s[scores={f1sch.give=965}] run function f1sch:features/macros/give_item {item:"minecraft:phantom_spawn_egg"}
-execute if entity @s[scores={f1sch.give=966}] run function f1sch:features/macros/give_item {item:"minecraft:pig_spawn_egg"}
-execute if entity @s[scores={f1sch.give=967}] run function f1sch:features/macros/give_item {item:"minecraft:piglin_banner_pattern"}
-execute if entity @s[scores={f1sch.give=968}] run function f1sch:features/macros/give_item {item:"minecraft:piglin_brute_spawn_egg"}
-execute if entity @s[scores={f1sch.give=969}] run function f1sch:features/macros/give_item {item:"minecraft:piglin_head"}
-execute if entity @s[scores={f1sch.give=970}] run function f1sch:features/macros/give_item {item:"minecraft:piglin_spawn_egg"}
-execute if entity @s[scores={f1sch.give=971}] run function f1sch:features/macros/give_item {item:"minecraft:pillager_spawn_egg"}
-execute if entity @s[scores={f1sch.give=972}] run function f1sch:features/macros/give_item {item:"minecraft:pink_banner"}
-execute if entity @s[scores={f1sch.give=973}] run function f1sch:features/macros/give_item {item:"minecraft:pink_bed"}
-execute if entity @s[scores={f1sch.give=974}] run function f1sch:features/macros/give_item {item:"minecraft:pink_bundle"}
-execute if entity @s[scores={f1sch.give=975}] run function f1sch:features/macros/give_item {item:"minecraft:pink_candle"}
-execute if entity @s[scores={f1sch.give=976}] run function f1sch:features/macros/give_item {item:"minecraft:pink_carpet"}
-execute if entity @s[scores={f1sch.give=977}] run function f1sch:features/macros/give_item {item:"minecraft:pink_concrete"}
-execute if entity @s[scores={f1sch.give=978}] run function f1sch:features/macros/give_item {item:"minecraft:pink_concrete_powder"}
-execute if entity @s[scores={f1sch.give=979}] run function f1sch:features/macros/give_item {item:"minecraft:pink_dye"}
-execute if entity @s[scores={f1sch.give=980}] run function f1sch:features/macros/give_item {item:"minecraft:pink_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=981}] run function f1sch:features/macros/give_item {item:"minecraft:pink_harness"}
-execute if entity @s[scores={f1sch.give=982}] run function f1sch:features/macros/give_item {item:"minecraft:pink_petals"}
-execute if entity @s[scores={f1sch.give=983}] run function f1sch:features/macros/give_item {item:"minecraft:pink_shulker_box"}
-execute if entity @s[scores={f1sch.give=984}] run function f1sch:features/macros/give_item {item:"minecraft:pink_stained_glass"}
-execute if entity @s[scores={f1sch.give=985}] run function f1sch:features/macros/give_item {item:"minecraft:pink_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=986}] run function f1sch:features/macros/give_item {item:"minecraft:pink_terracotta"}
-execute if entity @s[scores={f1sch.give=987}] run function f1sch:features/macros/give_item {item:"minecraft:pink_tulip"}
-execute if entity @s[scores={f1sch.give=988}] run function f1sch:features/macros/give_item {item:"minecraft:pink_wool"}
-execute if entity @s[scores={f1sch.give=989}] run function f1sch:features/macros/give_item {item:"minecraft:piston"}
-execute if entity @s[scores={f1sch.give=990}] run function f1sch:features/macros/give_item {item:"minecraft:pitcher_plant"}
-execute if entity @s[scores={f1sch.give=991}] run function f1sch:features/macros/give_item {item:"minecraft:pitcher_pod"}
-execute if entity @s[scores={f1sch.give=992}] run function f1sch:features/macros/give_item {item:"minecraft:player_head"}
-execute if entity @s[scores={f1sch.give=993}] run function f1sch:features/macros/give_item {item:"minecraft:plenty_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=994}] run function f1sch:features/macros/give_item {item:"minecraft:podzol"}
-execute if entity @s[scores={f1sch.give=995}] run function f1sch:features/macros/give_item {item:"minecraft:pointed_dripstone"}
-execute if entity @s[scores={f1sch.give=996}] run function f1sch:features/macros/give_item {item:"minecraft:poisonous_potato"}
-execute if entity @s[scores={f1sch.give=997}] run function f1sch:features/macros/give_item {item:"minecraft:polar_bear_spawn_egg"}
-execute if entity @s[scores={f1sch.give=998}] run function f1sch:features/macros/give_item {item:"minecraft:polished_andesite"}
-execute if entity @s[scores={f1sch.give=999}] run function f1sch:features/macros/give_item {item:"minecraft:polished_andesite_slab"}
-execute if entity @s[scores={f1sch.give=1000}] run function f1sch:features/macros/give_item {item:"minecraft:polished_andesite_stairs"}
-execute if entity @s[scores={f1sch.give=1001}] run function f1sch:features/macros/give_item {item:"minecraft:polished_basalt"}
-execute if entity @s[scores={f1sch.give=1002}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone"}
-execute if entity @s[scores={f1sch.give=1003}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_brick_slab"}
-execute if entity @s[scores={f1sch.give=1004}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_brick_stairs"}
-execute if entity @s[scores={f1sch.give=1005}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_brick_wall"}
-execute if entity @s[scores={f1sch.give=1006}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_bricks"}
-execute if entity @s[scores={f1sch.give=1007}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_button"}
-execute if entity @s[scores={f1sch.give=1008}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_pressure_plate"}
-execute if entity @s[scores={f1sch.give=1009}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_slab"}
-execute if entity @s[scores={f1sch.give=1010}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_stairs"}
-execute if entity @s[scores={f1sch.give=1011}] run function f1sch:features/macros/give_item {item:"minecraft:polished_blackstone_wall"}
-execute if entity @s[scores={f1sch.give=1012}] run function f1sch:features/macros/give_item {item:"minecraft:polished_deepslate"}
-execute if entity @s[scores={f1sch.give=1013}] run function f1sch:features/macros/give_item {item:"minecraft:polished_deepslate_slab"}
-execute if entity @s[scores={f1sch.give=1014}] run function f1sch:features/macros/give_item {item:"minecraft:polished_deepslate_stairs"}
-execute if entity @s[scores={f1sch.give=1015}] run function f1sch:features/macros/give_item {item:"minecraft:polished_deepslate_wall"}
-execute if entity @s[scores={f1sch.give=1016}] run function f1sch:features/macros/give_item {item:"minecraft:polished_diorite"}
-execute if entity @s[scores={f1sch.give=1017}] run function f1sch:features/macros/give_item {item:"minecraft:polished_diorite_slab"}
-execute if entity @s[scores={f1sch.give=1018}] run function f1sch:features/macros/give_item {item:"minecraft:polished_diorite_stairs"}
-execute if entity @s[scores={f1sch.give=1019}] run function f1sch:features/macros/give_item {item:"minecraft:polished_granite"}
-execute if entity @s[scores={f1sch.give=1020}] run function f1sch:features/macros/give_item {item:"minecraft:polished_granite_slab"}
-execute if entity @s[scores={f1sch.give=1021}] run function f1sch:features/macros/give_item {item:"minecraft:polished_granite_stairs"}
-execute if entity @s[scores={f1sch.give=1022}] run function f1sch:features/macros/give_item {item:"minecraft:polished_tuff"}
-execute if entity @s[scores={f1sch.give=1023}] run function f1sch:features/macros/give_item {item:"minecraft:polished_tuff_slab"}
-execute if entity @s[scores={f1sch.give=1024}] run function f1sch:features/macros/give_item {item:"minecraft:polished_tuff_stairs"}
-execute if entity @s[scores={f1sch.give=1025}] run function f1sch:features/macros/give_item {item:"minecraft:polished_tuff_wall"}
-execute if entity @s[scores={f1sch.give=1026}] run function f1sch:features/macros/give_item {item:"minecraft:popped_chorus_fruit"}
-execute if entity @s[scores={f1sch.give=1027}] run function f1sch:features/macros/give_item {item:"minecraft:poppy"}
-execute if entity @s[scores={f1sch.give=1028}] run function f1sch:features/macros/give_item {item:"minecraft:porkchop"}
-execute if entity @s[scores={f1sch.give=1029}] run function f1sch:features/macros/give_item {item:"minecraft:potato"}
-execute if entity @s[scores={f1sch.give=1030}] run function f1sch:features/macros/give_item {item:"minecraft:potion"}
-execute if entity @s[scores={f1sch.give=1031}] run function f1sch:features/macros/give_item {item:"minecraft:powder_snow_bucket"}
-execute if entity @s[scores={f1sch.give=1032}] run function f1sch:features/macros/give_item {item:"minecraft:powered_rail"}
-execute if entity @s[scores={f1sch.give=1033}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine"}
-execute if entity @s[scores={f1sch.give=1034}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_brick_slab"}
-execute if entity @s[scores={f1sch.give=1035}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_brick_stairs"}
-execute if entity @s[scores={f1sch.give=1036}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_bricks"}
-execute if entity @s[scores={f1sch.give=1037}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_crystals"}
-execute if entity @s[scores={f1sch.give=1038}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_shard"}
-execute if entity @s[scores={f1sch.give=1039}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_slab"}
-execute if entity @s[scores={f1sch.give=1040}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_stairs"}
-execute if entity @s[scores={f1sch.give=1041}] run function f1sch:features/macros/give_item {item:"minecraft:prismarine_wall"}
-execute if entity @s[scores={f1sch.give=1042}] run function f1sch:features/macros/give_item {item:"minecraft:prize_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=1043}] run function f1sch:features/macros/give_item {item:"minecraft:pufferfish"}
-execute if entity @s[scores={f1sch.give=1044}] run function f1sch:features/macros/give_item {item:"minecraft:pufferfish_bucket"}
-execute if entity @s[scores={f1sch.give=1045}] run function f1sch:features/macros/give_item {item:"minecraft:pufferfish_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1046}] run function f1sch:features/macros/give_item {item:"minecraft:pumpkin"}
-execute if entity @s[scores={f1sch.give=1047}] run function f1sch:features/macros/give_item {item:"minecraft:pumpkin_pie"}
-execute if entity @s[scores={f1sch.give=1048}] run function f1sch:features/macros/give_item {item:"minecraft:pumpkin_seeds"}
-execute if entity @s[scores={f1sch.give=1049}] run function f1sch:features/macros/give_item {item:"minecraft:purple_banner"}
-execute if entity @s[scores={f1sch.give=1050}] run function f1sch:features/macros/give_item {item:"minecraft:purple_bed"}
-execute if entity @s[scores={f1sch.give=1051}] run function f1sch:features/macros/give_item {item:"minecraft:purple_bundle"}
-execute if entity @s[scores={f1sch.give=1052}] run function f1sch:features/macros/give_item {item:"minecraft:purple_candle"}
-execute if entity @s[scores={f1sch.give=1053}] run function f1sch:features/macros/give_item {item:"minecraft:purple_carpet"}
-execute if entity @s[scores={f1sch.give=1054}] run function f1sch:features/macros/give_item {item:"minecraft:purple_concrete"}
-execute if entity @s[scores={f1sch.give=1055}] run function f1sch:features/macros/give_item {item:"minecraft:purple_concrete_powder"}
-execute if entity @s[scores={f1sch.give=1056}] run function f1sch:features/macros/give_item {item:"minecraft:purple_dye"}
-execute if entity @s[scores={f1sch.give=1057}] run function f1sch:features/macros/give_item {item:"minecraft:purple_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=1058}] run function f1sch:features/macros/give_item {item:"minecraft:purple_harness"}
-execute if entity @s[scores={f1sch.give=1059}] run function f1sch:features/macros/give_item {item:"minecraft:purple_shulker_box"}
-execute if entity @s[scores={f1sch.give=1060}] run function f1sch:features/macros/give_item {item:"minecraft:purple_stained_glass"}
-execute if entity @s[scores={f1sch.give=1061}] run function f1sch:features/macros/give_item {item:"minecraft:purple_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=1062}] run function f1sch:features/macros/give_item {item:"minecraft:purple_terracotta"}
-execute if entity @s[scores={f1sch.give=1063}] run function f1sch:features/macros/give_item {item:"minecraft:purple_wool"}
-execute if entity @s[scores={f1sch.give=1064}] run function f1sch:features/macros/give_item {item:"minecraft:purpur_block"}
-execute if entity @s[scores={f1sch.give=1065}] run function f1sch:features/macros/give_item {item:"minecraft:purpur_pillar"}
-execute if entity @s[scores={f1sch.give=1066}] run function f1sch:features/macros/give_item {item:"minecraft:purpur_slab"}
-execute if entity @s[scores={f1sch.give=1067}] run function f1sch:features/macros/give_item {item:"minecraft:purpur_stairs"}
-execute if entity @s[scores={f1sch.give=1068}] run function f1sch:features/macros/give_item {item:"minecraft:quartz"}
-execute if entity @s[scores={f1sch.give=1069}] run function f1sch:features/macros/give_item {item:"minecraft:quartz_block"}
-execute if entity @s[scores={f1sch.give=1070}] run function f1sch:features/macros/give_item {item:"minecraft:quartz_bricks"}
-execute if entity @s[scores={f1sch.give=1071}] run function f1sch:features/macros/give_item {item:"minecraft:quartz_pillar"}
-execute if entity @s[scores={f1sch.give=1072}] run function f1sch:features/macros/give_item {item:"minecraft:quartz_slab"}
-execute if entity @s[scores={f1sch.give=1073}] run function f1sch:features/macros/give_item {item:"minecraft:quartz_stairs"}
-execute if entity @s[scores={f1sch.give=1074}] run function f1sch:features/macros/give_item {item:"minecraft:rabbit"}
-execute if entity @s[scores={f1sch.give=1075}] run function f1sch:features/macros/give_item {item:"minecraft:rabbit_foot"}
-execute if entity @s[scores={f1sch.give=1076}] run function f1sch:features/macros/give_item {item:"minecraft:rabbit_hide"}
-execute if entity @s[scores={f1sch.give=1077}] run function f1sch:features/macros/give_item {item:"minecraft:rabbit_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1078}] run function f1sch:features/macros/give_item {item:"minecraft:rabbit_stew"}
-execute if entity @s[scores={f1sch.give=1079}] run function f1sch:features/macros/give_item {item:"minecraft:rail"}
-execute if entity @s[scores={f1sch.give=1080}] run function f1sch:features/macros/give_item {item:"minecraft:raiser_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1081}] run function f1sch:features/macros/give_item {item:"minecraft:ravager_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1082}] run function f1sch:features/macros/give_item {item:"minecraft:raw_copper"}
-execute if entity @s[scores={f1sch.give=1083}] run function f1sch:features/macros/give_item {item:"minecraft:raw_copper_block"}
-execute if entity @s[scores={f1sch.give=1084}] run function f1sch:features/macros/give_item {item:"minecraft:raw_gold"}
-execute if entity @s[scores={f1sch.give=1085}] run function f1sch:features/macros/give_item {item:"minecraft:raw_gold_block"}
-execute if entity @s[scores={f1sch.give=1086}] run function f1sch:features/macros/give_item {item:"minecraft:raw_iron"}
-execute if entity @s[scores={f1sch.give=1087}] run function f1sch:features/macros/give_item {item:"minecraft:raw_iron_block"}
-execute if entity @s[scores={f1sch.give=1088}] run function f1sch:features/macros/give_item {item:"minecraft:recovery_compass"}
-execute if entity @s[scores={f1sch.give=1089}] run function f1sch:features/macros/give_item {item:"minecraft:red_banner"}
-execute if entity @s[scores={f1sch.give=1090}] run function f1sch:features/macros/give_item {item:"minecraft:red_bed"}
-execute if entity @s[scores={f1sch.give=1091}] run function f1sch:features/macros/give_item {item:"minecraft:red_bundle"}
-execute if entity @s[scores={f1sch.give=1092}] run function f1sch:features/macros/give_item {item:"minecraft:red_candle"}
-execute if entity @s[scores={f1sch.give=1093}] run function f1sch:features/macros/give_item {item:"minecraft:red_carpet"}
-execute if entity @s[scores={f1sch.give=1094}] run function f1sch:features/macros/give_item {item:"minecraft:red_concrete"}
-execute if entity @s[scores={f1sch.give=1095}] run function f1sch:features/macros/give_item {item:"minecraft:red_concrete_powder"}
-execute if entity @s[scores={f1sch.give=1096}] run function f1sch:features/macros/give_item {item:"minecraft:red_dye"}
-execute if entity @s[scores={f1sch.give=1097}] run function f1sch:features/macros/give_item {item:"minecraft:red_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=1098}] run function f1sch:features/macros/give_item {item:"minecraft:red_harness"}
-execute if entity @s[scores={f1sch.give=1099}] run function f1sch:features/macros/give_item {item:"minecraft:red_mushroom"}
-execute if entity @s[scores={f1sch.give=1100}] run function f1sch:features/macros/give_item {item:"minecraft:red_mushroom_block"}
-execute if entity @s[scores={f1sch.give=1101}] run function f1sch:features/macros/give_item {item:"minecraft:red_nether_brick_slab"}
-execute if entity @s[scores={f1sch.give=1102}] run function f1sch:features/macros/give_item {item:"minecraft:red_nether_brick_stairs"}
-execute if entity @s[scores={f1sch.give=1103}] run function f1sch:features/macros/give_item {item:"minecraft:red_nether_brick_wall"}
-execute if entity @s[scores={f1sch.give=1104}] run function f1sch:features/macros/give_item {item:"minecraft:red_nether_bricks"}
-execute if entity @s[scores={f1sch.give=1105}] run function f1sch:features/macros/give_item {item:"minecraft:red_sand"}
-execute if entity @s[scores={f1sch.give=1106}] run function f1sch:features/macros/give_item {item:"minecraft:red_sandstone"}
-execute if entity @s[scores={f1sch.give=1107}] run function f1sch:features/macros/give_item {item:"minecraft:red_sandstone_slab"}
-execute if entity @s[scores={f1sch.give=1108}] run function f1sch:features/macros/give_item {item:"minecraft:red_sandstone_stairs"}
-execute if entity @s[scores={f1sch.give=1109}] run function f1sch:features/macros/give_item {item:"minecraft:red_sandstone_wall"}
-execute if entity @s[scores={f1sch.give=1110}] run function f1sch:features/macros/give_item {item:"minecraft:red_shulker_box"}
-execute if entity @s[scores={f1sch.give=1111}] run function f1sch:features/macros/give_item {item:"minecraft:red_stained_glass"}
-execute if entity @s[scores={f1sch.give=1112}] run function f1sch:features/macros/give_item {item:"minecraft:red_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=1113}] run function f1sch:features/macros/give_item {item:"minecraft:red_terracotta"}
-execute if entity @s[scores={f1sch.give=1114}] run function f1sch:features/macros/give_item {item:"minecraft:red_tulip"}
-execute if entity @s[scores={f1sch.give=1115}] run function f1sch:features/macros/give_item {item:"minecraft:red_wool"}
-execute if entity @s[scores={f1sch.give=1116}] run function f1sch:features/macros/give_item {item:"minecraft:redstone"}
-execute if entity @s[scores={f1sch.give=1117}] run function f1sch:features/macros/give_item {item:"minecraft:redstone_block"}
-execute if entity @s[scores={f1sch.give=1118}] run function f1sch:features/macros/give_item {item:"minecraft:redstone_lamp"}
-execute if entity @s[scores={f1sch.give=1119}] run function f1sch:features/macros/give_item {item:"minecraft:redstone_ore"}
-execute if entity @s[scores={f1sch.give=1120}] run function f1sch:features/macros/give_item {item:"minecraft:redstone_torch"}
-execute if entity @s[scores={f1sch.give=1121}] run function f1sch:features/macros/give_item {item:"minecraft:reinforced_deepslate"}
-execute if entity @s[scores={f1sch.give=1122}] run function f1sch:features/macros/give_item {item:"minecraft:repeater"}
-execute if entity @s[scores={f1sch.give=1123}] run function f1sch:features/macros/give_item {item:"minecraft:repeating_command_block"}
-execute if entity @s[scores={f1sch.give=1124}] run function f1sch:features/macros/give_item {item:"minecraft:resin_block"}
-execute if entity @s[scores={f1sch.give=1125}] run function f1sch:features/macros/give_item {item:"minecraft:resin_brick"}
-execute if entity @s[scores={f1sch.give=1126}] run function f1sch:features/macros/give_item {item:"minecraft:resin_brick_slab"}
-execute if entity @s[scores={f1sch.give=1127}] run function f1sch:features/macros/give_item {item:"minecraft:resin_brick_stairs"}
-execute if entity @s[scores={f1sch.give=1128}] run function f1sch:features/macros/give_item {item:"minecraft:resin_brick_wall"}
-execute if entity @s[scores={f1sch.give=1129}] run function f1sch:features/macros/give_item {item:"minecraft:resin_bricks"}
-execute if entity @s[scores={f1sch.give=1130}] run function f1sch:features/macros/give_item {item:"minecraft:resin_clump"}
-execute if entity @s[scores={f1sch.give=1131}] run function f1sch:features/macros/give_item {item:"minecraft:respawn_anchor"}
-execute if entity @s[scores={f1sch.give=1132}] run function f1sch:features/macros/give_item {item:"minecraft:rib_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1133}] run function f1sch:features/macros/give_item {item:"minecraft:rooted_dirt"}
-execute if entity @s[scores={f1sch.give=1134}] run function f1sch:features/macros/give_item {item:"minecraft:rose_bush"}
-execute if entity @s[scores={f1sch.give=1135}] run function f1sch:features/macros/give_item {item:"minecraft:rotten_flesh"}
-execute if entity @s[scores={f1sch.give=1136}] run function f1sch:features/macros/give_item {item:"minecraft:saddle"}
-execute if entity @s[scores={f1sch.give=1137}] run function f1sch:features/macros/give_item {item:"minecraft:salmon"}
-execute if entity @s[scores={f1sch.give=1138}] run function f1sch:features/macros/give_item {item:"minecraft:salmon_bucket"}
-execute if entity @s[scores={f1sch.give=1139}] run function f1sch:features/macros/give_item {item:"minecraft:salmon_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1140}] run function f1sch:features/macros/give_item {item:"minecraft:sand"}
-execute if entity @s[scores={f1sch.give=1141}] run function f1sch:features/macros/give_item {item:"minecraft:sandstone"}
-execute if entity @s[scores={f1sch.give=1142}] run function f1sch:features/macros/give_item {item:"minecraft:sandstone_slab"}
-execute if entity @s[scores={f1sch.give=1143}] run function f1sch:features/macros/give_item {item:"minecraft:sandstone_stairs"}
-execute if entity @s[scores={f1sch.give=1144}] run function f1sch:features/macros/give_item {item:"minecraft:sandstone_wall"}
-execute if entity @s[scores={f1sch.give=1145}] run function f1sch:features/macros/give_item {item:"minecraft:scaffolding"}
-execute if entity @s[scores={f1sch.give=1146}] run function f1sch:features/macros/give_item {item:"minecraft:scrape_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=1147}] run function f1sch:features/macros/give_item {item:"minecraft:sculk"}
-execute if entity @s[scores={f1sch.give=1148}] run function f1sch:features/macros/give_item {item:"minecraft:sculk_catalyst"}
-execute if entity @s[scores={f1sch.give=1149}] run function f1sch:features/macros/give_item {item:"minecraft:sculk_sensor"}
-execute if entity @s[scores={f1sch.give=1150}] run function f1sch:features/macros/give_item {item:"minecraft:sculk_shrieker"}
-execute if entity @s[scores={f1sch.give=1151}] run function f1sch:features/macros/give_item {item:"minecraft:sculk_vein"}
-execute if entity @s[scores={f1sch.give=1152}] run function f1sch:features/macros/give_item {item:"minecraft:sea_lantern"}
-execute if entity @s[scores={f1sch.give=1153}] run function f1sch:features/macros/give_item {item:"minecraft:sea_pickle"}
-execute if entity @s[scores={f1sch.give=1154}] run function f1sch:features/macros/give_item {item:"minecraft:seagrass"}
-execute if entity @s[scores={f1sch.give=1155}] run function f1sch:features/macros/give_item {item:"minecraft:sentry_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1156}] run function f1sch:features/macros/give_item {item:"minecraft:shaper_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1157}] run function f1sch:features/macros/give_item {item:"minecraft:sheaf_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=1158}] run function f1sch:features/macros/give_item {item:"minecraft:shears"}
-execute if entity @s[scores={f1sch.give=1159}] run function f1sch:features/macros/give_item {item:"minecraft:sheep_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1160}] run function f1sch:features/macros/give_item {item:"minecraft:shelter_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=1161}] run function f1sch:features/macros/give_item {item:"minecraft:shield"}
-execute if entity @s[scores={f1sch.give=1162}] run function f1sch:features/macros/give_item {item:"minecraft:short_dry_grass"}
-execute if entity @s[scores={f1sch.give=1163}] run function f1sch:features/macros/give_item {item:"minecraft:short_grass"}
-execute if entity @s[scores={f1sch.give=1164}] run function f1sch:features/macros/give_item {item:"minecraft:shroomlight"}
-execute if entity @s[scores={f1sch.give=1165}] run function f1sch:features/macros/give_item {item:"minecraft:shulker_box"}
-execute if entity @s[scores={f1sch.give=1166}] run function f1sch:features/macros/give_item {item:"minecraft:shulker_shell"}
-execute if entity @s[scores={f1sch.give=1167}] run function f1sch:features/macros/give_item {item:"minecraft:shulker_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1168}] run function f1sch:features/macros/give_item {item:"minecraft:silence_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1169}] run function f1sch:features/macros/give_item {item:"minecraft:silverfish_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1170}] run function f1sch:features/macros/give_item {item:"minecraft:skeleton_horse_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1171}] run function f1sch:features/macros/give_item {item:"minecraft:skeleton_skull"}
-execute if entity @s[scores={f1sch.give=1172}] run function f1sch:features/macros/give_item {item:"minecraft:skeleton_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1173}] run function f1sch:features/macros/give_item {item:"minecraft:skull_banner_pattern"}
-execute if entity @s[scores={f1sch.give=1174}] run function f1sch:features/macros/give_item {item:"minecraft:skull_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=1175}] run function f1sch:features/macros/give_item {item:"minecraft:slime_ball"}
-execute if entity @s[scores={f1sch.give=1176}] run function f1sch:features/macros/give_item {item:"minecraft:slime_block"}
-execute if entity @s[scores={f1sch.give=1177}] run function f1sch:features/macros/give_item {item:"minecraft:slime_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1178}] run function f1sch:features/macros/give_item {item:"minecraft:small_amethyst_bud"}
-execute if entity @s[scores={f1sch.give=1179}] run function f1sch:features/macros/give_item {item:"minecraft:small_dripleaf"}
-execute if entity @s[scores={f1sch.give=1180}] run function f1sch:features/macros/give_item {item:"minecraft:smithing_table"}
-execute if entity @s[scores={f1sch.give=1181}] run function f1sch:features/macros/give_item {item:"minecraft:smoker"}
-execute if entity @s[scores={f1sch.give=1182}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_basalt"}
-execute if entity @s[scores={f1sch.give=1183}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_quartz"}
-execute if entity @s[scores={f1sch.give=1184}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_quartz_slab"}
-execute if entity @s[scores={f1sch.give=1185}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_quartz_stairs"}
-execute if entity @s[scores={f1sch.give=1186}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_red_sandstone"}
-execute if entity @s[scores={f1sch.give=1187}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_red_sandstone_slab"}
-execute if entity @s[scores={f1sch.give=1188}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_red_sandstone_stairs"}
-execute if entity @s[scores={f1sch.give=1189}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_sandstone"}
-execute if entity @s[scores={f1sch.give=1190}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_sandstone_slab"}
-execute if entity @s[scores={f1sch.give=1191}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_sandstone_stairs"}
-execute if entity @s[scores={f1sch.give=1192}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_stone"}
-execute if entity @s[scores={f1sch.give=1193}] run function f1sch:features/macros/give_item {item:"minecraft:smooth_stone_slab"}
-execute if entity @s[scores={f1sch.give=1194}] run function f1sch:features/macros/give_item {item:"minecraft:sniffer_egg"}
-execute if entity @s[scores={f1sch.give=1195}] run function f1sch:features/macros/give_item {item:"minecraft:sniffer_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1196}] run function f1sch:features/macros/give_item {item:"minecraft:snort_pottery_sherd"}
-execute if entity @s[scores={f1sch.give=1197}] run function f1sch:features/macros/give_item {item:"minecraft:snout_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1198}] run function f1sch:features/macros/give_item {item:"minecraft:snow"}
-execute if entity @s[scores={f1sch.give=1199}] run function f1sch:features/macros/give_item {item:"minecraft:snow_block"}
-execute if entity @s[scores={f1sch.give=1200}] run function f1sch:features/macros/give_item {item:"minecraft:snow_golem_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1201}] run function f1sch:features/macros/give_item {item:"minecraft:snowball"}
-execute if entity @s[scores={f1sch.give=1202}] run function f1sch:features/macros/give_item {item:"minecraft:soul_campfire"}
-execute if entity @s[scores={f1sch.give=1203}] run function f1sch:features/macros/give_item {item:"minecraft:soul_lantern"}
-execute if entity @s[scores={f1sch.give=1204}] run function f1sch:features/macros/give_item {item:"minecraft:soul_sand"}
-execute if entity @s[scores={f1sch.give=1205}] run function f1sch:features/macros/give_item {item:"minecraft:soul_soil"}
-execute if entity @s[scores={f1sch.give=1206}] run function f1sch:features/macros/give_item {item:"minecraft:soul_torch"}
-execute if entity @s[scores={f1sch.give=1207}] run function f1sch:features/macros/give_item {item:"minecraft:spawner"}
-execute if entity @s[scores={f1sch.give=1208}] run function f1sch:features/macros/give_item {item:"minecraft:spectral_arrow"}
-execute if entity @s[scores={f1sch.give=1209}] run function f1sch:features/macros/give_item {item:"minecraft:spider_eye"}
-execute if entity @s[scores={f1sch.give=1210}] run function f1sch:features/macros/give_item {item:"minecraft:spider_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1211}] run function f1sch:features/macros/give_item {item:"minecraft:spire_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1212}] run function f1sch:features/macros/give_item {item:"minecraft:splash_potion"}
-execute if entity @s[scores={f1sch.give=1213}] run function f1sch:features/macros/give_item {item:"minecraft:sponge"}
-execute if entity @s[scores={f1sch.give=1214}] run function f1sch:features/macros/give_item {item:"minecraft:spore_blossom"}
-execute if entity @s[scores={f1sch.give=1215}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_boat"}
-execute if entity @s[scores={f1sch.give=1216}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_button"}
-execute if entity @s[scores={f1sch.give=1217}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_chest_boat"}
-execute if entity @s[scores={f1sch.give=1218}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_door"}
-execute if entity @s[scores={f1sch.give=1219}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_fence"}
-execute if entity @s[scores={f1sch.give=1220}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_fence_gate"}
-execute if entity @s[scores={f1sch.give=1221}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_hanging_sign"}
-execute if entity @s[scores={f1sch.give=1222}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_leaves"}
-execute if entity @s[scores={f1sch.give=1223}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_log"}
-execute if entity @s[scores={f1sch.give=1224}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_planks"}
-execute if entity @s[scores={f1sch.give=1225}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_pressure_plate"}
-execute if entity @s[scores={f1sch.give=1226}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_sapling"}
-execute if entity @s[scores={f1sch.give=1227}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_shelf"}
-execute if entity @s[scores={f1sch.give=1228}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_sign"}
-execute if entity @s[scores={f1sch.give=1229}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_slab"}
-execute if entity @s[scores={f1sch.give=1230}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_stairs"}
-execute if entity @s[scores={f1sch.give=1231}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_trapdoor"}
-execute if entity @s[scores={f1sch.give=1232}] run function f1sch:features/macros/give_item {item:"minecraft:spruce_wood"}
-execute if entity @s[scores={f1sch.give=1233}] run function f1sch:features/macros/give_item {item:"minecraft:spyglass"}
-execute if entity @s[scores={f1sch.give=1234}] run function f1sch:features/macros/give_item {item:"minecraft:squid_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1235}] run function f1sch:features/macros/give_item {item:"minecraft:stick"}
-execute if entity @s[scores={f1sch.give=1236}] run function f1sch:features/macros/give_item {item:"minecraft:sticky_piston"}
-execute if entity @s[scores={f1sch.give=1237}] run function f1sch:features/macros/give_item {item:"minecraft:stone"}
-execute if entity @s[scores={f1sch.give=1238}] run function f1sch:features/macros/give_item {item:"minecraft:stone_axe"}
-execute if entity @s[scores={f1sch.give=1239}] run function f1sch:features/macros/give_item {item:"minecraft:stone_brick_slab"}
-execute if entity @s[scores={f1sch.give=1240}] run function f1sch:features/macros/give_item {item:"minecraft:stone_brick_stairs"}
-execute if entity @s[scores={f1sch.give=1241}] run function f1sch:features/macros/give_item {item:"minecraft:stone_brick_wall"}
-execute if entity @s[scores={f1sch.give=1242}] run function f1sch:features/macros/give_item {item:"minecraft:stone_bricks"}
-execute if entity @s[scores={f1sch.give=1243}] run function f1sch:features/macros/give_item {item:"minecraft:stone_button"}
-execute if entity @s[scores={f1sch.give=1244}] run function f1sch:features/macros/give_item {item:"minecraft:stone_hoe"}
-execute if entity @s[scores={f1sch.give=1245}] run function f1sch:features/macros/give_item {item:"minecraft:stone_pickaxe"}
-execute if entity @s[scores={f1sch.give=1246}] run function f1sch:features/macros/give_item {item:"minecraft:stone_pressure_plate"}
-execute if entity @s[scores={f1sch.give=1247}] run function f1sch:features/macros/give_item {item:"minecraft:stone_shovel"}
-execute if entity @s[scores={f1sch.give=1248}] run function f1sch:features/macros/give_item {item:"minecraft:stone_slab"}
-execute if entity @s[scores={f1sch.give=1249}] run function f1sch:features/macros/give_item {item:"minecraft:stone_spear"}
-execute if entity @s[scores={f1sch.give=1250}] run function f1sch:features/macros/give_item {item:"minecraft:stone_stairs"}
-execute if entity @s[scores={f1sch.give=1251}] run function f1sch:features/macros/give_item {item:"minecraft:stone_sword"}
-execute if entity @s[scores={f1sch.give=1252}] run function f1sch:features/macros/give_item {item:"minecraft:stonecutter"}
-execute if entity @s[scores={f1sch.give=1253}] run function f1sch:features/macros/give_item {item:"minecraft:stray_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1254}] run function f1sch:features/macros/give_item {item:"minecraft:strider_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1255}] run function f1sch:features/macros/give_item {item:"minecraft:string"}
-execute if entity @s[scores={f1sch.give=1256}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_acacia_log"}
-execute if entity @s[scores={f1sch.give=1257}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_acacia_wood"}
-execute if entity @s[scores={f1sch.give=1258}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_bamboo_block"}
-execute if entity @s[scores={f1sch.give=1259}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_birch_log"}
-execute if entity @s[scores={f1sch.give=1260}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_birch_wood"}
-execute if entity @s[scores={f1sch.give=1261}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_cherry_log"}
-execute if entity @s[scores={f1sch.give=1262}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_cherry_wood"}
-execute if entity @s[scores={f1sch.give=1263}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_crimson_hyphae"}
-execute if entity @s[scores={f1sch.give=1264}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_crimson_stem"}
-execute if entity @s[scores={f1sch.give=1265}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_dark_oak_log"}
-execute if entity @s[scores={f1sch.give=1266}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_dark_oak_wood"}
-execute if entity @s[scores={f1sch.give=1267}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_jungle_log"}
-execute if entity @s[scores={f1sch.give=1268}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_jungle_wood"}
-execute if entity @s[scores={f1sch.give=1269}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_mangrove_log"}
-execute if entity @s[scores={f1sch.give=1270}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_mangrove_wood"}
-execute if entity @s[scores={f1sch.give=1271}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_oak_log"}
-execute if entity @s[scores={f1sch.give=1272}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_oak_wood"}
-execute if entity @s[scores={f1sch.give=1273}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_pale_oak_log"}
-execute if entity @s[scores={f1sch.give=1274}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_pale_oak_wood"}
-execute if entity @s[scores={f1sch.give=1275}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_spruce_log"}
-execute if entity @s[scores={f1sch.give=1276}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_spruce_wood"}
-execute if entity @s[scores={f1sch.give=1277}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_warped_hyphae"}
-execute if entity @s[scores={f1sch.give=1278}] run function f1sch:features/macros/give_item {item:"minecraft:stripped_warped_stem"}
-execute if entity @s[scores={f1sch.give=1279}] run function f1sch:features/macros/give_item {item:"minecraft:structure_block"}
-execute if entity @s[scores={f1sch.give=1280}] run function f1sch:features/macros/give_item {item:"minecraft:structure_void"}
-execute if entity @s[scores={f1sch.give=1281}] run function f1sch:features/macros/give_item {item:"minecraft:sugar"}
-execute if entity @s[scores={f1sch.give=1282}] run function f1sch:features/macros/give_item {item:"minecraft:sugar_cane"}
-execute if entity @s[scores={f1sch.give=1283}] run function f1sch:features/macros/give_item {item:"minecraft:sunflower"}
-execute if entity @s[scores={f1sch.give=1284}] run function f1sch:features/macros/give_item {item:"minecraft:suspicious_gravel"}
-execute if entity @s[scores={f1sch.give=1285}] run function f1sch:features/macros/give_item {item:"minecraft:suspicious_sand"}
-execute if entity @s[scores={f1sch.give=1286}] run function f1sch:features/macros/give_item {item:"minecraft:suspicious_stew"}
-execute if entity @s[scores={f1sch.give=1287}] run function f1sch:features/macros/give_item {item:"minecraft:sweet_berries"}
-execute if entity @s[scores={f1sch.give=1288}] run function f1sch:features/macros/give_item {item:"minecraft:tadpole_bucket"}
-execute if entity @s[scores={f1sch.give=1289}] run function f1sch:features/macros/give_item {item:"minecraft:tadpole_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1290}] run function f1sch:features/macros/give_item {item:"minecraft:tall_dry_grass"}
-execute if entity @s[scores={f1sch.give=1291}] run function f1sch:features/macros/give_item {item:"minecraft:tall_grass"}
-execute if entity @s[scores={f1sch.give=1292}] run function f1sch:features/macros/give_item {item:"minecraft:target"}
-execute if entity @s[scores={f1sch.give=1293}] run function f1sch:features/macros/give_item {item:"minecraft:terracotta"}
-execute if entity @s[scores={f1sch.give=1294}] run function f1sch:features/macros/give_item {item:"minecraft:test_block"}
-execute if entity @s[scores={f1sch.give=1295}] run function f1sch:features/macros/give_item {item:"minecraft:test_instance_block"}
-execute if entity @s[scores={f1sch.give=1296}] run function f1sch:features/macros/give_item {item:"minecraft:tide_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1297}] run function f1sch:features/macros/give_item {item:"minecraft:tinted_glass"}
-execute if entity @s[scores={f1sch.give=1298}] run function f1sch:features/macros/give_item {item:"minecraft:tipped_arrow"}
-execute if entity @s[scores={f1sch.give=1299}] run function f1sch:features/macros/give_item {item:"minecraft:tnt"}
-execute if entity @s[scores={f1sch.give=1300}] run function f1sch:features/macros/give_item {item:"minecraft:tnt_minecart"}
-execute if entity @s[scores={f1sch.give=1301}] run function f1sch:features/macros/give_item {item:"minecraft:torch"}
-execute if entity @s[scores={f1sch.give=1302}] run function f1sch:features/macros/give_item {item:"minecraft:torchflower"}
-execute if entity @s[scores={f1sch.give=1303}] run function f1sch:features/macros/give_item {item:"minecraft:torchflower_seeds"}
-execute if entity @s[scores={f1sch.give=1304}] run function f1sch:features/macros/give_item {item:"minecraft:totem_of_undying"}
-execute if entity @s[scores={f1sch.give=1305}] run function f1sch:features/macros/give_item {item:"minecraft:trader_llama_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1306}] run function f1sch:features/macros/give_item {item:"minecraft:trapped_chest"}
-execute if entity @s[scores={f1sch.give=1307}] run function f1sch:features/macros/give_item {item:"minecraft:trial_key"}
-execute if entity @s[scores={f1sch.give=1308}] run function f1sch:features/macros/give_item {item:"minecraft:trial_spawner"}
-execute if entity @s[scores={f1sch.give=1309}] run function f1sch:features/macros/give_item {item:"minecraft:trident"}
-execute if entity @s[scores={f1sch.give=1310}] run function f1sch:features/macros/give_item {item:"minecraft:tripwire_hook"}
-execute if entity @s[scores={f1sch.give=1311}] run function f1sch:features/macros/give_item {item:"minecraft:tropical_fish"}
-execute if entity @s[scores={f1sch.give=1312}] run function f1sch:features/macros/give_item {item:"minecraft:tropical_fish_bucket"}
-execute if entity @s[scores={f1sch.give=1313}] run function f1sch:features/macros/give_item {item:"minecraft:tropical_fish_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1314}] run function f1sch:features/macros/give_item {item:"minecraft:tube_coral"}
-execute if entity @s[scores={f1sch.give=1315}] run function f1sch:features/macros/give_item {item:"minecraft:tube_coral_block"}
-execute if entity @s[scores={f1sch.give=1316}] run function f1sch:features/macros/give_item {item:"minecraft:tube_coral_fan"}
-execute if entity @s[scores={f1sch.give=1317}] run function f1sch:features/macros/give_item {item:"minecraft:tuff"}
-execute if entity @s[scores={f1sch.give=1318}] run function f1sch:features/macros/give_item {item:"minecraft:tuff_brick_slab"}
-execute if entity @s[scores={f1sch.give=1319}] run function f1sch:features/macros/give_item {item:"minecraft:tuff_brick_stairs"}
-execute if entity @s[scores={f1sch.give=1320}] run function f1sch:features/macros/give_item {item:"minecraft:tuff_brick_wall"}
-execute if entity @s[scores={f1sch.give=1321}] run function f1sch:features/macros/give_item {item:"minecraft:tuff_bricks"}
-execute if entity @s[scores={f1sch.give=1322}] run function f1sch:features/macros/give_item {item:"minecraft:tuff_slab"}
-execute if entity @s[scores={f1sch.give=1323}] run function f1sch:features/macros/give_item {item:"minecraft:tuff_stairs"}
-execute if entity @s[scores={f1sch.give=1324}] run function f1sch:features/macros/give_item {item:"minecraft:tuff_wall"}
-execute if entity @s[scores={f1sch.give=1325}] run function f1sch:features/macros/give_item {item:"minecraft:turtle_egg"}
-execute if entity @s[scores={f1sch.give=1326}] run function f1sch:features/macros/give_item {item:"minecraft:turtle_helmet"}
-execute if entity @s[scores={f1sch.give=1327}] run function f1sch:features/macros/give_item {item:"minecraft:turtle_scute"}
-execute if entity @s[scores={f1sch.give=1328}] run function f1sch:features/macros/give_item {item:"minecraft:turtle_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1329}] run function f1sch:features/macros/give_item {item:"minecraft:twisting_vines"}
-execute if entity @s[scores={f1sch.give=1330}] run function f1sch:features/macros/give_item {item:"minecraft:vault"}
-execute if entity @s[scores={f1sch.give=1331}] run function f1sch:features/macros/give_item {item:"minecraft:verdant_froglight"}
-execute if entity @s[scores={f1sch.give=1332}] run function f1sch:features/macros/give_item {item:"minecraft:vex_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1333}] run function f1sch:features/macros/give_item {item:"minecraft:vex_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1334}] run function f1sch:features/macros/give_item {item:"minecraft:villager_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1335}] run function f1sch:features/macros/give_item {item:"minecraft:vindicator_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1336}] run function f1sch:features/macros/give_item {item:"minecraft:vine"}
-execute if entity @s[scores={f1sch.give=1337}] run function f1sch:features/macros/give_item {item:"minecraft:wandering_trader_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1338}] run function f1sch:features/macros/give_item {item:"minecraft:ward_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1339}] run function f1sch:features/macros/give_item {item:"minecraft:warden_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1340}] run function f1sch:features/macros/give_item {item:"minecraft:warped_button"}
-execute if entity @s[scores={f1sch.give=1341}] run function f1sch:features/macros/give_item {item:"minecraft:warped_door"}
-execute if entity @s[scores={f1sch.give=1342}] run function f1sch:features/macros/give_item {item:"minecraft:warped_fence"}
-execute if entity @s[scores={f1sch.give=1343}] run function f1sch:features/macros/give_item {item:"minecraft:warped_fence_gate"}
-execute if entity @s[scores={f1sch.give=1344}] run function f1sch:features/macros/give_item {item:"minecraft:warped_fungus"}
-execute if entity @s[scores={f1sch.give=1345}] run function f1sch:features/macros/give_item {item:"minecraft:warped_fungus_on_a_stick"}
-execute if entity @s[scores={f1sch.give=1346}] run function f1sch:features/macros/give_item {item:"minecraft:warped_hanging_sign"}
-execute if entity @s[scores={f1sch.give=1347}] run function f1sch:features/macros/give_item {item:"minecraft:warped_hyphae"}
-execute if entity @s[scores={f1sch.give=1348}] run function f1sch:features/macros/give_item {item:"minecraft:warped_nylium"}
-execute if entity @s[scores={f1sch.give=1349}] run function f1sch:features/macros/give_item {item:"minecraft:warped_planks"}
-execute if entity @s[scores={f1sch.give=1350}] run function f1sch:features/macros/give_item {item:"minecraft:warped_pressure_plate"}
-execute if entity @s[scores={f1sch.give=1351}] run function f1sch:features/macros/give_item {item:"minecraft:warped_roots"}
-execute if entity @s[scores={f1sch.give=1352}] run function f1sch:features/macros/give_item {item:"minecraft:warped_shelf"}
-execute if entity @s[scores={f1sch.give=1353}] run function f1sch:features/macros/give_item {item:"minecraft:warped_sign"}
-execute if entity @s[scores={f1sch.give=1354}] run function f1sch:features/macros/give_item {item:"minecraft:warped_slab"}
-execute if entity @s[scores={f1sch.give=1355}] run function f1sch:features/macros/give_item {item:"minecraft:warped_stairs"}
-execute if entity @s[scores={f1sch.give=1356}] run function f1sch:features/macros/give_item {item:"minecraft:warped_stem"}
-execute if entity @s[scores={f1sch.give=1357}] run function f1sch:features/macros/give_item {item:"minecraft:warped_trapdoor"}
-execute if entity @s[scores={f1sch.give=1358}] run function f1sch:features/macros/give_item {item:"minecraft:warped_wart_block"}
-execute if entity @s[scores={f1sch.give=1359}] run function f1sch:features/macros/give_item {item:"minecraft:water_bucket"}
-execute if entity @s[scores={f1sch.give=1360}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_chiseled_copper"}
-execute if entity @s[scores={f1sch.give=1361}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_copper_block"}
-execute if entity @s[scores={f1sch.give=1362}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_copper_bulb"}
-execute if entity @s[scores={f1sch.give=1363}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_copper_chest"}
-execute if entity @s[scores={f1sch.give=1364}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_copper_door"}
-execute if entity @s[scores={f1sch.give=1365}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=1366}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_copper_grate"}
-execute if entity @s[scores={f1sch.give=1367}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=1368}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_cut_copper"}
-execute if entity @s[scores={f1sch.give=1369}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=1370}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=1371}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_chiseled_copper"}
-execute if entity @s[scores={f1sch.give=1372}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_copper"}
-execute if entity @s[scores={f1sch.give=1373}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_copper_bulb"}
-execute if entity @s[scores={f1sch.give=1374}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_copper_chest"}
-execute if entity @s[scores={f1sch.give=1375}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_copper_door"}
-execute if entity @s[scores={f1sch.give=1376}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=1377}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_copper_grate"}
-execute if entity @s[scores={f1sch.give=1378}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=1379}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_cut_copper"}
-execute if entity @s[scores={f1sch.give=1380}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=1381}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=1382}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_exposed_lightning_rod"}
-execute if entity @s[scores={f1sch.give=1383}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_lightning_rod"}
-execute if entity @s[scores={f1sch.give=1384}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_chiseled_copper"}
-execute if entity @s[scores={f1sch.give=1385}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_copper"}
-execute if entity @s[scores={f1sch.give=1386}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_copper_bulb"}
-execute if entity @s[scores={f1sch.give=1387}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_copper_chest"}
-execute if entity @s[scores={f1sch.give=1388}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_copper_door"}
-execute if entity @s[scores={f1sch.give=1389}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=1390}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_copper_grate"}
-execute if entity @s[scores={f1sch.give=1391}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=1392}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_cut_copper"}
-execute if entity @s[scores={f1sch.give=1393}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=1394}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=1395}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_oxidized_lightning_rod"}
-execute if entity @s[scores={f1sch.give=1396}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_chiseled_copper"}
-execute if entity @s[scores={f1sch.give=1397}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_copper"}
-execute if entity @s[scores={f1sch.give=1398}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_copper_bulb"}
-execute if entity @s[scores={f1sch.give=1399}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_copper_chest"}
-execute if entity @s[scores={f1sch.give=1400}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_copper_door"}
-execute if entity @s[scores={f1sch.give=1401}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=1402}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_copper_grate"}
-execute if entity @s[scores={f1sch.give=1403}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=1404}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_cut_copper"}
-execute if entity @s[scores={f1sch.give=1405}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=1406}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=1407}] run function f1sch:features/macros/give_item {item:"minecraft:waxed_weathered_lightning_rod"}
-execute if entity @s[scores={f1sch.give=1408}] run function f1sch:features/macros/give_item {item:"minecraft:wayfinder_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1409}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_chiseled_copper"}
-execute if entity @s[scores={f1sch.give=1410}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_copper"}
-execute if entity @s[scores={f1sch.give=1411}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_copper_bulb"}
-execute if entity @s[scores={f1sch.give=1412}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_copper_chest"}
-execute if entity @s[scores={f1sch.give=1413}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_copper_door"}
-execute if entity @s[scores={f1sch.give=1414}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_copper_golem_statue"}
-execute if entity @s[scores={f1sch.give=1415}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_copper_grate"}
-execute if entity @s[scores={f1sch.give=1416}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_copper_trapdoor"}
-execute if entity @s[scores={f1sch.give=1417}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_cut_copper"}
-execute if entity @s[scores={f1sch.give=1418}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_cut_copper_slab"}
-execute if entity @s[scores={f1sch.give=1419}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_cut_copper_stairs"}
-execute if entity @s[scores={f1sch.give=1420}] run function f1sch:features/macros/give_item {item:"minecraft:weathered_lightning_rod"}
-execute if entity @s[scores={f1sch.give=1421}] run function f1sch:features/macros/give_item {item:"minecraft:weeping_vines"}
-execute if entity @s[scores={f1sch.give=1422}] run function f1sch:features/macros/give_item {item:"minecraft:wet_sponge"}
-execute if entity @s[scores={f1sch.give=1423}] run function f1sch:features/macros/give_item {item:"minecraft:wheat"}
-execute if entity @s[scores={f1sch.give=1424}] run function f1sch:features/macros/give_item {item:"minecraft:wheat_seeds"}
-execute if entity @s[scores={f1sch.give=1425}] run function f1sch:features/macros/give_item {item:"minecraft:white_banner"}
-execute if entity @s[scores={f1sch.give=1426}] run function f1sch:features/macros/give_item {item:"minecraft:white_bed"}
-execute if entity @s[scores={f1sch.give=1427}] run function f1sch:features/macros/give_item {item:"minecraft:white_bundle"}
-execute if entity @s[scores={f1sch.give=1428}] run function f1sch:features/macros/give_item {item:"minecraft:white_candle"}
-execute if entity @s[scores={f1sch.give=1429}] run function f1sch:features/macros/give_item {item:"minecraft:white_carpet"}
-execute if entity @s[scores={f1sch.give=1430}] run function f1sch:features/macros/give_item {item:"minecraft:white_concrete"}
-execute if entity @s[scores={f1sch.give=1431}] run function f1sch:features/macros/give_item {item:"minecraft:white_concrete_powder"}
-execute if entity @s[scores={f1sch.give=1432}] run function f1sch:features/macros/give_item {item:"minecraft:white_dye"}
-execute if entity @s[scores={f1sch.give=1433}] run function f1sch:features/macros/give_item {item:"minecraft:white_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=1434}] run function f1sch:features/macros/give_item {item:"minecraft:white_harness"}
-execute if entity @s[scores={f1sch.give=1435}] run function f1sch:features/macros/give_item {item:"minecraft:white_shulker_box"}
-execute if entity @s[scores={f1sch.give=1436}] run function f1sch:features/macros/give_item {item:"minecraft:white_stained_glass"}
-execute if entity @s[scores={f1sch.give=1437}] run function f1sch:features/macros/give_item {item:"minecraft:white_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=1438}] run function f1sch:features/macros/give_item {item:"minecraft:white_terracotta"}
-execute if entity @s[scores={f1sch.give=1439}] run function f1sch:features/macros/give_item {item:"minecraft:white_tulip"}
-execute if entity @s[scores={f1sch.give=1440}] run function f1sch:features/macros/give_item {item:"minecraft:white_wool"}
-execute if entity @s[scores={f1sch.give=1441}] run function f1sch:features/macros/give_item {item:"minecraft:wild_armor_trim_smithing_template"}
-execute if entity @s[scores={f1sch.give=1442}] run function f1sch:features/macros/give_item {item:"minecraft:wildflowers"}
-execute if entity @s[scores={f1sch.give=1443}] run function f1sch:features/macros/give_item {item:"minecraft:wind_charge"}
-execute if entity @s[scores={f1sch.give=1444}] run function f1sch:features/macros/give_item {item:"minecraft:witch_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1445}] run function f1sch:features/macros/give_item {item:"minecraft:wither_rose"}
-execute if entity @s[scores={f1sch.give=1446}] run function f1sch:features/macros/give_item {item:"minecraft:wither_skeleton_skull"}
-execute if entity @s[scores={f1sch.give=1447}] run function f1sch:features/macros/give_item {item:"minecraft:wither_skeleton_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1448}] run function f1sch:features/macros/give_item {item:"minecraft:wither_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1449}] run function f1sch:features/macros/give_item {item:"minecraft:wolf_armor"}
-execute if entity @s[scores={f1sch.give=1450}] run function f1sch:features/macros/give_item {item:"minecraft:wolf_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1451}] run function f1sch:features/macros/give_item {item:"minecraft:wooden_axe"}
-execute if entity @s[scores={f1sch.give=1452}] run function f1sch:features/macros/give_item {item:"minecraft:wooden_hoe"}
-execute if entity @s[scores={f1sch.give=1453}] run function f1sch:features/macros/give_item {item:"minecraft:wooden_pickaxe"}
-execute if entity @s[scores={f1sch.give=1454}] run function f1sch:features/macros/give_item {item:"minecraft:wooden_shovel"}
-execute if entity @s[scores={f1sch.give=1455}] run function f1sch:features/macros/give_item {item:"minecraft:wooden_spear"}
-execute if entity @s[scores={f1sch.give=1456}] run function f1sch:features/macros/give_item {item:"minecraft:wooden_sword"}
-execute if entity @s[scores={f1sch.give=1457}] run function f1sch:features/macros/give_item {item:"minecraft:writable_book"}
-execute if entity @s[scores={f1sch.give=1458}] run function f1sch:features/macros/give_item {item:"minecraft:written_book"}
-execute if entity @s[scores={f1sch.give=1459}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_banner"}
-execute if entity @s[scores={f1sch.give=1460}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_bed"}
-execute if entity @s[scores={f1sch.give=1461}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_bundle"}
-execute if entity @s[scores={f1sch.give=1462}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_candle"}
-execute if entity @s[scores={f1sch.give=1463}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_carpet"}
-execute if entity @s[scores={f1sch.give=1464}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_concrete"}
-execute if entity @s[scores={f1sch.give=1465}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_concrete_powder"}
-execute if entity @s[scores={f1sch.give=1466}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_dye"}
-execute if entity @s[scores={f1sch.give=1467}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_glazed_terracotta"}
-execute if entity @s[scores={f1sch.give=1468}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_harness"}
-execute if entity @s[scores={f1sch.give=1469}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_shulker_box"}
-execute if entity @s[scores={f1sch.give=1470}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_stained_glass"}
-execute if entity @s[scores={f1sch.give=1471}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_stained_glass_pane"}
-execute if entity @s[scores={f1sch.give=1472}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_terracotta"}
-execute if entity @s[scores={f1sch.give=1473}] run function f1sch:features/macros/give_item {item:"minecraft:yellow_wool"}
-execute if entity @s[scores={f1sch.give=1474}] run function f1sch:features/macros/give_item {item:"minecraft:zoglin_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1475}] run function f1sch:features/macros/give_item {item:"minecraft:zombie_head"}
-execute if entity @s[scores={f1sch.give=1476}] run function f1sch:features/macros/give_item {item:"minecraft:zombie_horse_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1477}] run function f1sch:features/macros/give_item {item:"minecraft:zombie_nautilus_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1478}] run function f1sch:features/macros/give_item {item:"minecraft:zombie_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1479}] run function f1sch:features/macros/give_item {item:"minecraft:zombie_villager_spawn_egg"}
-execute if entity @s[scores={f1sch.give=1480}] run function f1sch:features/macros/give_item {item:"minecraft:zombified_piglin_spawn_egg"}
+# Read quantity (default 64 if not set)
+execute unless score @s f1sch.give_qty matches 1.. run scoreboard players set @s f1sch.give_qty 64
+execute store result storage f1sch:temp count int 1 run scoreboard players get @s f1sch.give_qty
+scoreboard players set @s f1sch.give_qty 0
+
+# --- Regular items (codes 1-1480) ---
+execute if entity @s[scores={f1sch.give=1}] run data modify storage f1sch:temp item set value "minecraft:acacia_boat"
+execute if entity @s[scores={f1sch.give=2}] run data modify storage f1sch:temp item set value "minecraft:acacia_button"
+execute if entity @s[scores={f1sch.give=3}] run data modify storage f1sch:temp item set value "minecraft:acacia_chest_boat"
+execute if entity @s[scores={f1sch.give=4}] run data modify storage f1sch:temp item set value "minecraft:acacia_door"
+execute if entity @s[scores={f1sch.give=5}] run data modify storage f1sch:temp item set value "minecraft:acacia_fence"
+execute if entity @s[scores={f1sch.give=6}] run data modify storage f1sch:temp item set value "minecraft:acacia_fence_gate"
+execute if entity @s[scores={f1sch.give=7}] run data modify storage f1sch:temp item set value "minecraft:acacia_hanging_sign"
+execute if entity @s[scores={f1sch.give=8}] run data modify storage f1sch:temp item set value "minecraft:acacia_leaves"
+execute if entity @s[scores={f1sch.give=9}] run data modify storage f1sch:temp item set value "minecraft:acacia_log"
+execute if entity @s[scores={f1sch.give=10}] run data modify storage f1sch:temp item set value "minecraft:acacia_planks"
+execute if entity @s[scores={f1sch.give=11}] run data modify storage f1sch:temp item set value "minecraft:acacia_pressure_plate"
+execute if entity @s[scores={f1sch.give=12}] run data modify storage f1sch:temp item set value "minecraft:acacia_sapling"
+execute if entity @s[scores={f1sch.give=13}] run data modify storage f1sch:temp item set value "minecraft:acacia_shelf"
+execute if entity @s[scores={f1sch.give=14}] run data modify storage f1sch:temp item set value "minecraft:acacia_sign"
+execute if entity @s[scores={f1sch.give=15}] run data modify storage f1sch:temp item set value "minecraft:acacia_slab"
+execute if entity @s[scores={f1sch.give=16}] run data modify storage f1sch:temp item set value "minecraft:acacia_stairs"
+execute if entity @s[scores={f1sch.give=17}] run data modify storage f1sch:temp item set value "minecraft:acacia_trapdoor"
+execute if entity @s[scores={f1sch.give=18}] run data modify storage f1sch:temp item set value "minecraft:acacia_wood"
+execute if entity @s[scores={f1sch.give=19}] run data modify storage f1sch:temp item set value "minecraft:activator_rail"
+execute if entity @s[scores={f1sch.give=20}] run data modify storage f1sch:temp item set value "minecraft:allay_spawn_egg"
+execute if entity @s[scores={f1sch.give=21}] run data modify storage f1sch:temp item set value "minecraft:allium"
+execute if entity @s[scores={f1sch.give=22}] run data modify storage f1sch:temp item set value "minecraft:amethyst_block"
+execute if entity @s[scores={f1sch.give=23}] run data modify storage f1sch:temp item set value "minecraft:amethyst_cluster"
+execute if entity @s[scores={f1sch.give=24}] run data modify storage f1sch:temp item set value "minecraft:amethyst_shard"
+execute if entity @s[scores={f1sch.give=25}] run data modify storage f1sch:temp item set value "minecraft:ancient_debris"
+execute if entity @s[scores={f1sch.give=26}] run data modify storage f1sch:temp item set value "minecraft:andesite"
+execute if entity @s[scores={f1sch.give=27}] run data modify storage f1sch:temp item set value "minecraft:andesite_slab"
+execute if entity @s[scores={f1sch.give=28}] run data modify storage f1sch:temp item set value "minecraft:andesite_stairs"
+execute if entity @s[scores={f1sch.give=29}] run data modify storage f1sch:temp item set value "minecraft:andesite_wall"
+execute if entity @s[scores={f1sch.give=30}] run data modify storage f1sch:temp item set value "minecraft:angler_pottery_sherd"
+execute if entity @s[scores={f1sch.give=31}] run data modify storage f1sch:temp item set value "minecraft:anvil"
+execute if entity @s[scores={f1sch.give=32}] run data modify storage f1sch:temp item set value "minecraft:apple"
+execute if entity @s[scores={f1sch.give=33}] run data modify storage f1sch:temp item set value "minecraft:archer_pottery_sherd"
+execute if entity @s[scores={f1sch.give=34}] run data modify storage f1sch:temp item set value "minecraft:armadillo_scute"
+execute if entity @s[scores={f1sch.give=35}] run data modify storage f1sch:temp item set value "minecraft:armadillo_spawn_egg"
+execute if entity @s[scores={f1sch.give=36}] run data modify storage f1sch:temp item set value "minecraft:armor_stand"
+execute if entity @s[scores={f1sch.give=37}] run data modify storage f1sch:temp item set value "minecraft:arms_up_pottery_sherd"
+execute if entity @s[scores={f1sch.give=38}] run data modify storage f1sch:temp item set value "minecraft:arrow"
+execute if entity @s[scores={f1sch.give=39}] run data modify storage f1sch:temp item set value "minecraft:axolotl_bucket"
+execute if entity @s[scores={f1sch.give=40}] run data modify storage f1sch:temp item set value "minecraft:axolotl_spawn_egg"
+execute if entity @s[scores={f1sch.give=41}] run data modify storage f1sch:temp item set value "minecraft:azalea"
+execute if entity @s[scores={f1sch.give=42}] run data modify storage f1sch:temp item set value "minecraft:azalea_leaves"
+execute if entity @s[scores={f1sch.give=43}] run data modify storage f1sch:temp item set value "minecraft:azure_bluet"
+execute if entity @s[scores={f1sch.give=44}] run data modify storage f1sch:temp item set value "minecraft:baked_potato"
+execute if entity @s[scores={f1sch.give=45}] run data modify storage f1sch:temp item set value "minecraft:bamboo"
+execute if entity @s[scores={f1sch.give=46}] run data modify storage f1sch:temp item set value "minecraft:bamboo_block"
+execute if entity @s[scores={f1sch.give=47}] run data modify storage f1sch:temp item set value "minecraft:bamboo_button"
+execute if entity @s[scores={f1sch.give=48}] run data modify storage f1sch:temp item set value "minecraft:bamboo_chest_raft"
+execute if entity @s[scores={f1sch.give=49}] run data modify storage f1sch:temp item set value "minecraft:bamboo_door"
+execute if entity @s[scores={f1sch.give=50}] run data modify storage f1sch:temp item set value "minecraft:bamboo_fence"
+execute if entity @s[scores={f1sch.give=51}] run data modify storage f1sch:temp item set value "minecraft:bamboo_fence_gate"
+execute if entity @s[scores={f1sch.give=52}] run data modify storage f1sch:temp item set value "minecraft:bamboo_hanging_sign"
+execute if entity @s[scores={f1sch.give=53}] run data modify storage f1sch:temp item set value "minecraft:bamboo_mosaic"
+execute if entity @s[scores={f1sch.give=54}] run data modify storage f1sch:temp item set value "minecraft:bamboo_mosaic_slab"
+execute if entity @s[scores={f1sch.give=55}] run data modify storage f1sch:temp item set value "minecraft:bamboo_mosaic_stairs"
+execute if entity @s[scores={f1sch.give=56}] run data modify storage f1sch:temp item set value "minecraft:bamboo_planks"
+execute if entity @s[scores={f1sch.give=57}] run data modify storage f1sch:temp item set value "minecraft:bamboo_pressure_plate"
+execute if entity @s[scores={f1sch.give=58}] run data modify storage f1sch:temp item set value "minecraft:bamboo_raft"
+execute if entity @s[scores={f1sch.give=59}] run data modify storage f1sch:temp item set value "minecraft:bamboo_shelf"
+execute if entity @s[scores={f1sch.give=60}] run data modify storage f1sch:temp item set value "minecraft:bamboo_sign"
+execute if entity @s[scores={f1sch.give=61}] run data modify storage f1sch:temp item set value "minecraft:bamboo_slab"
+execute if entity @s[scores={f1sch.give=62}] run data modify storage f1sch:temp item set value "minecraft:bamboo_stairs"
+execute if entity @s[scores={f1sch.give=63}] run data modify storage f1sch:temp item set value "minecraft:bamboo_trapdoor"
+execute if entity @s[scores={f1sch.give=64}] run data modify storage f1sch:temp item set value "minecraft:barrel"
+execute if entity @s[scores={f1sch.give=65}] run data modify storage f1sch:temp item set value "minecraft:barrier"
+execute if entity @s[scores={f1sch.give=66}] run data modify storage f1sch:temp item set value "minecraft:basalt"
+execute if entity @s[scores={f1sch.give=67}] run data modify storage f1sch:temp item set value "minecraft:bat_spawn_egg"
+execute if entity @s[scores={f1sch.give=68}] run data modify storage f1sch:temp item set value "minecraft:beacon"
+execute if entity @s[scores={f1sch.give=69}] run data modify storage f1sch:temp item set value "minecraft:bedrock"
+execute if entity @s[scores={f1sch.give=70}] run data modify storage f1sch:temp item set value "minecraft:bee_nest"
+execute if entity @s[scores={f1sch.give=71}] run data modify storage f1sch:temp item set value "minecraft:bee_spawn_egg"
+execute if entity @s[scores={f1sch.give=72}] run data modify storage f1sch:temp item set value "minecraft:beef"
+execute if entity @s[scores={f1sch.give=73}] run data modify storage f1sch:temp item set value "minecraft:beehive"
+execute if entity @s[scores={f1sch.give=74}] run data modify storage f1sch:temp item set value "minecraft:beetroot"
+execute if entity @s[scores={f1sch.give=75}] run data modify storage f1sch:temp item set value "minecraft:beetroot_seeds"
+execute if entity @s[scores={f1sch.give=76}] run data modify storage f1sch:temp item set value "minecraft:beetroot_soup"
+execute if entity @s[scores={f1sch.give=77}] run data modify storage f1sch:temp item set value "minecraft:bell"
+execute if entity @s[scores={f1sch.give=78}] run data modify storage f1sch:temp item set value "minecraft:big_dripleaf"
+execute if entity @s[scores={f1sch.give=79}] run data modify storage f1sch:temp item set value "minecraft:birch_boat"
+execute if entity @s[scores={f1sch.give=80}] run data modify storage f1sch:temp item set value "minecraft:birch_button"
+execute if entity @s[scores={f1sch.give=81}] run data modify storage f1sch:temp item set value "minecraft:birch_chest_boat"
+execute if entity @s[scores={f1sch.give=82}] run data modify storage f1sch:temp item set value "minecraft:birch_door"
+execute if entity @s[scores={f1sch.give=83}] run data modify storage f1sch:temp item set value "minecraft:birch_fence"
+execute if entity @s[scores={f1sch.give=84}] run data modify storage f1sch:temp item set value "minecraft:birch_fence_gate"
+execute if entity @s[scores={f1sch.give=85}] run data modify storage f1sch:temp item set value "minecraft:birch_hanging_sign"
+execute if entity @s[scores={f1sch.give=86}] run data modify storage f1sch:temp item set value "minecraft:birch_leaves"
+execute if entity @s[scores={f1sch.give=87}] run data modify storage f1sch:temp item set value "minecraft:birch_log"
+execute if entity @s[scores={f1sch.give=88}] run data modify storage f1sch:temp item set value "minecraft:birch_planks"
+execute if entity @s[scores={f1sch.give=89}] run data modify storage f1sch:temp item set value "minecraft:birch_pressure_plate"
+execute if entity @s[scores={f1sch.give=90}] run data modify storage f1sch:temp item set value "minecraft:birch_sapling"
+execute if entity @s[scores={f1sch.give=91}] run data modify storage f1sch:temp item set value "minecraft:birch_shelf"
+execute if entity @s[scores={f1sch.give=92}] run data modify storage f1sch:temp item set value "minecraft:birch_sign"
+execute if entity @s[scores={f1sch.give=93}] run data modify storage f1sch:temp item set value "minecraft:birch_slab"
+execute if entity @s[scores={f1sch.give=94}] run data modify storage f1sch:temp item set value "minecraft:birch_stairs"
+execute if entity @s[scores={f1sch.give=95}] run data modify storage f1sch:temp item set value "minecraft:birch_trapdoor"
+execute if entity @s[scores={f1sch.give=96}] run data modify storage f1sch:temp item set value "minecraft:birch_wood"
+execute if entity @s[scores={f1sch.give=97}] run data modify storage f1sch:temp item set value "minecraft:black_banner"
+execute if entity @s[scores={f1sch.give=98}] run data modify storage f1sch:temp item set value "minecraft:black_bed"
+execute if entity @s[scores={f1sch.give=99}] run data modify storage f1sch:temp item set value "minecraft:black_bundle"
+execute if entity @s[scores={f1sch.give=100}] run data modify storage f1sch:temp item set value "minecraft:black_candle"
+execute if entity @s[scores={f1sch.give=101}] run data modify storage f1sch:temp item set value "minecraft:black_carpet"
+execute if entity @s[scores={f1sch.give=102}] run data modify storage f1sch:temp item set value "minecraft:black_concrete"
+execute if entity @s[scores={f1sch.give=103}] run data modify storage f1sch:temp item set value "minecraft:black_concrete_powder"
+execute if entity @s[scores={f1sch.give=104}] run data modify storage f1sch:temp item set value "minecraft:black_dye"
+execute if entity @s[scores={f1sch.give=105}] run data modify storage f1sch:temp item set value "minecraft:black_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=106}] run data modify storage f1sch:temp item set value "minecraft:black_harness"
+execute if entity @s[scores={f1sch.give=107}] run data modify storage f1sch:temp item set value "minecraft:black_shulker_box"
+execute if entity @s[scores={f1sch.give=108}] run data modify storage f1sch:temp item set value "minecraft:black_stained_glass"
+execute if entity @s[scores={f1sch.give=109}] run data modify storage f1sch:temp item set value "minecraft:black_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=110}] run data modify storage f1sch:temp item set value "minecraft:black_terracotta"
+execute if entity @s[scores={f1sch.give=111}] run data modify storage f1sch:temp item set value "minecraft:black_wool"
+execute if entity @s[scores={f1sch.give=112}] run data modify storage f1sch:temp item set value "minecraft:blackstone"
+execute if entity @s[scores={f1sch.give=113}] run data modify storage f1sch:temp item set value "minecraft:blackstone_slab"
+execute if entity @s[scores={f1sch.give=114}] run data modify storage f1sch:temp item set value "minecraft:blackstone_stairs"
+execute if entity @s[scores={f1sch.give=115}] run data modify storage f1sch:temp item set value "minecraft:blackstone_wall"
+execute if entity @s[scores={f1sch.give=116}] run data modify storage f1sch:temp item set value "minecraft:blade_pottery_sherd"
+execute if entity @s[scores={f1sch.give=117}] run data modify storage f1sch:temp item set value "minecraft:blast_furnace"
+execute if entity @s[scores={f1sch.give=118}] run data modify storage f1sch:temp item set value "minecraft:blaze_powder"
+execute if entity @s[scores={f1sch.give=119}] run data modify storage f1sch:temp item set value "minecraft:blaze_rod"
+execute if entity @s[scores={f1sch.give=120}] run data modify storage f1sch:temp item set value "minecraft:blaze_spawn_egg"
+execute if entity @s[scores={f1sch.give=121}] run data modify storage f1sch:temp item set value "minecraft:blue_banner"
+execute if entity @s[scores={f1sch.give=122}] run data modify storage f1sch:temp item set value "minecraft:blue_bed"
+execute if entity @s[scores={f1sch.give=123}] run data modify storage f1sch:temp item set value "minecraft:blue_bundle"
+execute if entity @s[scores={f1sch.give=124}] run data modify storage f1sch:temp item set value "minecraft:blue_candle"
+execute if entity @s[scores={f1sch.give=125}] run data modify storage f1sch:temp item set value "minecraft:blue_carpet"
+execute if entity @s[scores={f1sch.give=126}] run data modify storage f1sch:temp item set value "minecraft:blue_concrete"
+execute if entity @s[scores={f1sch.give=127}] run data modify storage f1sch:temp item set value "minecraft:blue_concrete_powder"
+execute if entity @s[scores={f1sch.give=128}] run data modify storage f1sch:temp item set value "minecraft:blue_dye"
+execute if entity @s[scores={f1sch.give=129}] run data modify storage f1sch:temp item set value "minecraft:blue_egg"
+execute if entity @s[scores={f1sch.give=130}] run data modify storage f1sch:temp item set value "minecraft:blue_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=131}] run data modify storage f1sch:temp item set value "minecraft:blue_harness"
+execute if entity @s[scores={f1sch.give=132}] run data modify storage f1sch:temp item set value "minecraft:blue_ice"
+execute if entity @s[scores={f1sch.give=133}] run data modify storage f1sch:temp item set value "minecraft:blue_orchid"
+execute if entity @s[scores={f1sch.give=134}] run data modify storage f1sch:temp item set value "minecraft:blue_shulker_box"
+execute if entity @s[scores={f1sch.give=135}] run data modify storage f1sch:temp item set value "minecraft:blue_stained_glass"
+execute if entity @s[scores={f1sch.give=136}] run data modify storage f1sch:temp item set value "minecraft:blue_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=137}] run data modify storage f1sch:temp item set value "minecraft:blue_terracotta"
+execute if entity @s[scores={f1sch.give=138}] run data modify storage f1sch:temp item set value "minecraft:blue_wool"
+execute if entity @s[scores={f1sch.give=139}] run data modify storage f1sch:temp item set value "minecraft:bogged_spawn_egg"
+execute if entity @s[scores={f1sch.give=140}] run data modify storage f1sch:temp item set value "minecraft:bolt_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=141}] run data modify storage f1sch:temp item set value "minecraft:bone"
+execute if entity @s[scores={f1sch.give=142}] run data modify storage f1sch:temp item set value "minecraft:bone_block"
+execute if entity @s[scores={f1sch.give=143}] run data modify storage f1sch:temp item set value "minecraft:bone_meal"
+execute if entity @s[scores={f1sch.give=144}] run data modify storage f1sch:temp item set value "minecraft:book"
+execute if entity @s[scores={f1sch.give=145}] run data modify storage f1sch:temp item set value "minecraft:bookshelf"
+execute if entity @s[scores={f1sch.give=146}] run data modify storage f1sch:temp item set value "minecraft:bordure_indented_banner_pattern"
+execute if entity @s[scores={f1sch.give=147}] run data modify storage f1sch:temp item set value "minecraft:bow"
+execute if entity @s[scores={f1sch.give=148}] run data modify storage f1sch:temp item set value "minecraft:bowl"
+execute if entity @s[scores={f1sch.give=149}] run data modify storage f1sch:temp item set value "minecraft:brain_coral"
+execute if entity @s[scores={f1sch.give=150}] run data modify storage f1sch:temp item set value "minecraft:brain_coral_block"
+execute if entity @s[scores={f1sch.give=151}] run data modify storage f1sch:temp item set value "minecraft:brain_coral_fan"
+execute if entity @s[scores={f1sch.give=152}] run data modify storage f1sch:temp item set value "minecraft:bread"
+execute if entity @s[scores={f1sch.give=153}] run data modify storage f1sch:temp item set value "minecraft:breeze_rod"
+execute if entity @s[scores={f1sch.give=154}] run data modify storage f1sch:temp item set value "minecraft:breeze_spawn_egg"
+execute if entity @s[scores={f1sch.give=155}] run data modify storage f1sch:temp item set value "minecraft:brewer_pottery_sherd"
+execute if entity @s[scores={f1sch.give=156}] run data modify storage f1sch:temp item set value "minecraft:brewing_stand"
+execute if entity @s[scores={f1sch.give=157}] run data modify storage f1sch:temp item set value "minecraft:brick"
+execute if entity @s[scores={f1sch.give=158}] run data modify storage f1sch:temp item set value "minecraft:brick_slab"
+execute if entity @s[scores={f1sch.give=159}] run data modify storage f1sch:temp item set value "minecraft:brick_stairs"
+execute if entity @s[scores={f1sch.give=160}] run data modify storage f1sch:temp item set value "minecraft:brick_wall"
+execute if entity @s[scores={f1sch.give=161}] run data modify storage f1sch:temp item set value "minecraft:bricks"
+execute if entity @s[scores={f1sch.give=162}] run data modify storage f1sch:temp item set value "minecraft:brown_banner"
+execute if entity @s[scores={f1sch.give=163}] run data modify storage f1sch:temp item set value "minecraft:brown_bed"
+execute if entity @s[scores={f1sch.give=164}] run data modify storage f1sch:temp item set value "minecraft:brown_bundle"
+execute if entity @s[scores={f1sch.give=165}] run data modify storage f1sch:temp item set value "minecraft:brown_candle"
+execute if entity @s[scores={f1sch.give=166}] run data modify storage f1sch:temp item set value "minecraft:brown_carpet"
+execute if entity @s[scores={f1sch.give=167}] run data modify storage f1sch:temp item set value "minecraft:brown_concrete"
+execute if entity @s[scores={f1sch.give=168}] run data modify storage f1sch:temp item set value "minecraft:brown_concrete_powder"
+execute if entity @s[scores={f1sch.give=169}] run data modify storage f1sch:temp item set value "minecraft:brown_dye"
+execute if entity @s[scores={f1sch.give=170}] run data modify storage f1sch:temp item set value "minecraft:brown_egg"
+execute if entity @s[scores={f1sch.give=171}] run data modify storage f1sch:temp item set value "minecraft:brown_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=172}] run data modify storage f1sch:temp item set value "minecraft:brown_harness"
+execute if entity @s[scores={f1sch.give=173}] run data modify storage f1sch:temp item set value "minecraft:brown_mushroom"
+execute if entity @s[scores={f1sch.give=174}] run data modify storage f1sch:temp item set value "minecraft:brown_mushroom_block"
+execute if entity @s[scores={f1sch.give=175}] run data modify storage f1sch:temp item set value "minecraft:brown_shulker_box"
+execute if entity @s[scores={f1sch.give=176}] run data modify storage f1sch:temp item set value "minecraft:brown_stained_glass"
+execute if entity @s[scores={f1sch.give=177}] run data modify storage f1sch:temp item set value "minecraft:brown_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=178}] run data modify storage f1sch:temp item set value "minecraft:brown_terracotta"
+execute if entity @s[scores={f1sch.give=179}] run data modify storage f1sch:temp item set value "minecraft:brown_wool"
+execute if entity @s[scores={f1sch.give=180}] run data modify storage f1sch:temp item set value "minecraft:brush"
+execute if entity @s[scores={f1sch.give=181}] run data modify storage f1sch:temp item set value "minecraft:bubble_coral"
+execute if entity @s[scores={f1sch.give=182}] run data modify storage f1sch:temp item set value "minecraft:bubble_coral_block"
+execute if entity @s[scores={f1sch.give=183}] run data modify storage f1sch:temp item set value "minecraft:bubble_coral_fan"
+execute if entity @s[scores={f1sch.give=184}] run data modify storage f1sch:temp item set value "minecraft:bucket"
+execute if entity @s[scores={f1sch.give=185}] run data modify storage f1sch:temp item set value "minecraft:budding_amethyst"
+execute if entity @s[scores={f1sch.give=186}] run data modify storage f1sch:temp item set value "minecraft:bundle"
+execute if entity @s[scores={f1sch.give=187}] run data modify storage f1sch:temp item set value "minecraft:burn_pottery_sherd"
+execute if entity @s[scores={f1sch.give=188}] run data modify storage f1sch:temp item set value "minecraft:bush"
+execute if entity @s[scores={f1sch.give=189}] run data modify storage f1sch:temp item set value "minecraft:cactus"
+execute if entity @s[scores={f1sch.give=190}] run data modify storage f1sch:temp item set value "minecraft:cactus_flower"
+execute if entity @s[scores={f1sch.give=191}] run data modify storage f1sch:temp item set value "minecraft:cake"
+execute if entity @s[scores={f1sch.give=192}] run data modify storage f1sch:temp item set value "minecraft:calcite"
+execute if entity @s[scores={f1sch.give=193}] run data modify storage f1sch:temp item set value "minecraft:calibrated_sculk_sensor"
+execute if entity @s[scores={f1sch.give=194}] run data modify storage f1sch:temp item set value "minecraft:camel_husk_spawn_egg"
+execute if entity @s[scores={f1sch.give=195}] run data modify storage f1sch:temp item set value "minecraft:camel_spawn_egg"
+execute if entity @s[scores={f1sch.give=196}] run data modify storage f1sch:temp item set value "minecraft:campfire"
+execute if entity @s[scores={f1sch.give=197}] run data modify storage f1sch:temp item set value "minecraft:candle"
+execute if entity @s[scores={f1sch.give=198}] run data modify storage f1sch:temp item set value "minecraft:carrot"
+execute if entity @s[scores={f1sch.give=199}] run data modify storage f1sch:temp item set value "minecraft:carrot_on_a_stick"
+execute if entity @s[scores={f1sch.give=200}] run data modify storage f1sch:temp item set value "minecraft:cartography_table"
+execute if entity @s[scores={f1sch.give=201}] run data modify storage f1sch:temp item set value "minecraft:carved_pumpkin"
+execute if entity @s[scores={f1sch.give=202}] run data modify storage f1sch:temp item set value "minecraft:cat_spawn_egg"
+execute if entity @s[scores={f1sch.give=203}] run data modify storage f1sch:temp item set value "minecraft:cauldron"
+execute if entity @s[scores={f1sch.give=204}] run data modify storage f1sch:temp item set value "minecraft:cave_spider_spawn_egg"
+execute if entity @s[scores={f1sch.give=205}] run data modify storage f1sch:temp item set value "minecraft:chain_command_block"
+execute if entity @s[scores={f1sch.give=206}] run data modify storage f1sch:temp item set value "minecraft:chainmail_boots"
+execute if entity @s[scores={f1sch.give=207}] run data modify storage f1sch:temp item set value "minecraft:chainmail_chestplate"
+execute if entity @s[scores={f1sch.give=208}] run data modify storage f1sch:temp item set value "minecraft:chainmail_helmet"
+execute if entity @s[scores={f1sch.give=209}] run data modify storage f1sch:temp item set value "minecraft:chainmail_leggings"
+execute if entity @s[scores={f1sch.give=210}] run data modify storage f1sch:temp item set value "minecraft:charcoal"
+execute if entity @s[scores={f1sch.give=211}] run data modify storage f1sch:temp item set value "minecraft:cherry_boat"
+execute if entity @s[scores={f1sch.give=212}] run data modify storage f1sch:temp item set value "minecraft:cherry_button"
+execute if entity @s[scores={f1sch.give=213}] run data modify storage f1sch:temp item set value "minecraft:cherry_chest_boat"
+execute if entity @s[scores={f1sch.give=214}] run data modify storage f1sch:temp item set value "minecraft:cherry_door"
+execute if entity @s[scores={f1sch.give=215}] run data modify storage f1sch:temp item set value "minecraft:cherry_fence"
+execute if entity @s[scores={f1sch.give=216}] run data modify storage f1sch:temp item set value "minecraft:cherry_fence_gate"
+execute if entity @s[scores={f1sch.give=217}] run data modify storage f1sch:temp item set value "minecraft:cherry_hanging_sign"
+execute if entity @s[scores={f1sch.give=218}] run data modify storage f1sch:temp item set value "minecraft:cherry_leaves"
+execute if entity @s[scores={f1sch.give=219}] run data modify storage f1sch:temp item set value "minecraft:cherry_log"
+execute if entity @s[scores={f1sch.give=220}] run data modify storage f1sch:temp item set value "minecraft:cherry_planks"
+execute if entity @s[scores={f1sch.give=221}] run data modify storage f1sch:temp item set value "minecraft:cherry_pressure_plate"
+execute if entity @s[scores={f1sch.give=222}] run data modify storage f1sch:temp item set value "minecraft:cherry_sapling"
+execute if entity @s[scores={f1sch.give=223}] run data modify storage f1sch:temp item set value "minecraft:cherry_shelf"
+execute if entity @s[scores={f1sch.give=224}] run data modify storage f1sch:temp item set value "minecraft:cherry_sign"
+execute if entity @s[scores={f1sch.give=225}] run data modify storage f1sch:temp item set value "minecraft:cherry_slab"
+execute if entity @s[scores={f1sch.give=226}] run data modify storage f1sch:temp item set value "minecraft:cherry_stairs"
+execute if entity @s[scores={f1sch.give=227}] run data modify storage f1sch:temp item set value "minecraft:cherry_trapdoor"
+execute if entity @s[scores={f1sch.give=228}] run data modify storage f1sch:temp item set value "minecraft:cherry_wood"
+execute if entity @s[scores={f1sch.give=229}] run data modify storage f1sch:temp item set value "minecraft:chest"
+execute if entity @s[scores={f1sch.give=230}] run data modify storage f1sch:temp item set value "minecraft:chest_minecart"
+execute if entity @s[scores={f1sch.give=231}] run data modify storage f1sch:temp item set value "minecraft:chicken"
+execute if entity @s[scores={f1sch.give=232}] run data modify storage f1sch:temp item set value "minecraft:chicken_spawn_egg"
+execute if entity @s[scores={f1sch.give=233}] run data modify storage f1sch:temp item set value "minecraft:chipped_anvil"
+execute if entity @s[scores={f1sch.give=234}] run data modify storage f1sch:temp item set value "minecraft:chiseled_bookshelf"
+execute if entity @s[scores={f1sch.give=235}] run data modify storage f1sch:temp item set value "minecraft:chiseled_copper"
+execute if entity @s[scores={f1sch.give=236}] run data modify storage f1sch:temp item set value "minecraft:chiseled_deepslate"
+execute if entity @s[scores={f1sch.give=237}] run data modify storage f1sch:temp item set value "minecraft:chiseled_nether_bricks"
+execute if entity @s[scores={f1sch.give=238}] run data modify storage f1sch:temp item set value "minecraft:chiseled_polished_blackstone"
+execute if entity @s[scores={f1sch.give=239}] run data modify storage f1sch:temp item set value "minecraft:chiseled_quartz_block"
+execute if entity @s[scores={f1sch.give=240}] run data modify storage f1sch:temp item set value "minecraft:chiseled_red_sandstone"
+execute if entity @s[scores={f1sch.give=241}] run data modify storage f1sch:temp item set value "minecraft:chiseled_resin_bricks"
+execute if entity @s[scores={f1sch.give=242}] run data modify storage f1sch:temp item set value "minecraft:chiseled_sandstone"
+execute if entity @s[scores={f1sch.give=243}] run data modify storage f1sch:temp item set value "minecraft:chiseled_stone_bricks"
+execute if entity @s[scores={f1sch.give=244}] run data modify storage f1sch:temp item set value "minecraft:chiseled_tuff"
+execute if entity @s[scores={f1sch.give=245}] run data modify storage f1sch:temp item set value "minecraft:chiseled_tuff_bricks"
+execute if entity @s[scores={f1sch.give=246}] run data modify storage f1sch:temp item set value "minecraft:chorus_flower"
+execute if entity @s[scores={f1sch.give=247}] run data modify storage f1sch:temp item set value "minecraft:chorus_fruit"
+execute if entity @s[scores={f1sch.give=248}] run data modify storage f1sch:temp item set value "minecraft:chorus_plant"
+execute if entity @s[scores={f1sch.give=249}] run data modify storage f1sch:temp item set value "minecraft:clay"
+execute if entity @s[scores={f1sch.give=250}] run data modify storage f1sch:temp item set value "minecraft:clay_ball"
+execute if entity @s[scores={f1sch.give=251}] run data modify storage f1sch:temp item set value "minecraft:clock"
+execute if entity @s[scores={f1sch.give=252}] run data modify storage f1sch:temp item set value "minecraft:closed_eyeblossom"
+execute if entity @s[scores={f1sch.give=253}] run data modify storage f1sch:temp item set value "minecraft:coal"
+execute if entity @s[scores={f1sch.give=254}] run data modify storage f1sch:temp item set value "minecraft:coal_block"
+execute if entity @s[scores={f1sch.give=255}] run data modify storage f1sch:temp item set value "minecraft:coal_ore"
+execute if entity @s[scores={f1sch.give=256}] run data modify storage f1sch:temp item set value "minecraft:coarse_dirt"
+execute if entity @s[scores={f1sch.give=257}] run data modify storage f1sch:temp item set value "minecraft:coast_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=258}] run data modify storage f1sch:temp item set value "minecraft:cobbled_deepslate"
+execute if entity @s[scores={f1sch.give=259}] run data modify storage f1sch:temp item set value "minecraft:cobbled_deepslate_slab"
+execute if entity @s[scores={f1sch.give=260}] run data modify storage f1sch:temp item set value "minecraft:cobbled_deepslate_stairs"
+execute if entity @s[scores={f1sch.give=261}] run data modify storage f1sch:temp item set value "minecraft:cobbled_deepslate_wall"
+execute if entity @s[scores={f1sch.give=262}] run data modify storage f1sch:temp item set value "minecraft:cobblestone"
+execute if entity @s[scores={f1sch.give=263}] run data modify storage f1sch:temp item set value "minecraft:cobblestone_slab"
+execute if entity @s[scores={f1sch.give=264}] run data modify storage f1sch:temp item set value "minecraft:cobblestone_stairs"
+execute if entity @s[scores={f1sch.give=265}] run data modify storage f1sch:temp item set value "minecraft:cobblestone_wall"
+execute if entity @s[scores={f1sch.give=266}] run data modify storage f1sch:temp item set value "minecraft:cobweb"
+execute if entity @s[scores={f1sch.give=267}] run data modify storage f1sch:temp item set value "minecraft:cocoa_beans"
+execute if entity @s[scores={f1sch.give=268}] run data modify storage f1sch:temp item set value "minecraft:cod"
+execute if entity @s[scores={f1sch.give=269}] run data modify storage f1sch:temp item set value "minecraft:cod_bucket"
+execute if entity @s[scores={f1sch.give=270}] run data modify storage f1sch:temp item set value "minecraft:cod_spawn_egg"
+execute if entity @s[scores={f1sch.give=271}] run data modify storage f1sch:temp item set value "minecraft:command_block"
+execute if entity @s[scores={f1sch.give=272}] run data modify storage f1sch:temp item set value "minecraft:command_block_minecart"
+execute if entity @s[scores={f1sch.give=273}] run data modify storage f1sch:temp item set value "minecraft:comparator"
+execute if entity @s[scores={f1sch.give=274}] run data modify storage f1sch:temp item set value "minecraft:compass"
+execute if entity @s[scores={f1sch.give=275}] run data modify storage f1sch:temp item set value "minecraft:composter"
+execute if entity @s[scores={f1sch.give=276}] run data modify storage f1sch:temp item set value "minecraft:conduit"
+execute if entity @s[scores={f1sch.give=277}] run data modify storage f1sch:temp item set value "minecraft:cooked_beef"
+execute if entity @s[scores={f1sch.give=278}] run data modify storage f1sch:temp item set value "minecraft:cooked_chicken"
+execute if entity @s[scores={f1sch.give=279}] run data modify storage f1sch:temp item set value "minecraft:cooked_cod"
+execute if entity @s[scores={f1sch.give=280}] run data modify storage f1sch:temp item set value "minecraft:cooked_mutton"
+execute if entity @s[scores={f1sch.give=281}] run data modify storage f1sch:temp item set value "minecraft:cooked_porkchop"
+execute if entity @s[scores={f1sch.give=282}] run data modify storage f1sch:temp item set value "minecraft:cooked_rabbit"
+execute if entity @s[scores={f1sch.give=283}] run data modify storage f1sch:temp item set value "minecraft:cooked_salmon"
+execute if entity @s[scores={f1sch.give=284}] run data modify storage f1sch:temp item set value "minecraft:cookie"
+execute if entity @s[scores={f1sch.give=285}] run data modify storage f1sch:temp item set value "minecraft:copper_axe"
+execute if entity @s[scores={f1sch.give=286}] run data modify storage f1sch:temp item set value "minecraft:copper_block"
+execute if entity @s[scores={f1sch.give=287}] run data modify storage f1sch:temp item set value "minecraft:copper_boots"
+execute if entity @s[scores={f1sch.give=288}] run data modify storage f1sch:temp item set value "minecraft:copper_bulb"
+execute if entity @s[scores={f1sch.give=289}] run data modify storage f1sch:temp item set value "minecraft:copper_chest"
+execute if entity @s[scores={f1sch.give=290}] run data modify storage f1sch:temp item set value "minecraft:copper_chestplate"
+execute if entity @s[scores={f1sch.give=291}] run data modify storage f1sch:temp item set value "minecraft:copper_door"
+execute if entity @s[scores={f1sch.give=292}] run data modify storage f1sch:temp item set value "minecraft:copper_golem_spawn_egg"
+execute if entity @s[scores={f1sch.give=293}] run data modify storage f1sch:temp item set value "minecraft:copper_golem_statue"
+execute if entity @s[scores={f1sch.give=294}] run data modify storage f1sch:temp item set value "minecraft:copper_grate"
+execute if entity @s[scores={f1sch.give=295}] run data modify storage f1sch:temp item set value "minecraft:copper_helmet"
+execute if entity @s[scores={f1sch.give=296}] run data modify storage f1sch:temp item set value "minecraft:copper_hoe"
+execute if entity @s[scores={f1sch.give=297}] run data modify storage f1sch:temp item set value "minecraft:copper_horse_armor"
+execute if entity @s[scores={f1sch.give=298}] run data modify storage f1sch:temp item set value "minecraft:copper_ingot"
+execute if entity @s[scores={f1sch.give=299}] run data modify storage f1sch:temp item set value "minecraft:copper_leggings"
+execute if entity @s[scores={f1sch.give=300}] run data modify storage f1sch:temp item set value "minecraft:copper_nautilus_armor"
+execute if entity @s[scores={f1sch.give=301}] run data modify storage f1sch:temp item set value "minecraft:copper_nugget"
+execute if entity @s[scores={f1sch.give=302}] run data modify storage f1sch:temp item set value "minecraft:copper_ore"
+execute if entity @s[scores={f1sch.give=303}] run data modify storage f1sch:temp item set value "minecraft:copper_pickaxe"
+execute if entity @s[scores={f1sch.give=304}] run data modify storage f1sch:temp item set value "minecraft:copper_shovel"
+execute if entity @s[scores={f1sch.give=305}] run data modify storage f1sch:temp item set value "minecraft:copper_spear"
+execute if entity @s[scores={f1sch.give=306}] run data modify storage f1sch:temp item set value "minecraft:copper_sword"
+execute if entity @s[scores={f1sch.give=307}] run data modify storage f1sch:temp item set value "minecraft:copper_torch"
+execute if entity @s[scores={f1sch.give=308}] run data modify storage f1sch:temp item set value "minecraft:copper_trapdoor"
+execute if entity @s[scores={f1sch.give=309}] run data modify storage f1sch:temp item set value "minecraft:cornflower"
+execute if entity @s[scores={f1sch.give=310}] run data modify storage f1sch:temp item set value "minecraft:cow_spawn_egg"
+execute if entity @s[scores={f1sch.give=311}] run data modify storage f1sch:temp item set value "minecraft:cracked_deepslate_bricks"
+execute if entity @s[scores={f1sch.give=312}] run data modify storage f1sch:temp item set value "minecraft:cracked_deepslate_tiles"
+execute if entity @s[scores={f1sch.give=313}] run data modify storage f1sch:temp item set value "minecraft:cracked_nether_bricks"
+execute if entity @s[scores={f1sch.give=314}] run data modify storage f1sch:temp item set value "minecraft:cracked_polished_blackstone_bricks"
+execute if entity @s[scores={f1sch.give=315}] run data modify storage f1sch:temp item set value "minecraft:cracked_stone_bricks"
+execute if entity @s[scores={f1sch.give=316}] run data modify storage f1sch:temp item set value "minecraft:crafter"
+execute if entity @s[scores={f1sch.give=317}] run data modify storage f1sch:temp item set value "minecraft:crafting_table"
+execute if entity @s[scores={f1sch.give=318}] run data modify storage f1sch:temp item set value "minecraft:creaking_heart"
+execute if entity @s[scores={f1sch.give=319}] run data modify storage f1sch:temp item set value "minecraft:creaking_spawn_egg"
+execute if entity @s[scores={f1sch.give=320}] run data modify storage f1sch:temp item set value "minecraft:creeper_banner_pattern"
+execute if entity @s[scores={f1sch.give=321}] run data modify storage f1sch:temp item set value "minecraft:creeper_head"
+execute if entity @s[scores={f1sch.give=322}] run data modify storage f1sch:temp item set value "minecraft:creeper_spawn_egg"
+execute if entity @s[scores={f1sch.give=323}] run data modify storage f1sch:temp item set value "minecraft:crimson_button"
+execute if entity @s[scores={f1sch.give=324}] run data modify storage f1sch:temp item set value "minecraft:crimson_door"
+execute if entity @s[scores={f1sch.give=325}] run data modify storage f1sch:temp item set value "minecraft:crimson_fence"
+execute if entity @s[scores={f1sch.give=326}] run data modify storage f1sch:temp item set value "minecraft:crimson_fence_gate"
+execute if entity @s[scores={f1sch.give=327}] run data modify storage f1sch:temp item set value "minecraft:crimson_fungus"
+execute if entity @s[scores={f1sch.give=328}] run data modify storage f1sch:temp item set value "minecraft:crimson_hanging_sign"
+execute if entity @s[scores={f1sch.give=329}] run data modify storage f1sch:temp item set value "minecraft:crimson_hyphae"
+execute if entity @s[scores={f1sch.give=330}] run data modify storage f1sch:temp item set value "minecraft:crimson_nylium"
+execute if entity @s[scores={f1sch.give=331}] run data modify storage f1sch:temp item set value "minecraft:crimson_planks"
+execute if entity @s[scores={f1sch.give=332}] run data modify storage f1sch:temp item set value "minecraft:crimson_pressure_plate"
+execute if entity @s[scores={f1sch.give=333}] run data modify storage f1sch:temp item set value "minecraft:crimson_roots"
+execute if entity @s[scores={f1sch.give=334}] run data modify storage f1sch:temp item set value "minecraft:crimson_shelf"
+execute if entity @s[scores={f1sch.give=335}] run data modify storage f1sch:temp item set value "minecraft:crimson_sign"
+execute if entity @s[scores={f1sch.give=336}] run data modify storage f1sch:temp item set value "minecraft:crimson_slab"
+execute if entity @s[scores={f1sch.give=337}] run data modify storage f1sch:temp item set value "minecraft:crimson_stairs"
+execute if entity @s[scores={f1sch.give=338}] run data modify storage f1sch:temp item set value "minecraft:crimson_stem"
+execute if entity @s[scores={f1sch.give=339}] run data modify storage f1sch:temp item set value "minecraft:crimson_trapdoor"
+execute if entity @s[scores={f1sch.give=340}] run data modify storage f1sch:temp item set value "minecraft:crossbow"
+execute if entity @s[scores={f1sch.give=341}] run data modify storage f1sch:temp item set value "minecraft:crying_obsidian"
+execute if entity @s[scores={f1sch.give=342}] run data modify storage f1sch:temp item set value "minecraft:cut_copper"
+execute if entity @s[scores={f1sch.give=343}] run data modify storage f1sch:temp item set value "minecraft:cut_copper_slab"
+execute if entity @s[scores={f1sch.give=344}] run data modify storage f1sch:temp item set value "minecraft:cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=345}] run data modify storage f1sch:temp item set value "minecraft:cut_red_sandstone"
+execute if entity @s[scores={f1sch.give=346}] run data modify storage f1sch:temp item set value "minecraft:cut_red_sandstone_slab"
+execute if entity @s[scores={f1sch.give=347}] run data modify storage f1sch:temp item set value "minecraft:cut_sandstone"
+execute if entity @s[scores={f1sch.give=348}] run data modify storage f1sch:temp item set value "minecraft:cut_sandstone_slab"
+execute if entity @s[scores={f1sch.give=349}] run data modify storage f1sch:temp item set value "minecraft:cyan_banner"
+execute if entity @s[scores={f1sch.give=350}] run data modify storage f1sch:temp item set value "minecraft:cyan_bed"
+execute if entity @s[scores={f1sch.give=351}] run data modify storage f1sch:temp item set value "minecraft:cyan_bundle"
+execute if entity @s[scores={f1sch.give=352}] run data modify storage f1sch:temp item set value "minecraft:cyan_candle"
+execute if entity @s[scores={f1sch.give=353}] run data modify storage f1sch:temp item set value "minecraft:cyan_carpet"
+execute if entity @s[scores={f1sch.give=354}] run data modify storage f1sch:temp item set value "minecraft:cyan_concrete"
+execute if entity @s[scores={f1sch.give=355}] run data modify storage f1sch:temp item set value "minecraft:cyan_concrete_powder"
+execute if entity @s[scores={f1sch.give=356}] run data modify storage f1sch:temp item set value "minecraft:cyan_dye"
+execute if entity @s[scores={f1sch.give=357}] run data modify storage f1sch:temp item set value "minecraft:cyan_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=358}] run data modify storage f1sch:temp item set value "minecraft:cyan_harness"
+execute if entity @s[scores={f1sch.give=359}] run data modify storage f1sch:temp item set value "minecraft:cyan_shulker_box"
+execute if entity @s[scores={f1sch.give=360}] run data modify storage f1sch:temp item set value "minecraft:cyan_stained_glass"
+execute if entity @s[scores={f1sch.give=361}] run data modify storage f1sch:temp item set value "minecraft:cyan_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=362}] run data modify storage f1sch:temp item set value "minecraft:cyan_terracotta"
+execute if entity @s[scores={f1sch.give=363}] run data modify storage f1sch:temp item set value "minecraft:cyan_wool"
+execute if entity @s[scores={f1sch.give=364}] run data modify storage f1sch:temp item set value "minecraft:damaged_anvil"
+execute if entity @s[scores={f1sch.give=365}] run data modify storage f1sch:temp item set value "minecraft:dandelion"
+execute if entity @s[scores={f1sch.give=366}] run data modify storage f1sch:temp item set value "minecraft:danger_pottery_sherd"
+execute if entity @s[scores={f1sch.give=367}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_boat"
+execute if entity @s[scores={f1sch.give=368}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_button"
+execute if entity @s[scores={f1sch.give=369}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_chest_boat"
+execute if entity @s[scores={f1sch.give=370}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_door"
+execute if entity @s[scores={f1sch.give=371}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_fence"
+execute if entity @s[scores={f1sch.give=372}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_fence_gate"
+execute if entity @s[scores={f1sch.give=373}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_hanging_sign"
+execute if entity @s[scores={f1sch.give=374}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_leaves"
+execute if entity @s[scores={f1sch.give=375}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_log"
+execute if entity @s[scores={f1sch.give=376}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_planks"
+execute if entity @s[scores={f1sch.give=377}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_pressure_plate"
+execute if entity @s[scores={f1sch.give=378}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_sapling"
+execute if entity @s[scores={f1sch.give=379}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_shelf"
+execute if entity @s[scores={f1sch.give=380}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_sign"
+execute if entity @s[scores={f1sch.give=381}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_slab"
+execute if entity @s[scores={f1sch.give=382}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_stairs"
+execute if entity @s[scores={f1sch.give=383}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_trapdoor"
+execute if entity @s[scores={f1sch.give=384}] run data modify storage f1sch:temp item set value "minecraft:dark_oak_wood"
+execute if entity @s[scores={f1sch.give=385}] run data modify storage f1sch:temp item set value "minecraft:dark_prismarine"
+execute if entity @s[scores={f1sch.give=386}] run data modify storage f1sch:temp item set value "minecraft:dark_prismarine_slab"
+execute if entity @s[scores={f1sch.give=387}] run data modify storage f1sch:temp item set value "minecraft:dark_prismarine_stairs"
+execute if entity @s[scores={f1sch.give=388}] run data modify storage f1sch:temp item set value "minecraft:daylight_detector"
+execute if entity @s[scores={f1sch.give=389}] run data modify storage f1sch:temp item set value "minecraft:dead_brain_coral"
+execute if entity @s[scores={f1sch.give=390}] run data modify storage f1sch:temp item set value "minecraft:dead_brain_coral_block"
+execute if entity @s[scores={f1sch.give=391}] run data modify storage f1sch:temp item set value "minecraft:dead_brain_coral_fan"
+execute if entity @s[scores={f1sch.give=392}] run data modify storage f1sch:temp item set value "minecraft:dead_bubble_coral"
+execute if entity @s[scores={f1sch.give=393}] run data modify storage f1sch:temp item set value "minecraft:dead_bubble_coral_block"
+execute if entity @s[scores={f1sch.give=394}] run data modify storage f1sch:temp item set value "minecraft:dead_bubble_coral_fan"
+execute if entity @s[scores={f1sch.give=395}] run data modify storage f1sch:temp item set value "minecraft:dead_bush"
+execute if entity @s[scores={f1sch.give=396}] run data modify storage f1sch:temp item set value "minecraft:dead_fire_coral"
+execute if entity @s[scores={f1sch.give=397}] run data modify storage f1sch:temp item set value "minecraft:dead_fire_coral_block"
+execute if entity @s[scores={f1sch.give=398}] run data modify storage f1sch:temp item set value "minecraft:dead_fire_coral_fan"
+execute if entity @s[scores={f1sch.give=399}] run data modify storage f1sch:temp item set value "minecraft:dead_horn_coral"
+execute if entity @s[scores={f1sch.give=400}] run data modify storage f1sch:temp item set value "minecraft:dead_horn_coral_block"
+execute if entity @s[scores={f1sch.give=401}] run data modify storage f1sch:temp item set value "minecraft:dead_horn_coral_fan"
+execute if entity @s[scores={f1sch.give=402}] run data modify storage f1sch:temp item set value "minecraft:dead_tube_coral"
+execute if entity @s[scores={f1sch.give=403}] run data modify storage f1sch:temp item set value "minecraft:dead_tube_coral_block"
+execute if entity @s[scores={f1sch.give=404}] run data modify storage f1sch:temp item set value "minecraft:dead_tube_coral_fan"
+execute if entity @s[scores={f1sch.give=405}] run data modify storage f1sch:temp item set value "minecraft:debug_stick"
+execute if entity @s[scores={f1sch.give=406}] run data modify storage f1sch:temp item set value "minecraft:decorated_pot"
+execute if entity @s[scores={f1sch.give=407}] run data modify storage f1sch:temp item set value "minecraft:deepslate"
+execute if entity @s[scores={f1sch.give=408}] run data modify storage f1sch:temp item set value "minecraft:deepslate_brick_slab"
+execute if entity @s[scores={f1sch.give=409}] run data modify storage f1sch:temp item set value "minecraft:deepslate_brick_stairs"
+execute if entity @s[scores={f1sch.give=410}] run data modify storage f1sch:temp item set value "minecraft:deepslate_brick_wall"
+execute if entity @s[scores={f1sch.give=411}] run data modify storage f1sch:temp item set value "minecraft:deepslate_bricks"
+execute if entity @s[scores={f1sch.give=412}] run data modify storage f1sch:temp item set value "minecraft:deepslate_coal_ore"
+execute if entity @s[scores={f1sch.give=413}] run data modify storage f1sch:temp item set value "minecraft:deepslate_copper_ore"
+execute if entity @s[scores={f1sch.give=414}] run data modify storage f1sch:temp item set value "minecraft:deepslate_diamond_ore"
+execute if entity @s[scores={f1sch.give=415}] run data modify storage f1sch:temp item set value "minecraft:deepslate_emerald_ore"
+execute if entity @s[scores={f1sch.give=416}] run data modify storage f1sch:temp item set value "minecraft:deepslate_gold_ore"
+execute if entity @s[scores={f1sch.give=417}] run data modify storage f1sch:temp item set value "minecraft:deepslate_iron_ore"
+execute if entity @s[scores={f1sch.give=418}] run data modify storage f1sch:temp item set value "minecraft:deepslate_lapis_ore"
+execute if entity @s[scores={f1sch.give=419}] run data modify storage f1sch:temp item set value "minecraft:deepslate_redstone_ore"
+execute if entity @s[scores={f1sch.give=420}] run data modify storage f1sch:temp item set value "minecraft:deepslate_tile_slab"
+execute if entity @s[scores={f1sch.give=421}] run data modify storage f1sch:temp item set value "minecraft:deepslate_tile_stairs"
+execute if entity @s[scores={f1sch.give=422}] run data modify storage f1sch:temp item set value "minecraft:deepslate_tile_wall"
+execute if entity @s[scores={f1sch.give=423}] run data modify storage f1sch:temp item set value "minecraft:deepslate_tiles"
+execute if entity @s[scores={f1sch.give=424}] run data modify storage f1sch:temp item set value "minecraft:detector_rail"
+execute if entity @s[scores={f1sch.give=425}] run data modify storage f1sch:temp item set value "minecraft:diamond"
+execute if entity @s[scores={f1sch.give=426}] run data modify storage f1sch:temp item set value "minecraft:diamond_axe"
+execute if entity @s[scores={f1sch.give=427}] run data modify storage f1sch:temp item set value "minecraft:diamond_block"
+execute if entity @s[scores={f1sch.give=428}] run data modify storage f1sch:temp item set value "minecraft:diamond_boots"
+execute if entity @s[scores={f1sch.give=429}] run data modify storage f1sch:temp item set value "minecraft:diamond_chestplate"
+execute if entity @s[scores={f1sch.give=430}] run data modify storage f1sch:temp item set value "minecraft:diamond_helmet"
+execute if entity @s[scores={f1sch.give=431}] run data modify storage f1sch:temp item set value "minecraft:diamond_hoe"
+execute if entity @s[scores={f1sch.give=432}] run data modify storage f1sch:temp item set value "minecraft:diamond_horse_armor"
+execute if entity @s[scores={f1sch.give=433}] run data modify storage f1sch:temp item set value "minecraft:diamond_leggings"
+execute if entity @s[scores={f1sch.give=434}] run data modify storage f1sch:temp item set value "minecraft:diamond_nautilus_armor"
+execute if entity @s[scores={f1sch.give=435}] run data modify storage f1sch:temp item set value "minecraft:diamond_ore"
+execute if entity @s[scores={f1sch.give=436}] run data modify storage f1sch:temp item set value "minecraft:diamond_pickaxe"
+execute if entity @s[scores={f1sch.give=437}] run data modify storage f1sch:temp item set value "minecraft:diamond_shovel"
+execute if entity @s[scores={f1sch.give=438}] run data modify storage f1sch:temp item set value "minecraft:diamond_spear"
+execute if entity @s[scores={f1sch.give=439}] run data modify storage f1sch:temp item set value "minecraft:diamond_sword"
+execute if entity @s[scores={f1sch.give=440}] run data modify storage f1sch:temp item set value "minecraft:diorite"
+execute if entity @s[scores={f1sch.give=441}] run data modify storage f1sch:temp item set value "minecraft:diorite_slab"
+execute if entity @s[scores={f1sch.give=442}] run data modify storage f1sch:temp item set value "minecraft:diorite_stairs"
+execute if entity @s[scores={f1sch.give=443}] run data modify storage f1sch:temp item set value "minecraft:diorite_wall"
+execute if entity @s[scores={f1sch.give=444}] run data modify storage f1sch:temp item set value "minecraft:dirt"
+execute if entity @s[scores={f1sch.give=445}] run data modify storage f1sch:temp item set value "minecraft:dirt_path"
+execute if entity @s[scores={f1sch.give=446}] run data modify storage f1sch:temp item set value "minecraft:disc_fragment_5"
+execute if entity @s[scores={f1sch.give=447}] run data modify storage f1sch:temp item set value "minecraft:dispenser"
+execute if entity @s[scores={f1sch.give=448}] run data modify storage f1sch:temp item set value "minecraft:dolphin_spawn_egg"
+execute if entity @s[scores={f1sch.give=449}] run data modify storage f1sch:temp item set value "minecraft:donkey_spawn_egg"
+execute if entity @s[scores={f1sch.give=450}] run data modify storage f1sch:temp item set value "minecraft:dragon_breath"
+execute if entity @s[scores={f1sch.give=451}] run data modify storage f1sch:temp item set value "minecraft:dragon_egg"
+execute if entity @s[scores={f1sch.give=452}] run data modify storage f1sch:temp item set value "minecraft:dragon_head"
+execute if entity @s[scores={f1sch.give=453}] run data modify storage f1sch:temp item set value "minecraft:dried_ghast"
+execute if entity @s[scores={f1sch.give=454}] run data modify storage f1sch:temp item set value "minecraft:dried_kelp"
+execute if entity @s[scores={f1sch.give=455}] run data modify storage f1sch:temp item set value "minecraft:dried_kelp_block"
+execute if entity @s[scores={f1sch.give=456}] run data modify storage f1sch:temp item set value "minecraft:dripstone_block"
+execute if entity @s[scores={f1sch.give=457}] run data modify storage f1sch:temp item set value "minecraft:dropper"
+execute if entity @s[scores={f1sch.give=458}] run data modify storage f1sch:temp item set value "minecraft:drowned_spawn_egg"
+execute if entity @s[scores={f1sch.give=459}] run data modify storage f1sch:temp item set value "minecraft:dune_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=460}] run data modify storage f1sch:temp item set value "minecraft:echo_shard"
+execute if entity @s[scores={f1sch.give=461}] run data modify storage f1sch:temp item set value "minecraft:egg"
+execute if entity @s[scores={f1sch.give=462}] run data modify storage f1sch:temp item set value "minecraft:elder_guardian_spawn_egg"
+execute if entity @s[scores={f1sch.give=463}] run data modify storage f1sch:temp item set value "minecraft:elytra"
+execute if entity @s[scores={f1sch.give=464}] run data modify storage f1sch:temp item set value "minecraft:emerald"
+execute if entity @s[scores={f1sch.give=465}] run data modify storage f1sch:temp item set value "minecraft:emerald_block"
+execute if entity @s[scores={f1sch.give=466}] run data modify storage f1sch:temp item set value "minecraft:emerald_ore"
+execute if entity @s[scores={f1sch.give=467}] run data modify storage f1sch:temp item set value "minecraft:enchanted_book"
+execute if entity @s[scores={f1sch.give=468}] run data modify storage f1sch:temp item set value "minecraft:enchanted_golden_apple"
+execute if entity @s[scores={f1sch.give=469}] run data modify storage f1sch:temp item set value "minecraft:enchanting_table"
+execute if entity @s[scores={f1sch.give=470}] run data modify storage f1sch:temp item set value "minecraft:end_crystal"
+execute if entity @s[scores={f1sch.give=471}] run data modify storage f1sch:temp item set value "minecraft:end_portal_frame"
+execute if entity @s[scores={f1sch.give=472}] run data modify storage f1sch:temp item set value "minecraft:end_rod"
+execute if entity @s[scores={f1sch.give=473}] run data modify storage f1sch:temp item set value "minecraft:end_stone"
+execute if entity @s[scores={f1sch.give=474}] run data modify storage f1sch:temp item set value "minecraft:end_stone_brick_slab"
+execute if entity @s[scores={f1sch.give=475}] run data modify storage f1sch:temp item set value "minecraft:end_stone_brick_stairs"
+execute if entity @s[scores={f1sch.give=476}] run data modify storage f1sch:temp item set value "minecraft:end_stone_brick_wall"
+execute if entity @s[scores={f1sch.give=477}] run data modify storage f1sch:temp item set value "minecraft:end_stone_bricks"
+execute if entity @s[scores={f1sch.give=478}] run data modify storage f1sch:temp item set value "minecraft:ender_chest"
+execute if entity @s[scores={f1sch.give=479}] run data modify storage f1sch:temp item set value "minecraft:ender_dragon_spawn_egg"
+execute if entity @s[scores={f1sch.give=480}] run data modify storage f1sch:temp item set value "minecraft:ender_eye"
+execute if entity @s[scores={f1sch.give=481}] run data modify storage f1sch:temp item set value "minecraft:ender_pearl"
+execute if entity @s[scores={f1sch.give=482}] run data modify storage f1sch:temp item set value "minecraft:enderman_spawn_egg"
+execute if entity @s[scores={f1sch.give=483}] run data modify storage f1sch:temp item set value "minecraft:endermite_spawn_egg"
+execute if entity @s[scores={f1sch.give=484}] run data modify storage f1sch:temp item set value "minecraft:evoker_spawn_egg"
+execute if entity @s[scores={f1sch.give=485}] run data modify storage f1sch:temp item set value "minecraft:experience_bottle"
+execute if entity @s[scores={f1sch.give=486}] run data modify storage f1sch:temp item set value "minecraft:explorer_pottery_sherd"
+execute if entity @s[scores={f1sch.give=487}] run data modify storage f1sch:temp item set value "minecraft:exposed_chiseled_copper"
+execute if entity @s[scores={f1sch.give=488}] run data modify storage f1sch:temp item set value "minecraft:exposed_copper"
+execute if entity @s[scores={f1sch.give=489}] run data modify storage f1sch:temp item set value "minecraft:exposed_copper_bulb"
+execute if entity @s[scores={f1sch.give=490}] run data modify storage f1sch:temp item set value "minecraft:exposed_copper_chest"
+execute if entity @s[scores={f1sch.give=491}] run data modify storage f1sch:temp item set value "minecraft:exposed_copper_door"
+execute if entity @s[scores={f1sch.give=492}] run data modify storage f1sch:temp item set value "minecraft:exposed_copper_golem_statue"
+execute if entity @s[scores={f1sch.give=493}] run data modify storage f1sch:temp item set value "minecraft:exposed_copper_grate"
+execute if entity @s[scores={f1sch.give=494}] run data modify storage f1sch:temp item set value "minecraft:exposed_copper_trapdoor"
+execute if entity @s[scores={f1sch.give=495}] run data modify storage f1sch:temp item set value "minecraft:exposed_cut_copper"
+execute if entity @s[scores={f1sch.give=496}] run data modify storage f1sch:temp item set value "minecraft:exposed_cut_copper_slab"
+execute if entity @s[scores={f1sch.give=497}] run data modify storage f1sch:temp item set value "minecraft:exposed_cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=498}] run data modify storage f1sch:temp item set value "minecraft:exposed_lightning_rod"
+execute if entity @s[scores={f1sch.give=499}] run data modify storage f1sch:temp item set value "minecraft:eye_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=500}] run data modify storage f1sch:temp item set value "minecraft:farmland"
+execute if entity @s[scores={f1sch.give=501}] run data modify storage f1sch:temp item set value "minecraft:feather"
+execute if entity @s[scores={f1sch.give=502}] run data modify storage f1sch:temp item set value "minecraft:fermented_spider_eye"
+execute if entity @s[scores={f1sch.give=503}] run data modify storage f1sch:temp item set value "minecraft:fern"
+execute if entity @s[scores={f1sch.give=504}] run data modify storage f1sch:temp item set value "minecraft:field_masoned_banner_pattern"
+execute if entity @s[scores={f1sch.give=505}] run data modify storage f1sch:temp item set value "minecraft:filled_map"
+execute if entity @s[scores={f1sch.give=506}] run data modify storage f1sch:temp item set value "minecraft:fire_charge"
+execute if entity @s[scores={f1sch.give=507}] run data modify storage f1sch:temp item set value "minecraft:fire_coral"
+execute if entity @s[scores={f1sch.give=508}] run data modify storage f1sch:temp item set value "minecraft:fire_coral_block"
+execute if entity @s[scores={f1sch.give=509}] run data modify storage f1sch:temp item set value "minecraft:fire_coral_fan"
+execute if entity @s[scores={f1sch.give=510}] run data modify storage f1sch:temp item set value "minecraft:firefly_bush"
+execute if entity @s[scores={f1sch.give=511}] run data modify storage f1sch:temp item set value "minecraft:firework_rocket"
+execute if entity @s[scores={f1sch.give=512}] run data modify storage f1sch:temp item set value "minecraft:firework_star"
+execute if entity @s[scores={f1sch.give=513}] run data modify storage f1sch:temp item set value "minecraft:fishing_rod"
+execute if entity @s[scores={f1sch.give=514}] run data modify storage f1sch:temp item set value "minecraft:fletching_table"
+execute if entity @s[scores={f1sch.give=515}] run data modify storage f1sch:temp item set value "minecraft:flint"
+execute if entity @s[scores={f1sch.give=516}] run data modify storage f1sch:temp item set value "minecraft:flint_and_steel"
+execute if entity @s[scores={f1sch.give=517}] run data modify storage f1sch:temp item set value "minecraft:flow_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=518}] run data modify storage f1sch:temp item set value "minecraft:flow_banner_pattern"
+execute if entity @s[scores={f1sch.give=519}] run data modify storage f1sch:temp item set value "minecraft:flow_pottery_sherd"
+execute if entity @s[scores={f1sch.give=520}] run data modify storage f1sch:temp item set value "minecraft:flower_banner_pattern"
+execute if entity @s[scores={f1sch.give=521}] run data modify storage f1sch:temp item set value "minecraft:flower_pot"
+execute if entity @s[scores={f1sch.give=522}] run data modify storage f1sch:temp item set value "minecraft:flowering_azalea"
+execute if entity @s[scores={f1sch.give=523}] run data modify storage f1sch:temp item set value "minecraft:flowering_azalea_leaves"
+execute if entity @s[scores={f1sch.give=524}] run data modify storage f1sch:temp item set value "minecraft:fox_spawn_egg"
+execute if entity @s[scores={f1sch.give=525}] run data modify storage f1sch:temp item set value "minecraft:friend_pottery_sherd"
+execute if entity @s[scores={f1sch.give=526}] run data modify storage f1sch:temp item set value "minecraft:frog_spawn_egg"
+execute if entity @s[scores={f1sch.give=527}] run data modify storage f1sch:temp item set value "minecraft:frogspawn"
+execute if entity @s[scores={f1sch.give=528}] run data modify storage f1sch:temp item set value "minecraft:furnace"
+execute if entity @s[scores={f1sch.give=529}] run data modify storage f1sch:temp item set value "minecraft:furnace_minecart"
+execute if entity @s[scores={f1sch.give=530}] run data modify storage f1sch:temp item set value "minecraft:ghast_spawn_egg"
+execute if entity @s[scores={f1sch.give=531}] run data modify storage f1sch:temp item set value "minecraft:ghast_tear"
+execute if entity @s[scores={f1sch.give=532}] run data modify storage f1sch:temp item set value "minecraft:gilded_blackstone"
+execute if entity @s[scores={f1sch.give=533}] run data modify storage f1sch:temp item set value "minecraft:glass"
+execute if entity @s[scores={f1sch.give=534}] run data modify storage f1sch:temp item set value "minecraft:glass_bottle"
+execute if entity @s[scores={f1sch.give=535}] run data modify storage f1sch:temp item set value "minecraft:glass_pane"
+execute if entity @s[scores={f1sch.give=536}] run data modify storage f1sch:temp item set value "minecraft:glistering_melon_slice"
+execute if entity @s[scores={f1sch.give=537}] run data modify storage f1sch:temp item set value "minecraft:globe_banner_pattern"
+execute if entity @s[scores={f1sch.give=538}] run data modify storage f1sch:temp item set value "minecraft:glow_berries"
+execute if entity @s[scores={f1sch.give=539}] run data modify storage f1sch:temp item set value "minecraft:glow_ink_sac"
+execute if entity @s[scores={f1sch.give=540}] run data modify storage f1sch:temp item set value "minecraft:glow_item_frame"
+execute if entity @s[scores={f1sch.give=541}] run data modify storage f1sch:temp item set value "minecraft:glow_lichen"
+execute if entity @s[scores={f1sch.give=542}] run data modify storage f1sch:temp item set value "minecraft:glow_squid_spawn_egg"
+execute if entity @s[scores={f1sch.give=543}] run data modify storage f1sch:temp item set value "minecraft:glowstone"
+execute if entity @s[scores={f1sch.give=544}] run data modify storage f1sch:temp item set value "minecraft:glowstone_dust"
+execute if entity @s[scores={f1sch.give=545}] run data modify storage f1sch:temp item set value "minecraft:goat_horn"
+execute if entity @s[scores={f1sch.give=546}] run data modify storage f1sch:temp item set value "minecraft:goat_spawn_egg"
+execute if entity @s[scores={f1sch.give=547}] run data modify storage f1sch:temp item set value "minecraft:gold_block"
+execute if entity @s[scores={f1sch.give=548}] run data modify storage f1sch:temp item set value "minecraft:gold_ingot"
+execute if entity @s[scores={f1sch.give=549}] run data modify storage f1sch:temp item set value "minecraft:gold_nugget"
+execute if entity @s[scores={f1sch.give=550}] run data modify storage f1sch:temp item set value "minecraft:gold_ore"
+execute if entity @s[scores={f1sch.give=551}] run data modify storage f1sch:temp item set value "minecraft:golden_apple"
+execute if entity @s[scores={f1sch.give=552}] run data modify storage f1sch:temp item set value "minecraft:golden_axe"
+execute if entity @s[scores={f1sch.give=553}] run data modify storage f1sch:temp item set value "minecraft:golden_boots"
+execute if entity @s[scores={f1sch.give=554}] run data modify storage f1sch:temp item set value "minecraft:golden_carrot"
+execute if entity @s[scores={f1sch.give=555}] run data modify storage f1sch:temp item set value "minecraft:golden_chestplate"
+execute if entity @s[scores={f1sch.give=556}] run data modify storage f1sch:temp item set value "minecraft:golden_helmet"
+execute if entity @s[scores={f1sch.give=557}] run data modify storage f1sch:temp item set value "minecraft:golden_hoe"
+execute if entity @s[scores={f1sch.give=558}] run data modify storage f1sch:temp item set value "minecraft:golden_horse_armor"
+execute if entity @s[scores={f1sch.give=559}] run data modify storage f1sch:temp item set value "minecraft:golden_leggings"
+execute if entity @s[scores={f1sch.give=560}] run data modify storage f1sch:temp item set value "minecraft:golden_nautilus_armor"
+execute if entity @s[scores={f1sch.give=561}] run data modify storage f1sch:temp item set value "minecraft:golden_pickaxe"
+execute if entity @s[scores={f1sch.give=562}] run data modify storage f1sch:temp item set value "minecraft:golden_shovel"
+execute if entity @s[scores={f1sch.give=563}] run data modify storage f1sch:temp item set value "minecraft:golden_spear"
+execute if entity @s[scores={f1sch.give=564}] run data modify storage f1sch:temp item set value "minecraft:golden_sword"
+execute if entity @s[scores={f1sch.give=565}] run data modify storage f1sch:temp item set value "minecraft:granite"
+execute if entity @s[scores={f1sch.give=566}] run data modify storage f1sch:temp item set value "minecraft:granite_slab"
+execute if entity @s[scores={f1sch.give=567}] run data modify storage f1sch:temp item set value "minecraft:granite_stairs"
+execute if entity @s[scores={f1sch.give=568}] run data modify storage f1sch:temp item set value "minecraft:granite_wall"
+execute if entity @s[scores={f1sch.give=569}] run data modify storage f1sch:temp item set value "minecraft:grass_block"
+execute if entity @s[scores={f1sch.give=570}] run data modify storage f1sch:temp item set value "minecraft:gravel"
+execute if entity @s[scores={f1sch.give=571}] run data modify storage f1sch:temp item set value "minecraft:gray_banner"
+execute if entity @s[scores={f1sch.give=572}] run data modify storage f1sch:temp item set value "minecraft:gray_bed"
+execute if entity @s[scores={f1sch.give=573}] run data modify storage f1sch:temp item set value "minecraft:gray_bundle"
+execute if entity @s[scores={f1sch.give=574}] run data modify storage f1sch:temp item set value "minecraft:gray_candle"
+execute if entity @s[scores={f1sch.give=575}] run data modify storage f1sch:temp item set value "minecraft:gray_carpet"
+execute if entity @s[scores={f1sch.give=576}] run data modify storage f1sch:temp item set value "minecraft:gray_concrete"
+execute if entity @s[scores={f1sch.give=577}] run data modify storage f1sch:temp item set value "minecraft:gray_concrete_powder"
+execute if entity @s[scores={f1sch.give=578}] run data modify storage f1sch:temp item set value "minecraft:gray_dye"
+execute if entity @s[scores={f1sch.give=579}] run data modify storage f1sch:temp item set value "minecraft:gray_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=580}] run data modify storage f1sch:temp item set value "minecraft:gray_harness"
+execute if entity @s[scores={f1sch.give=581}] run data modify storage f1sch:temp item set value "minecraft:gray_shulker_box"
+execute if entity @s[scores={f1sch.give=582}] run data modify storage f1sch:temp item set value "minecraft:gray_stained_glass"
+execute if entity @s[scores={f1sch.give=583}] run data modify storage f1sch:temp item set value "minecraft:gray_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=584}] run data modify storage f1sch:temp item set value "minecraft:gray_terracotta"
+execute if entity @s[scores={f1sch.give=585}] run data modify storage f1sch:temp item set value "minecraft:gray_wool"
+execute if entity @s[scores={f1sch.give=586}] run data modify storage f1sch:temp item set value "minecraft:green_banner"
+execute if entity @s[scores={f1sch.give=587}] run data modify storage f1sch:temp item set value "minecraft:green_bed"
+execute if entity @s[scores={f1sch.give=588}] run data modify storage f1sch:temp item set value "minecraft:green_bundle"
+execute if entity @s[scores={f1sch.give=589}] run data modify storage f1sch:temp item set value "minecraft:green_candle"
+execute if entity @s[scores={f1sch.give=590}] run data modify storage f1sch:temp item set value "minecraft:green_carpet"
+execute if entity @s[scores={f1sch.give=591}] run data modify storage f1sch:temp item set value "minecraft:green_concrete"
+execute if entity @s[scores={f1sch.give=592}] run data modify storage f1sch:temp item set value "minecraft:green_concrete_powder"
+execute if entity @s[scores={f1sch.give=593}] run data modify storage f1sch:temp item set value "minecraft:green_dye"
+execute if entity @s[scores={f1sch.give=594}] run data modify storage f1sch:temp item set value "minecraft:green_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=595}] run data modify storage f1sch:temp item set value "minecraft:green_harness"
+execute if entity @s[scores={f1sch.give=596}] run data modify storage f1sch:temp item set value "minecraft:green_shulker_box"
+execute if entity @s[scores={f1sch.give=597}] run data modify storage f1sch:temp item set value "minecraft:green_stained_glass"
+execute if entity @s[scores={f1sch.give=598}] run data modify storage f1sch:temp item set value "minecraft:green_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=599}] run data modify storage f1sch:temp item set value "minecraft:green_terracotta"
+execute if entity @s[scores={f1sch.give=600}] run data modify storage f1sch:temp item set value "minecraft:green_wool"
+execute if entity @s[scores={f1sch.give=601}] run data modify storage f1sch:temp item set value "minecraft:grindstone"
+execute if entity @s[scores={f1sch.give=602}] run data modify storage f1sch:temp item set value "minecraft:guardian_spawn_egg"
+execute if entity @s[scores={f1sch.give=603}] run data modify storage f1sch:temp item set value "minecraft:gunpowder"
+execute if entity @s[scores={f1sch.give=604}] run data modify storage f1sch:temp item set value "minecraft:guster_banner_pattern"
+execute if entity @s[scores={f1sch.give=605}] run data modify storage f1sch:temp item set value "minecraft:guster_pottery_sherd"
+execute if entity @s[scores={f1sch.give=606}] run data modify storage f1sch:temp item set value "minecraft:hanging_roots"
+execute if entity @s[scores={f1sch.give=607}] run data modify storage f1sch:temp item set value "minecraft:happy_ghast_spawn_egg"
+execute if entity @s[scores={f1sch.give=608}] run data modify storage f1sch:temp item set value "minecraft:hay_block"
+execute if entity @s[scores={f1sch.give=609}] run data modify storage f1sch:temp item set value "minecraft:heart_of_the_sea"
+execute if entity @s[scores={f1sch.give=610}] run data modify storage f1sch:temp item set value "minecraft:heart_pottery_sherd"
+execute if entity @s[scores={f1sch.give=611}] run data modify storage f1sch:temp item set value "minecraft:heartbreak_pottery_sherd"
+execute if entity @s[scores={f1sch.give=612}] run data modify storage f1sch:temp item set value "minecraft:heavy_core"
+execute if entity @s[scores={f1sch.give=613}] run data modify storage f1sch:temp item set value "minecraft:heavy_weighted_pressure_plate"
+execute if entity @s[scores={f1sch.give=614}] run data modify storage f1sch:temp item set value "minecraft:hoglin_spawn_egg"
+execute if entity @s[scores={f1sch.give=615}] run data modify storage f1sch:temp item set value "minecraft:honey_block"
+execute if entity @s[scores={f1sch.give=616}] run data modify storage f1sch:temp item set value "minecraft:honey_bottle"
+execute if entity @s[scores={f1sch.give=617}] run data modify storage f1sch:temp item set value "minecraft:honeycomb"
+execute if entity @s[scores={f1sch.give=618}] run data modify storage f1sch:temp item set value "minecraft:honeycomb_block"
+execute if entity @s[scores={f1sch.give=619}] run data modify storage f1sch:temp item set value "minecraft:hopper"
+execute if entity @s[scores={f1sch.give=620}] run data modify storage f1sch:temp item set value "minecraft:hopper_minecart"
+execute if entity @s[scores={f1sch.give=621}] run data modify storage f1sch:temp item set value "minecraft:horn_coral"
+execute if entity @s[scores={f1sch.give=622}] run data modify storage f1sch:temp item set value "minecraft:horn_coral_block"
+execute if entity @s[scores={f1sch.give=623}] run data modify storage f1sch:temp item set value "minecraft:horn_coral_fan"
+execute if entity @s[scores={f1sch.give=624}] run data modify storage f1sch:temp item set value "minecraft:horse_spawn_egg"
+execute if entity @s[scores={f1sch.give=625}] run data modify storage f1sch:temp item set value "minecraft:host_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=626}] run data modify storage f1sch:temp item set value "minecraft:howl_pottery_sherd"
+execute if entity @s[scores={f1sch.give=627}] run data modify storage f1sch:temp item set value "minecraft:husk_spawn_egg"
+execute if entity @s[scores={f1sch.give=628}] run data modify storage f1sch:temp item set value "minecraft:ice"
+execute if entity @s[scores={f1sch.give=629}] run data modify storage f1sch:temp item set value "minecraft:infested_chiseled_stone_bricks"
+execute if entity @s[scores={f1sch.give=630}] run data modify storage f1sch:temp item set value "minecraft:infested_cobblestone"
+execute if entity @s[scores={f1sch.give=631}] run data modify storage f1sch:temp item set value "minecraft:infested_cracked_stone_bricks"
+execute if entity @s[scores={f1sch.give=632}] run data modify storage f1sch:temp item set value "minecraft:infested_deepslate"
+execute if entity @s[scores={f1sch.give=633}] run data modify storage f1sch:temp item set value "minecraft:infested_mossy_stone_bricks"
+execute if entity @s[scores={f1sch.give=634}] run data modify storage f1sch:temp item set value "minecraft:infested_stone"
+execute if entity @s[scores={f1sch.give=635}] run data modify storage f1sch:temp item set value "minecraft:infested_stone_bricks"
+execute if entity @s[scores={f1sch.give=636}] run data modify storage f1sch:temp item set value "minecraft:ink_sac"
+execute if entity @s[scores={f1sch.give=637}] run data modify storage f1sch:temp item set value "minecraft:iron_axe"
+execute if entity @s[scores={f1sch.give=638}] run data modify storage f1sch:temp item set value "minecraft:iron_bars"
+execute if entity @s[scores={f1sch.give=639}] run data modify storage f1sch:temp item set value "minecraft:iron_block"
+execute if entity @s[scores={f1sch.give=640}] run data modify storage f1sch:temp item set value "minecraft:iron_boots"
+execute if entity @s[scores={f1sch.give=641}] run data modify storage f1sch:temp item set value "minecraft:iron_chain"
+execute if entity @s[scores={f1sch.give=642}] run data modify storage f1sch:temp item set value "minecraft:iron_chestplate"
+execute if entity @s[scores={f1sch.give=643}] run data modify storage f1sch:temp item set value "minecraft:iron_door"
+execute if entity @s[scores={f1sch.give=644}] run data modify storage f1sch:temp item set value "minecraft:iron_golem_spawn_egg"
+execute if entity @s[scores={f1sch.give=645}] run data modify storage f1sch:temp item set value "minecraft:iron_helmet"
+execute if entity @s[scores={f1sch.give=646}] run data modify storage f1sch:temp item set value "minecraft:iron_hoe"
+execute if entity @s[scores={f1sch.give=647}] run data modify storage f1sch:temp item set value "minecraft:iron_horse_armor"
+execute if entity @s[scores={f1sch.give=648}] run data modify storage f1sch:temp item set value "minecraft:iron_ingot"
+execute if entity @s[scores={f1sch.give=649}] run data modify storage f1sch:temp item set value "minecraft:iron_leggings"
+execute if entity @s[scores={f1sch.give=650}] run data modify storage f1sch:temp item set value "minecraft:iron_nautilus_armor"
+execute if entity @s[scores={f1sch.give=651}] run data modify storage f1sch:temp item set value "minecraft:iron_nugget"
+execute if entity @s[scores={f1sch.give=652}] run data modify storage f1sch:temp item set value "minecraft:iron_ore"
+execute if entity @s[scores={f1sch.give=653}] run data modify storage f1sch:temp item set value "minecraft:iron_pickaxe"
+execute if entity @s[scores={f1sch.give=654}] run data modify storage f1sch:temp item set value "minecraft:iron_shovel"
+execute if entity @s[scores={f1sch.give=655}] run data modify storage f1sch:temp item set value "minecraft:iron_spear"
+execute if entity @s[scores={f1sch.give=656}] run data modify storage f1sch:temp item set value "minecraft:iron_sword"
+execute if entity @s[scores={f1sch.give=657}] run data modify storage f1sch:temp item set value "minecraft:iron_trapdoor"
+execute if entity @s[scores={f1sch.give=658}] run data modify storage f1sch:temp item set value "minecraft:item_frame"
+execute if entity @s[scores={f1sch.give=659}] run data modify storage f1sch:temp item set value "minecraft:jack_o_lantern"
+execute if entity @s[scores={f1sch.give=660}] run data modify storage f1sch:temp item set value "minecraft:jigsaw"
+execute if entity @s[scores={f1sch.give=661}] run data modify storage f1sch:temp item set value "minecraft:jukebox"
+execute if entity @s[scores={f1sch.give=662}] run data modify storage f1sch:temp item set value "minecraft:jungle_boat"
+execute if entity @s[scores={f1sch.give=663}] run data modify storage f1sch:temp item set value "minecraft:jungle_button"
+execute if entity @s[scores={f1sch.give=664}] run data modify storage f1sch:temp item set value "minecraft:jungle_chest_boat"
+execute if entity @s[scores={f1sch.give=665}] run data modify storage f1sch:temp item set value "minecraft:jungle_door"
+execute if entity @s[scores={f1sch.give=666}] run data modify storage f1sch:temp item set value "minecraft:jungle_fence"
+execute if entity @s[scores={f1sch.give=667}] run data modify storage f1sch:temp item set value "minecraft:jungle_fence_gate"
+execute if entity @s[scores={f1sch.give=668}] run data modify storage f1sch:temp item set value "minecraft:jungle_hanging_sign"
+execute if entity @s[scores={f1sch.give=669}] run data modify storage f1sch:temp item set value "minecraft:jungle_leaves"
+execute if entity @s[scores={f1sch.give=670}] run data modify storage f1sch:temp item set value "minecraft:jungle_log"
+execute if entity @s[scores={f1sch.give=671}] run data modify storage f1sch:temp item set value "minecraft:jungle_planks"
+execute if entity @s[scores={f1sch.give=672}] run data modify storage f1sch:temp item set value "minecraft:jungle_pressure_plate"
+execute if entity @s[scores={f1sch.give=673}] run data modify storage f1sch:temp item set value "minecraft:jungle_sapling"
+execute if entity @s[scores={f1sch.give=674}] run data modify storage f1sch:temp item set value "minecraft:jungle_shelf"
+execute if entity @s[scores={f1sch.give=675}] run data modify storage f1sch:temp item set value "minecraft:jungle_sign"
+execute if entity @s[scores={f1sch.give=676}] run data modify storage f1sch:temp item set value "minecraft:jungle_slab"
+execute if entity @s[scores={f1sch.give=677}] run data modify storage f1sch:temp item set value "minecraft:jungle_stairs"
+execute if entity @s[scores={f1sch.give=678}] run data modify storage f1sch:temp item set value "minecraft:jungle_trapdoor"
+execute if entity @s[scores={f1sch.give=679}] run data modify storage f1sch:temp item set value "minecraft:jungle_wood"
+execute if entity @s[scores={f1sch.give=680}] run data modify storage f1sch:temp item set value "minecraft:kelp"
+execute if entity @s[scores={f1sch.give=681}] run data modify storage f1sch:temp item set value "minecraft:knowledge_book"
+execute if entity @s[scores={f1sch.give=682}] run data modify storage f1sch:temp item set value "minecraft:ladder"
+execute if entity @s[scores={f1sch.give=683}] run data modify storage f1sch:temp item set value "minecraft:lantern"
+execute if entity @s[scores={f1sch.give=684}] run data modify storage f1sch:temp item set value "minecraft:lapis_block"
+execute if entity @s[scores={f1sch.give=685}] run data modify storage f1sch:temp item set value "minecraft:lapis_lazuli"
+execute if entity @s[scores={f1sch.give=686}] run data modify storage f1sch:temp item set value "minecraft:lapis_ore"
+execute if entity @s[scores={f1sch.give=687}] run data modify storage f1sch:temp item set value "minecraft:large_amethyst_bud"
+execute if entity @s[scores={f1sch.give=688}] run data modify storage f1sch:temp item set value "minecraft:large_fern"
+execute if entity @s[scores={f1sch.give=689}] run data modify storage f1sch:temp item set value "minecraft:lava_bucket"
+execute if entity @s[scores={f1sch.give=690}] run data modify storage f1sch:temp item set value "minecraft:lead"
+execute if entity @s[scores={f1sch.give=691}] run data modify storage f1sch:temp item set value "minecraft:leaf_litter"
+execute if entity @s[scores={f1sch.give=692}] run data modify storage f1sch:temp item set value "minecraft:leather"
+execute if entity @s[scores={f1sch.give=693}] run data modify storage f1sch:temp item set value "minecraft:leather_boots"
+execute if entity @s[scores={f1sch.give=694}] run data modify storage f1sch:temp item set value "minecraft:leather_chestplate"
+execute if entity @s[scores={f1sch.give=695}] run data modify storage f1sch:temp item set value "minecraft:leather_helmet"
+execute if entity @s[scores={f1sch.give=696}] run data modify storage f1sch:temp item set value "minecraft:leather_horse_armor"
+execute if entity @s[scores={f1sch.give=697}] run data modify storage f1sch:temp item set value "minecraft:leather_leggings"
+execute if entity @s[scores={f1sch.give=698}] run data modify storage f1sch:temp item set value "minecraft:lectern"
+execute if entity @s[scores={f1sch.give=699}] run data modify storage f1sch:temp item set value "minecraft:lever"
+execute if entity @s[scores={f1sch.give=700}] run data modify storage f1sch:temp item set value "minecraft:light"
+execute if entity @s[scores={f1sch.give=701}] run data modify storage f1sch:temp item set value "minecraft:light_blue_banner"
+execute if entity @s[scores={f1sch.give=702}] run data modify storage f1sch:temp item set value "minecraft:light_blue_bed"
+execute if entity @s[scores={f1sch.give=703}] run data modify storage f1sch:temp item set value "minecraft:light_blue_bundle"
+execute if entity @s[scores={f1sch.give=704}] run data modify storage f1sch:temp item set value "minecraft:light_blue_candle"
+execute if entity @s[scores={f1sch.give=705}] run data modify storage f1sch:temp item set value "minecraft:light_blue_carpet"
+execute if entity @s[scores={f1sch.give=706}] run data modify storage f1sch:temp item set value "minecraft:light_blue_concrete"
+execute if entity @s[scores={f1sch.give=707}] run data modify storage f1sch:temp item set value "minecraft:light_blue_concrete_powder"
+execute if entity @s[scores={f1sch.give=708}] run data modify storage f1sch:temp item set value "minecraft:light_blue_dye"
+execute if entity @s[scores={f1sch.give=709}] run data modify storage f1sch:temp item set value "minecraft:light_blue_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=710}] run data modify storage f1sch:temp item set value "minecraft:light_blue_harness"
+execute if entity @s[scores={f1sch.give=711}] run data modify storage f1sch:temp item set value "minecraft:light_blue_shulker_box"
+execute if entity @s[scores={f1sch.give=712}] run data modify storage f1sch:temp item set value "minecraft:light_blue_stained_glass"
+execute if entity @s[scores={f1sch.give=713}] run data modify storage f1sch:temp item set value "minecraft:light_blue_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=714}] run data modify storage f1sch:temp item set value "minecraft:light_blue_terracotta"
+execute if entity @s[scores={f1sch.give=715}] run data modify storage f1sch:temp item set value "minecraft:light_blue_wool"
+execute if entity @s[scores={f1sch.give=716}] run data modify storage f1sch:temp item set value "minecraft:light_gray_banner"
+execute if entity @s[scores={f1sch.give=717}] run data modify storage f1sch:temp item set value "minecraft:light_gray_bed"
+execute if entity @s[scores={f1sch.give=718}] run data modify storage f1sch:temp item set value "minecraft:light_gray_bundle"
+execute if entity @s[scores={f1sch.give=719}] run data modify storage f1sch:temp item set value "minecraft:light_gray_candle"
+execute if entity @s[scores={f1sch.give=720}] run data modify storage f1sch:temp item set value "minecraft:light_gray_carpet"
+execute if entity @s[scores={f1sch.give=721}] run data modify storage f1sch:temp item set value "minecraft:light_gray_concrete"
+execute if entity @s[scores={f1sch.give=722}] run data modify storage f1sch:temp item set value "minecraft:light_gray_concrete_powder"
+execute if entity @s[scores={f1sch.give=723}] run data modify storage f1sch:temp item set value "minecraft:light_gray_dye"
+execute if entity @s[scores={f1sch.give=724}] run data modify storage f1sch:temp item set value "minecraft:light_gray_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=725}] run data modify storage f1sch:temp item set value "minecraft:light_gray_harness"
+execute if entity @s[scores={f1sch.give=726}] run data modify storage f1sch:temp item set value "minecraft:light_gray_shulker_box"
+execute if entity @s[scores={f1sch.give=727}] run data modify storage f1sch:temp item set value "minecraft:light_gray_stained_glass"
+execute if entity @s[scores={f1sch.give=728}] run data modify storage f1sch:temp item set value "minecraft:light_gray_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=729}] run data modify storage f1sch:temp item set value "minecraft:light_gray_terracotta"
+execute if entity @s[scores={f1sch.give=730}] run data modify storage f1sch:temp item set value "minecraft:light_gray_wool"
+execute if entity @s[scores={f1sch.give=731}] run data modify storage f1sch:temp item set value "minecraft:light_weighted_pressure_plate"
+execute if entity @s[scores={f1sch.give=732}] run data modify storage f1sch:temp item set value "minecraft:lightning_rod"
+execute if entity @s[scores={f1sch.give=733}] run data modify storage f1sch:temp item set value "minecraft:lilac"
+execute if entity @s[scores={f1sch.give=734}] run data modify storage f1sch:temp item set value "minecraft:lily_of_the_valley"
+execute if entity @s[scores={f1sch.give=735}] run data modify storage f1sch:temp item set value "minecraft:lily_pad"
+execute if entity @s[scores={f1sch.give=736}] run data modify storage f1sch:temp item set value "minecraft:lime_banner"
+execute if entity @s[scores={f1sch.give=737}] run data modify storage f1sch:temp item set value "minecraft:lime_bed"
+execute if entity @s[scores={f1sch.give=738}] run data modify storage f1sch:temp item set value "minecraft:lime_bundle"
+execute if entity @s[scores={f1sch.give=739}] run data modify storage f1sch:temp item set value "minecraft:lime_candle"
+execute if entity @s[scores={f1sch.give=740}] run data modify storage f1sch:temp item set value "minecraft:lime_carpet"
+execute if entity @s[scores={f1sch.give=741}] run data modify storage f1sch:temp item set value "minecraft:lime_concrete"
+execute if entity @s[scores={f1sch.give=742}] run data modify storage f1sch:temp item set value "minecraft:lime_concrete_powder"
+execute if entity @s[scores={f1sch.give=743}] run data modify storage f1sch:temp item set value "minecraft:lime_dye"
+execute if entity @s[scores={f1sch.give=744}] run data modify storage f1sch:temp item set value "minecraft:lime_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=745}] run data modify storage f1sch:temp item set value "minecraft:lime_harness"
+execute if entity @s[scores={f1sch.give=746}] run data modify storage f1sch:temp item set value "minecraft:lime_shulker_box"
+execute if entity @s[scores={f1sch.give=747}] run data modify storage f1sch:temp item set value "minecraft:lime_stained_glass"
+execute if entity @s[scores={f1sch.give=748}] run data modify storage f1sch:temp item set value "minecraft:lime_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=749}] run data modify storage f1sch:temp item set value "minecraft:lime_terracotta"
+execute if entity @s[scores={f1sch.give=750}] run data modify storage f1sch:temp item set value "minecraft:lime_wool"
+execute if entity @s[scores={f1sch.give=751}] run data modify storage f1sch:temp item set value "minecraft:lingering_potion"
+execute if entity @s[scores={f1sch.give=752}] run data modify storage f1sch:temp item set value "minecraft:llama_spawn_egg"
+execute if entity @s[scores={f1sch.give=753}] run data modify storage f1sch:temp item set value "minecraft:lodestone"
+execute if entity @s[scores={f1sch.give=754}] run data modify storage f1sch:temp item set value "minecraft:loom"
+execute if entity @s[scores={f1sch.give=755}] run data modify storage f1sch:temp item set value "minecraft:mace"
+execute if entity @s[scores={f1sch.give=756}] run data modify storage f1sch:temp item set value "minecraft:magenta_banner"
+execute if entity @s[scores={f1sch.give=757}] run data modify storage f1sch:temp item set value "minecraft:magenta_bed"
+execute if entity @s[scores={f1sch.give=758}] run data modify storage f1sch:temp item set value "minecraft:magenta_bundle"
+execute if entity @s[scores={f1sch.give=759}] run data modify storage f1sch:temp item set value "minecraft:magenta_candle"
+execute if entity @s[scores={f1sch.give=760}] run data modify storage f1sch:temp item set value "minecraft:magenta_carpet"
+execute if entity @s[scores={f1sch.give=761}] run data modify storage f1sch:temp item set value "minecraft:magenta_concrete"
+execute if entity @s[scores={f1sch.give=762}] run data modify storage f1sch:temp item set value "minecraft:magenta_concrete_powder"
+execute if entity @s[scores={f1sch.give=763}] run data modify storage f1sch:temp item set value "minecraft:magenta_dye"
+execute if entity @s[scores={f1sch.give=764}] run data modify storage f1sch:temp item set value "minecraft:magenta_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=765}] run data modify storage f1sch:temp item set value "minecraft:magenta_harness"
+execute if entity @s[scores={f1sch.give=766}] run data modify storage f1sch:temp item set value "minecraft:magenta_shulker_box"
+execute if entity @s[scores={f1sch.give=767}] run data modify storage f1sch:temp item set value "minecraft:magenta_stained_glass"
+execute if entity @s[scores={f1sch.give=768}] run data modify storage f1sch:temp item set value "minecraft:magenta_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=769}] run data modify storage f1sch:temp item set value "minecraft:magenta_terracotta"
+execute if entity @s[scores={f1sch.give=770}] run data modify storage f1sch:temp item set value "minecraft:magenta_wool"
+execute if entity @s[scores={f1sch.give=771}] run data modify storage f1sch:temp item set value "minecraft:magma_block"
+execute if entity @s[scores={f1sch.give=772}] run data modify storage f1sch:temp item set value "minecraft:magma_cream"
+execute if entity @s[scores={f1sch.give=773}] run data modify storage f1sch:temp item set value "minecraft:magma_cube_spawn_egg"
+execute if entity @s[scores={f1sch.give=774}] run data modify storage f1sch:temp item set value "minecraft:mangrove_boat"
+execute if entity @s[scores={f1sch.give=775}] run data modify storage f1sch:temp item set value "minecraft:mangrove_button"
+execute if entity @s[scores={f1sch.give=776}] run data modify storage f1sch:temp item set value "minecraft:mangrove_chest_boat"
+execute if entity @s[scores={f1sch.give=777}] run data modify storage f1sch:temp item set value "minecraft:mangrove_door"
+execute if entity @s[scores={f1sch.give=778}] run data modify storage f1sch:temp item set value "minecraft:mangrove_fence"
+execute if entity @s[scores={f1sch.give=779}] run data modify storage f1sch:temp item set value "minecraft:mangrove_fence_gate"
+execute if entity @s[scores={f1sch.give=780}] run data modify storage f1sch:temp item set value "minecraft:mangrove_hanging_sign"
+execute if entity @s[scores={f1sch.give=781}] run data modify storage f1sch:temp item set value "minecraft:mangrove_leaves"
+execute if entity @s[scores={f1sch.give=782}] run data modify storage f1sch:temp item set value "minecraft:mangrove_log"
+execute if entity @s[scores={f1sch.give=783}] run data modify storage f1sch:temp item set value "minecraft:mangrove_planks"
+execute if entity @s[scores={f1sch.give=784}] run data modify storage f1sch:temp item set value "minecraft:mangrove_pressure_plate"
+execute if entity @s[scores={f1sch.give=785}] run data modify storage f1sch:temp item set value "minecraft:mangrove_propagule"
+execute if entity @s[scores={f1sch.give=786}] run data modify storage f1sch:temp item set value "minecraft:mangrove_roots"
+execute if entity @s[scores={f1sch.give=787}] run data modify storage f1sch:temp item set value "minecraft:mangrove_shelf"
+execute if entity @s[scores={f1sch.give=788}] run data modify storage f1sch:temp item set value "minecraft:mangrove_sign"
+execute if entity @s[scores={f1sch.give=789}] run data modify storage f1sch:temp item set value "minecraft:mangrove_slab"
+execute if entity @s[scores={f1sch.give=790}] run data modify storage f1sch:temp item set value "minecraft:mangrove_stairs"
+execute if entity @s[scores={f1sch.give=791}] run data modify storage f1sch:temp item set value "minecraft:mangrove_trapdoor"
+execute if entity @s[scores={f1sch.give=792}] run data modify storage f1sch:temp item set value "minecraft:mangrove_wood"
+execute if entity @s[scores={f1sch.give=793}] run data modify storage f1sch:temp item set value "minecraft:map"
+execute if entity @s[scores={f1sch.give=794}] run data modify storage f1sch:temp item set value "minecraft:medium_amethyst_bud"
+execute if entity @s[scores={f1sch.give=795}] run data modify storage f1sch:temp item set value "minecraft:melon"
+execute if entity @s[scores={f1sch.give=796}] run data modify storage f1sch:temp item set value "minecraft:melon_seeds"
+execute if entity @s[scores={f1sch.give=797}] run data modify storage f1sch:temp item set value "minecraft:melon_slice"
+execute if entity @s[scores={f1sch.give=798}] run data modify storage f1sch:temp item set value "minecraft:milk_bucket"
+execute if entity @s[scores={f1sch.give=799}] run data modify storage f1sch:temp item set value "minecraft:minecart"
+execute if entity @s[scores={f1sch.give=800}] run data modify storage f1sch:temp item set value "minecraft:miner_pottery_sherd"
+execute if entity @s[scores={f1sch.give=801}] run data modify storage f1sch:temp item set value "minecraft:mojang_banner_pattern"
+execute if entity @s[scores={f1sch.give=802}] run data modify storage f1sch:temp item set value "minecraft:mooshroom_spawn_egg"
+execute if entity @s[scores={f1sch.give=803}] run data modify storage f1sch:temp item set value "minecraft:moss_block"
+execute if entity @s[scores={f1sch.give=804}] run data modify storage f1sch:temp item set value "minecraft:moss_carpet"
+execute if entity @s[scores={f1sch.give=805}] run data modify storage f1sch:temp item set value "minecraft:mossy_cobblestone"
+execute if entity @s[scores={f1sch.give=806}] run data modify storage f1sch:temp item set value "minecraft:mossy_cobblestone_slab"
+execute if entity @s[scores={f1sch.give=807}] run data modify storage f1sch:temp item set value "minecraft:mossy_cobblestone_stairs"
+execute if entity @s[scores={f1sch.give=808}] run data modify storage f1sch:temp item set value "minecraft:mossy_cobblestone_wall"
+execute if entity @s[scores={f1sch.give=809}] run data modify storage f1sch:temp item set value "minecraft:mossy_stone_brick_slab"
+execute if entity @s[scores={f1sch.give=810}] run data modify storage f1sch:temp item set value "minecraft:mossy_stone_brick_stairs"
+execute if entity @s[scores={f1sch.give=811}] run data modify storage f1sch:temp item set value "minecraft:mossy_stone_brick_wall"
+execute if entity @s[scores={f1sch.give=812}] run data modify storage f1sch:temp item set value "minecraft:mossy_stone_bricks"
+execute if entity @s[scores={f1sch.give=813}] run data modify storage f1sch:temp item set value "minecraft:mourner_pottery_sherd"
+execute if entity @s[scores={f1sch.give=814}] run data modify storage f1sch:temp item set value "minecraft:mud"
+execute if entity @s[scores={f1sch.give=815}] run data modify storage f1sch:temp item set value "minecraft:mud_brick_slab"
+execute if entity @s[scores={f1sch.give=816}] run data modify storage f1sch:temp item set value "minecraft:mud_brick_stairs"
+execute if entity @s[scores={f1sch.give=817}] run data modify storage f1sch:temp item set value "minecraft:mud_brick_wall"
+execute if entity @s[scores={f1sch.give=818}] run data modify storage f1sch:temp item set value "minecraft:mud_bricks"
+execute if entity @s[scores={f1sch.give=819}] run data modify storage f1sch:temp item set value "minecraft:muddy_mangrove_roots"
+execute if entity @s[scores={f1sch.give=820}] run data modify storage f1sch:temp item set value "minecraft:mule_spawn_egg"
+execute if entity @s[scores={f1sch.give=821}] run data modify storage f1sch:temp item set value "minecraft:mushroom_stem"
+execute if entity @s[scores={f1sch.give=822}] run data modify storage f1sch:temp item set value "minecraft:mushroom_stew"
+execute if entity @s[scores={f1sch.give=823}] run data modify storage f1sch:temp item set value "minecraft:music_disc_11"
+execute if entity @s[scores={f1sch.give=824}] run data modify storage f1sch:temp item set value "minecraft:music_disc_13"
+execute if entity @s[scores={f1sch.give=825}] run data modify storage f1sch:temp item set value "minecraft:music_disc_5"
+execute if entity @s[scores={f1sch.give=826}] run data modify storage f1sch:temp item set value "minecraft:music_disc_blocks"
+execute if entity @s[scores={f1sch.give=827}] run data modify storage f1sch:temp item set value "minecraft:music_disc_cat"
+execute if entity @s[scores={f1sch.give=828}] run data modify storage f1sch:temp item set value "minecraft:music_disc_chirp"
+execute if entity @s[scores={f1sch.give=829}] run data modify storage f1sch:temp item set value "minecraft:music_disc_creator"
+execute if entity @s[scores={f1sch.give=830}] run data modify storage f1sch:temp item set value "minecraft:music_disc_creator_music_box"
+execute if entity @s[scores={f1sch.give=831}] run data modify storage f1sch:temp item set value "minecraft:music_disc_far"
+execute if entity @s[scores={f1sch.give=832}] run data modify storage f1sch:temp item set value "minecraft:music_disc_lava_chicken"
+execute if entity @s[scores={f1sch.give=833}] run data modify storage f1sch:temp item set value "minecraft:music_disc_mall"
+execute if entity @s[scores={f1sch.give=834}] run data modify storage f1sch:temp item set value "minecraft:music_disc_mellohi"
+execute if entity @s[scores={f1sch.give=835}] run data modify storage f1sch:temp item set value "minecraft:music_disc_otherside"
+execute if entity @s[scores={f1sch.give=836}] run data modify storage f1sch:temp item set value "minecraft:music_disc_pigstep"
+execute if entity @s[scores={f1sch.give=837}] run data modify storage f1sch:temp item set value "minecraft:music_disc_precipice"
+execute if entity @s[scores={f1sch.give=838}] run data modify storage f1sch:temp item set value "minecraft:music_disc_relic"
+execute if entity @s[scores={f1sch.give=839}] run data modify storage f1sch:temp item set value "minecraft:music_disc_stal"
+execute if entity @s[scores={f1sch.give=840}] run data modify storage f1sch:temp item set value "minecraft:music_disc_strad"
+execute if entity @s[scores={f1sch.give=841}] run data modify storage f1sch:temp item set value "minecraft:music_disc_tears"
+execute if entity @s[scores={f1sch.give=842}] run data modify storage f1sch:temp item set value "minecraft:music_disc_wait"
+execute if entity @s[scores={f1sch.give=843}] run data modify storage f1sch:temp item set value "minecraft:music_disc_ward"
+execute if entity @s[scores={f1sch.give=844}] run data modify storage f1sch:temp item set value "minecraft:mutton"
+execute if entity @s[scores={f1sch.give=845}] run data modify storage f1sch:temp item set value "minecraft:mycelium"
+execute if entity @s[scores={f1sch.give=846}] run data modify storage f1sch:temp item set value "minecraft:name_tag"
+execute if entity @s[scores={f1sch.give=847}] run data modify storage f1sch:temp item set value "minecraft:nautilus_shell"
+execute if entity @s[scores={f1sch.give=848}] run data modify storage f1sch:temp item set value "minecraft:nautilus_spawn_egg"
+execute if entity @s[scores={f1sch.give=849}] run data modify storage f1sch:temp item set value "minecraft:nether_brick"
+execute if entity @s[scores={f1sch.give=850}] run data modify storage f1sch:temp item set value "minecraft:nether_brick_fence"
+execute if entity @s[scores={f1sch.give=851}] run data modify storage f1sch:temp item set value "minecraft:nether_brick_slab"
+execute if entity @s[scores={f1sch.give=852}] run data modify storage f1sch:temp item set value "minecraft:nether_brick_stairs"
+execute if entity @s[scores={f1sch.give=853}] run data modify storage f1sch:temp item set value "minecraft:nether_brick_wall"
+execute if entity @s[scores={f1sch.give=854}] run data modify storage f1sch:temp item set value "minecraft:nether_bricks"
+execute if entity @s[scores={f1sch.give=855}] run data modify storage f1sch:temp item set value "minecraft:nether_gold_ore"
+execute if entity @s[scores={f1sch.give=856}] run data modify storage f1sch:temp item set value "minecraft:nether_quartz_ore"
+execute if entity @s[scores={f1sch.give=857}] run data modify storage f1sch:temp item set value "minecraft:nether_sprouts"
+execute if entity @s[scores={f1sch.give=858}] run data modify storage f1sch:temp item set value "minecraft:nether_star"
+execute if entity @s[scores={f1sch.give=859}] run data modify storage f1sch:temp item set value "minecraft:nether_wart"
+execute if entity @s[scores={f1sch.give=860}] run data modify storage f1sch:temp item set value "minecraft:nether_wart_block"
+execute if entity @s[scores={f1sch.give=861}] run data modify storage f1sch:temp item set value "minecraft:netherite_axe"
+execute if entity @s[scores={f1sch.give=862}] run data modify storage f1sch:temp item set value "minecraft:netherite_block"
+execute if entity @s[scores={f1sch.give=863}] run data modify storage f1sch:temp item set value "minecraft:netherite_boots"
+execute if entity @s[scores={f1sch.give=864}] run data modify storage f1sch:temp item set value "minecraft:netherite_chestplate"
+execute if entity @s[scores={f1sch.give=865}] run data modify storage f1sch:temp item set value "minecraft:netherite_helmet"
+execute if entity @s[scores={f1sch.give=866}] run data modify storage f1sch:temp item set value "minecraft:netherite_hoe"
+execute if entity @s[scores={f1sch.give=867}] run data modify storage f1sch:temp item set value "minecraft:netherite_horse_armor"
+execute if entity @s[scores={f1sch.give=868}] run data modify storage f1sch:temp item set value "minecraft:netherite_ingot"
+execute if entity @s[scores={f1sch.give=869}] run data modify storage f1sch:temp item set value "minecraft:netherite_leggings"
+execute if entity @s[scores={f1sch.give=870}] run data modify storage f1sch:temp item set value "minecraft:netherite_nautilus_armor"
+execute if entity @s[scores={f1sch.give=871}] run data modify storage f1sch:temp item set value "minecraft:netherite_pickaxe"
+execute if entity @s[scores={f1sch.give=872}] run data modify storage f1sch:temp item set value "minecraft:netherite_scrap"
+execute if entity @s[scores={f1sch.give=873}] run data modify storage f1sch:temp item set value "minecraft:netherite_shovel"
+execute if entity @s[scores={f1sch.give=874}] run data modify storage f1sch:temp item set value "minecraft:netherite_spear"
+execute if entity @s[scores={f1sch.give=875}] run data modify storage f1sch:temp item set value "minecraft:netherite_sword"
+execute if entity @s[scores={f1sch.give=876}] run data modify storage f1sch:temp item set value "minecraft:netherite_upgrade_smithing_template"
+execute if entity @s[scores={f1sch.give=877}] run data modify storage f1sch:temp item set value "minecraft:netherrack"
+execute if entity @s[scores={f1sch.give=878}] run data modify storage f1sch:temp item set value "minecraft:note_block"
+execute if entity @s[scores={f1sch.give=879}] run data modify storage f1sch:temp item set value "minecraft:oak_boat"
+execute if entity @s[scores={f1sch.give=880}] run data modify storage f1sch:temp item set value "minecraft:oak_button"
+execute if entity @s[scores={f1sch.give=881}] run data modify storage f1sch:temp item set value "minecraft:oak_chest_boat"
+execute if entity @s[scores={f1sch.give=882}] run data modify storage f1sch:temp item set value "minecraft:oak_door"
+execute if entity @s[scores={f1sch.give=883}] run data modify storage f1sch:temp item set value "minecraft:oak_fence"
+execute if entity @s[scores={f1sch.give=884}] run data modify storage f1sch:temp item set value "minecraft:oak_fence_gate"
+execute if entity @s[scores={f1sch.give=885}] run data modify storage f1sch:temp item set value "minecraft:oak_hanging_sign"
+execute if entity @s[scores={f1sch.give=886}] run data modify storage f1sch:temp item set value "minecraft:oak_leaves"
+execute if entity @s[scores={f1sch.give=887}] run data modify storage f1sch:temp item set value "minecraft:oak_log"
+execute if entity @s[scores={f1sch.give=888}] run data modify storage f1sch:temp item set value "minecraft:oak_planks"
+execute if entity @s[scores={f1sch.give=889}] run data modify storage f1sch:temp item set value "minecraft:oak_pressure_plate"
+execute if entity @s[scores={f1sch.give=890}] run data modify storage f1sch:temp item set value "minecraft:oak_sapling"
+execute if entity @s[scores={f1sch.give=891}] run data modify storage f1sch:temp item set value "minecraft:oak_shelf"
+execute if entity @s[scores={f1sch.give=892}] run data modify storage f1sch:temp item set value "minecraft:oak_sign"
+execute if entity @s[scores={f1sch.give=893}] run data modify storage f1sch:temp item set value "minecraft:oak_slab"
+execute if entity @s[scores={f1sch.give=894}] run data modify storage f1sch:temp item set value "minecraft:oak_stairs"
+execute if entity @s[scores={f1sch.give=895}] run data modify storage f1sch:temp item set value "minecraft:oak_trapdoor"
+execute if entity @s[scores={f1sch.give=896}] run data modify storage f1sch:temp item set value "minecraft:oak_wood"
+execute if entity @s[scores={f1sch.give=897}] run data modify storage f1sch:temp item set value "minecraft:observer"
+execute if entity @s[scores={f1sch.give=898}] run data modify storage f1sch:temp item set value "minecraft:obsidian"
+execute if entity @s[scores={f1sch.give=899}] run data modify storage f1sch:temp item set value "minecraft:ocelot_spawn_egg"
+execute if entity @s[scores={f1sch.give=900}] run data modify storage f1sch:temp item set value "minecraft:ochre_froglight"
+execute if entity @s[scores={f1sch.give=901}] run data modify storage f1sch:temp item set value "minecraft:ominous_bottle"
+execute if entity @s[scores={f1sch.give=902}] run data modify storage f1sch:temp item set value "minecraft:ominous_trial_key"
+execute if entity @s[scores={f1sch.give=903}] run data modify storage f1sch:temp item set value "minecraft:open_eyeblossom"
+execute if entity @s[scores={f1sch.give=904}] run data modify storage f1sch:temp item set value "minecraft:orange_banner"
+execute if entity @s[scores={f1sch.give=905}] run data modify storage f1sch:temp item set value "minecraft:orange_bed"
+execute if entity @s[scores={f1sch.give=906}] run data modify storage f1sch:temp item set value "minecraft:orange_bundle"
+execute if entity @s[scores={f1sch.give=907}] run data modify storage f1sch:temp item set value "minecraft:orange_candle"
+execute if entity @s[scores={f1sch.give=908}] run data modify storage f1sch:temp item set value "minecraft:orange_carpet"
+execute if entity @s[scores={f1sch.give=909}] run data modify storage f1sch:temp item set value "minecraft:orange_concrete"
+execute if entity @s[scores={f1sch.give=910}] run data modify storage f1sch:temp item set value "minecraft:orange_concrete_powder"
+execute if entity @s[scores={f1sch.give=911}] run data modify storage f1sch:temp item set value "minecraft:orange_dye"
+execute if entity @s[scores={f1sch.give=912}] run data modify storage f1sch:temp item set value "minecraft:orange_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=913}] run data modify storage f1sch:temp item set value "minecraft:orange_harness"
+execute if entity @s[scores={f1sch.give=914}] run data modify storage f1sch:temp item set value "minecraft:orange_shulker_box"
+execute if entity @s[scores={f1sch.give=915}] run data modify storage f1sch:temp item set value "minecraft:orange_stained_glass"
+execute if entity @s[scores={f1sch.give=916}] run data modify storage f1sch:temp item set value "minecraft:orange_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=917}] run data modify storage f1sch:temp item set value "minecraft:orange_terracotta"
+execute if entity @s[scores={f1sch.give=918}] run data modify storage f1sch:temp item set value "minecraft:orange_tulip"
+execute if entity @s[scores={f1sch.give=919}] run data modify storage f1sch:temp item set value "minecraft:orange_wool"
+execute if entity @s[scores={f1sch.give=920}] run data modify storage f1sch:temp item set value "minecraft:oxeye_daisy"
+execute if entity @s[scores={f1sch.give=921}] run data modify storage f1sch:temp item set value "minecraft:oxidized_chiseled_copper"
+execute if entity @s[scores={f1sch.give=922}] run data modify storage f1sch:temp item set value "minecraft:oxidized_copper"
+execute if entity @s[scores={f1sch.give=923}] run data modify storage f1sch:temp item set value "minecraft:oxidized_copper_bulb"
+execute if entity @s[scores={f1sch.give=924}] run data modify storage f1sch:temp item set value "minecraft:oxidized_copper_chest"
+execute if entity @s[scores={f1sch.give=925}] run data modify storage f1sch:temp item set value "minecraft:oxidized_copper_door"
+execute if entity @s[scores={f1sch.give=926}] run data modify storage f1sch:temp item set value "minecraft:oxidized_copper_golem_statue"
+execute if entity @s[scores={f1sch.give=927}] run data modify storage f1sch:temp item set value "minecraft:oxidized_copper_grate"
+execute if entity @s[scores={f1sch.give=928}] run data modify storage f1sch:temp item set value "minecraft:oxidized_copper_trapdoor"
+execute if entity @s[scores={f1sch.give=929}] run data modify storage f1sch:temp item set value "minecraft:oxidized_cut_copper"
+execute if entity @s[scores={f1sch.give=930}] run data modify storage f1sch:temp item set value "minecraft:oxidized_cut_copper_slab"
+execute if entity @s[scores={f1sch.give=931}] run data modify storage f1sch:temp item set value "minecraft:oxidized_cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=932}] run data modify storage f1sch:temp item set value "minecraft:oxidized_lightning_rod"
+execute if entity @s[scores={f1sch.give=933}] run data modify storage f1sch:temp item set value "minecraft:packed_ice"
+execute if entity @s[scores={f1sch.give=934}] run data modify storage f1sch:temp item set value "minecraft:packed_mud"
+execute if entity @s[scores={f1sch.give=935}] run data modify storage f1sch:temp item set value "minecraft:painting"
+execute if entity @s[scores={f1sch.give=936}] run data modify storage f1sch:temp item set value "minecraft:pale_hanging_moss"
+execute if entity @s[scores={f1sch.give=937}] run data modify storage f1sch:temp item set value "minecraft:pale_moss_block"
+execute if entity @s[scores={f1sch.give=938}] run data modify storage f1sch:temp item set value "minecraft:pale_moss_carpet"
+execute if entity @s[scores={f1sch.give=939}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_boat"
+execute if entity @s[scores={f1sch.give=940}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_button"
+execute if entity @s[scores={f1sch.give=941}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_chest_boat"
+execute if entity @s[scores={f1sch.give=942}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_door"
+execute if entity @s[scores={f1sch.give=943}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_fence"
+execute if entity @s[scores={f1sch.give=944}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_fence_gate"
+execute if entity @s[scores={f1sch.give=945}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_hanging_sign"
+execute if entity @s[scores={f1sch.give=946}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_leaves"
+execute if entity @s[scores={f1sch.give=947}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_log"
+execute if entity @s[scores={f1sch.give=948}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_planks"
+execute if entity @s[scores={f1sch.give=949}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_pressure_plate"
+execute if entity @s[scores={f1sch.give=950}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_sapling"
+execute if entity @s[scores={f1sch.give=951}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_shelf"
+execute if entity @s[scores={f1sch.give=952}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_sign"
+execute if entity @s[scores={f1sch.give=953}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_slab"
+execute if entity @s[scores={f1sch.give=954}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_stairs"
+execute if entity @s[scores={f1sch.give=955}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_trapdoor"
+execute if entity @s[scores={f1sch.give=956}] run data modify storage f1sch:temp item set value "minecraft:pale_oak_wood"
+execute if entity @s[scores={f1sch.give=957}] run data modify storage f1sch:temp item set value "minecraft:panda_spawn_egg"
+execute if entity @s[scores={f1sch.give=958}] run data modify storage f1sch:temp item set value "minecraft:paper"
+execute if entity @s[scores={f1sch.give=959}] run data modify storage f1sch:temp item set value "minecraft:parched_spawn_egg"
+execute if entity @s[scores={f1sch.give=960}] run data modify storage f1sch:temp item set value "minecraft:parrot_spawn_egg"
+execute if entity @s[scores={f1sch.give=961}] run data modify storage f1sch:temp item set value "minecraft:pearlescent_froglight"
+execute if entity @s[scores={f1sch.give=962}] run data modify storage f1sch:temp item set value "minecraft:peony"
+execute if entity @s[scores={f1sch.give=963}] run data modify storage f1sch:temp item set value "minecraft:petrified_oak_slab"
+execute if entity @s[scores={f1sch.give=964}] run data modify storage f1sch:temp item set value "minecraft:phantom_membrane"
+execute if entity @s[scores={f1sch.give=965}] run data modify storage f1sch:temp item set value "minecraft:phantom_spawn_egg"
+execute if entity @s[scores={f1sch.give=966}] run data modify storage f1sch:temp item set value "minecraft:pig_spawn_egg"
+execute if entity @s[scores={f1sch.give=967}] run data modify storage f1sch:temp item set value "minecraft:piglin_banner_pattern"
+execute if entity @s[scores={f1sch.give=968}] run data modify storage f1sch:temp item set value "minecraft:piglin_brute_spawn_egg"
+execute if entity @s[scores={f1sch.give=969}] run data modify storage f1sch:temp item set value "minecraft:piglin_head"
+execute if entity @s[scores={f1sch.give=970}] run data modify storage f1sch:temp item set value "minecraft:piglin_spawn_egg"
+execute if entity @s[scores={f1sch.give=971}] run data modify storage f1sch:temp item set value "minecraft:pillager_spawn_egg"
+execute if entity @s[scores={f1sch.give=972}] run data modify storage f1sch:temp item set value "minecraft:pink_banner"
+execute if entity @s[scores={f1sch.give=973}] run data modify storage f1sch:temp item set value "minecraft:pink_bed"
+execute if entity @s[scores={f1sch.give=974}] run data modify storage f1sch:temp item set value "minecraft:pink_bundle"
+execute if entity @s[scores={f1sch.give=975}] run data modify storage f1sch:temp item set value "minecraft:pink_candle"
+execute if entity @s[scores={f1sch.give=976}] run data modify storage f1sch:temp item set value "minecraft:pink_carpet"
+execute if entity @s[scores={f1sch.give=977}] run data modify storage f1sch:temp item set value "minecraft:pink_concrete"
+execute if entity @s[scores={f1sch.give=978}] run data modify storage f1sch:temp item set value "minecraft:pink_concrete_powder"
+execute if entity @s[scores={f1sch.give=979}] run data modify storage f1sch:temp item set value "minecraft:pink_dye"
+execute if entity @s[scores={f1sch.give=980}] run data modify storage f1sch:temp item set value "minecraft:pink_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=981}] run data modify storage f1sch:temp item set value "minecraft:pink_harness"
+execute if entity @s[scores={f1sch.give=982}] run data modify storage f1sch:temp item set value "minecraft:pink_petals"
+execute if entity @s[scores={f1sch.give=983}] run data modify storage f1sch:temp item set value "minecraft:pink_shulker_box"
+execute if entity @s[scores={f1sch.give=984}] run data modify storage f1sch:temp item set value "minecraft:pink_stained_glass"
+execute if entity @s[scores={f1sch.give=985}] run data modify storage f1sch:temp item set value "minecraft:pink_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=986}] run data modify storage f1sch:temp item set value "minecraft:pink_terracotta"
+execute if entity @s[scores={f1sch.give=987}] run data modify storage f1sch:temp item set value "minecraft:pink_tulip"
+execute if entity @s[scores={f1sch.give=988}] run data modify storage f1sch:temp item set value "minecraft:pink_wool"
+execute if entity @s[scores={f1sch.give=989}] run data modify storage f1sch:temp item set value "minecraft:piston"
+execute if entity @s[scores={f1sch.give=990}] run data modify storage f1sch:temp item set value "minecraft:pitcher_plant"
+execute if entity @s[scores={f1sch.give=991}] run data modify storage f1sch:temp item set value "minecraft:pitcher_pod"
+execute if entity @s[scores={f1sch.give=992}] run data modify storage f1sch:temp item set value "minecraft:player_head"
+execute if entity @s[scores={f1sch.give=993}] run data modify storage f1sch:temp item set value "minecraft:plenty_pottery_sherd"
+execute if entity @s[scores={f1sch.give=994}] run data modify storage f1sch:temp item set value "minecraft:podzol"
+execute if entity @s[scores={f1sch.give=995}] run data modify storage f1sch:temp item set value "minecraft:pointed_dripstone"
+execute if entity @s[scores={f1sch.give=996}] run data modify storage f1sch:temp item set value "minecraft:poisonous_potato"
+execute if entity @s[scores={f1sch.give=997}] run data modify storage f1sch:temp item set value "minecraft:polar_bear_spawn_egg"
+execute if entity @s[scores={f1sch.give=998}] run data modify storage f1sch:temp item set value "minecraft:polished_andesite"
+execute if entity @s[scores={f1sch.give=999}] run data modify storage f1sch:temp item set value "minecraft:polished_andesite_slab"
+execute if entity @s[scores={f1sch.give=1000}] run data modify storage f1sch:temp item set value "minecraft:polished_andesite_stairs"
+execute if entity @s[scores={f1sch.give=1001}] run data modify storage f1sch:temp item set value "minecraft:polished_basalt"
+execute if entity @s[scores={f1sch.give=1002}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone"
+execute if entity @s[scores={f1sch.give=1003}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_brick_slab"
+execute if entity @s[scores={f1sch.give=1004}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_brick_stairs"
+execute if entity @s[scores={f1sch.give=1005}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_brick_wall"
+execute if entity @s[scores={f1sch.give=1006}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_bricks"
+execute if entity @s[scores={f1sch.give=1007}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_button"
+execute if entity @s[scores={f1sch.give=1008}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_pressure_plate"
+execute if entity @s[scores={f1sch.give=1009}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_slab"
+execute if entity @s[scores={f1sch.give=1010}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_stairs"
+execute if entity @s[scores={f1sch.give=1011}] run data modify storage f1sch:temp item set value "minecraft:polished_blackstone_wall"
+execute if entity @s[scores={f1sch.give=1012}] run data modify storage f1sch:temp item set value "minecraft:polished_deepslate"
+execute if entity @s[scores={f1sch.give=1013}] run data modify storage f1sch:temp item set value "minecraft:polished_deepslate_slab"
+execute if entity @s[scores={f1sch.give=1014}] run data modify storage f1sch:temp item set value "minecraft:polished_deepslate_stairs"
+execute if entity @s[scores={f1sch.give=1015}] run data modify storage f1sch:temp item set value "minecraft:polished_deepslate_wall"
+execute if entity @s[scores={f1sch.give=1016}] run data modify storage f1sch:temp item set value "minecraft:polished_diorite"
+execute if entity @s[scores={f1sch.give=1017}] run data modify storage f1sch:temp item set value "minecraft:polished_diorite_slab"
+execute if entity @s[scores={f1sch.give=1018}] run data modify storage f1sch:temp item set value "minecraft:polished_diorite_stairs"
+execute if entity @s[scores={f1sch.give=1019}] run data modify storage f1sch:temp item set value "minecraft:polished_granite"
+execute if entity @s[scores={f1sch.give=1020}] run data modify storage f1sch:temp item set value "minecraft:polished_granite_slab"
+execute if entity @s[scores={f1sch.give=1021}] run data modify storage f1sch:temp item set value "minecraft:polished_granite_stairs"
+execute if entity @s[scores={f1sch.give=1022}] run data modify storage f1sch:temp item set value "minecraft:polished_tuff"
+execute if entity @s[scores={f1sch.give=1023}] run data modify storage f1sch:temp item set value "minecraft:polished_tuff_slab"
+execute if entity @s[scores={f1sch.give=1024}] run data modify storage f1sch:temp item set value "minecraft:polished_tuff_stairs"
+execute if entity @s[scores={f1sch.give=1025}] run data modify storage f1sch:temp item set value "minecraft:polished_tuff_wall"
+execute if entity @s[scores={f1sch.give=1026}] run data modify storage f1sch:temp item set value "minecraft:popped_chorus_fruit"
+execute if entity @s[scores={f1sch.give=1027}] run data modify storage f1sch:temp item set value "minecraft:poppy"
+execute if entity @s[scores={f1sch.give=1028}] run data modify storage f1sch:temp item set value "minecraft:porkchop"
+execute if entity @s[scores={f1sch.give=1029}] run data modify storage f1sch:temp item set value "minecraft:potato"
+execute if entity @s[scores={f1sch.give=1030}] run data modify storage f1sch:temp item set value "minecraft:potion"
+execute if entity @s[scores={f1sch.give=1031}] run data modify storage f1sch:temp item set value "minecraft:powder_snow_bucket"
+execute if entity @s[scores={f1sch.give=1032}] run data modify storage f1sch:temp item set value "minecraft:powered_rail"
+execute if entity @s[scores={f1sch.give=1033}] run data modify storage f1sch:temp item set value "minecraft:prismarine"
+execute if entity @s[scores={f1sch.give=1034}] run data modify storage f1sch:temp item set value "minecraft:prismarine_brick_slab"
+execute if entity @s[scores={f1sch.give=1035}] run data modify storage f1sch:temp item set value "minecraft:prismarine_brick_stairs"
+execute if entity @s[scores={f1sch.give=1036}] run data modify storage f1sch:temp item set value "minecraft:prismarine_bricks"
+execute if entity @s[scores={f1sch.give=1037}] run data modify storage f1sch:temp item set value "minecraft:prismarine_crystals"
+execute if entity @s[scores={f1sch.give=1038}] run data modify storage f1sch:temp item set value "minecraft:prismarine_shard"
+execute if entity @s[scores={f1sch.give=1039}] run data modify storage f1sch:temp item set value "minecraft:prismarine_slab"
+execute if entity @s[scores={f1sch.give=1040}] run data modify storage f1sch:temp item set value "minecraft:prismarine_stairs"
+execute if entity @s[scores={f1sch.give=1041}] run data modify storage f1sch:temp item set value "minecraft:prismarine_wall"
+execute if entity @s[scores={f1sch.give=1042}] run data modify storage f1sch:temp item set value "minecraft:prize_pottery_sherd"
+execute if entity @s[scores={f1sch.give=1043}] run data modify storage f1sch:temp item set value "minecraft:pufferfish"
+execute if entity @s[scores={f1sch.give=1044}] run data modify storage f1sch:temp item set value "minecraft:pufferfish_bucket"
+execute if entity @s[scores={f1sch.give=1045}] run data modify storage f1sch:temp item set value "minecraft:pufferfish_spawn_egg"
+execute if entity @s[scores={f1sch.give=1046}] run data modify storage f1sch:temp item set value "minecraft:pumpkin"
+execute if entity @s[scores={f1sch.give=1047}] run data modify storage f1sch:temp item set value "minecraft:pumpkin_pie"
+execute if entity @s[scores={f1sch.give=1048}] run data modify storage f1sch:temp item set value "minecraft:pumpkin_seeds"
+execute if entity @s[scores={f1sch.give=1049}] run data modify storage f1sch:temp item set value "minecraft:purple_banner"
+execute if entity @s[scores={f1sch.give=1050}] run data modify storage f1sch:temp item set value "minecraft:purple_bed"
+execute if entity @s[scores={f1sch.give=1051}] run data modify storage f1sch:temp item set value "minecraft:purple_bundle"
+execute if entity @s[scores={f1sch.give=1052}] run data modify storage f1sch:temp item set value "minecraft:purple_candle"
+execute if entity @s[scores={f1sch.give=1053}] run data modify storage f1sch:temp item set value "minecraft:purple_carpet"
+execute if entity @s[scores={f1sch.give=1054}] run data modify storage f1sch:temp item set value "minecraft:purple_concrete"
+execute if entity @s[scores={f1sch.give=1055}] run data modify storage f1sch:temp item set value "minecraft:purple_concrete_powder"
+execute if entity @s[scores={f1sch.give=1056}] run data modify storage f1sch:temp item set value "minecraft:purple_dye"
+execute if entity @s[scores={f1sch.give=1057}] run data modify storage f1sch:temp item set value "minecraft:purple_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=1058}] run data modify storage f1sch:temp item set value "minecraft:purple_harness"
+execute if entity @s[scores={f1sch.give=1059}] run data modify storage f1sch:temp item set value "minecraft:purple_shulker_box"
+execute if entity @s[scores={f1sch.give=1060}] run data modify storage f1sch:temp item set value "minecraft:purple_stained_glass"
+execute if entity @s[scores={f1sch.give=1061}] run data modify storage f1sch:temp item set value "minecraft:purple_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=1062}] run data modify storage f1sch:temp item set value "minecraft:purple_terracotta"
+execute if entity @s[scores={f1sch.give=1063}] run data modify storage f1sch:temp item set value "minecraft:purple_wool"
+execute if entity @s[scores={f1sch.give=1064}] run data modify storage f1sch:temp item set value "minecraft:purpur_block"
+execute if entity @s[scores={f1sch.give=1065}] run data modify storage f1sch:temp item set value "minecraft:purpur_pillar"
+execute if entity @s[scores={f1sch.give=1066}] run data modify storage f1sch:temp item set value "minecraft:purpur_slab"
+execute if entity @s[scores={f1sch.give=1067}] run data modify storage f1sch:temp item set value "minecraft:purpur_stairs"
+execute if entity @s[scores={f1sch.give=1068}] run data modify storage f1sch:temp item set value "minecraft:quartz"
+execute if entity @s[scores={f1sch.give=1069}] run data modify storage f1sch:temp item set value "minecraft:quartz_block"
+execute if entity @s[scores={f1sch.give=1070}] run data modify storage f1sch:temp item set value "minecraft:quartz_bricks"
+execute if entity @s[scores={f1sch.give=1071}] run data modify storage f1sch:temp item set value "minecraft:quartz_pillar"
+execute if entity @s[scores={f1sch.give=1072}] run data modify storage f1sch:temp item set value "minecraft:quartz_slab"
+execute if entity @s[scores={f1sch.give=1073}] run data modify storage f1sch:temp item set value "minecraft:quartz_stairs"
+execute if entity @s[scores={f1sch.give=1074}] run data modify storage f1sch:temp item set value "minecraft:rabbit"
+execute if entity @s[scores={f1sch.give=1075}] run data modify storage f1sch:temp item set value "minecraft:rabbit_foot"
+execute if entity @s[scores={f1sch.give=1076}] run data modify storage f1sch:temp item set value "minecraft:rabbit_hide"
+execute if entity @s[scores={f1sch.give=1077}] run data modify storage f1sch:temp item set value "minecraft:rabbit_spawn_egg"
+execute if entity @s[scores={f1sch.give=1078}] run data modify storage f1sch:temp item set value "minecraft:rabbit_stew"
+execute if entity @s[scores={f1sch.give=1079}] run data modify storage f1sch:temp item set value "minecraft:rail"
+execute if entity @s[scores={f1sch.give=1080}] run data modify storage f1sch:temp item set value "minecraft:raiser_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1081}] run data modify storage f1sch:temp item set value "minecraft:ravager_spawn_egg"
+execute if entity @s[scores={f1sch.give=1082}] run data modify storage f1sch:temp item set value "minecraft:raw_copper"
+execute if entity @s[scores={f1sch.give=1083}] run data modify storage f1sch:temp item set value "minecraft:raw_copper_block"
+execute if entity @s[scores={f1sch.give=1084}] run data modify storage f1sch:temp item set value "minecraft:raw_gold"
+execute if entity @s[scores={f1sch.give=1085}] run data modify storage f1sch:temp item set value "minecraft:raw_gold_block"
+execute if entity @s[scores={f1sch.give=1086}] run data modify storage f1sch:temp item set value "minecraft:raw_iron"
+execute if entity @s[scores={f1sch.give=1087}] run data modify storage f1sch:temp item set value "minecraft:raw_iron_block"
+execute if entity @s[scores={f1sch.give=1088}] run data modify storage f1sch:temp item set value "minecraft:recovery_compass"
+execute if entity @s[scores={f1sch.give=1089}] run data modify storage f1sch:temp item set value "minecraft:red_banner"
+execute if entity @s[scores={f1sch.give=1090}] run data modify storage f1sch:temp item set value "minecraft:red_bed"
+execute if entity @s[scores={f1sch.give=1091}] run data modify storage f1sch:temp item set value "minecraft:red_bundle"
+execute if entity @s[scores={f1sch.give=1092}] run data modify storage f1sch:temp item set value "minecraft:red_candle"
+execute if entity @s[scores={f1sch.give=1093}] run data modify storage f1sch:temp item set value "minecraft:red_carpet"
+execute if entity @s[scores={f1sch.give=1094}] run data modify storage f1sch:temp item set value "minecraft:red_concrete"
+execute if entity @s[scores={f1sch.give=1095}] run data modify storage f1sch:temp item set value "minecraft:red_concrete_powder"
+execute if entity @s[scores={f1sch.give=1096}] run data modify storage f1sch:temp item set value "minecraft:red_dye"
+execute if entity @s[scores={f1sch.give=1097}] run data modify storage f1sch:temp item set value "minecraft:red_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=1098}] run data modify storage f1sch:temp item set value "minecraft:red_harness"
+execute if entity @s[scores={f1sch.give=1099}] run data modify storage f1sch:temp item set value "minecraft:red_mushroom"
+execute if entity @s[scores={f1sch.give=1100}] run data modify storage f1sch:temp item set value "minecraft:red_mushroom_block"
+execute if entity @s[scores={f1sch.give=1101}] run data modify storage f1sch:temp item set value "minecraft:red_nether_brick_slab"
+execute if entity @s[scores={f1sch.give=1102}] run data modify storage f1sch:temp item set value "minecraft:red_nether_brick_stairs"
+execute if entity @s[scores={f1sch.give=1103}] run data modify storage f1sch:temp item set value "minecraft:red_nether_brick_wall"
+execute if entity @s[scores={f1sch.give=1104}] run data modify storage f1sch:temp item set value "minecraft:red_nether_bricks"
+execute if entity @s[scores={f1sch.give=1105}] run data modify storage f1sch:temp item set value "minecraft:red_sand"
+execute if entity @s[scores={f1sch.give=1106}] run data modify storage f1sch:temp item set value "minecraft:red_sandstone"
+execute if entity @s[scores={f1sch.give=1107}] run data modify storage f1sch:temp item set value "minecraft:red_sandstone_slab"
+execute if entity @s[scores={f1sch.give=1108}] run data modify storage f1sch:temp item set value "minecraft:red_sandstone_stairs"
+execute if entity @s[scores={f1sch.give=1109}] run data modify storage f1sch:temp item set value "minecraft:red_sandstone_wall"
+execute if entity @s[scores={f1sch.give=1110}] run data modify storage f1sch:temp item set value "minecraft:red_shulker_box"
+execute if entity @s[scores={f1sch.give=1111}] run data modify storage f1sch:temp item set value "minecraft:red_stained_glass"
+execute if entity @s[scores={f1sch.give=1112}] run data modify storage f1sch:temp item set value "minecraft:red_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=1113}] run data modify storage f1sch:temp item set value "minecraft:red_terracotta"
+execute if entity @s[scores={f1sch.give=1114}] run data modify storage f1sch:temp item set value "minecraft:red_tulip"
+execute if entity @s[scores={f1sch.give=1115}] run data modify storage f1sch:temp item set value "minecraft:red_wool"
+execute if entity @s[scores={f1sch.give=1116}] run data modify storage f1sch:temp item set value "minecraft:redstone"
+execute if entity @s[scores={f1sch.give=1117}] run data modify storage f1sch:temp item set value "minecraft:redstone_block"
+execute if entity @s[scores={f1sch.give=1118}] run data modify storage f1sch:temp item set value "minecraft:redstone_lamp"
+execute if entity @s[scores={f1sch.give=1119}] run data modify storage f1sch:temp item set value "minecraft:redstone_ore"
+execute if entity @s[scores={f1sch.give=1120}] run data modify storage f1sch:temp item set value "minecraft:redstone_torch"
+execute if entity @s[scores={f1sch.give=1121}] run data modify storage f1sch:temp item set value "minecraft:reinforced_deepslate"
+execute if entity @s[scores={f1sch.give=1122}] run data modify storage f1sch:temp item set value "minecraft:repeater"
+execute if entity @s[scores={f1sch.give=1123}] run data modify storage f1sch:temp item set value "minecraft:repeating_command_block"
+execute if entity @s[scores={f1sch.give=1124}] run data modify storage f1sch:temp item set value "minecraft:resin_block"
+execute if entity @s[scores={f1sch.give=1125}] run data modify storage f1sch:temp item set value "minecraft:resin_brick"
+execute if entity @s[scores={f1sch.give=1126}] run data modify storage f1sch:temp item set value "minecraft:resin_brick_slab"
+execute if entity @s[scores={f1sch.give=1127}] run data modify storage f1sch:temp item set value "minecraft:resin_brick_stairs"
+execute if entity @s[scores={f1sch.give=1128}] run data modify storage f1sch:temp item set value "minecraft:resin_brick_wall"
+execute if entity @s[scores={f1sch.give=1129}] run data modify storage f1sch:temp item set value "minecraft:resin_bricks"
+execute if entity @s[scores={f1sch.give=1130}] run data modify storage f1sch:temp item set value "minecraft:resin_clump"
+execute if entity @s[scores={f1sch.give=1131}] run data modify storage f1sch:temp item set value "minecraft:respawn_anchor"
+execute if entity @s[scores={f1sch.give=1132}] run data modify storage f1sch:temp item set value "minecraft:rib_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1133}] run data modify storage f1sch:temp item set value "minecraft:rooted_dirt"
+execute if entity @s[scores={f1sch.give=1134}] run data modify storage f1sch:temp item set value "minecraft:rose_bush"
+execute if entity @s[scores={f1sch.give=1135}] run data modify storage f1sch:temp item set value "minecraft:rotten_flesh"
+execute if entity @s[scores={f1sch.give=1136}] run data modify storage f1sch:temp item set value "minecraft:saddle"
+execute if entity @s[scores={f1sch.give=1137}] run data modify storage f1sch:temp item set value "minecraft:salmon"
+execute if entity @s[scores={f1sch.give=1138}] run data modify storage f1sch:temp item set value "minecraft:salmon_bucket"
+execute if entity @s[scores={f1sch.give=1139}] run data modify storage f1sch:temp item set value "minecraft:salmon_spawn_egg"
+execute if entity @s[scores={f1sch.give=1140}] run data modify storage f1sch:temp item set value "minecraft:sand"
+execute if entity @s[scores={f1sch.give=1141}] run data modify storage f1sch:temp item set value "minecraft:sandstone"
+execute if entity @s[scores={f1sch.give=1142}] run data modify storage f1sch:temp item set value "minecraft:sandstone_slab"
+execute if entity @s[scores={f1sch.give=1143}] run data modify storage f1sch:temp item set value "minecraft:sandstone_stairs"
+execute if entity @s[scores={f1sch.give=1144}] run data modify storage f1sch:temp item set value "minecraft:sandstone_wall"
+execute if entity @s[scores={f1sch.give=1145}] run data modify storage f1sch:temp item set value "minecraft:scaffolding"
+execute if entity @s[scores={f1sch.give=1146}] run data modify storage f1sch:temp item set value "minecraft:scrape_pottery_sherd"
+execute if entity @s[scores={f1sch.give=1147}] run data modify storage f1sch:temp item set value "minecraft:sculk"
+execute if entity @s[scores={f1sch.give=1148}] run data modify storage f1sch:temp item set value "minecraft:sculk_catalyst"
+execute if entity @s[scores={f1sch.give=1149}] run data modify storage f1sch:temp item set value "minecraft:sculk_sensor"
+execute if entity @s[scores={f1sch.give=1150}] run data modify storage f1sch:temp item set value "minecraft:sculk_shrieker"
+execute if entity @s[scores={f1sch.give=1151}] run data modify storage f1sch:temp item set value "minecraft:sculk_vein"
+execute if entity @s[scores={f1sch.give=1152}] run data modify storage f1sch:temp item set value "minecraft:sea_lantern"
+execute if entity @s[scores={f1sch.give=1153}] run data modify storage f1sch:temp item set value "minecraft:sea_pickle"
+execute if entity @s[scores={f1sch.give=1154}] run data modify storage f1sch:temp item set value "minecraft:seagrass"
+execute if entity @s[scores={f1sch.give=1155}] run data modify storage f1sch:temp item set value "minecraft:sentry_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1156}] run data modify storage f1sch:temp item set value "minecraft:shaper_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1157}] run data modify storage f1sch:temp item set value "minecraft:sheaf_pottery_sherd"
+execute if entity @s[scores={f1sch.give=1158}] run data modify storage f1sch:temp item set value "minecraft:shears"
+execute if entity @s[scores={f1sch.give=1159}] run data modify storage f1sch:temp item set value "minecraft:sheep_spawn_egg"
+execute if entity @s[scores={f1sch.give=1160}] run data modify storage f1sch:temp item set value "minecraft:shelter_pottery_sherd"
+execute if entity @s[scores={f1sch.give=1161}] run data modify storage f1sch:temp item set value "minecraft:shield"
+execute if entity @s[scores={f1sch.give=1162}] run data modify storage f1sch:temp item set value "minecraft:short_dry_grass"
+execute if entity @s[scores={f1sch.give=1163}] run data modify storage f1sch:temp item set value "minecraft:short_grass"
+execute if entity @s[scores={f1sch.give=1164}] run data modify storage f1sch:temp item set value "minecraft:shroomlight"
+execute if entity @s[scores={f1sch.give=1165}] run data modify storage f1sch:temp item set value "minecraft:shulker_box"
+execute if entity @s[scores={f1sch.give=1166}] run data modify storage f1sch:temp item set value "minecraft:shulker_shell"
+execute if entity @s[scores={f1sch.give=1167}] run data modify storage f1sch:temp item set value "minecraft:shulker_spawn_egg"
+execute if entity @s[scores={f1sch.give=1168}] run data modify storage f1sch:temp item set value "minecraft:silence_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1169}] run data modify storage f1sch:temp item set value "minecraft:silverfish_spawn_egg"
+execute if entity @s[scores={f1sch.give=1170}] run data modify storage f1sch:temp item set value "minecraft:skeleton_horse_spawn_egg"
+execute if entity @s[scores={f1sch.give=1171}] run data modify storage f1sch:temp item set value "minecraft:skeleton_skull"
+execute if entity @s[scores={f1sch.give=1172}] run data modify storage f1sch:temp item set value "minecraft:skeleton_spawn_egg"
+execute if entity @s[scores={f1sch.give=1173}] run data modify storage f1sch:temp item set value "minecraft:skull_banner_pattern"
+execute if entity @s[scores={f1sch.give=1174}] run data modify storage f1sch:temp item set value "minecraft:skull_pottery_sherd"
+execute if entity @s[scores={f1sch.give=1175}] run data modify storage f1sch:temp item set value "minecraft:slime_ball"
+execute if entity @s[scores={f1sch.give=1176}] run data modify storage f1sch:temp item set value "minecraft:slime_block"
+execute if entity @s[scores={f1sch.give=1177}] run data modify storage f1sch:temp item set value "minecraft:slime_spawn_egg"
+execute if entity @s[scores={f1sch.give=1178}] run data modify storage f1sch:temp item set value "minecraft:small_amethyst_bud"
+execute if entity @s[scores={f1sch.give=1179}] run data modify storage f1sch:temp item set value "minecraft:small_dripleaf"
+execute if entity @s[scores={f1sch.give=1180}] run data modify storage f1sch:temp item set value "minecraft:smithing_table"
+execute if entity @s[scores={f1sch.give=1181}] run data modify storage f1sch:temp item set value "minecraft:smoker"
+execute if entity @s[scores={f1sch.give=1182}] run data modify storage f1sch:temp item set value "minecraft:smooth_basalt"
+execute if entity @s[scores={f1sch.give=1183}] run data modify storage f1sch:temp item set value "minecraft:smooth_quartz"
+execute if entity @s[scores={f1sch.give=1184}] run data modify storage f1sch:temp item set value "minecraft:smooth_quartz_slab"
+execute if entity @s[scores={f1sch.give=1185}] run data modify storage f1sch:temp item set value "minecraft:smooth_quartz_stairs"
+execute if entity @s[scores={f1sch.give=1186}] run data modify storage f1sch:temp item set value "minecraft:smooth_red_sandstone"
+execute if entity @s[scores={f1sch.give=1187}] run data modify storage f1sch:temp item set value "minecraft:smooth_red_sandstone_slab"
+execute if entity @s[scores={f1sch.give=1188}] run data modify storage f1sch:temp item set value "minecraft:smooth_red_sandstone_stairs"
+execute if entity @s[scores={f1sch.give=1189}] run data modify storage f1sch:temp item set value "minecraft:smooth_sandstone"
+execute if entity @s[scores={f1sch.give=1190}] run data modify storage f1sch:temp item set value "minecraft:smooth_sandstone_slab"
+execute if entity @s[scores={f1sch.give=1191}] run data modify storage f1sch:temp item set value "minecraft:smooth_sandstone_stairs"
+execute if entity @s[scores={f1sch.give=1192}] run data modify storage f1sch:temp item set value "minecraft:smooth_stone"
+execute if entity @s[scores={f1sch.give=1193}] run data modify storage f1sch:temp item set value "minecraft:smooth_stone_slab"
+execute if entity @s[scores={f1sch.give=1194}] run data modify storage f1sch:temp item set value "minecraft:sniffer_egg"
+execute if entity @s[scores={f1sch.give=1195}] run data modify storage f1sch:temp item set value "minecraft:sniffer_spawn_egg"
+execute if entity @s[scores={f1sch.give=1196}] run data modify storage f1sch:temp item set value "minecraft:snort_pottery_sherd"
+execute if entity @s[scores={f1sch.give=1197}] run data modify storage f1sch:temp item set value "minecraft:snout_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1198}] run data modify storage f1sch:temp item set value "minecraft:snow"
+execute if entity @s[scores={f1sch.give=1199}] run data modify storage f1sch:temp item set value "minecraft:snow_block"
+execute if entity @s[scores={f1sch.give=1200}] run data modify storage f1sch:temp item set value "minecraft:snow_golem_spawn_egg"
+execute if entity @s[scores={f1sch.give=1201}] run data modify storage f1sch:temp item set value "minecraft:snowball"
+execute if entity @s[scores={f1sch.give=1202}] run data modify storage f1sch:temp item set value "minecraft:soul_campfire"
+execute if entity @s[scores={f1sch.give=1203}] run data modify storage f1sch:temp item set value "minecraft:soul_lantern"
+execute if entity @s[scores={f1sch.give=1204}] run data modify storage f1sch:temp item set value "minecraft:soul_sand"
+execute if entity @s[scores={f1sch.give=1205}] run data modify storage f1sch:temp item set value "minecraft:soul_soil"
+execute if entity @s[scores={f1sch.give=1206}] run data modify storage f1sch:temp item set value "minecraft:soul_torch"
+execute if entity @s[scores={f1sch.give=1207}] run data modify storage f1sch:temp item set value "minecraft:spawner"
+execute if entity @s[scores={f1sch.give=1208}] run data modify storage f1sch:temp item set value "minecraft:spectral_arrow"
+execute if entity @s[scores={f1sch.give=1209}] run data modify storage f1sch:temp item set value "minecraft:spider_eye"
+execute if entity @s[scores={f1sch.give=1210}] run data modify storage f1sch:temp item set value "minecraft:spider_spawn_egg"
+execute if entity @s[scores={f1sch.give=1211}] run data modify storage f1sch:temp item set value "minecraft:spire_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1212}] run data modify storage f1sch:temp item set value "minecraft:splash_potion"
+execute if entity @s[scores={f1sch.give=1213}] run data modify storage f1sch:temp item set value "minecraft:sponge"
+execute if entity @s[scores={f1sch.give=1214}] run data modify storage f1sch:temp item set value "minecraft:spore_blossom"
+execute if entity @s[scores={f1sch.give=1215}] run data modify storage f1sch:temp item set value "minecraft:spruce_boat"
+execute if entity @s[scores={f1sch.give=1216}] run data modify storage f1sch:temp item set value "minecraft:spruce_button"
+execute if entity @s[scores={f1sch.give=1217}] run data modify storage f1sch:temp item set value "minecraft:spruce_chest_boat"
+execute if entity @s[scores={f1sch.give=1218}] run data modify storage f1sch:temp item set value "minecraft:spruce_door"
+execute if entity @s[scores={f1sch.give=1219}] run data modify storage f1sch:temp item set value "minecraft:spruce_fence"
+execute if entity @s[scores={f1sch.give=1220}] run data modify storage f1sch:temp item set value "minecraft:spruce_fence_gate"
+execute if entity @s[scores={f1sch.give=1221}] run data modify storage f1sch:temp item set value "minecraft:spruce_hanging_sign"
+execute if entity @s[scores={f1sch.give=1222}] run data modify storage f1sch:temp item set value "minecraft:spruce_leaves"
+execute if entity @s[scores={f1sch.give=1223}] run data modify storage f1sch:temp item set value "minecraft:spruce_log"
+execute if entity @s[scores={f1sch.give=1224}] run data modify storage f1sch:temp item set value "minecraft:spruce_planks"
+execute if entity @s[scores={f1sch.give=1225}] run data modify storage f1sch:temp item set value "minecraft:spruce_pressure_plate"
+execute if entity @s[scores={f1sch.give=1226}] run data modify storage f1sch:temp item set value "minecraft:spruce_sapling"
+execute if entity @s[scores={f1sch.give=1227}] run data modify storage f1sch:temp item set value "minecraft:spruce_shelf"
+execute if entity @s[scores={f1sch.give=1228}] run data modify storage f1sch:temp item set value "minecraft:spruce_sign"
+execute if entity @s[scores={f1sch.give=1229}] run data modify storage f1sch:temp item set value "minecraft:spruce_slab"
+execute if entity @s[scores={f1sch.give=1230}] run data modify storage f1sch:temp item set value "minecraft:spruce_stairs"
+execute if entity @s[scores={f1sch.give=1231}] run data modify storage f1sch:temp item set value "minecraft:spruce_trapdoor"
+execute if entity @s[scores={f1sch.give=1232}] run data modify storage f1sch:temp item set value "minecraft:spruce_wood"
+execute if entity @s[scores={f1sch.give=1233}] run data modify storage f1sch:temp item set value "minecraft:spyglass"
+execute if entity @s[scores={f1sch.give=1234}] run data modify storage f1sch:temp item set value "minecraft:squid_spawn_egg"
+execute if entity @s[scores={f1sch.give=1235}] run data modify storage f1sch:temp item set value "minecraft:stick"
+execute if entity @s[scores={f1sch.give=1236}] run data modify storage f1sch:temp item set value "minecraft:sticky_piston"
+execute if entity @s[scores={f1sch.give=1237}] run data modify storage f1sch:temp item set value "minecraft:stone"
+execute if entity @s[scores={f1sch.give=1238}] run data modify storage f1sch:temp item set value "minecraft:stone_axe"
+execute if entity @s[scores={f1sch.give=1239}] run data modify storage f1sch:temp item set value "minecraft:stone_brick_slab"
+execute if entity @s[scores={f1sch.give=1240}] run data modify storage f1sch:temp item set value "minecraft:stone_brick_stairs"
+execute if entity @s[scores={f1sch.give=1241}] run data modify storage f1sch:temp item set value "minecraft:stone_brick_wall"
+execute if entity @s[scores={f1sch.give=1242}] run data modify storage f1sch:temp item set value "minecraft:stone_bricks"
+execute if entity @s[scores={f1sch.give=1243}] run data modify storage f1sch:temp item set value "minecraft:stone_button"
+execute if entity @s[scores={f1sch.give=1244}] run data modify storage f1sch:temp item set value "minecraft:stone_hoe"
+execute if entity @s[scores={f1sch.give=1245}] run data modify storage f1sch:temp item set value "minecraft:stone_pickaxe"
+execute if entity @s[scores={f1sch.give=1246}] run data modify storage f1sch:temp item set value "minecraft:stone_pressure_plate"
+execute if entity @s[scores={f1sch.give=1247}] run data modify storage f1sch:temp item set value "minecraft:stone_shovel"
+execute if entity @s[scores={f1sch.give=1248}] run data modify storage f1sch:temp item set value "minecraft:stone_slab"
+execute if entity @s[scores={f1sch.give=1249}] run data modify storage f1sch:temp item set value "minecraft:stone_spear"
+execute if entity @s[scores={f1sch.give=1250}] run data modify storage f1sch:temp item set value "minecraft:stone_stairs"
+execute if entity @s[scores={f1sch.give=1251}] run data modify storage f1sch:temp item set value "minecraft:stone_sword"
+execute if entity @s[scores={f1sch.give=1252}] run data modify storage f1sch:temp item set value "minecraft:stonecutter"
+execute if entity @s[scores={f1sch.give=1253}] run data modify storage f1sch:temp item set value "minecraft:stray_spawn_egg"
+execute if entity @s[scores={f1sch.give=1254}] run data modify storage f1sch:temp item set value "minecraft:strider_spawn_egg"
+execute if entity @s[scores={f1sch.give=1255}] run data modify storage f1sch:temp item set value "minecraft:string"
+execute if entity @s[scores={f1sch.give=1256}] run data modify storage f1sch:temp item set value "minecraft:stripped_acacia_log"
+execute if entity @s[scores={f1sch.give=1257}] run data modify storage f1sch:temp item set value "minecraft:stripped_acacia_wood"
+execute if entity @s[scores={f1sch.give=1258}] run data modify storage f1sch:temp item set value "minecraft:stripped_bamboo_block"
+execute if entity @s[scores={f1sch.give=1259}] run data modify storage f1sch:temp item set value "minecraft:stripped_birch_log"
+execute if entity @s[scores={f1sch.give=1260}] run data modify storage f1sch:temp item set value "minecraft:stripped_birch_wood"
+execute if entity @s[scores={f1sch.give=1261}] run data modify storage f1sch:temp item set value "minecraft:stripped_cherry_log"
+execute if entity @s[scores={f1sch.give=1262}] run data modify storage f1sch:temp item set value "minecraft:stripped_cherry_wood"
+execute if entity @s[scores={f1sch.give=1263}] run data modify storage f1sch:temp item set value "minecraft:stripped_crimson_hyphae"
+execute if entity @s[scores={f1sch.give=1264}] run data modify storage f1sch:temp item set value "minecraft:stripped_crimson_stem"
+execute if entity @s[scores={f1sch.give=1265}] run data modify storage f1sch:temp item set value "minecraft:stripped_dark_oak_log"
+execute if entity @s[scores={f1sch.give=1266}] run data modify storage f1sch:temp item set value "minecraft:stripped_dark_oak_wood"
+execute if entity @s[scores={f1sch.give=1267}] run data modify storage f1sch:temp item set value "minecraft:stripped_jungle_log"
+execute if entity @s[scores={f1sch.give=1268}] run data modify storage f1sch:temp item set value "minecraft:stripped_jungle_wood"
+execute if entity @s[scores={f1sch.give=1269}] run data modify storage f1sch:temp item set value "minecraft:stripped_mangrove_log"
+execute if entity @s[scores={f1sch.give=1270}] run data modify storage f1sch:temp item set value "minecraft:stripped_mangrove_wood"
+execute if entity @s[scores={f1sch.give=1271}] run data modify storage f1sch:temp item set value "minecraft:stripped_oak_log"
+execute if entity @s[scores={f1sch.give=1272}] run data modify storage f1sch:temp item set value "minecraft:stripped_oak_wood"
+execute if entity @s[scores={f1sch.give=1273}] run data modify storage f1sch:temp item set value "minecraft:stripped_pale_oak_log"
+execute if entity @s[scores={f1sch.give=1274}] run data modify storage f1sch:temp item set value "minecraft:stripped_pale_oak_wood"
+execute if entity @s[scores={f1sch.give=1275}] run data modify storage f1sch:temp item set value "minecraft:stripped_spruce_log"
+execute if entity @s[scores={f1sch.give=1276}] run data modify storage f1sch:temp item set value "minecraft:stripped_spruce_wood"
+execute if entity @s[scores={f1sch.give=1277}] run data modify storage f1sch:temp item set value "minecraft:stripped_warped_hyphae"
+execute if entity @s[scores={f1sch.give=1278}] run data modify storage f1sch:temp item set value "minecraft:stripped_warped_stem"
+execute if entity @s[scores={f1sch.give=1279}] run data modify storage f1sch:temp item set value "minecraft:structure_block"
+execute if entity @s[scores={f1sch.give=1280}] run data modify storage f1sch:temp item set value "minecraft:structure_void"
+execute if entity @s[scores={f1sch.give=1281}] run data modify storage f1sch:temp item set value "minecraft:sugar"
+execute if entity @s[scores={f1sch.give=1282}] run data modify storage f1sch:temp item set value "minecraft:sugar_cane"
+execute if entity @s[scores={f1sch.give=1283}] run data modify storage f1sch:temp item set value "minecraft:sunflower"
+execute if entity @s[scores={f1sch.give=1284}] run data modify storage f1sch:temp item set value "minecraft:suspicious_gravel"
+execute if entity @s[scores={f1sch.give=1285}] run data modify storage f1sch:temp item set value "minecraft:suspicious_sand"
+execute if entity @s[scores={f1sch.give=1286}] run data modify storage f1sch:temp item set value "minecraft:suspicious_stew"
+execute if entity @s[scores={f1sch.give=1287}] run data modify storage f1sch:temp item set value "minecraft:sweet_berries"
+execute if entity @s[scores={f1sch.give=1288}] run data modify storage f1sch:temp item set value "minecraft:tadpole_bucket"
+execute if entity @s[scores={f1sch.give=1289}] run data modify storage f1sch:temp item set value "minecraft:tadpole_spawn_egg"
+execute if entity @s[scores={f1sch.give=1290}] run data modify storage f1sch:temp item set value "minecraft:tall_dry_grass"
+execute if entity @s[scores={f1sch.give=1291}] run data modify storage f1sch:temp item set value "minecraft:tall_grass"
+execute if entity @s[scores={f1sch.give=1292}] run data modify storage f1sch:temp item set value "minecraft:target"
+execute if entity @s[scores={f1sch.give=1293}] run data modify storage f1sch:temp item set value "minecraft:terracotta"
+execute if entity @s[scores={f1sch.give=1294}] run data modify storage f1sch:temp item set value "minecraft:test_block"
+execute if entity @s[scores={f1sch.give=1295}] run data modify storage f1sch:temp item set value "minecraft:test_instance_block"
+execute if entity @s[scores={f1sch.give=1296}] run data modify storage f1sch:temp item set value "minecraft:tide_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1297}] run data modify storage f1sch:temp item set value "minecraft:tinted_glass"
+execute if entity @s[scores={f1sch.give=1298}] run data modify storage f1sch:temp item set value "minecraft:tipped_arrow"
+execute if entity @s[scores={f1sch.give=1299}] run data modify storage f1sch:temp item set value "minecraft:tnt"
+execute if entity @s[scores={f1sch.give=1300}] run data modify storage f1sch:temp item set value "minecraft:tnt_minecart"
+execute if entity @s[scores={f1sch.give=1301}] run data modify storage f1sch:temp item set value "minecraft:torch"
+execute if entity @s[scores={f1sch.give=1302}] run data modify storage f1sch:temp item set value "minecraft:torchflower"
+execute if entity @s[scores={f1sch.give=1303}] run data modify storage f1sch:temp item set value "minecraft:torchflower_seeds"
+execute if entity @s[scores={f1sch.give=1304}] run data modify storage f1sch:temp item set value "minecraft:totem_of_undying"
+execute if entity @s[scores={f1sch.give=1305}] run data modify storage f1sch:temp item set value "minecraft:trader_llama_spawn_egg"
+execute if entity @s[scores={f1sch.give=1306}] run data modify storage f1sch:temp item set value "minecraft:trapped_chest"
+execute if entity @s[scores={f1sch.give=1307}] run data modify storage f1sch:temp item set value "minecraft:trial_key"
+execute if entity @s[scores={f1sch.give=1308}] run data modify storage f1sch:temp item set value "minecraft:trial_spawner"
+execute if entity @s[scores={f1sch.give=1309}] run data modify storage f1sch:temp item set value "minecraft:trident"
+execute if entity @s[scores={f1sch.give=1310}] run data modify storage f1sch:temp item set value "minecraft:tripwire_hook"
+execute if entity @s[scores={f1sch.give=1311}] run data modify storage f1sch:temp item set value "minecraft:tropical_fish"
+execute if entity @s[scores={f1sch.give=1312}] run data modify storage f1sch:temp item set value "minecraft:tropical_fish_bucket"
+execute if entity @s[scores={f1sch.give=1313}] run data modify storage f1sch:temp item set value "minecraft:tropical_fish_spawn_egg"
+execute if entity @s[scores={f1sch.give=1314}] run data modify storage f1sch:temp item set value "minecraft:tube_coral"
+execute if entity @s[scores={f1sch.give=1315}] run data modify storage f1sch:temp item set value "minecraft:tube_coral_block"
+execute if entity @s[scores={f1sch.give=1316}] run data modify storage f1sch:temp item set value "minecraft:tube_coral_fan"
+execute if entity @s[scores={f1sch.give=1317}] run data modify storage f1sch:temp item set value "minecraft:tuff"
+execute if entity @s[scores={f1sch.give=1318}] run data modify storage f1sch:temp item set value "minecraft:tuff_brick_slab"
+execute if entity @s[scores={f1sch.give=1319}] run data modify storage f1sch:temp item set value "minecraft:tuff_brick_stairs"
+execute if entity @s[scores={f1sch.give=1320}] run data modify storage f1sch:temp item set value "minecraft:tuff_brick_wall"
+execute if entity @s[scores={f1sch.give=1321}] run data modify storage f1sch:temp item set value "minecraft:tuff_bricks"
+execute if entity @s[scores={f1sch.give=1322}] run data modify storage f1sch:temp item set value "minecraft:tuff_slab"
+execute if entity @s[scores={f1sch.give=1323}] run data modify storage f1sch:temp item set value "minecraft:tuff_stairs"
+execute if entity @s[scores={f1sch.give=1324}] run data modify storage f1sch:temp item set value "minecraft:tuff_wall"
+execute if entity @s[scores={f1sch.give=1325}] run data modify storage f1sch:temp item set value "minecraft:turtle_egg"
+execute if entity @s[scores={f1sch.give=1326}] run data modify storage f1sch:temp item set value "minecraft:turtle_helmet"
+execute if entity @s[scores={f1sch.give=1327}] run data modify storage f1sch:temp item set value "minecraft:turtle_scute"
+execute if entity @s[scores={f1sch.give=1328}] run data modify storage f1sch:temp item set value "minecraft:turtle_spawn_egg"
+execute if entity @s[scores={f1sch.give=1329}] run data modify storage f1sch:temp item set value "minecraft:twisting_vines"
+execute if entity @s[scores={f1sch.give=1330}] run data modify storage f1sch:temp item set value "minecraft:vault"
+execute if entity @s[scores={f1sch.give=1331}] run data modify storage f1sch:temp item set value "minecraft:verdant_froglight"
+execute if entity @s[scores={f1sch.give=1332}] run data modify storage f1sch:temp item set value "minecraft:vex_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1333}] run data modify storage f1sch:temp item set value "minecraft:vex_spawn_egg"
+execute if entity @s[scores={f1sch.give=1334}] run data modify storage f1sch:temp item set value "minecraft:villager_spawn_egg"
+execute if entity @s[scores={f1sch.give=1335}] run data modify storage f1sch:temp item set value "minecraft:vindicator_spawn_egg"
+execute if entity @s[scores={f1sch.give=1336}] run data modify storage f1sch:temp item set value "minecraft:vine"
+execute if entity @s[scores={f1sch.give=1337}] run data modify storage f1sch:temp item set value "minecraft:wandering_trader_spawn_egg"
+execute if entity @s[scores={f1sch.give=1338}] run data modify storage f1sch:temp item set value "minecraft:ward_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1339}] run data modify storage f1sch:temp item set value "minecraft:warden_spawn_egg"
+execute if entity @s[scores={f1sch.give=1340}] run data modify storage f1sch:temp item set value "minecraft:warped_button"
+execute if entity @s[scores={f1sch.give=1341}] run data modify storage f1sch:temp item set value "minecraft:warped_door"
+execute if entity @s[scores={f1sch.give=1342}] run data modify storage f1sch:temp item set value "minecraft:warped_fence"
+execute if entity @s[scores={f1sch.give=1343}] run data modify storage f1sch:temp item set value "minecraft:warped_fence_gate"
+execute if entity @s[scores={f1sch.give=1344}] run data modify storage f1sch:temp item set value "minecraft:warped_fungus"
+execute if entity @s[scores={f1sch.give=1345}] run data modify storage f1sch:temp item set value "minecraft:warped_fungus_on_a_stick"
+execute if entity @s[scores={f1sch.give=1346}] run data modify storage f1sch:temp item set value "minecraft:warped_hanging_sign"
+execute if entity @s[scores={f1sch.give=1347}] run data modify storage f1sch:temp item set value "minecraft:warped_hyphae"
+execute if entity @s[scores={f1sch.give=1348}] run data modify storage f1sch:temp item set value "minecraft:warped_nylium"
+execute if entity @s[scores={f1sch.give=1349}] run data modify storage f1sch:temp item set value "minecraft:warped_planks"
+execute if entity @s[scores={f1sch.give=1350}] run data modify storage f1sch:temp item set value "minecraft:warped_pressure_plate"
+execute if entity @s[scores={f1sch.give=1351}] run data modify storage f1sch:temp item set value "minecraft:warped_roots"
+execute if entity @s[scores={f1sch.give=1352}] run data modify storage f1sch:temp item set value "minecraft:warped_shelf"
+execute if entity @s[scores={f1sch.give=1353}] run data modify storage f1sch:temp item set value "minecraft:warped_sign"
+execute if entity @s[scores={f1sch.give=1354}] run data modify storage f1sch:temp item set value "minecraft:warped_slab"
+execute if entity @s[scores={f1sch.give=1355}] run data modify storage f1sch:temp item set value "minecraft:warped_stairs"
+execute if entity @s[scores={f1sch.give=1356}] run data modify storage f1sch:temp item set value "minecraft:warped_stem"
+execute if entity @s[scores={f1sch.give=1357}] run data modify storage f1sch:temp item set value "minecraft:warped_trapdoor"
+execute if entity @s[scores={f1sch.give=1358}] run data modify storage f1sch:temp item set value "minecraft:warped_wart_block"
+execute if entity @s[scores={f1sch.give=1359}] run data modify storage f1sch:temp item set value "minecraft:water_bucket"
+execute if entity @s[scores={f1sch.give=1360}] run data modify storage f1sch:temp item set value "minecraft:waxed_chiseled_copper"
+execute if entity @s[scores={f1sch.give=1361}] run data modify storage f1sch:temp item set value "minecraft:waxed_copper_block"
+execute if entity @s[scores={f1sch.give=1362}] run data modify storage f1sch:temp item set value "minecraft:waxed_copper_bulb"
+execute if entity @s[scores={f1sch.give=1363}] run data modify storage f1sch:temp item set value "minecraft:waxed_copper_chest"
+execute if entity @s[scores={f1sch.give=1364}] run data modify storage f1sch:temp item set value "minecraft:waxed_copper_door"
+execute if entity @s[scores={f1sch.give=1365}] run data modify storage f1sch:temp item set value "minecraft:waxed_copper_golem_statue"
+execute if entity @s[scores={f1sch.give=1366}] run data modify storage f1sch:temp item set value "minecraft:waxed_copper_grate"
+execute if entity @s[scores={f1sch.give=1367}] run data modify storage f1sch:temp item set value "minecraft:waxed_copper_trapdoor"
+execute if entity @s[scores={f1sch.give=1368}] run data modify storage f1sch:temp item set value "minecraft:waxed_cut_copper"
+execute if entity @s[scores={f1sch.give=1369}] run data modify storage f1sch:temp item set value "minecraft:waxed_cut_copper_slab"
+execute if entity @s[scores={f1sch.give=1370}] run data modify storage f1sch:temp item set value "minecraft:waxed_cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=1371}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_chiseled_copper"
+execute if entity @s[scores={f1sch.give=1372}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_copper"
+execute if entity @s[scores={f1sch.give=1373}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_copper_bulb"
+execute if entity @s[scores={f1sch.give=1374}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_copper_chest"
+execute if entity @s[scores={f1sch.give=1375}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_copper_door"
+execute if entity @s[scores={f1sch.give=1376}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_copper_golem_statue"
+execute if entity @s[scores={f1sch.give=1377}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_copper_grate"
+execute if entity @s[scores={f1sch.give=1378}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_copper_trapdoor"
+execute if entity @s[scores={f1sch.give=1379}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_cut_copper"
+execute if entity @s[scores={f1sch.give=1380}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_cut_copper_slab"
+execute if entity @s[scores={f1sch.give=1381}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=1382}] run data modify storage f1sch:temp item set value "minecraft:waxed_exposed_lightning_rod"
+execute if entity @s[scores={f1sch.give=1383}] run data modify storage f1sch:temp item set value "minecraft:waxed_lightning_rod"
+execute if entity @s[scores={f1sch.give=1384}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_chiseled_copper"
+execute if entity @s[scores={f1sch.give=1385}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_copper"
+execute if entity @s[scores={f1sch.give=1386}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_copper_bulb"
+execute if entity @s[scores={f1sch.give=1387}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_copper_chest"
+execute if entity @s[scores={f1sch.give=1388}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_copper_door"
+execute if entity @s[scores={f1sch.give=1389}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_copper_golem_statue"
+execute if entity @s[scores={f1sch.give=1390}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_copper_grate"
+execute if entity @s[scores={f1sch.give=1391}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_copper_trapdoor"
+execute if entity @s[scores={f1sch.give=1392}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_cut_copper"
+execute if entity @s[scores={f1sch.give=1393}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_cut_copper_slab"
+execute if entity @s[scores={f1sch.give=1394}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=1395}] run data modify storage f1sch:temp item set value "minecraft:waxed_oxidized_lightning_rod"
+execute if entity @s[scores={f1sch.give=1396}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_chiseled_copper"
+execute if entity @s[scores={f1sch.give=1397}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_copper"
+execute if entity @s[scores={f1sch.give=1398}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_copper_bulb"
+execute if entity @s[scores={f1sch.give=1399}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_copper_chest"
+execute if entity @s[scores={f1sch.give=1400}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_copper_door"
+execute if entity @s[scores={f1sch.give=1401}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_copper_golem_statue"
+execute if entity @s[scores={f1sch.give=1402}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_copper_grate"
+execute if entity @s[scores={f1sch.give=1403}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_copper_trapdoor"
+execute if entity @s[scores={f1sch.give=1404}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_cut_copper"
+execute if entity @s[scores={f1sch.give=1405}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_cut_copper_slab"
+execute if entity @s[scores={f1sch.give=1406}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=1407}] run data modify storage f1sch:temp item set value "minecraft:waxed_weathered_lightning_rod"
+execute if entity @s[scores={f1sch.give=1408}] run data modify storage f1sch:temp item set value "minecraft:wayfinder_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1409}] run data modify storage f1sch:temp item set value "minecraft:weathered_chiseled_copper"
+execute if entity @s[scores={f1sch.give=1410}] run data modify storage f1sch:temp item set value "minecraft:weathered_copper"
+execute if entity @s[scores={f1sch.give=1411}] run data modify storage f1sch:temp item set value "minecraft:weathered_copper_bulb"
+execute if entity @s[scores={f1sch.give=1412}] run data modify storage f1sch:temp item set value "minecraft:weathered_copper_chest"
+execute if entity @s[scores={f1sch.give=1413}] run data modify storage f1sch:temp item set value "minecraft:weathered_copper_door"
+execute if entity @s[scores={f1sch.give=1414}] run data modify storage f1sch:temp item set value "minecraft:weathered_copper_golem_statue"
+execute if entity @s[scores={f1sch.give=1415}] run data modify storage f1sch:temp item set value "minecraft:weathered_copper_grate"
+execute if entity @s[scores={f1sch.give=1416}] run data modify storage f1sch:temp item set value "minecraft:weathered_copper_trapdoor"
+execute if entity @s[scores={f1sch.give=1417}] run data modify storage f1sch:temp item set value "minecraft:weathered_cut_copper"
+execute if entity @s[scores={f1sch.give=1418}] run data modify storage f1sch:temp item set value "minecraft:weathered_cut_copper_slab"
+execute if entity @s[scores={f1sch.give=1419}] run data modify storage f1sch:temp item set value "minecraft:weathered_cut_copper_stairs"
+execute if entity @s[scores={f1sch.give=1420}] run data modify storage f1sch:temp item set value "minecraft:weathered_lightning_rod"
+execute if entity @s[scores={f1sch.give=1421}] run data modify storage f1sch:temp item set value "minecraft:weeping_vines"
+execute if entity @s[scores={f1sch.give=1422}] run data modify storage f1sch:temp item set value "minecraft:wet_sponge"
+execute if entity @s[scores={f1sch.give=1423}] run data modify storage f1sch:temp item set value "minecraft:wheat"
+execute if entity @s[scores={f1sch.give=1424}] run data modify storage f1sch:temp item set value "minecraft:wheat_seeds"
+execute if entity @s[scores={f1sch.give=1425}] run data modify storage f1sch:temp item set value "minecraft:white_banner"
+execute if entity @s[scores={f1sch.give=1426}] run data modify storage f1sch:temp item set value "minecraft:white_bed"
+execute if entity @s[scores={f1sch.give=1427}] run data modify storage f1sch:temp item set value "minecraft:white_bundle"
+execute if entity @s[scores={f1sch.give=1428}] run data modify storage f1sch:temp item set value "minecraft:white_candle"
+execute if entity @s[scores={f1sch.give=1429}] run data modify storage f1sch:temp item set value "minecraft:white_carpet"
+execute if entity @s[scores={f1sch.give=1430}] run data modify storage f1sch:temp item set value "minecraft:white_concrete"
+execute if entity @s[scores={f1sch.give=1431}] run data modify storage f1sch:temp item set value "minecraft:white_concrete_powder"
+execute if entity @s[scores={f1sch.give=1432}] run data modify storage f1sch:temp item set value "minecraft:white_dye"
+execute if entity @s[scores={f1sch.give=1433}] run data modify storage f1sch:temp item set value "minecraft:white_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=1434}] run data modify storage f1sch:temp item set value "minecraft:white_harness"
+execute if entity @s[scores={f1sch.give=1435}] run data modify storage f1sch:temp item set value "minecraft:white_shulker_box"
+execute if entity @s[scores={f1sch.give=1436}] run data modify storage f1sch:temp item set value "minecraft:white_stained_glass"
+execute if entity @s[scores={f1sch.give=1437}] run data modify storage f1sch:temp item set value "minecraft:white_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=1438}] run data modify storage f1sch:temp item set value "minecraft:white_terracotta"
+execute if entity @s[scores={f1sch.give=1439}] run data modify storage f1sch:temp item set value "minecraft:white_tulip"
+execute if entity @s[scores={f1sch.give=1440}] run data modify storage f1sch:temp item set value "minecraft:white_wool"
+execute if entity @s[scores={f1sch.give=1441}] run data modify storage f1sch:temp item set value "minecraft:wild_armor_trim_smithing_template"
+execute if entity @s[scores={f1sch.give=1442}] run data modify storage f1sch:temp item set value "minecraft:wildflowers"
+execute if entity @s[scores={f1sch.give=1443}] run data modify storage f1sch:temp item set value "minecraft:wind_charge"
+execute if entity @s[scores={f1sch.give=1444}] run data modify storage f1sch:temp item set value "minecraft:witch_spawn_egg"
+execute if entity @s[scores={f1sch.give=1445}] run data modify storage f1sch:temp item set value "minecraft:wither_rose"
+execute if entity @s[scores={f1sch.give=1446}] run data modify storage f1sch:temp item set value "minecraft:wither_skeleton_skull"
+execute if entity @s[scores={f1sch.give=1447}] run data modify storage f1sch:temp item set value "minecraft:wither_skeleton_spawn_egg"
+execute if entity @s[scores={f1sch.give=1448}] run data modify storage f1sch:temp item set value "minecraft:wither_spawn_egg"
+execute if entity @s[scores={f1sch.give=1449}] run data modify storage f1sch:temp item set value "minecraft:wolf_armor"
+execute if entity @s[scores={f1sch.give=1450}] run data modify storage f1sch:temp item set value "minecraft:wolf_spawn_egg"
+execute if entity @s[scores={f1sch.give=1451}] run data modify storage f1sch:temp item set value "minecraft:wooden_axe"
+execute if entity @s[scores={f1sch.give=1452}] run data modify storage f1sch:temp item set value "minecraft:wooden_hoe"
+execute if entity @s[scores={f1sch.give=1453}] run data modify storage f1sch:temp item set value "minecraft:wooden_pickaxe"
+execute if entity @s[scores={f1sch.give=1454}] run data modify storage f1sch:temp item set value "minecraft:wooden_shovel"
+execute if entity @s[scores={f1sch.give=1455}] run data modify storage f1sch:temp item set value "minecraft:wooden_spear"
+execute if entity @s[scores={f1sch.give=1456}] run data modify storage f1sch:temp item set value "minecraft:wooden_sword"
+execute if entity @s[scores={f1sch.give=1457}] run data modify storage f1sch:temp item set value "minecraft:writable_book"
+execute if entity @s[scores={f1sch.give=1458}] run data modify storage f1sch:temp item set value "minecraft:written_book"
+execute if entity @s[scores={f1sch.give=1459}] run data modify storage f1sch:temp item set value "minecraft:yellow_banner"
+execute if entity @s[scores={f1sch.give=1460}] run data modify storage f1sch:temp item set value "minecraft:yellow_bed"
+execute if entity @s[scores={f1sch.give=1461}] run data modify storage f1sch:temp item set value "minecraft:yellow_bundle"
+execute if entity @s[scores={f1sch.give=1462}] run data modify storage f1sch:temp item set value "minecraft:yellow_candle"
+execute if entity @s[scores={f1sch.give=1463}] run data modify storage f1sch:temp item set value "minecraft:yellow_carpet"
+execute if entity @s[scores={f1sch.give=1464}] run data modify storage f1sch:temp item set value "minecraft:yellow_concrete"
+execute if entity @s[scores={f1sch.give=1465}] run data modify storage f1sch:temp item set value "minecraft:yellow_concrete_powder"
+execute if entity @s[scores={f1sch.give=1466}] run data modify storage f1sch:temp item set value "minecraft:yellow_dye"
+execute if entity @s[scores={f1sch.give=1467}] run data modify storage f1sch:temp item set value "minecraft:yellow_glazed_terracotta"
+execute if entity @s[scores={f1sch.give=1468}] run data modify storage f1sch:temp item set value "minecraft:yellow_harness"
+execute if entity @s[scores={f1sch.give=1469}] run data modify storage f1sch:temp item set value "minecraft:yellow_shulker_box"
+execute if entity @s[scores={f1sch.give=1470}] run data modify storage f1sch:temp item set value "minecraft:yellow_stained_glass"
+execute if entity @s[scores={f1sch.give=1471}] run data modify storage f1sch:temp item set value "minecraft:yellow_stained_glass_pane"
+execute if entity @s[scores={f1sch.give=1472}] run data modify storage f1sch:temp item set value "minecraft:yellow_terracotta"
+execute if entity @s[scores={f1sch.give=1473}] run data modify storage f1sch:temp item set value "minecraft:yellow_wool"
+execute if entity @s[scores={f1sch.give=1474}] run data modify storage f1sch:temp item set value "minecraft:zoglin_spawn_egg"
+execute if entity @s[scores={f1sch.give=1475}] run data modify storage f1sch:temp item set value "minecraft:zombie_head"
+execute if entity @s[scores={f1sch.give=1476}] run data modify storage f1sch:temp item set value "minecraft:zombie_horse_spawn_egg"
+execute if entity @s[scores={f1sch.give=1477}] run data modify storage f1sch:temp item set value "minecraft:zombie_nautilus_spawn_egg"
+execute if entity @s[scores={f1sch.give=1478}] run data modify storage f1sch:temp item set value "minecraft:zombie_spawn_egg"
+execute if entity @s[scores={f1sch.give=1479}] run data modify storage f1sch:temp item set value "minecraft:zombie_villager_spawn_egg"
+execute if entity @s[scores={f1sch.give=1480}] run data modify storage f1sch:temp item set value "minecraft:zombified_piglin_spawn_egg"
+execute if entity @s[scores={f1sch.give=1..1480}] run function f1sch:features/macros/give_item with storage f1sch:temp
 
 # --- Potions (codes 1481-1526) ---
-execute if entity @s[scores={f1sch.give=1481}] run function f1sch:features/macros/give_potion {effect:"awkward"}
-execute if entity @s[scores={f1sch.give=1482}] run function f1sch:features/macros/give_potion {effect:"fire_resistance"}
-execute if entity @s[scores={f1sch.give=1483}] run function f1sch:features/macros/give_potion {effect:"harming"}
-execute if entity @s[scores={f1sch.give=1484}] run function f1sch:features/macros/give_potion {effect:"healing"}
-execute if entity @s[scores={f1sch.give=1485}] run function f1sch:features/macros/give_potion {effect:"infested"}
-execute if entity @s[scores={f1sch.give=1486}] run function f1sch:features/macros/give_potion {effect:"invisibility"}
-execute if entity @s[scores={f1sch.give=1487}] run function f1sch:features/macros/give_potion {effect:"leaping"}
-execute if entity @s[scores={f1sch.give=1488}] run function f1sch:features/macros/give_potion {effect:"long_fire_resistance"}
-execute if entity @s[scores={f1sch.give=1489}] run function f1sch:features/macros/give_potion {effect:"long_invisibility"}
-execute if entity @s[scores={f1sch.give=1490}] run function f1sch:features/macros/give_potion {effect:"long_leaping"}
-execute if entity @s[scores={f1sch.give=1491}] run function f1sch:features/macros/give_potion {effect:"long_night_vision"}
-execute if entity @s[scores={f1sch.give=1492}] run function f1sch:features/macros/give_potion {effect:"long_poison"}
-execute if entity @s[scores={f1sch.give=1493}] run function f1sch:features/macros/give_potion {effect:"long_regeneration"}
-execute if entity @s[scores={f1sch.give=1494}] run function f1sch:features/macros/give_potion {effect:"long_slow_falling"}
-execute if entity @s[scores={f1sch.give=1495}] run function f1sch:features/macros/give_potion {effect:"long_slowness"}
-execute if entity @s[scores={f1sch.give=1496}] run function f1sch:features/macros/give_potion {effect:"long_strength"}
-execute if entity @s[scores={f1sch.give=1497}] run function f1sch:features/macros/give_potion {effect:"long_swiftness"}
-execute if entity @s[scores={f1sch.give=1498}] run function f1sch:features/macros/give_potion {effect:"long_turtle_master"}
-execute if entity @s[scores={f1sch.give=1499}] run function f1sch:features/macros/give_potion {effect:"long_water_breathing"}
-execute if entity @s[scores={f1sch.give=1500}] run function f1sch:features/macros/give_potion {effect:"long_weakness"}
-execute if entity @s[scores={f1sch.give=1501}] run function f1sch:features/macros/give_potion {effect:"luck"}
-execute if entity @s[scores={f1sch.give=1502}] run function f1sch:features/macros/give_potion {effect:"mundane"}
-execute if entity @s[scores={f1sch.give=1503}] run function f1sch:features/macros/give_potion {effect:"night_vision"}
-execute if entity @s[scores={f1sch.give=1504}] run function f1sch:features/macros/give_potion {effect:"oozing"}
-execute if entity @s[scores={f1sch.give=1505}] run function f1sch:features/macros/give_potion {effect:"poison"}
-execute if entity @s[scores={f1sch.give=1506}] run function f1sch:features/macros/give_potion {effect:"regeneration"}
-execute if entity @s[scores={f1sch.give=1507}] run function f1sch:features/macros/give_potion {effect:"slow_falling"}
-execute if entity @s[scores={f1sch.give=1508}] run function f1sch:features/macros/give_potion {effect:"slowness"}
-execute if entity @s[scores={f1sch.give=1509}] run function f1sch:features/macros/give_potion {effect:"strength"}
-execute if entity @s[scores={f1sch.give=1510}] run function f1sch:features/macros/give_potion {effect:"strong_harming"}
-execute if entity @s[scores={f1sch.give=1511}] run function f1sch:features/macros/give_potion {effect:"strong_healing"}
-execute if entity @s[scores={f1sch.give=1512}] run function f1sch:features/macros/give_potion {effect:"strong_leaping"}
-execute if entity @s[scores={f1sch.give=1513}] run function f1sch:features/macros/give_potion {effect:"strong_poison"}
-execute if entity @s[scores={f1sch.give=1514}] run function f1sch:features/macros/give_potion {effect:"strong_regeneration"}
-execute if entity @s[scores={f1sch.give=1515}] run function f1sch:features/macros/give_potion {effect:"strong_slowness"}
-execute if entity @s[scores={f1sch.give=1516}] run function f1sch:features/macros/give_potion {effect:"strong_strength"}
-execute if entity @s[scores={f1sch.give=1517}] run function f1sch:features/macros/give_potion {effect:"strong_swiftness"}
-execute if entity @s[scores={f1sch.give=1518}] run function f1sch:features/macros/give_potion {effect:"strong_turtle_master"}
-execute if entity @s[scores={f1sch.give=1519}] run function f1sch:features/macros/give_potion {effect:"swiftness"}
-execute if entity @s[scores={f1sch.give=1520}] run function f1sch:features/macros/give_potion {effect:"thick"}
-execute if entity @s[scores={f1sch.give=1521}] run function f1sch:features/macros/give_potion {effect:"turtle_master"}
-execute if entity @s[scores={f1sch.give=1522}] run function f1sch:features/macros/give_potion {effect:"water"}
-execute if entity @s[scores={f1sch.give=1523}] run function f1sch:features/macros/give_potion {effect:"water_breathing"}
-execute if entity @s[scores={f1sch.give=1524}] run function f1sch:features/macros/give_potion {effect:"weakness"}
-execute if entity @s[scores={f1sch.give=1525}] run function f1sch:features/macros/give_potion {effect:"weaving"}
-execute if entity @s[scores={f1sch.give=1526}] run function f1sch:features/macros/give_potion {effect:"wind_charged"}
+execute if entity @s[scores={f1sch.give=1481}] run data modify storage f1sch:temp effect set value "awkward"
+execute if entity @s[scores={f1sch.give=1482}] run data modify storage f1sch:temp effect set value "fire_resistance"
+execute if entity @s[scores={f1sch.give=1483}] run data modify storage f1sch:temp effect set value "harming"
+execute if entity @s[scores={f1sch.give=1484}] run data modify storage f1sch:temp effect set value "healing"
+execute if entity @s[scores={f1sch.give=1485}] run data modify storage f1sch:temp effect set value "infested"
+execute if entity @s[scores={f1sch.give=1486}] run data modify storage f1sch:temp effect set value "invisibility"
+execute if entity @s[scores={f1sch.give=1487}] run data modify storage f1sch:temp effect set value "leaping"
+execute if entity @s[scores={f1sch.give=1488}] run data modify storage f1sch:temp effect set value "long_fire_resistance"
+execute if entity @s[scores={f1sch.give=1489}] run data modify storage f1sch:temp effect set value "long_invisibility"
+execute if entity @s[scores={f1sch.give=1490}] run data modify storage f1sch:temp effect set value "long_leaping"
+execute if entity @s[scores={f1sch.give=1491}] run data modify storage f1sch:temp effect set value "long_night_vision"
+execute if entity @s[scores={f1sch.give=1492}] run data modify storage f1sch:temp effect set value "long_poison"
+execute if entity @s[scores={f1sch.give=1493}] run data modify storage f1sch:temp effect set value "long_regeneration"
+execute if entity @s[scores={f1sch.give=1494}] run data modify storage f1sch:temp effect set value "long_slow_falling"
+execute if entity @s[scores={f1sch.give=1495}] run data modify storage f1sch:temp effect set value "long_slowness"
+execute if entity @s[scores={f1sch.give=1496}] run data modify storage f1sch:temp effect set value "long_strength"
+execute if entity @s[scores={f1sch.give=1497}] run data modify storage f1sch:temp effect set value "long_swiftness"
+execute if entity @s[scores={f1sch.give=1498}] run data modify storage f1sch:temp effect set value "long_turtle_master"
+execute if entity @s[scores={f1sch.give=1499}] run data modify storage f1sch:temp effect set value "long_water_breathing"
+execute if entity @s[scores={f1sch.give=1500}] run data modify storage f1sch:temp effect set value "long_weakness"
+execute if entity @s[scores={f1sch.give=1501}] run data modify storage f1sch:temp effect set value "luck"
+execute if entity @s[scores={f1sch.give=1502}] run data modify storage f1sch:temp effect set value "mundane"
+execute if entity @s[scores={f1sch.give=1503}] run data modify storage f1sch:temp effect set value "night_vision"
+execute if entity @s[scores={f1sch.give=1504}] run data modify storage f1sch:temp effect set value "oozing"
+execute if entity @s[scores={f1sch.give=1505}] run data modify storage f1sch:temp effect set value "poison"
+execute if entity @s[scores={f1sch.give=1506}] run data modify storage f1sch:temp effect set value "regeneration"
+execute if entity @s[scores={f1sch.give=1507}] run data modify storage f1sch:temp effect set value "slow_falling"
+execute if entity @s[scores={f1sch.give=1508}] run data modify storage f1sch:temp effect set value "slowness"
+execute if entity @s[scores={f1sch.give=1509}] run data modify storage f1sch:temp effect set value "strength"
+execute if entity @s[scores={f1sch.give=1510}] run data modify storage f1sch:temp effect set value "strong_harming"
+execute if entity @s[scores={f1sch.give=1511}] run data modify storage f1sch:temp effect set value "strong_healing"
+execute if entity @s[scores={f1sch.give=1512}] run data modify storage f1sch:temp effect set value "strong_leaping"
+execute if entity @s[scores={f1sch.give=1513}] run data modify storage f1sch:temp effect set value "strong_poison"
+execute if entity @s[scores={f1sch.give=1514}] run data modify storage f1sch:temp effect set value "strong_regeneration"
+execute if entity @s[scores={f1sch.give=1515}] run data modify storage f1sch:temp effect set value "strong_slowness"
+execute if entity @s[scores={f1sch.give=1516}] run data modify storage f1sch:temp effect set value "strong_strength"
+execute if entity @s[scores={f1sch.give=1517}] run data modify storage f1sch:temp effect set value "strong_swiftness"
+execute if entity @s[scores={f1sch.give=1518}] run data modify storage f1sch:temp effect set value "strong_turtle_master"
+execute if entity @s[scores={f1sch.give=1519}] run data modify storage f1sch:temp effect set value "swiftness"
+execute if entity @s[scores={f1sch.give=1520}] run data modify storage f1sch:temp effect set value "thick"
+execute if entity @s[scores={f1sch.give=1521}] run data modify storage f1sch:temp effect set value "turtle_master"
+execute if entity @s[scores={f1sch.give=1522}] run data modify storage f1sch:temp effect set value "water"
+execute if entity @s[scores={f1sch.give=1523}] run data modify storage f1sch:temp effect set value "water_breathing"
+execute if entity @s[scores={f1sch.give=1524}] run data modify storage f1sch:temp effect set value "weakness"
+execute if entity @s[scores={f1sch.give=1525}] run data modify storage f1sch:temp effect set value "weaving"
+execute if entity @s[scores={f1sch.give=1526}] run data modify storage f1sch:temp effect set value "wind_charged"
+execute if entity @s[scores={f1sch.give=1481..1526}] run function f1sch:features/macros/give_potion with storage f1sch:temp
 
 # --- Splash Potions (codes 1527-1572) ---
-execute if entity @s[scores={f1sch.give=1527}] run function f1sch:features/macros/give_splash_potion {effect:"awkward"}
-execute if entity @s[scores={f1sch.give=1528}] run function f1sch:features/macros/give_splash_potion {effect:"fire_resistance"}
-execute if entity @s[scores={f1sch.give=1529}] run function f1sch:features/macros/give_splash_potion {effect:"harming"}
-execute if entity @s[scores={f1sch.give=1530}] run function f1sch:features/macros/give_splash_potion {effect:"healing"}
-execute if entity @s[scores={f1sch.give=1531}] run function f1sch:features/macros/give_splash_potion {effect:"infested"}
-execute if entity @s[scores={f1sch.give=1532}] run function f1sch:features/macros/give_splash_potion {effect:"invisibility"}
-execute if entity @s[scores={f1sch.give=1533}] run function f1sch:features/macros/give_splash_potion {effect:"leaping"}
-execute if entity @s[scores={f1sch.give=1534}] run function f1sch:features/macros/give_splash_potion {effect:"long_fire_resistance"}
-execute if entity @s[scores={f1sch.give=1535}] run function f1sch:features/macros/give_splash_potion {effect:"long_invisibility"}
-execute if entity @s[scores={f1sch.give=1536}] run function f1sch:features/macros/give_splash_potion {effect:"long_leaping"}
-execute if entity @s[scores={f1sch.give=1537}] run function f1sch:features/macros/give_splash_potion {effect:"long_night_vision"}
-execute if entity @s[scores={f1sch.give=1538}] run function f1sch:features/macros/give_splash_potion {effect:"long_poison"}
-execute if entity @s[scores={f1sch.give=1539}] run function f1sch:features/macros/give_splash_potion {effect:"long_regeneration"}
-execute if entity @s[scores={f1sch.give=1540}] run function f1sch:features/macros/give_splash_potion {effect:"long_slow_falling"}
-execute if entity @s[scores={f1sch.give=1541}] run function f1sch:features/macros/give_splash_potion {effect:"long_slowness"}
-execute if entity @s[scores={f1sch.give=1542}] run function f1sch:features/macros/give_splash_potion {effect:"long_strength"}
-execute if entity @s[scores={f1sch.give=1543}] run function f1sch:features/macros/give_splash_potion {effect:"long_swiftness"}
-execute if entity @s[scores={f1sch.give=1544}] run function f1sch:features/macros/give_splash_potion {effect:"long_turtle_master"}
-execute if entity @s[scores={f1sch.give=1545}] run function f1sch:features/macros/give_splash_potion {effect:"long_water_breathing"}
-execute if entity @s[scores={f1sch.give=1546}] run function f1sch:features/macros/give_splash_potion {effect:"long_weakness"}
-execute if entity @s[scores={f1sch.give=1547}] run function f1sch:features/macros/give_splash_potion {effect:"luck"}
-execute if entity @s[scores={f1sch.give=1548}] run function f1sch:features/macros/give_splash_potion {effect:"mundane"}
-execute if entity @s[scores={f1sch.give=1549}] run function f1sch:features/macros/give_splash_potion {effect:"night_vision"}
-execute if entity @s[scores={f1sch.give=1550}] run function f1sch:features/macros/give_splash_potion {effect:"oozing"}
-execute if entity @s[scores={f1sch.give=1551}] run function f1sch:features/macros/give_splash_potion {effect:"poison"}
-execute if entity @s[scores={f1sch.give=1552}] run function f1sch:features/macros/give_splash_potion {effect:"regeneration"}
-execute if entity @s[scores={f1sch.give=1553}] run function f1sch:features/macros/give_splash_potion {effect:"slow_falling"}
-execute if entity @s[scores={f1sch.give=1554}] run function f1sch:features/macros/give_splash_potion {effect:"slowness"}
-execute if entity @s[scores={f1sch.give=1555}] run function f1sch:features/macros/give_splash_potion {effect:"strength"}
-execute if entity @s[scores={f1sch.give=1556}] run function f1sch:features/macros/give_splash_potion {effect:"strong_harming"}
-execute if entity @s[scores={f1sch.give=1557}] run function f1sch:features/macros/give_splash_potion {effect:"strong_healing"}
-execute if entity @s[scores={f1sch.give=1558}] run function f1sch:features/macros/give_splash_potion {effect:"strong_leaping"}
-execute if entity @s[scores={f1sch.give=1559}] run function f1sch:features/macros/give_splash_potion {effect:"strong_poison"}
-execute if entity @s[scores={f1sch.give=1560}] run function f1sch:features/macros/give_splash_potion {effect:"strong_regeneration"}
-execute if entity @s[scores={f1sch.give=1561}] run function f1sch:features/macros/give_splash_potion {effect:"strong_slowness"}
-execute if entity @s[scores={f1sch.give=1562}] run function f1sch:features/macros/give_splash_potion {effect:"strong_strength"}
-execute if entity @s[scores={f1sch.give=1563}] run function f1sch:features/macros/give_splash_potion {effect:"strong_swiftness"}
-execute if entity @s[scores={f1sch.give=1564}] run function f1sch:features/macros/give_splash_potion {effect:"strong_turtle_master"}
-execute if entity @s[scores={f1sch.give=1565}] run function f1sch:features/macros/give_splash_potion {effect:"swiftness"}
-execute if entity @s[scores={f1sch.give=1566}] run function f1sch:features/macros/give_splash_potion {effect:"thick"}
-execute if entity @s[scores={f1sch.give=1567}] run function f1sch:features/macros/give_splash_potion {effect:"turtle_master"}
-execute if entity @s[scores={f1sch.give=1568}] run function f1sch:features/macros/give_splash_potion {effect:"water"}
-execute if entity @s[scores={f1sch.give=1569}] run function f1sch:features/macros/give_splash_potion {effect:"water_breathing"}
-execute if entity @s[scores={f1sch.give=1570}] run function f1sch:features/macros/give_splash_potion {effect:"weakness"}
-execute if entity @s[scores={f1sch.give=1571}] run function f1sch:features/macros/give_splash_potion {effect:"weaving"}
-execute if entity @s[scores={f1sch.give=1572}] run function f1sch:features/macros/give_splash_potion {effect:"wind_charged"}
+execute if entity @s[scores={f1sch.give=1527}] run data modify storage f1sch:temp effect set value "awkward"
+execute if entity @s[scores={f1sch.give=1528}] run data modify storage f1sch:temp effect set value "fire_resistance"
+execute if entity @s[scores={f1sch.give=1529}] run data modify storage f1sch:temp effect set value "harming"
+execute if entity @s[scores={f1sch.give=1530}] run data modify storage f1sch:temp effect set value "healing"
+execute if entity @s[scores={f1sch.give=1531}] run data modify storage f1sch:temp effect set value "infested"
+execute if entity @s[scores={f1sch.give=1532}] run data modify storage f1sch:temp effect set value "invisibility"
+execute if entity @s[scores={f1sch.give=1533}] run data modify storage f1sch:temp effect set value "leaping"
+execute if entity @s[scores={f1sch.give=1534}] run data modify storage f1sch:temp effect set value "long_fire_resistance"
+execute if entity @s[scores={f1sch.give=1535}] run data modify storage f1sch:temp effect set value "long_invisibility"
+execute if entity @s[scores={f1sch.give=1536}] run data modify storage f1sch:temp effect set value "long_leaping"
+execute if entity @s[scores={f1sch.give=1537}] run data modify storage f1sch:temp effect set value "long_night_vision"
+execute if entity @s[scores={f1sch.give=1538}] run data modify storage f1sch:temp effect set value "long_poison"
+execute if entity @s[scores={f1sch.give=1539}] run data modify storage f1sch:temp effect set value "long_regeneration"
+execute if entity @s[scores={f1sch.give=1540}] run data modify storage f1sch:temp effect set value "long_slow_falling"
+execute if entity @s[scores={f1sch.give=1541}] run data modify storage f1sch:temp effect set value "long_slowness"
+execute if entity @s[scores={f1sch.give=1542}] run data modify storage f1sch:temp effect set value "long_strength"
+execute if entity @s[scores={f1sch.give=1543}] run data modify storage f1sch:temp effect set value "long_swiftness"
+execute if entity @s[scores={f1sch.give=1544}] run data modify storage f1sch:temp effect set value "long_turtle_master"
+execute if entity @s[scores={f1sch.give=1545}] run data modify storage f1sch:temp effect set value "long_water_breathing"
+execute if entity @s[scores={f1sch.give=1546}] run data modify storage f1sch:temp effect set value "long_weakness"
+execute if entity @s[scores={f1sch.give=1547}] run data modify storage f1sch:temp effect set value "luck"
+execute if entity @s[scores={f1sch.give=1548}] run data modify storage f1sch:temp effect set value "mundane"
+execute if entity @s[scores={f1sch.give=1549}] run data modify storage f1sch:temp effect set value "night_vision"
+execute if entity @s[scores={f1sch.give=1550}] run data modify storage f1sch:temp effect set value "oozing"
+execute if entity @s[scores={f1sch.give=1551}] run data modify storage f1sch:temp effect set value "poison"
+execute if entity @s[scores={f1sch.give=1552}] run data modify storage f1sch:temp effect set value "regeneration"
+execute if entity @s[scores={f1sch.give=1553}] run data modify storage f1sch:temp effect set value "slow_falling"
+execute if entity @s[scores={f1sch.give=1554}] run data modify storage f1sch:temp effect set value "slowness"
+execute if entity @s[scores={f1sch.give=1555}] run data modify storage f1sch:temp effect set value "strength"
+execute if entity @s[scores={f1sch.give=1556}] run data modify storage f1sch:temp effect set value "strong_harming"
+execute if entity @s[scores={f1sch.give=1557}] run data modify storage f1sch:temp effect set value "strong_healing"
+execute if entity @s[scores={f1sch.give=1558}] run data modify storage f1sch:temp effect set value "strong_leaping"
+execute if entity @s[scores={f1sch.give=1559}] run data modify storage f1sch:temp effect set value "strong_poison"
+execute if entity @s[scores={f1sch.give=1560}] run data modify storage f1sch:temp effect set value "strong_regeneration"
+execute if entity @s[scores={f1sch.give=1561}] run data modify storage f1sch:temp effect set value "strong_slowness"
+execute if entity @s[scores={f1sch.give=1562}] run data modify storage f1sch:temp effect set value "strong_strength"
+execute if entity @s[scores={f1sch.give=1563}] run data modify storage f1sch:temp effect set value "strong_swiftness"
+execute if entity @s[scores={f1sch.give=1564}] run data modify storage f1sch:temp effect set value "strong_turtle_master"
+execute if entity @s[scores={f1sch.give=1565}] run data modify storage f1sch:temp effect set value "swiftness"
+execute if entity @s[scores={f1sch.give=1566}] run data modify storage f1sch:temp effect set value "thick"
+execute if entity @s[scores={f1sch.give=1567}] run data modify storage f1sch:temp effect set value "turtle_master"
+execute if entity @s[scores={f1sch.give=1568}] run data modify storage f1sch:temp effect set value "water"
+execute if entity @s[scores={f1sch.give=1569}] run data modify storage f1sch:temp effect set value "water_breathing"
+execute if entity @s[scores={f1sch.give=1570}] run data modify storage f1sch:temp effect set value "weakness"
+execute if entity @s[scores={f1sch.give=1571}] run data modify storage f1sch:temp effect set value "weaving"
+execute if entity @s[scores={f1sch.give=1572}] run data modify storage f1sch:temp effect set value "wind_charged"
+execute if entity @s[scores={f1sch.give=1527..1572}] run function f1sch:features/macros/give_splash_potion with storage f1sch:temp
 
 # --- Lingering Potions (codes 1573-1618) ---
-execute if entity @s[scores={f1sch.give=1573}] run function f1sch:features/macros/give_lingering_potion {effect:"awkward"}
-execute if entity @s[scores={f1sch.give=1574}] run function f1sch:features/macros/give_lingering_potion {effect:"fire_resistance"}
-execute if entity @s[scores={f1sch.give=1575}] run function f1sch:features/macros/give_lingering_potion {effect:"harming"}
-execute if entity @s[scores={f1sch.give=1576}] run function f1sch:features/macros/give_lingering_potion {effect:"healing"}
-execute if entity @s[scores={f1sch.give=1577}] run function f1sch:features/macros/give_lingering_potion {effect:"infested"}
-execute if entity @s[scores={f1sch.give=1578}] run function f1sch:features/macros/give_lingering_potion {effect:"invisibility"}
-execute if entity @s[scores={f1sch.give=1579}] run function f1sch:features/macros/give_lingering_potion {effect:"leaping"}
-execute if entity @s[scores={f1sch.give=1580}] run function f1sch:features/macros/give_lingering_potion {effect:"long_fire_resistance"}
-execute if entity @s[scores={f1sch.give=1581}] run function f1sch:features/macros/give_lingering_potion {effect:"long_invisibility"}
-execute if entity @s[scores={f1sch.give=1582}] run function f1sch:features/macros/give_lingering_potion {effect:"long_leaping"}
-execute if entity @s[scores={f1sch.give=1583}] run function f1sch:features/macros/give_lingering_potion {effect:"long_night_vision"}
-execute if entity @s[scores={f1sch.give=1584}] run function f1sch:features/macros/give_lingering_potion {effect:"long_poison"}
-execute if entity @s[scores={f1sch.give=1585}] run function f1sch:features/macros/give_lingering_potion {effect:"long_regeneration"}
-execute if entity @s[scores={f1sch.give=1586}] run function f1sch:features/macros/give_lingering_potion {effect:"long_slow_falling"}
-execute if entity @s[scores={f1sch.give=1587}] run function f1sch:features/macros/give_lingering_potion {effect:"long_slowness"}
-execute if entity @s[scores={f1sch.give=1588}] run function f1sch:features/macros/give_lingering_potion {effect:"long_strength"}
-execute if entity @s[scores={f1sch.give=1589}] run function f1sch:features/macros/give_lingering_potion {effect:"long_swiftness"}
-execute if entity @s[scores={f1sch.give=1590}] run function f1sch:features/macros/give_lingering_potion {effect:"long_turtle_master"}
-execute if entity @s[scores={f1sch.give=1591}] run function f1sch:features/macros/give_lingering_potion {effect:"long_water_breathing"}
-execute if entity @s[scores={f1sch.give=1592}] run function f1sch:features/macros/give_lingering_potion {effect:"long_weakness"}
-execute if entity @s[scores={f1sch.give=1593}] run function f1sch:features/macros/give_lingering_potion {effect:"luck"}
-execute if entity @s[scores={f1sch.give=1594}] run function f1sch:features/macros/give_lingering_potion {effect:"mundane"}
-execute if entity @s[scores={f1sch.give=1595}] run function f1sch:features/macros/give_lingering_potion {effect:"night_vision"}
-execute if entity @s[scores={f1sch.give=1596}] run function f1sch:features/macros/give_lingering_potion {effect:"oozing"}
-execute if entity @s[scores={f1sch.give=1597}] run function f1sch:features/macros/give_lingering_potion {effect:"poison"}
-execute if entity @s[scores={f1sch.give=1598}] run function f1sch:features/macros/give_lingering_potion {effect:"regeneration"}
-execute if entity @s[scores={f1sch.give=1599}] run function f1sch:features/macros/give_lingering_potion {effect:"slow_falling"}
-execute if entity @s[scores={f1sch.give=1600}] run function f1sch:features/macros/give_lingering_potion {effect:"slowness"}
-execute if entity @s[scores={f1sch.give=1601}] run function f1sch:features/macros/give_lingering_potion {effect:"strength"}
-execute if entity @s[scores={f1sch.give=1602}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_harming"}
-execute if entity @s[scores={f1sch.give=1603}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_healing"}
-execute if entity @s[scores={f1sch.give=1604}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_leaping"}
-execute if entity @s[scores={f1sch.give=1605}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_poison"}
-execute if entity @s[scores={f1sch.give=1606}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_regeneration"}
-execute if entity @s[scores={f1sch.give=1607}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_slowness"}
-execute if entity @s[scores={f1sch.give=1608}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_strength"}
-execute if entity @s[scores={f1sch.give=1609}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_swiftness"}
-execute if entity @s[scores={f1sch.give=1610}] run function f1sch:features/macros/give_lingering_potion {effect:"strong_turtle_master"}
-execute if entity @s[scores={f1sch.give=1611}] run function f1sch:features/macros/give_lingering_potion {effect:"swiftness"}
-execute if entity @s[scores={f1sch.give=1612}] run function f1sch:features/macros/give_lingering_potion {effect:"thick"}
-execute if entity @s[scores={f1sch.give=1613}] run function f1sch:features/macros/give_lingering_potion {effect:"turtle_master"}
-execute if entity @s[scores={f1sch.give=1614}] run function f1sch:features/macros/give_lingering_potion {effect:"water"}
-execute if entity @s[scores={f1sch.give=1615}] run function f1sch:features/macros/give_lingering_potion {effect:"water_breathing"}
-execute if entity @s[scores={f1sch.give=1616}] run function f1sch:features/macros/give_lingering_potion {effect:"weakness"}
-execute if entity @s[scores={f1sch.give=1617}] run function f1sch:features/macros/give_lingering_potion {effect:"weaving"}
-execute if entity @s[scores={f1sch.give=1618}] run function f1sch:features/macros/give_lingering_potion {effect:"wind_charged"}
+execute if entity @s[scores={f1sch.give=1573}] run data modify storage f1sch:temp effect set value "awkward"
+execute if entity @s[scores={f1sch.give=1574}] run data modify storage f1sch:temp effect set value "fire_resistance"
+execute if entity @s[scores={f1sch.give=1575}] run data modify storage f1sch:temp effect set value "harming"
+execute if entity @s[scores={f1sch.give=1576}] run data modify storage f1sch:temp effect set value "healing"
+execute if entity @s[scores={f1sch.give=1577}] run data modify storage f1sch:temp effect set value "infested"
+execute if entity @s[scores={f1sch.give=1578}] run data modify storage f1sch:temp effect set value "invisibility"
+execute if entity @s[scores={f1sch.give=1579}] run data modify storage f1sch:temp effect set value "leaping"
+execute if entity @s[scores={f1sch.give=1580}] run data modify storage f1sch:temp effect set value "long_fire_resistance"
+execute if entity @s[scores={f1sch.give=1581}] run data modify storage f1sch:temp effect set value "long_invisibility"
+execute if entity @s[scores={f1sch.give=1582}] run data modify storage f1sch:temp effect set value "long_leaping"
+execute if entity @s[scores={f1sch.give=1583}] run data modify storage f1sch:temp effect set value "long_night_vision"
+execute if entity @s[scores={f1sch.give=1584}] run data modify storage f1sch:temp effect set value "long_poison"
+execute if entity @s[scores={f1sch.give=1585}] run data modify storage f1sch:temp effect set value "long_regeneration"
+execute if entity @s[scores={f1sch.give=1586}] run data modify storage f1sch:temp effect set value "long_slow_falling"
+execute if entity @s[scores={f1sch.give=1587}] run data modify storage f1sch:temp effect set value "long_slowness"
+execute if entity @s[scores={f1sch.give=1588}] run data modify storage f1sch:temp effect set value "long_strength"
+execute if entity @s[scores={f1sch.give=1589}] run data modify storage f1sch:temp effect set value "long_swiftness"
+execute if entity @s[scores={f1sch.give=1590}] run data modify storage f1sch:temp effect set value "long_turtle_master"
+execute if entity @s[scores={f1sch.give=1591}] run data modify storage f1sch:temp effect set value "long_water_breathing"
+execute if entity @s[scores={f1sch.give=1592}] run data modify storage f1sch:temp effect set value "long_weakness"
+execute if entity @s[scores={f1sch.give=1593}] run data modify storage f1sch:temp effect set value "luck"
+execute if entity @s[scores={f1sch.give=1594}] run data modify storage f1sch:temp effect set value "mundane"
+execute if entity @s[scores={f1sch.give=1595}] run data modify storage f1sch:temp effect set value "night_vision"
+execute if entity @s[scores={f1sch.give=1596}] run data modify storage f1sch:temp effect set value "oozing"
+execute if entity @s[scores={f1sch.give=1597}] run data modify storage f1sch:temp effect set value "poison"
+execute if entity @s[scores={f1sch.give=1598}] run data modify storage f1sch:temp effect set value "regeneration"
+execute if entity @s[scores={f1sch.give=1599}] run data modify storage f1sch:temp effect set value "slow_falling"
+execute if entity @s[scores={f1sch.give=1600}] run data modify storage f1sch:temp effect set value "slowness"
+execute if entity @s[scores={f1sch.give=1601}] run data modify storage f1sch:temp effect set value "strength"
+execute if entity @s[scores={f1sch.give=1602}] run data modify storage f1sch:temp effect set value "strong_harming"
+execute if entity @s[scores={f1sch.give=1603}] run data modify storage f1sch:temp effect set value "strong_healing"
+execute if entity @s[scores={f1sch.give=1604}] run data modify storage f1sch:temp effect set value "strong_leaping"
+execute if entity @s[scores={f1sch.give=1605}] run data modify storage f1sch:temp effect set value "strong_poison"
+execute if entity @s[scores={f1sch.give=1606}] run data modify storage f1sch:temp effect set value "strong_regeneration"
+execute if entity @s[scores={f1sch.give=1607}] run data modify storage f1sch:temp effect set value "strong_slowness"
+execute if entity @s[scores={f1sch.give=1608}] run data modify storage f1sch:temp effect set value "strong_strength"
+execute if entity @s[scores={f1sch.give=1609}] run data modify storage f1sch:temp effect set value "strong_swiftness"
+execute if entity @s[scores={f1sch.give=1610}] run data modify storage f1sch:temp effect set value "strong_turtle_master"
+execute if entity @s[scores={f1sch.give=1611}] run data modify storage f1sch:temp effect set value "swiftness"
+execute if entity @s[scores={f1sch.give=1612}] run data modify storage f1sch:temp effect set value "thick"
+execute if entity @s[scores={f1sch.give=1613}] run data modify storage f1sch:temp effect set value "turtle_master"
+execute if entity @s[scores={f1sch.give=1614}] run data modify storage f1sch:temp effect set value "water"
+execute if entity @s[scores={f1sch.give=1615}] run data modify storage f1sch:temp effect set value "water_breathing"
+execute if entity @s[scores={f1sch.give=1616}] run data modify storage f1sch:temp effect set value "weakness"
+execute if entity @s[scores={f1sch.give=1617}] run data modify storage f1sch:temp effect set value "weaving"
+execute if entity @s[scores={f1sch.give=1618}] run data modify storage f1sch:temp effect set value "wind_charged"
+execute if entity @s[scores={f1sch.give=1573..1618}] run function f1sch:features/macros/give_lingering_potion with storage f1sch:temp
 
 # --- Tipped Arrows (codes 1619-1664) ---
-execute if entity @s[scores={f1sch.give=1619}] run function f1sch:features/macros/give_tipped_arrow {effect:"awkward"}
-execute if entity @s[scores={f1sch.give=1620}] run function f1sch:features/macros/give_tipped_arrow {effect:"fire_resistance"}
-execute if entity @s[scores={f1sch.give=1621}] run function f1sch:features/macros/give_tipped_arrow {effect:"harming"}
-execute if entity @s[scores={f1sch.give=1622}] run function f1sch:features/macros/give_tipped_arrow {effect:"healing"}
-execute if entity @s[scores={f1sch.give=1623}] run function f1sch:features/macros/give_tipped_arrow {effect:"infested"}
-execute if entity @s[scores={f1sch.give=1624}] run function f1sch:features/macros/give_tipped_arrow {effect:"invisibility"}
-execute if entity @s[scores={f1sch.give=1625}] run function f1sch:features/macros/give_tipped_arrow {effect:"leaping"}
-execute if entity @s[scores={f1sch.give=1626}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_fire_resistance"}
-execute if entity @s[scores={f1sch.give=1627}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_invisibility"}
-execute if entity @s[scores={f1sch.give=1628}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_leaping"}
-execute if entity @s[scores={f1sch.give=1629}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_night_vision"}
-execute if entity @s[scores={f1sch.give=1630}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_poison"}
-execute if entity @s[scores={f1sch.give=1631}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_regeneration"}
-execute if entity @s[scores={f1sch.give=1632}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_slow_falling"}
-execute if entity @s[scores={f1sch.give=1633}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_slowness"}
-execute if entity @s[scores={f1sch.give=1634}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_strength"}
-execute if entity @s[scores={f1sch.give=1635}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_swiftness"}
-execute if entity @s[scores={f1sch.give=1636}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_turtle_master"}
-execute if entity @s[scores={f1sch.give=1637}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_water_breathing"}
-execute if entity @s[scores={f1sch.give=1638}] run function f1sch:features/macros/give_tipped_arrow {effect:"long_weakness"}
-execute if entity @s[scores={f1sch.give=1639}] run function f1sch:features/macros/give_tipped_arrow {effect:"luck"}
-execute if entity @s[scores={f1sch.give=1640}] run function f1sch:features/macros/give_tipped_arrow {effect:"mundane"}
-execute if entity @s[scores={f1sch.give=1641}] run function f1sch:features/macros/give_tipped_arrow {effect:"night_vision"}
-execute if entity @s[scores={f1sch.give=1642}] run function f1sch:features/macros/give_tipped_arrow {effect:"oozing"}
-execute if entity @s[scores={f1sch.give=1643}] run function f1sch:features/macros/give_tipped_arrow {effect:"poison"}
-execute if entity @s[scores={f1sch.give=1644}] run function f1sch:features/macros/give_tipped_arrow {effect:"regeneration"}
-execute if entity @s[scores={f1sch.give=1645}] run function f1sch:features/macros/give_tipped_arrow {effect:"slow_falling"}
-execute if entity @s[scores={f1sch.give=1646}] run function f1sch:features/macros/give_tipped_arrow {effect:"slowness"}
-execute if entity @s[scores={f1sch.give=1647}] run function f1sch:features/macros/give_tipped_arrow {effect:"strength"}
-execute if entity @s[scores={f1sch.give=1648}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_harming"}
-execute if entity @s[scores={f1sch.give=1649}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_healing"}
-execute if entity @s[scores={f1sch.give=1650}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_leaping"}
-execute if entity @s[scores={f1sch.give=1651}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_poison"}
-execute if entity @s[scores={f1sch.give=1652}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_regeneration"}
-execute if entity @s[scores={f1sch.give=1653}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_slowness"}
-execute if entity @s[scores={f1sch.give=1654}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_strength"}
-execute if entity @s[scores={f1sch.give=1655}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_swiftness"}
-execute if entity @s[scores={f1sch.give=1656}] run function f1sch:features/macros/give_tipped_arrow {effect:"strong_turtle_master"}
-execute if entity @s[scores={f1sch.give=1657}] run function f1sch:features/macros/give_tipped_arrow {effect:"swiftness"}
-execute if entity @s[scores={f1sch.give=1658}] run function f1sch:features/macros/give_tipped_arrow {effect:"thick"}
-execute if entity @s[scores={f1sch.give=1659}] run function f1sch:features/macros/give_tipped_arrow {effect:"turtle_master"}
-execute if entity @s[scores={f1sch.give=1660}] run function f1sch:features/macros/give_tipped_arrow {effect:"water"}
-execute if entity @s[scores={f1sch.give=1661}] run function f1sch:features/macros/give_tipped_arrow {effect:"water_breathing"}
-execute if entity @s[scores={f1sch.give=1662}] run function f1sch:features/macros/give_tipped_arrow {effect:"weakness"}
-execute if entity @s[scores={f1sch.give=1663}] run function f1sch:features/macros/give_tipped_arrow {effect:"weaving"}
-execute if entity @s[scores={f1sch.give=1664}] run function f1sch:features/macros/give_tipped_arrow {effect:"wind_charged"}
+execute if entity @s[scores={f1sch.give=1619}] run data modify storage f1sch:temp effect set value "awkward"
+execute if entity @s[scores={f1sch.give=1620}] run data modify storage f1sch:temp effect set value "fire_resistance"
+execute if entity @s[scores={f1sch.give=1621}] run data modify storage f1sch:temp effect set value "harming"
+execute if entity @s[scores={f1sch.give=1622}] run data modify storage f1sch:temp effect set value "healing"
+execute if entity @s[scores={f1sch.give=1623}] run data modify storage f1sch:temp effect set value "infested"
+execute if entity @s[scores={f1sch.give=1624}] run data modify storage f1sch:temp effect set value "invisibility"
+execute if entity @s[scores={f1sch.give=1625}] run data modify storage f1sch:temp effect set value "leaping"
+execute if entity @s[scores={f1sch.give=1626}] run data modify storage f1sch:temp effect set value "long_fire_resistance"
+execute if entity @s[scores={f1sch.give=1627}] run data modify storage f1sch:temp effect set value "long_invisibility"
+execute if entity @s[scores={f1sch.give=1628}] run data modify storage f1sch:temp effect set value "long_leaping"
+execute if entity @s[scores={f1sch.give=1629}] run data modify storage f1sch:temp effect set value "long_night_vision"
+execute if entity @s[scores={f1sch.give=1630}] run data modify storage f1sch:temp effect set value "long_poison"
+execute if entity @s[scores={f1sch.give=1631}] run data modify storage f1sch:temp effect set value "long_regeneration"
+execute if entity @s[scores={f1sch.give=1632}] run data modify storage f1sch:temp effect set value "long_slow_falling"
+execute if entity @s[scores={f1sch.give=1633}] run data modify storage f1sch:temp effect set value "long_slowness"
+execute if entity @s[scores={f1sch.give=1634}] run data modify storage f1sch:temp effect set value "long_strength"
+execute if entity @s[scores={f1sch.give=1635}] run data modify storage f1sch:temp effect set value "long_swiftness"
+execute if entity @s[scores={f1sch.give=1636}] run data modify storage f1sch:temp effect set value "long_turtle_master"
+execute if entity @s[scores={f1sch.give=1637}] run data modify storage f1sch:temp effect set value "long_water_breathing"
+execute if entity @s[scores={f1sch.give=1638}] run data modify storage f1sch:temp effect set value "long_weakness"
+execute if entity @s[scores={f1sch.give=1639}] run data modify storage f1sch:temp effect set value "luck"
+execute if entity @s[scores={f1sch.give=1640}] run data modify storage f1sch:temp effect set value "mundane"
+execute if entity @s[scores={f1sch.give=1641}] run data modify storage f1sch:temp effect set value "night_vision"
+execute if entity @s[scores={f1sch.give=1642}] run data modify storage f1sch:temp effect set value "oozing"
+execute if entity @s[scores={f1sch.give=1643}] run data modify storage f1sch:temp effect set value "poison"
+execute if entity @s[scores={f1sch.give=1644}] run data modify storage f1sch:temp effect set value "regeneration"
+execute if entity @s[scores={f1sch.give=1645}] run data modify storage f1sch:temp effect set value "slow_falling"
+execute if entity @s[scores={f1sch.give=1646}] run data modify storage f1sch:temp effect set value "slowness"
+execute if entity @s[scores={f1sch.give=1647}] run data modify storage f1sch:temp effect set value "strength"
+execute if entity @s[scores={f1sch.give=1648}] run data modify storage f1sch:temp effect set value "strong_harming"
+execute if entity @s[scores={f1sch.give=1649}] run data modify storage f1sch:temp effect set value "strong_healing"
+execute if entity @s[scores={f1sch.give=1650}] run data modify storage f1sch:temp effect set value "strong_leaping"
+execute if entity @s[scores={f1sch.give=1651}] run data modify storage f1sch:temp effect set value "strong_poison"
+execute if entity @s[scores={f1sch.give=1652}] run data modify storage f1sch:temp effect set value "strong_regeneration"
+execute if entity @s[scores={f1sch.give=1653}] run data modify storage f1sch:temp effect set value "strong_slowness"
+execute if entity @s[scores={f1sch.give=1654}] run data modify storage f1sch:temp effect set value "strong_strength"
+execute if entity @s[scores={f1sch.give=1655}] run data modify storage f1sch:temp effect set value "strong_swiftness"
+execute if entity @s[scores={f1sch.give=1656}] run data modify storage f1sch:temp effect set value "strong_turtle_master"
+execute if entity @s[scores={f1sch.give=1657}] run data modify storage f1sch:temp effect set value "swiftness"
+execute if entity @s[scores={f1sch.give=1658}] run data modify storage f1sch:temp effect set value "thick"
+execute if entity @s[scores={f1sch.give=1659}] run data modify storage f1sch:temp effect set value "turtle_master"
+execute if entity @s[scores={f1sch.give=1660}] run data modify storage f1sch:temp effect set value "water"
+execute if entity @s[scores={f1sch.give=1661}] run data modify storage f1sch:temp effect set value "water_breathing"
+execute if entity @s[scores={f1sch.give=1662}] run data modify storage f1sch:temp effect set value "weakness"
+execute if entity @s[scores={f1sch.give=1663}] run data modify storage f1sch:temp effect set value "weaving"
+execute if entity @s[scores={f1sch.give=1664}] run data modify storage f1sch:temp effect set value "wind_charged"
+execute if entity @s[scores={f1sch.give=1619..1664}] run function f1sch:features/macros/give_tipped_arrow with storage f1sch:temp
 
 # --- Enchanted Books (codes 1665-1706) ---
-execute if entity @s[scores={f1sch.give=1665}] run function f1sch:features/macros/give_enchanted_book {enchantment:"aqua_affinity",level:1}
-execute if entity @s[scores={f1sch.give=1666}] run function f1sch:features/macros/give_enchanted_book {enchantment:"bane_of_arthropods",level:5}
-execute if entity @s[scores={f1sch.give=1667}] run function f1sch:features/macros/give_enchanted_book {enchantment:"binding_curse",level:1}
-execute if entity @s[scores={f1sch.give=1668}] run function f1sch:features/macros/give_enchanted_book {enchantment:"blast_protection",level:4}
-execute if entity @s[scores={f1sch.give=1669}] run function f1sch:features/macros/give_enchanted_book {enchantment:"breach",level:4}
-execute if entity @s[scores={f1sch.give=1670}] run function f1sch:features/macros/give_enchanted_book {enchantment:"channeling",level:1}
-execute if entity @s[scores={f1sch.give=1671}] run function f1sch:features/macros/give_enchanted_book {enchantment:"density",level:5}
-execute if entity @s[scores={f1sch.give=1672}] run function f1sch:features/macros/give_enchanted_book {enchantment:"depth_strider",level:3}
-execute if entity @s[scores={f1sch.give=1673}] run function f1sch:features/macros/give_enchanted_book {enchantment:"efficiency",level:5}
-execute if entity @s[scores={f1sch.give=1674}] run function f1sch:features/macros/give_enchanted_book {enchantment:"feather_falling",level:4}
-execute if entity @s[scores={f1sch.give=1675}] run function f1sch:features/macros/give_enchanted_book {enchantment:"fire_aspect",level:2}
-execute if entity @s[scores={f1sch.give=1676}] run function f1sch:features/macros/give_enchanted_book {enchantment:"fire_protection",level:4}
-execute if entity @s[scores={f1sch.give=1677}] run function f1sch:features/macros/give_enchanted_book {enchantment:"flame",level:1}
-execute if entity @s[scores={f1sch.give=1678}] run function f1sch:features/macros/give_enchanted_book {enchantment:"fortune",level:3}
-execute if entity @s[scores={f1sch.give=1679}] run function f1sch:features/macros/give_enchanted_book {enchantment:"frost_walker",level:2}
-execute if entity @s[scores={f1sch.give=1680}] run function f1sch:features/macros/give_enchanted_book {enchantment:"impaling",level:5}
-execute if entity @s[scores={f1sch.give=1681}] run function f1sch:features/macros/give_enchanted_book {enchantment:"infinity",level:1}
-execute if entity @s[scores={f1sch.give=1682}] run function f1sch:features/macros/give_enchanted_book {enchantment:"knockback",level:2}
-execute if entity @s[scores={f1sch.give=1683}] run function f1sch:features/macros/give_enchanted_book {enchantment:"looting",level:3}
-execute if entity @s[scores={f1sch.give=1684}] run function f1sch:features/macros/give_enchanted_book {enchantment:"loyalty",level:3}
-execute if entity @s[scores={f1sch.give=1685}] run function f1sch:features/macros/give_enchanted_book {enchantment:"luck_of_the_sea",level:3}
-execute if entity @s[scores={f1sch.give=1686}] run function f1sch:features/macros/give_enchanted_book {enchantment:"lure",level:3}
-execute if entity @s[scores={f1sch.give=1687}] run function f1sch:features/macros/give_enchanted_book {enchantment:"mending",level:1}
-execute if entity @s[scores={f1sch.give=1688}] run function f1sch:features/macros/give_enchanted_book {enchantment:"multishot",level:1}
-execute if entity @s[scores={f1sch.give=1689}] run function f1sch:features/macros/give_enchanted_book {enchantment:"piercing",level:4}
-execute if entity @s[scores={f1sch.give=1690}] run function f1sch:features/macros/give_enchanted_book {enchantment:"power",level:5}
-execute if entity @s[scores={f1sch.give=1691}] run function f1sch:features/macros/give_enchanted_book {enchantment:"projectile_protection",level:4}
-execute if entity @s[scores={f1sch.give=1692}] run function f1sch:features/macros/give_enchanted_book {enchantment:"protection",level:4}
-execute if entity @s[scores={f1sch.give=1693}] run function f1sch:features/macros/give_enchanted_book {enchantment:"punch",level:2}
-execute if entity @s[scores={f1sch.give=1694}] run function f1sch:features/macros/give_enchanted_book {enchantment:"quick_charge",level:3}
-execute if entity @s[scores={f1sch.give=1695}] run function f1sch:features/macros/give_enchanted_book {enchantment:"respiration",level:3}
-execute if entity @s[scores={f1sch.give=1696}] run function f1sch:features/macros/give_enchanted_book {enchantment:"riptide",level:3}
-execute if entity @s[scores={f1sch.give=1697}] run function f1sch:features/macros/give_enchanted_book {enchantment:"sharpness",level:5}
-execute if entity @s[scores={f1sch.give=1698}] run function f1sch:features/macros/give_enchanted_book {enchantment:"silk_touch",level:1}
-execute if entity @s[scores={f1sch.give=1699}] run function f1sch:features/macros/give_enchanted_book {enchantment:"smite",level:5}
-execute if entity @s[scores={f1sch.give=1700}] run function f1sch:features/macros/give_enchanted_book {enchantment:"soul_speed",level:3}
-execute if entity @s[scores={f1sch.give=1701}] run function f1sch:features/macros/give_enchanted_book {enchantment:"sweeping_edge",level:3}
-execute if entity @s[scores={f1sch.give=1702}] run function f1sch:features/macros/give_enchanted_book {enchantment:"swift_sneak",level:3}
-execute if entity @s[scores={f1sch.give=1703}] run function f1sch:features/macros/give_enchanted_book {enchantment:"thorns",level:3}
-execute if entity @s[scores={f1sch.give=1704}] run function f1sch:features/macros/give_enchanted_book {enchantment:"unbreaking",level:3}
-execute if entity @s[scores={f1sch.give=1705}] run function f1sch:features/macros/give_enchanted_book {enchantment:"vanishing_curse",level:1}
-execute if entity @s[scores={f1sch.give=1706}] run function f1sch:features/macros/give_enchanted_book {enchantment:"wind_burst",level:3}
+execute if entity @s[scores={f1sch.give=1665}] run data modify storage f1sch:temp enchantment set value "aqua_affinity"
+execute if entity @s[scores={f1sch.give=1665}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1666}] run data modify storage f1sch:temp enchantment set value "bane_of_arthropods"
+execute if entity @s[scores={f1sch.give=1666}] run data modify storage f1sch:temp level set value 5
+execute if entity @s[scores={f1sch.give=1667}] run data modify storage f1sch:temp enchantment set value "binding_curse"
+execute if entity @s[scores={f1sch.give=1667}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1668}] run data modify storage f1sch:temp enchantment set value "blast_protection"
+execute if entity @s[scores={f1sch.give=1668}] run data modify storage f1sch:temp level set value 4
+execute if entity @s[scores={f1sch.give=1669}] run data modify storage f1sch:temp enchantment set value "breach"
+execute if entity @s[scores={f1sch.give=1669}] run data modify storage f1sch:temp level set value 4
+execute if entity @s[scores={f1sch.give=1670}] run data modify storage f1sch:temp enchantment set value "channeling"
+execute if entity @s[scores={f1sch.give=1670}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1671}] run data modify storage f1sch:temp enchantment set value "density"
+execute if entity @s[scores={f1sch.give=1671}] run data modify storage f1sch:temp level set value 5
+execute if entity @s[scores={f1sch.give=1672}] run data modify storage f1sch:temp enchantment set value "depth_strider"
+execute if entity @s[scores={f1sch.give=1672}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1673}] run data modify storage f1sch:temp enchantment set value "efficiency"
+execute if entity @s[scores={f1sch.give=1673}] run data modify storage f1sch:temp level set value 5
+execute if entity @s[scores={f1sch.give=1674}] run data modify storage f1sch:temp enchantment set value "feather_falling"
+execute if entity @s[scores={f1sch.give=1674}] run data modify storage f1sch:temp level set value 4
+execute if entity @s[scores={f1sch.give=1675}] run data modify storage f1sch:temp enchantment set value "fire_aspect"
+execute if entity @s[scores={f1sch.give=1675}] run data modify storage f1sch:temp level set value 2
+execute if entity @s[scores={f1sch.give=1676}] run data modify storage f1sch:temp enchantment set value "fire_protection"
+execute if entity @s[scores={f1sch.give=1676}] run data modify storage f1sch:temp level set value 4
+execute if entity @s[scores={f1sch.give=1677}] run data modify storage f1sch:temp enchantment set value "flame"
+execute if entity @s[scores={f1sch.give=1677}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1678}] run data modify storage f1sch:temp enchantment set value "fortune"
+execute if entity @s[scores={f1sch.give=1678}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1679}] run data modify storage f1sch:temp enchantment set value "frost_walker"
+execute if entity @s[scores={f1sch.give=1679}] run data modify storage f1sch:temp level set value 2
+execute if entity @s[scores={f1sch.give=1680}] run data modify storage f1sch:temp enchantment set value "impaling"
+execute if entity @s[scores={f1sch.give=1680}] run data modify storage f1sch:temp level set value 5
+execute if entity @s[scores={f1sch.give=1681}] run data modify storage f1sch:temp enchantment set value "infinity"
+execute if entity @s[scores={f1sch.give=1681}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1682}] run data modify storage f1sch:temp enchantment set value "knockback"
+execute if entity @s[scores={f1sch.give=1682}] run data modify storage f1sch:temp level set value 2
+execute if entity @s[scores={f1sch.give=1683}] run data modify storage f1sch:temp enchantment set value "looting"
+execute if entity @s[scores={f1sch.give=1683}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1684}] run data modify storage f1sch:temp enchantment set value "loyalty"
+execute if entity @s[scores={f1sch.give=1684}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1685}] run data modify storage f1sch:temp enchantment set value "luck_of_the_sea"
+execute if entity @s[scores={f1sch.give=1685}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1686}] run data modify storage f1sch:temp enchantment set value "lure"
+execute if entity @s[scores={f1sch.give=1686}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1687}] run data modify storage f1sch:temp enchantment set value "mending"
+execute if entity @s[scores={f1sch.give=1687}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1688}] run data modify storage f1sch:temp enchantment set value "multishot"
+execute if entity @s[scores={f1sch.give=1688}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1689}] run data modify storage f1sch:temp enchantment set value "piercing"
+execute if entity @s[scores={f1sch.give=1689}] run data modify storage f1sch:temp level set value 4
+execute if entity @s[scores={f1sch.give=1690}] run data modify storage f1sch:temp enchantment set value "power"
+execute if entity @s[scores={f1sch.give=1690}] run data modify storage f1sch:temp level set value 5
+execute if entity @s[scores={f1sch.give=1691}] run data modify storage f1sch:temp enchantment set value "projectile_protection"
+execute if entity @s[scores={f1sch.give=1691}] run data modify storage f1sch:temp level set value 4
+execute if entity @s[scores={f1sch.give=1692}] run data modify storage f1sch:temp enchantment set value "protection"
+execute if entity @s[scores={f1sch.give=1692}] run data modify storage f1sch:temp level set value 4
+execute if entity @s[scores={f1sch.give=1693}] run data modify storage f1sch:temp enchantment set value "punch"
+execute if entity @s[scores={f1sch.give=1693}] run data modify storage f1sch:temp level set value 2
+execute if entity @s[scores={f1sch.give=1694}] run data modify storage f1sch:temp enchantment set value "quick_charge"
+execute if entity @s[scores={f1sch.give=1694}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1695}] run data modify storage f1sch:temp enchantment set value "respiration"
+execute if entity @s[scores={f1sch.give=1695}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1696}] run data modify storage f1sch:temp enchantment set value "riptide"
+execute if entity @s[scores={f1sch.give=1696}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1697}] run data modify storage f1sch:temp enchantment set value "sharpness"
+execute if entity @s[scores={f1sch.give=1697}] run data modify storage f1sch:temp level set value 5
+execute if entity @s[scores={f1sch.give=1698}] run data modify storage f1sch:temp enchantment set value "silk_touch"
+execute if entity @s[scores={f1sch.give=1698}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1699}] run data modify storage f1sch:temp enchantment set value "smite"
+execute if entity @s[scores={f1sch.give=1699}] run data modify storage f1sch:temp level set value 5
+execute if entity @s[scores={f1sch.give=1700}] run data modify storage f1sch:temp enchantment set value "soul_speed"
+execute if entity @s[scores={f1sch.give=1700}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1701}] run data modify storage f1sch:temp enchantment set value "sweeping_edge"
+execute if entity @s[scores={f1sch.give=1701}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1702}] run data modify storage f1sch:temp enchantment set value "swift_sneak"
+execute if entity @s[scores={f1sch.give=1702}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1703}] run data modify storage f1sch:temp enchantment set value "thorns"
+execute if entity @s[scores={f1sch.give=1703}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1704}] run data modify storage f1sch:temp enchantment set value "unbreaking"
+execute if entity @s[scores={f1sch.give=1704}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1705}] run data modify storage f1sch:temp enchantment set value "vanishing_curse"
+execute if entity @s[scores={f1sch.give=1705}] run data modify storage f1sch:temp level set value 1
+execute if entity @s[scores={f1sch.give=1706}] run data modify storage f1sch:temp enchantment set value "wind_burst"
+execute if entity @s[scores={f1sch.give=1706}] run data modify storage f1sch:temp level set value 3
+execute if entity @s[scores={f1sch.give=1665..1706}] run function f1sch:features/macros/give_enchanted_book with storage f1sch:temp
 
 # Reset trigger
 scoreboard players set @s f1sch.give 0

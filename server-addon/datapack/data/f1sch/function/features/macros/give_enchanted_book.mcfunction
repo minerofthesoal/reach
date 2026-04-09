@@ -1,1 +1,1 @@
-$give @s minecraft:enchanted_book[stored_enchantments={"minecraft:$(enchantment)":$(level)}] 64
+$give @s minecraft:enchanted_book[stored_enchantments={"minecraft:$(enchantment)":$(level)}] $(count)
