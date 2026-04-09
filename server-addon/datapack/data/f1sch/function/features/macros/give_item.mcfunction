@@ -1,1 +1,1 @@
-$give @s $(item) $(count)
+$give @s $(item) 64

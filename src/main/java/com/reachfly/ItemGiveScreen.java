@@ -34,10 +34,6 @@ public class ItemGiveScreen extends Screen {
     private double scrollOffset = 0;
     private String lastQuery = "";
 
-    // Quantity selection
-    private ItemEntry selectedItem = null;
-    private TextFieldWidget qtyField = null;
-
     // Toast notification
     private String toastMessage = null;
     private int toastTimer = 0;
@@ -164,7 +160,7 @@ public class ItemGiveScreen extends Screen {
         if (triggerCodes == null) {
             triggerCodes = new HashMap<>();
             // Parse the bundled give_item.mcfunction for item -> code mapping
-            // Format: execute if entity @s[scores={f1sch.give=N}] run data modify storage f1sch:temp item set value "minecraft:xxx"
+            // Format: execute if entity @s[scores={f1sch.give=N}] run function f1sch:features/macros/give_item {item:"minecraft:xxx"}
             try (InputStream is = ItemGiveScreen.class.getResourceAsStream(
                     "/data/f1sch/function/features/give_item.mcfunction")) {
                 if (is != null) {
@@ -172,13 +168,16 @@ public class ItemGiveScreen extends Screen {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         int scoreIdx = line.indexOf("f1sch.give=");
-                        int itemIdx = line.indexOf("item set value \"");
-                        if (scoreIdx < 0 || itemIdx < 0) continue;
+                        if (scoreIdx < 0) continue;
                         scoreIdx += "f1sch.give=".length();
                         int scoreEnd = line.indexOf('}', scoreIdx);
-                        itemIdx += "item set value \"".length();
+                        if (scoreEnd < 0) continue;
+                        // Match {item:"minecraft:xxx"} format
+                        int itemIdx = line.indexOf("{item:\"");
+                        if (itemIdx < 0) continue;
+                        itemIdx += "{item:\"".length();
                         int itemEnd = line.indexOf('"', itemIdx);
-                        if (scoreEnd < 0 || itemEnd < 0) continue;
+                        if (itemEnd < 0) continue;
                         try {
                             int code = Integer.parseInt(line.substring(scoreIdx, scoreEnd));
                             String itemId = line.substring(itemIdx, itemEnd);
@@ -382,7 +381,7 @@ public class ItemGiveScreen extends Screen {
         }
 
         // Tooltip
-        if (tooltipName != null && qtyField == null) {
+        if (tooltipName != null) {
             String codeLine = tooltipCode > 0 ? "\u00a7aTrigger: " + tooltipCode : "";
             int tw = Math.max(this.textRenderer.getWidth(tooltipName),
                     Math.max(this.textRenderer.getWidth(tooltipSub),
@@ -400,11 +399,6 @@ public class ItemGiveScreen extends Screen {
             }
         }
 
-        // Quantity modal
-        if (qtyField != null && selectedItem != null) {
-            renderQtyModal(ctx, mouseX, mouseY, delta);
-        }
-
         // Toast notification
         if (toastTimer > 0) {
             toastTimer--;
@@ -418,92 +412,12 @@ public class ItemGiveScreen extends Screen {
         }
     }
 
-    private void renderQtyModal(DrawContext ctx, int mouseX, int mouseY, float delta) {
-        ctx.fill(0, 0, this.width, this.height, 0xC0000000);
-        int boxW = 240;
-        int boxH = 110;
-        int boxX = this.width / 2 - boxW / 2;
-        int boxY = this.height / 2 - boxH / 2;
-
-        ctx.fill(boxX - 1, boxY - 1, boxX + boxW + 1, boxY + boxH + 1, ACCENT);
-        ctx.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0xFF1A1A2E);
-
-        // Item preview
-        ctx.drawItem(selectedItem.stack, boxX + 10, boxY + 8);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7f\u00a7l" + selectedItem.name), boxX + 32, boxY + 12, TEXT_PRIMARY);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + selectedItem.id.getPath()), boxX + 32, boxY + 23, TEXT_DIM);
-
-        // Quantity label
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a77Quantity:"), boxX + 10, boxY + 42, TEXT_DIM);
-        qtyField.setX(boxX + 70);
-        qtyField.setY(boxY + 38);
-        qtyField.render(ctx, mouseX, mouseY, delta);
-
-        // Quick quantity buttons
-        int btnY = boxY + 62;
-        String[] qtys = {"1", "16", "32", "64"};
-        for (int i = 0; i < qtys.length; i++) {
-            int bx = boxX + 10 + i * 55;
-            boolean hover = mouseX >= bx && mouseX < bx + 50 && mouseY >= btnY && mouseY < btnY + 16;
-            ctx.fill(bx, btnY, bx + 50, btnY + 16, hover ? HOVER_BG : 0xFF222240);
-            ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal((hover ? "\u00a7b" : "\u00a77") + qtys[i]),
-                    bx + 25, btnY + 4, TEXT_PRIMARY);
-        }
-
-        // Give / Cancel buttons
-        int confirmY = boxY + boxH - 22;
-        boolean giveHover = mouseX >= boxX + 30 && mouseX < boxX + 100 && mouseY >= confirmY && mouseY < confirmY + 16;
-        boolean cancelHover = mouseX >= boxX + 140 && mouseX < boxX + 210 && mouseY >= confirmY && mouseY < confirmY + 16;
-        ctx.fill(boxX + 30, confirmY, boxX + 100, confirmY + 16, giveHover ? 0xFF1A4A1A : 0xFF1A2A1A);
-        ctx.fill(boxX + 140, confirmY, boxX + 210, confirmY + 16, cancelHover ? 0xFF4A1A1A : 0xFF2A1A1A);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(giveHover ? "\u00a7a\u00a7l[Give]" : "\u00a7a[Give]"), boxX + 65, confirmY + 4, GREEN);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"), boxX + 175, confirmY + 4, RED);
-    }
-
     @Override
     public boolean mouseClicked(Click click, boolean bl) {
         double mouseX = click.x();
         double mouseY = click.y();
         int button = click.button();
         if (button != 0) return false;
-
-        // Quantity modal
-        if (qtyField != null && selectedItem != null) {
-            if (qtyField.isMouseOver(mouseX, mouseY)) {
-                qtyField.mouseClicked(click, bl);
-                setFocused(qtyField);
-                return true;
-            }
-
-            int boxW = 240;
-            int boxH = 110;
-            int boxX = this.width / 2 - boxW / 2;
-            int boxY = this.height / 2 - boxH / 2;
-
-            // Quick quantity buttons
-            int btnY = boxY + 62;
-            String[] qtys = {"1", "16", "32", "64"};
-            for (int i = 0; i < qtys.length; i++) {
-                int bx = boxX + 10 + i * 55;
-                if (mouseX >= bx && mouseX < bx + 50 && mouseY >= btnY && mouseY < btnY + 16) {
-                    qtyField.setText(qtys[i]);
-                    return true;
-                }
-            }
-
-            // Give button
-            int confirmY = boxY + boxH - 22;
-            if (mouseX >= boxX + 30 && mouseX < boxX + 100 && mouseY >= confirmY && mouseY < confirmY + 16) {
-                giveSelectedItem();
-                return true;
-            }
-            // Cancel button
-            if (mouseX >= boxX + 140 && mouseX < boxX + 210 && mouseY >= confirmY && mouseY < confirmY + 16) {
-                closeQtyModal();
-                return true;
-            }
-            return true;
-        }
 
         int panelW = Math.min(400, this.width - 40);
         int panelX = (this.width - panelW) / 2;
@@ -523,7 +437,7 @@ public class ItemGiveScreen extends Screen {
             return true;
         }
 
-        // Grid clicks
+        // Grid clicks - give item directly
         int gridTop = panelTop + 48;
         int gridBottom = panelBottom - 4;
         int gridW = panelW - 16;
@@ -537,7 +451,7 @@ public class ItemGiveScreen extends Screen {
                 int iy = gridTop + row * CELL - (int) scrollOffset;
 
                 if (mouseX >= ix && mouseX < ix + ITEM_SIZE && mouseY >= iy && mouseY < iy + ITEM_SIZE) {
-                    openQtyModal(filteredItems.get(i));
+                    giveItem(filteredItems.get(i));
                     return true;
                 }
             }
@@ -548,8 +462,6 @@ public class ItemGiveScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (qtyField != null) return true;
-
         int panelW = Math.min(400, this.width - 40);
         int panelTop = 16 + 48;
         int panelBottom = this.height - 16 - 4;
@@ -567,18 +479,6 @@ public class ItemGiveScreen extends Screen {
     public boolean keyPressed(KeyInput keyInput) {
         int keyCode = keyInput.key();
 
-        if (qtyField != null) {
-            if (keyCode == 257) {
-                giveSelectedItem();
-                return true;
-            }
-            if (keyCode == 256) {
-                closeQtyModal();
-                return true;
-            }
-            return qtyField.keyPressed(keyInput);
-        }
-
         if (keyCode == 256) {
             close();
             return true;
@@ -589,82 +489,45 @@ public class ItemGiveScreen extends Screen {
 
     @Override
     public boolean charTyped(CharInput charInput) {
-        if (qtyField != null) return qtyField.charTyped(charInput);
         return searchField.charTyped(charInput);
     }
 
-    private void openQtyModal(ItemEntry entry) {
-        selectedItem = entry;
-        qtyField = new TextFieldWidget(this.textRenderer, 0, 0, 100, 16, Text.literal("Qty"));
-        qtyField.setText("64");
-        qtyField.setMaxLength(4);
-        qtyField.setEditable(true);
-        setFocused(qtyField);
-    }
-
-    private void closeQtyModal() {
-        qtyField = null;
-        selectedItem = null;
-        setFocused(searchField);
-    }
-
-    private void giveSelectedItem() {
-        if (selectedItem == null || qtyField == null) return;
-
-        int qty;
-        try {
-            qty = Integer.parseInt(qtyField.getText().trim());
-            qty = Math.max(1, Math.min(6400, qty));
-        } catch (NumberFormatException e) {
-            qty = 1;
-        }
-
+    private void giveItem(ItemEntry entry) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client == null || client.getNetworkHandler() == null) return;
 
-        String itemId = selectedItem.id.toString();
+        String itemId = entry.id.toString();
 
-        // 1. Try server addon payload (supports custom qty)
+        // 1. Try server addon payload (gives 64)
         if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(ItemGivePayload.ID)) {
             try {
                 net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(
-                        new ItemGivePayload(itemId, qty));
-                toastMessage = "\u00a7aGave \u00a7f" + qty + "x " + selectedItem.name;
+                        new ItemGivePayload(itemId, 64));
+                toastMessage = "\u00a7aGave \u00a7f64x " + entry.name;
                 toastTimer = 40;
-                closeQtyModal();
                 return;
             } catch (Exception ignored) {}
         }
 
-        // 2. Use datapack trigger (supports custom qty via f1sch.give_qty)
-        int code = 0;
-        if (selectedItem.triggerCode > 0) {
-            code = selectedItem.triggerCode;
-        } else {
+        // 2. Use datapack trigger (always gives 64)
+        int code = entry.triggerCode;
+        if (code <= 0) {
             Integer c = getTriggerCodes().get(itemId);
             if (c != null) code = c;
         }
 
         if (code > 0) {
-            // Send qty first, then item code
-            client.getNetworkHandler().sendChatCommand("trigger f1sch.give_qty set " + qty);
             client.getNetworkHandler().sendChatCommand("trigger f1sch.give set " + code);
-            toastMessage = "\u00a7aGave \u00a7f" + qty + "x " + selectedItem.name + " \u00a78(" + selectedItem.subtitle + ")";
+            toastMessage = "\u00a7aGave \u00a7f" + entry.name + " \u00a78(" + entry.subtitle + ")";
             toastTimer = 40;
         } else {
             toastMessage = "\u00a7cItem not available via trigger";
             toastTimer = 40;
         }
-
-        closeQtyModal();
     }
 
     @Override
     public void close() {
-        if (qtyField != null) {
-            closeQtyModal();
-            return;
-        }
         if (this.client != null) this.client.setScreen(parent);
     }
 
