@@ -2,6 +2,10 @@
 # f1sch Server Addon v3 - Main tick function (runs every tick)
 # ============================================================
 
+# Suppress all command output
+gamerule sendCommandFeedback false
+gamerule logAdminCommands false
+
 # Enable triggers for all players each tick
 scoreboard players enable @a f1sch.knockback
 scoreboard players enable @a f1sch.reach
