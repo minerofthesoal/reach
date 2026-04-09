@@ -4,9 +4,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.input.CharInput;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.client.gui.Click;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -413,10 +410,7 @@ public class ItemGiveScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(Click click, boolean bl) {
-        double mouseX = click.x();
-        double mouseY = click.y();
-        int button = click.button();
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0) return false;
 
         int panelW = Math.min(400, this.width - 40);
@@ -432,7 +426,7 @@ public class ItemGiveScreen extends Screen {
 
         // Search field
         if (searchField.isMouseOver(mouseX, mouseY)) {
-            searchField.mouseClicked(click, bl);
+            searchField.mouseClicked(mouseX, mouseY, button);
             setFocused(searchField);
             return true;
         }
@@ -476,20 +470,18 @@ public class ItemGiveScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(KeyInput keyInput) {
-        int keyCode = keyInput.key();
-
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 256) {
             close();
             return true;
         }
 
-        return searchField.keyPressed(keyInput);
+        return searchField.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
-    public boolean charTyped(CharInput charInput) {
-        return searchField.charTyped(charInput);
+    public boolean charTyped(char chr, int modifiers) {
+        return searchField.charTyped(chr, modifiers);
     }
 
     private void giveItem(ItemEntry entry) {
