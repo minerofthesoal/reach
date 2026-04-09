@@ -579,7 +579,7 @@ public class WurstHandlers {
 
         if (!blinkActive) {
             blinkActive = true;
-            blinkStartPos = p.getEntityPos();
+            blinkStartPos = p.getPos();
             blinkTickCounter = 0;
         }
 

@@ -5,9 +5,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.input.CharInput;
-import net.minecraft.client.input.KeyInput;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -442,14 +439,13 @@ public class ConfigScreen extends Screen {
     // ---- INPUT HANDLING ----
 
     @Override
-    public boolean mouseClicked(Click click, boolean bl) {
-        double mouseX = click.x(); double mouseY = click.y(); int button = click.button();
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0) return false;
 
         // Code entry modal
         if (showCodeEntry) {
             if (codeField != null && codeField.isMouseOver(mouseX, mouseY)) {
-                codeField.mouseClicked(click, bl); setFocused(codeField); return true;
+                codeField.mouseClicked(mouseX, mouseY, button); setFocused(codeField); return true;
             }
             int btnY = this.height / 2 - 50 + 54;
             if (mouseY >= btnY && mouseY < btnY + 14) {
@@ -461,7 +457,7 @@ public class ConfigScreen extends Screen {
 
         // Edit modal
         if (editField != null) {
-            if (editField.isMouseOver(mouseX, mouseY)) { editField.mouseClicked(click, bl); setFocused(editField); return true; }
+            if (editField.isMouseOver(mouseX, mouseY)) { editField.mouseClicked(mouseX, mouseY, button); setFocused(editField); return true; }
             int btnY = this.height / 2 - 45 + 50;
             if (mouseY >= btnY && mouseY < btnY + 14) {
                 if (mouseX >= this.width / 2 - 50 && mouseX < this.width / 2 - 5) { confirmEdit(); return true; }
@@ -562,27 +558,26 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(KeyInput keyInput) {
-        int keyCode = keyInput.key();
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (showCodeEntry && codeField != null) {
             if (keyCode == 257) { tryActivateCode(); return true; }
             if (keyCode == 256) { showCodeEntry = false; codeField = null; return true; }
-            return codeField.keyPressed(keyInput);
+            return codeField.keyPressed(keyCode, scanCode, modifiers);
         }
         if (editField != null) {
             if (keyCode == 257) { confirmEdit(); return true; }
             if (keyCode == 256) { cancelEdit(); return true; }
-            return editField.keyPressed(keyInput);
+            return editField.keyPressed(keyCode, scanCode, modifiers);
         }
         if (keyCode == 256) { close(); return true; }
-        return super.keyPressed(keyInput);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
-    public boolean charTyped(CharInput charInput) {
-        if (showCodeEntry && codeField != null) return codeField.charTyped(charInput);
-        if (editField != null) return editField.charTyped(charInput);
-        return super.charTyped(charInput);
+    public boolean charTyped(char chr, int modifiers) {
+        if (showCodeEntry && codeField != null) return codeField.charTyped(chr, modifiers);
+        if (editField != null) return editField.charTyped(chr, modifiers);
+        return super.charTyped(chr, modifiers);
     }
 
     // ---- CODE ACTIVATION ----

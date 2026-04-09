@@ -541,14 +541,7 @@ public class ModConfig {
         data.towerEnabled = towerEnabled;
         data.printerEnabled = printerEnabled;
 
-        // Capture current keybind assignments
-        KeyBinding[] kbs = KeybindHandler.allKeybinds();
-        if (kbs != null && kbs.length > 0) {
-            data.keybinds = new HashMap<>();
-            for (KeyBinding kb : kbs) {
-                data.keybinds.put(kb.getId(), kb.getBoundKeyTranslationKey());
-            }
-        }
+        // Keybind persistence not available in this MC version (no getId/getBoundKeyTranslationKey)
 
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
@@ -568,7 +561,7 @@ public class ModConfig {
     public static void applyKeybinds() {
         if (savedKeybinds == null || savedKeybinds.isEmpty()) return;
         for (KeyBinding kb : KeybindHandler.allKeybinds()) {
-            String saved = savedKeybinds.get(kb.getId());
+            String saved = savedKeybinds.get(kb.getTranslationKey());
             if (saved != null) {
                 try {
                     InputUtil.Key key = InputUtil.fromTranslationKey(saved);

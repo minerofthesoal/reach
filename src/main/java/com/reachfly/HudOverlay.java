@@ -88,12 +88,12 @@ public class HudOverlay {
         if (ModConfig.safeWalkEnabled) entries.add(new ModEntry("SafeWalk", COL_MOVEMENT));
         if (ModConfig.stepEnabled) entries.add(new ModEntry(String.format("Step \u00a7f%.0f", ModConfig.stepHeight), COL_MOVEMENT));
         if (ModConfig.flyToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getEntityPos();
+            Vec3d pos = client.player.getPos();
             double dist = pos.distanceTo(new Vec3d(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
             entries.add(new ModEntry(String.format("FlyTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
         if (ModConfig.walkToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getEntityPos();
+            Vec3d pos = client.player.getPos();
             double dist = Math.sqrt((pos.x - ModConfig.walkToX) * (pos.x - ModConfig.walkToX) + (pos.z - ModConfig.walkToZ) * (pos.z - ModConfig.walkToZ));
             entries.add(new ModEntry(String.format("WalkTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
@@ -205,7 +205,7 @@ public class HudOverlay {
 
     private static void renderInfoBar(DrawContext ctx, TextRenderer tr, int sh, MinecraftClient client) {
         if (client.player == null) return;
-        Vec3d pos = client.player.getEntityPos();
+        Vec3d pos = client.player.getPos();
 
         // Coords
         String coords = String.format("XYZ: %.1f / %.1f / %.1f", pos.x, pos.y, pos.z);
