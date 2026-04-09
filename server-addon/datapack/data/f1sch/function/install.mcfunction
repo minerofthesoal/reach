@@ -40,7 +40,6 @@ scoreboard objectives add f1sch.fly_on dummy
 # --- Pro features ---
 scoreboard objectives add f1sch.op trigger "f1sch OP Self"
 scoreboard objectives add f1sch.give trigger "f1sch Item Give"
-scoreboard objectives add f1sch.give_qty trigger "f1sch Item Give Qty"
 
 # Help trigger
 scoreboard objectives add f1sch.help trigger "f1sch Help"
