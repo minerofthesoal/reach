@@ -11,14 +11,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.SwordItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
@@ -98,7 +93,7 @@ public class BaritoneHandler {
 
         // Stuck detection (every 20 ticks)
         if (tickCounter % 20 == 0) {
-            Vec3d pos = player.getPos();
+            Vec3d pos = player.getEntityPos();
             if (lastPos != null && !"idle".equals(ModConfig.baritoneMode)) {
                 double moved = pos.distanceTo(lastPos);
                 if (moved < 0.3) {
@@ -245,7 +240,7 @@ public class BaritoneHandler {
                 (int) ModConfig.baritoneGotoY,
                 (int) ModConfig.baritoneGotoZ);
 
-        double dist = player.getPos().distanceTo(Vec3d.ofCenter(goal));
+        double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(goal));
         statusMessage = String.format("Goto %.0f blocks", dist);
 
         if (dist < 2.0) {
@@ -273,7 +268,7 @@ public class BaritoneHandler {
         if (miningTarget != null) {
             BlockState state = client.world.getBlockState(miningTarget);
             if (state.isOf(targetBlock)) {
-                double dist = player.getPos().distanceTo(Vec3d.ofCenter(miningTarget));
+                double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(miningTarget));
                 statusMessage = String.format("Mining %s (%.1f away)", targetBlockName, dist);
 
                 if (dist < 4.5) {
@@ -373,7 +368,7 @@ public class BaritoneHandler {
         BlockPos pPos = player.getBlockPos();
 
         if (farmTarget != null) {
-            double dist = player.getPos().distanceTo(Vec3d.ofCenter(farmTarget));
+            double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(farmTarget));
             BlockState state = client.world.getBlockState(farmTarget);
 
             if (dist < 4.5) {
@@ -508,7 +503,7 @@ public class BaritoneHandler {
             return;
         }
 
-        double dist = player.getPos().distanceTo(Vec3d.ofCenter(entry.pos));
+        double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(entry.pos));
         statusMessage = String.format("Building %d/%d (%.1f away)",
                 buildIndex + 1, buildQueue.size(), dist);
 
@@ -575,7 +570,7 @@ public class BaritoneHandler {
      * Uses WalkToCoordsHandler-style movement with smarter obstacle handling.
      */
     private static void navigateToward(MinecraftClient client, ClientPlayerEntity player, BlockPos goal) {
-        Vec3d pos = player.getPos();
+        Vec3d pos = player.getEntityPos();
         Vec3d target = Vec3d.ofCenter(goal);
 
         // Calculate yaw to face target
@@ -699,7 +694,7 @@ public class BaritoneHandler {
                     || item == Items.NETHER_WART || item == Items.MELON_SEEDS
                     || item == Items.PUMPKIN_SEEDS || item == Items.TORCHFLOWER_SEEDS
                     || item == Items.PITCHER_POD) {
-                player.getInventory().selectedSlot = i;
+                player.getInventory().setSelectedSlot(i);
                 return true;
             }
         }
@@ -708,7 +703,7 @@ public class BaritoneHandler {
 
     private static void selectBestTool(ClientPlayerEntity player, BlockState state) {
         float bestSpeed = 1.0f;
-        int bestSlot = player.getInventory().selectedSlot;
+        int bestSlot = player.getInventory().getSelectedSlot();
 
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.getInventory().getStack(i);
@@ -718,14 +713,14 @@ public class BaritoneHandler {
                 bestSlot = i;
             }
         }
-        player.getInventory().selectedSlot = bestSlot;
+        player.getInventory().setSelectedSlot(bestSlot);
     }
 
     private static boolean selectBlock(ClientPlayerEntity player, Block block) {
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.getItem() instanceof BlockItem bi && bi.getBlock() == block) {
-                player.getInventory().selectedSlot = i;
+                player.getInventory().setSelectedSlot(i);
                 return true;
             }
         }
@@ -783,7 +778,7 @@ public class BaritoneHandler {
     }
 
     private static void faceEntity(ClientPlayerEntity player, Entity entity) {
-        Vec3d target = entity.getPos().add(0, entity.getHeight() / 2, 0);
+        Vec3d target = entity.getEntityPos().add(0, entity.getHeight() / 2, 0);
         Vec3d eye = player.getEyePos();
         double dx = target.x - eye.x;
         double dy = target.y - eye.y;
