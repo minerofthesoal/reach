@@ -263,6 +263,28 @@ public class ModConfig {
     // ===== PRO: Server (requires addon/datapack) =====
     public static boolean opSelfEnabled = false;
 
+    // ===== Baritone =====
+    public static boolean baritoneEnabled = false;
+    public static String baritoneMode = "idle"; // idle, goto, mine, follow, farm, explore, build
+    public static float baritoneGotoX = 0;
+    public static float baritoneGotoY = 64;
+    public static float baritoneGotoZ = 0;
+    public static String baritoneMineBlock = "diamond_ore";
+    public static float baritoneMineRadius = 32;
+    public static final float BARITONE_MINE_RADIUS_MIN = 8;
+    public static final float BARITONE_MINE_RADIUS_MAX = 128;
+    public static float baritoneFollowRange = 5;
+    public static final float BARITONE_FOLLOW_MIN = 2;
+    public static final float BARITONE_FOLLOW_MAX = 32;
+    public static float baritoneFarmRadius = 16;
+    public static final float BARITONE_FARM_RADIUS_MIN = 4;
+    public static final float BARITONE_FARM_RADIUS_MAX = 64;
+    public static boolean baritoneSprint = true;
+    public static boolean baritoneAutoTool = true;
+    public static boolean baritoneAvoidDanger = true;
+    public static boolean baritoneBuildAutoGrab = true;
+    public static String baritoneBuildFile = "";
+
     // --- Obfuscated validation ---
     private static final int[] _d = {0x39, 0x7D, 0x62, 0x3F, 0x3D, 0x20, 0x61, 0x29, 0x23, 0x26, 0x24};
     private static final int _x = 0x4F;
@@ -404,6 +426,20 @@ public class ModConfig {
                     autoBridgeEnabled = data.autoBridgeEnabled;
                     towerEnabled = data.towerEnabled;
                     printerEnabled = data.printerEnabled;
+                    baritoneEnabled = data.baritoneEnabled;
+                    if (data.baritoneMode != null) baritoneMode = data.baritoneMode;
+                    baritoneGotoX = data.baritoneGotoX;
+                    baritoneGotoY = data.baritoneGotoY;
+                    baritoneGotoZ = data.baritoneGotoZ;
+                    if (data.baritoneMineBlock != null) baritoneMineBlock = data.baritoneMineBlock;
+                    baritoneMineRadius = clamp(data.baritoneMineRadius, BARITONE_MINE_RADIUS_MIN, BARITONE_MINE_RADIUS_MAX);
+                    baritoneFollowRange = clamp(data.baritoneFollowRange, BARITONE_FOLLOW_MIN, BARITONE_FOLLOW_MAX);
+                    baritoneFarmRadius = clamp(data.baritoneFarmRadius, BARITONE_FARM_RADIUS_MIN, BARITONE_FARM_RADIUS_MAX);
+                    baritoneSprint = data.baritoneSprint;
+                    baritoneAutoTool = data.baritoneAutoTool;
+                    baritoneAvoidDanger = data.baritoneAvoidDanger;
+                    baritoneBuildAutoGrab = data.baritoneBuildAutoGrab;
+                    if (data.baritoneBuildFile != null) baritoneBuildFile = data.baritoneBuildFile;
                     savedKeybinds = data.keybinds;
                 }
                 ReachFlyClient.LOGGER.info("[f1sch] Config loaded.");
@@ -540,6 +576,20 @@ public class ModConfig {
         data.autoBridgeEnabled = autoBridgeEnabled;
         data.towerEnabled = towerEnabled;
         data.printerEnabled = printerEnabled;
+        data.baritoneEnabled = baritoneEnabled;
+        data.baritoneMode = baritoneMode;
+        data.baritoneGotoX = baritoneGotoX;
+        data.baritoneGotoY = baritoneGotoY;
+        data.baritoneGotoZ = baritoneGotoZ;
+        data.baritoneMineBlock = baritoneMineBlock;
+        data.baritoneMineRadius = baritoneMineRadius;
+        data.baritoneFollowRange = baritoneFollowRange;
+        data.baritoneFarmRadius = baritoneFarmRadius;
+        data.baritoneSprint = baritoneSprint;
+        data.baritoneAutoTool = baritoneAutoTool;
+        data.baritoneAvoidDanger = baritoneAvoidDanger;
+        data.baritoneBuildAutoGrab = baritoneBuildAutoGrab;
+        data.baritoneBuildFile = baritoneBuildFile;
 
         // Capture current keybind assignments
         KeyBinding[] kbs = KeybindHandler.allKeybinds();
@@ -714,6 +764,21 @@ public class ModConfig {
         boolean holeFillerEnabled = false;
         boolean autoTrapEnabled = false;
         boolean reversalEnabled = false;
+        // Baritone
+        boolean baritoneEnabled = false;
+        String baritoneMode = "idle";
+        float baritoneGotoX = 0;
+        float baritoneGotoY = 64;
+        float baritoneGotoZ = 0;
+        String baritoneMineBlock = "diamond_ore";
+        float baritoneMineRadius = 32;
+        float baritoneFollowRange = 5;
+        float baritoneFarmRadius = 16;
+        boolean baritoneSprint = true;
+        boolean baritoneAutoTool = true;
+        boolean baritoneAvoidDanger = true;
+        boolean baritoneBuildAutoGrab = true;
+        String baritoneBuildFile = "";
         // Keybind overrides (translation key -> bound key translation key)
         Map<String, String> keybinds = null;
     }

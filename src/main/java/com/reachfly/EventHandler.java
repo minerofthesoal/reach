@@ -160,5 +160,6 @@ public class EventHandler {
         WurstHandlers.tick(client);
         MeteorV2Handlers.tick(client);
         ServerSyncHandler.tick(client);
+        BaritoneHandler.tick(client);
     }
 }

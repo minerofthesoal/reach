@@ -6,6 +6,7 @@
   "client": [
     "BlockRenderMixin",
     "BlockStateMixin",
+    "ChatCommandMixin",
     "ClientPlayerInteractionManagerMixin",
     "EntityGlowMixin",
     "InvMoveMixin",

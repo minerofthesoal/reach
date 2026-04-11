@@ -249,6 +249,45 @@ public class ConfigScreen extends Screen {
         meteor2.add(new Module("AutoTrap", () -> ModConfig.autoTrapEnabled, v -> ModConfig.autoTrapEnabled = v));
         meteor2.add(new Module("Reversal", () -> ModConfig.reversalEnabled, v -> ModConfig.reversalEnabled = v));
         categories.put("Meteor+", meteor2);
+
+        // === BARITONE ===
+        List<Module> baritone = new ArrayList<>();
+        baritone.add(new Module("Baritone", () -> ModConfig.baritoneEnabled, v -> ModConfig.baritoneEnabled = v)
+                .addToggle("Sprint", () -> ModConfig.baritoneSprint, v -> ModConfig.baritoneSprint = v)
+                .addToggle("Auto Tool", () -> ModConfig.baritoneAutoTool, v -> ModConfig.baritoneAutoTool = v)
+                .addToggle("Avoid Danger", () -> ModConfig.baritoneAvoidDanger, v -> ModConfig.baritoneAvoidDanger = v));
+        baritone.add(new Module("Goto", () -> ModConfig.baritoneMode.equals("goto"), v -> {
+                    if (v) BaritoneHandler.parseCommand("#goto " + (int) ModConfig.baritoneGotoX + " " + (int) ModConfig.baritoneGotoY + " " + (int) ModConfig.baritoneGotoZ);
+                    else BaritoneHandler.parseCommand("#stop");
+                })
+                .addNumber("X", () -> ModConfig.baritoneGotoX, -30000000, 30000000, v -> ModConfig.baritoneGotoX = v)
+                .addNumber("Y", () -> ModConfig.baritoneGotoY, -64, 320, v -> ModConfig.baritoneGotoY = v)
+                .addNumber("Z", () -> ModConfig.baritoneGotoZ, -30000000, 30000000, v -> ModConfig.baritoneGotoZ = v));
+        baritone.add(new Module("Mine", () -> ModConfig.baritoneMode.equals("mine"), v -> {
+                    if (v) BaritoneHandler.parseCommand("#mine " + ModConfig.baritoneMineBlock);
+                    else BaritoneHandler.parseCommand("#stop");
+                })
+                .addNumber("Radius", () -> ModConfig.baritoneMineRadius, ModConfig.BARITONE_MINE_RADIUS_MIN, ModConfig.BARITONE_MINE_RADIUS_MAX, v -> ModConfig.baritoneMineRadius = v));
+        baritone.add(new Module("Follow", () -> ModConfig.baritoneMode.equals("follow"), v -> {
+                    if (v) BaritoneHandler.parseCommand("#follow");
+                    else BaritoneHandler.parseCommand("#stop");
+                })
+                .addNumber("Range", () -> ModConfig.baritoneFollowRange, ModConfig.BARITONE_FOLLOW_MIN, ModConfig.BARITONE_FOLLOW_MAX, v -> ModConfig.baritoneFollowRange = v));
+        baritone.add(new Module("Farm", () -> ModConfig.baritoneMode.equals("farm"), v -> {
+                    if (v) BaritoneHandler.parseCommand("#farm");
+                    else BaritoneHandler.parseCommand("#stop");
+                })
+                .addNumber("Radius", () -> ModConfig.baritoneFarmRadius, ModConfig.BARITONE_FARM_RADIUS_MIN, ModConfig.BARITONE_FARM_RADIUS_MAX, v -> ModConfig.baritoneFarmRadius = v));
+        baritone.add(new Module("Explore", () -> ModConfig.baritoneMode.equals("explore"), v -> {
+                    if (v) BaritoneHandler.parseCommand("#explore");
+                    else BaritoneHandler.parseCommand("#stop");
+                }));
+        baritone.add(new Module("Build", () -> ModConfig.baritoneMode.equals("build"), v -> {
+                    if (v) BaritoneHandler.parseCommand("#build");
+                    else BaritoneHandler.parseCommand("#stop");
+                })
+                .addToggle("Auto Grab Items", () -> ModConfig.baritoneBuildAutoGrab, v -> ModConfig.baritoneBuildAutoGrab = v));
+        categories.put("Baritone", baritone);
     }
 
     @Override

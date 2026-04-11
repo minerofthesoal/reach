@@ -146,6 +146,12 @@ public class HudOverlay {
         if (ModConfig.autoTrapEnabled) entries.add(new ModEntry("AutoTrap", COL_COMBAT));
         if (ModConfig.reversalEnabled) entries.add(new ModEntry("Reversal", COL_COMBAT));
 
+        // Baritone
+        if (ModConfig.baritoneEnabled) {
+            String mode = BaritoneHandler.getStatus();
+            entries.add(new ModEntry("Baritone \u00a7f" + mode, COL_UTILITY));
+        }
+
         // Pro modules
         if (ModConfig.proUnlocked) {
             if (ModConfig.antiKnockbackEnabled) entries.add(new ModEntry(String.format("AntiKB \u00a7f%.0f%%", ModConfig.antiKnockbackStrength), COL_STEALTH));
