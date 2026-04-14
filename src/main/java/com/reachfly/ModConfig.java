@@ -8,6 +8,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -300,7 +301,15 @@ public class ModConfig {
     public static void load() {
         if (Files.exists(CONFIG_PATH)) {
             try {
-                String json = Files.readString(CONFIG_PATH);
+                String raw = Files.readString(CONFIG_PATH).trim();
+                // Decode: Layer 3 (XorShift512) → Layer 2 (Binary) → Layer 1 (JSON)
+                // Backwards compatible: detect plain JSON vs encoded
+                String json;
+                if (isEncoded(raw)) {
+                    json = decode(raw);
+                } else {
+                    json = raw; // Legacy plain JSON config
+                }
                 ConfigData data = GSON.fromJson(json, ConfigData.class);
                 if (data != null) {
                     reachEnabled = data.reachEnabled;
@@ -602,7 +611,10 @@ public class ModConfig {
 
         try {
             Files.createDirectories(CONFIG_PATH.getParent());
-            Files.writeString(CONFIG_PATH, GSON.toJson(data));
+            // Layer 1: JSON → Layer 2: Binary → Layer 3: XorShift512
+            String json = GSON.toJson(data);
+            String encoded = encode(json);
+            Files.writeString(CONFIG_PATH, encoded);
         } catch (IOException e) {
             ReachFlyClient.LOGGER.error("[f1sch] Failed to save config", e);
         }
@@ -633,6 +645,125 @@ public class ModConfig {
 
     public static float clamp(float value, float min, float max) {
         return Math.max(min, Math.min(max, value));
+    }
+
+    // ===== 3-Layer Config Encoding =====
+    // Layer 1: JSON (Gson)  →  Layer 2: Binary  →  Layer 3: XorShift512
+
+    private static final long XORSHIFT_SEED = 0xDEADBEEFF1SCH512L;
+
+    /** Encode: JSON string → binary → xorshift512 cipher */
+    private static String encode(String json) {
+        // Layer 2: Convert each byte to 8-bit binary string
+        byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
+        StringBuilder binary = new StringBuilder(bytes.length * 8);
+        for (byte b : bytes) {
+            for (int i = 7; i >= 0; i--) {
+                binary.append((b >> i) & 1);
+            }
+        }
+        String binaryStr = binary.toString();
+
+        // Layer 3: XorShift512 cipher on the binary string
+        byte[] binaryBytes = binaryStr.getBytes(StandardCharsets.UTF_8);
+        long[] state = xorShift512Init(XORSHIFT_SEED);
+        byte[] ciphered = new byte[binaryBytes.length];
+        for (int i = 0; i < binaryBytes.length; i++) {
+            if (i % 64 == 0) {
+                xorShift512Next(state);
+            }
+            int stateIdx = (i % 64) / 8;
+            int byteIdx = i % 8;
+            byte keyByte = (byte) ((state[stateIdx] >> (byteIdx * 8)) & 0xFF);
+            ciphered[i] = (byte) (binaryBytes[i] ^ keyByte);
+        }
+
+        // Encode ciphered bytes as hex for safe file storage
+        StringBuilder hex = new StringBuilder(ciphered.length * 2);
+        for (byte c : ciphered) {
+            hex.append(String.format("%02x", c & 0xFF));
+        }
+        return hex.toString();
+    }
+
+    /** Decode: xorshift512 cipher → binary → JSON string */
+    private static String decode(String encoded) {
+        // Decode hex to ciphered bytes
+        byte[] ciphered = new byte[encoded.length() / 2];
+        for (int i = 0; i < ciphered.length; i++) {
+            ciphered[i] = (byte) Integer.parseInt(encoded.substring(i * 2, i * 2 + 2), 16);
+        }
+
+        // Layer 3 reverse: XorShift512 decipher
+        long[] state = xorShift512Init(XORSHIFT_SEED);
+        byte[] binaryBytes = new byte[ciphered.length];
+        for (int i = 0; i < ciphered.length; i++) {
+            if (i % 64 == 0) {
+                xorShift512Next(state);
+            }
+            int stateIdx = (i % 64) / 8;
+            int byteIdx = i % 8;
+            byte keyByte = (byte) ((state[stateIdx] >> (byteIdx * 8)) & 0xFF);
+            binaryBytes[i] = (byte) (ciphered[i] ^ keyByte);
+        }
+        String binaryStr = new String(binaryBytes, StandardCharsets.UTF_8);
+
+        // Layer 2 reverse: Binary string → bytes → UTF-8 string
+        int byteCount = binaryStr.length() / 8;
+        byte[] decoded = new byte[byteCount];
+        for (int i = 0; i < byteCount; i++) {
+            int val = 0;
+            for (int j = 0; j < 8; j++) {
+                val = (val << 1) | (binaryStr.charAt(i * 8 + j) - '0');
+            }
+            decoded[i] = (byte) val;
+        }
+        return new String(decoded, StandardCharsets.UTF_8);
+    }
+
+    /** Initialize XorShift512 state from a seed */
+    private static long[] xorShift512Init(long seed) {
+        long[] state = new long[8];
+        state[0] = seed;
+        for (int i = 1; i < 8; i++) {
+            // SplitMix64-style seeding for remaining state words
+            state[i] = state[i - 1] * 6364136223846793005L + 1442695040888963407L;
+            state[i] ^= state[i] >>> 30;
+            state[i] *= 0xBF58476D1CE4E5B9L;
+            state[i] ^= state[i] >>> 27;
+            state[i] *= 0x94D049BB133111EBL;
+            state[i] ^= state[i] >>> 31;
+        }
+        return state;
+    }
+
+    /** Advance XorShift512 state and return next value */
+    private static long xorShift512Next(long[] s) {
+        long s0 = s[0];
+        long s1 = s[7];
+        // Rotate state array
+        System.arraycopy(s, 1, s, 0, 7);
+        s1 ^= s1 << 11;
+        s1 ^= s1 >>> 41;
+        s1 ^= s0;
+        s1 ^= s0 >>> 29;
+        s[7] = s1;
+        return s1 * 0x106689D45497FDB5L;
+    }
+
+    /** Check if a string looks like our encoded format (all hex chars) */
+    private static boolean isEncoded(String content) {
+        if (content.isEmpty()) return false;
+        // Encoded data is hex-only, JSON starts with '{' or whitespace
+        char first = content.charAt(0);
+        if (first == '{' || first == ' ' || first == '\n' || first == '\r' || first == '\t') return false;
+        // Quick check: first 16 chars should all be hex
+        int checkLen = Math.min(16, content.length());
+        for (int i = 0; i < checkLen; i++) {
+            char c = content.charAt(i);
+            if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f'))) return false;
+        }
+        return true;
     }
 
     private static class ConfigData {
