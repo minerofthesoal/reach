@@ -650,7 +650,7 @@ public class ModConfig {
     // ===== 3-Layer Config Encoding =====
     // Layer 1: JSON (Gson)  →  Layer 2: Binary  →  Layer 3: XorShift512
 
-    private static final long XORSHIFT_SEED = 0xDEADBEEFF1SCH512L;
+    private static final long XORSHIFT_SEED = 0xDEADBEEFF15C4512L;
 
     /** Encode: JSON string → binary → xorshift512 cipher */
     private static String encode(String json) {
