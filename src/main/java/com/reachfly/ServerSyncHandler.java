@@ -3,7 +3,6 @@ package com.reachfly;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -15,8 +14,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * so the server can apply them authoritatively. Also receives ESP entity
  * data from the server for extended range tracking.
  *
- * If the server addon is NOT installed, packets are silently dropped
- * and features fall back to client-only behavior.
+ * FIX: If the server addon is NOT installed (no FeatureSyncPayload channel
+ * registered on the server), all packets are silently dropped and features
+ * use client-only mode. We detect this via ClientPlayNetworking.canSend()
+ * before attempting to send, so no exceptions are thrown and no spam occurs.
  */
 public class ServerSyncHandler {
 
@@ -24,6 +25,9 @@ public class ServerSyncHandler {
     public static final List<EspDataPayload.EntityEntry> serverEspEntities =
             new CopyOnWriteArrayList<>();
     public static boolean serverEspActive = false;
+
+    /** True once the server has ACKed our channel (server addon is present). */
+    public static boolean serverAddonPresent = false;
 
     // Track last-sent state to avoid spamming packets
     private static boolean lastOpSelfEnabled = false;
@@ -39,6 +43,9 @@ public class ServerSyncHandler {
     private static boolean lastEspEnabled = false;
 
     private static int syncTicker = 0;
+    // Probe ticks: try canSend for a few ticks after joining before giving up
+    private static int probeTicker = 0;
+    private static boolean probeComplete = false;
 
     /**
      * Register payload types and S2C receivers.
@@ -53,7 +60,8 @@ public class ServerSyncHandler {
         PayloadTypeRegistry.playS2C().register(EspDataPayload.ID, EspDataPayload.CODEC);
         ClientPlayNetworking.registerGlobalReceiver(EspDataPayload.ID,
                 (payload, context) -> {
-                    // Update ESP entity data on the render thread
+                    // If we receive any S2C ESP data, the server addon is definitely there
+                    serverAddonPresent = true;
                     serverEspEntities.clear();
                     serverEspEntities.addAll(payload.entities());
                     serverEspActive = true;
@@ -66,28 +74,70 @@ public class ServerSyncHandler {
     public static void tick(MinecraftClient client) {
         if (client.player == null || client.getNetworkHandler() == null) return;
 
+        // FIX: Probe whether the server addon is present using canSend().
+        // canSend() returns true only if the server has registered the channel.
+        // We check for the first ~40 ticks after joining (2 seconds) to allow
+        // the server handshake to complete. After that, we commit to client-only
+        // mode if the addon isn't detected.
+        if (!probeComplete) {
+            probeTicker++;
+            if (ClientPlayNetworking.canSend(FeatureSyncPayload.ID)) {
+                serverAddonPresent = true;
+                probeComplete = true;
+                ReachFlyClient.LOGGER.info("[f1sch] Server addon detected - using server-authoritative mode.");
+            } else if (probeTicker >= 40) {
+                probeComplete = true;
+                serverAddonPresent = false;
+                ReachFlyClient.LOGGER.info("[f1sch] No server addon detected - using client-only mode.");
+            }
+        }
+
         syncTicker++;
 
-        // Check each feature for state changes
-        syncOpSelf();
-        syncKnockback();
-        syncReach();
-        syncSpeed();
-        syncNoFall();
-        syncFly();
-        syncEsp();
+        // Only sync if server addon is confirmed present
+        if (serverAddonPresent) {
+            syncOpSelf();
+            syncKnockback();
+            syncReach();
+            syncSpeed();
+            syncNoFall();
+            syncFly();
+            syncEsp();
+
+            // Periodic full resync every 5 seconds (100 ticks) as safety net
+            if (syncTicker >= 100) {
+                syncTicker = 0;
+                forceResync();
+            }
+        }
 
         // Clear server ESP data if ESP is disabled
         if (!ModConfig.espEnabled && serverEspActive) {
             serverEspEntities.clear();
             serverEspActive = false;
         }
+    }
 
-        // Periodic full resync every 5 seconds (100 ticks) as safety net
-        if (syncTicker >= 100) {
-            syncTicker = 0;
-            forceResync();
-        }
+    /** Called when the player disconnects - reset all state for next connection. */
+    public static void onDisconnect() {
+        serverAddonPresent = false;
+        probeComplete = false;
+        probeTicker = 0;
+        syncTicker = 0;
+        serverEspEntities.clear();
+        serverEspActive = false;
+        // Reset last-sent tracking so next login triggers a full sync
+        lastOpSelfEnabled = false;
+        lastKnockbackEnabled = false;
+        lastKnockbackStrength = 0;
+        lastReachEnabled = false;
+        lastReachDistance = 0;
+        lastSpeedEnabled = false;
+        lastSpeedMultiplier = 0;
+        lastNoFallEnabled = false;
+        lastFlyEnabled = false;
+        lastFlySpeed = 0;
+        lastEspEnabled = false;
     }
 
     private static void syncOpSelf() {
@@ -97,7 +147,6 @@ public class ServerSyncHandler {
         }
         if (!ModConfig.opSelfEnabled && lastOpSelfEnabled) {
             lastOpSelfEnabled = false;
-            // Don't send deop - once opped, stay opped
         }
     }
 
@@ -151,9 +200,6 @@ public class ServerSyncHandler {
         }
     }
 
-    /**
-     * Force resync all features (used as periodic safety net).
-     */
     private static void forceResync() {
         if (ModConfig.knockbackEnabled)
             sendSync("knockback", true, ModConfig.knockbackStrength);
@@ -170,10 +216,12 @@ public class ServerSyncHandler {
     }
 
     private static void sendSync(String feature, boolean enabled, float value) {
+        // FIX: Always guard with canSend() so we never throw on missing channel
+        if (!ClientPlayNetworking.canSend(FeatureSyncPayload.ID)) return;
         try {
             ClientPlayNetworking.send(new FeatureSyncPayload(feature, enabled, value));
         } catch (Exception ignored) {
-            // Server addon not installed - silently ignore
+            // Defensive: server addon not installed or channel closed mid-session
         }
     }
 }

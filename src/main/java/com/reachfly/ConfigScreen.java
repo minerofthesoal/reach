@@ -5,9 +5,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.input.CharInput;
-import net.minecraft.client.input.KeyInput;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -32,14 +29,14 @@ public class ConfigScreen extends Screen {
     private String codeMessage = null;
     private int codeMsgTimer = 0;
 
-    private static final int BG = 0xF0101020;
-    private static final int PANEL_BG = 0xF0181828;
-    private static final int ACCENT = 0xFF8B5CF6;
-    private static final int ACCENT_DIM = 0xFF5B3CB6;
-    private static final int MODULE_BG = 0xFF1E1E36;
-    private static final int MODULE_HOVER = 0xFF282848;
-    private static final int MODULE_ON = 0xFF2A1F4E;
-    private static final int SETTING_BG = 0xFF151528;
+    private static final int BG = 0xF00D0D1A;
+    private static final int PANEL_BG = 0xF0141424;
+    private static final int ACCENT = 0xFF1EAAFF;
+    private static final int ACCENT_DIM = 0xFF0D5080;
+    private static final int MODULE_BG = 0xFF161626;
+    private static final int MODULE_HOVER = 0xFF1E1E38;
+    private static final int MODULE_ON = 0xFF0D2840;
+    private static final int SETTING_BG = 0xFF0F0F22;
     private static final int TEXT_PRIMARY = 0xFFE0E0E0;
     private static final int TEXT_DIM = 0xFF888898;
     private static final int GREEN = 0xFF4ADE80;
@@ -52,6 +49,12 @@ public class ConfigScreen extends Screen {
     private static final int SETTING_H = 18;
 
     private final Map<String, List<Module>> categories = new LinkedHashMap<>();
+    // FIX: First-open warning flag - shown once per session when menu is opened
+    private static boolean warningShown = false;
+    private boolean showWarning = false;
+    private int warningAlpha = 0;
+    private int warningTick = 0;
+    private static final int WARNING_DURATION = 180; // 9 seconds
 
     public ConfigScreen(Screen parent) {
         super(Text.literal("f1sch"));
@@ -66,6 +69,14 @@ public class ConfigScreen extends Screen {
         showCodeEntry = false;
         categories.clear();
         scrollOffset = 0;
+
+        // Show first-open warning once per session
+        if (!warningShown) {
+            warningShown = true;
+            showWarning = true;
+            warningTick = 0;
+            warningAlpha = 0;
+        }
 
         // === COMBAT ===
         List<Module> combat = new ArrayList<>();
@@ -295,6 +306,12 @@ public class ConfigScreen extends Screen {
         ctx.fill(0, 0, this.width, this.height, BG);
 
         if (codeMsgTimer > 0) codeMsgTimer--;
+
+        // First-open warning overlay
+        if (showWarning) {
+            renderWarning(ctx, mouseX, mouseY, delta);
+        }
+
         if (showCodeEntry) { renderCodeEntry(ctx, mouseX, mouseY, delta); return; }
         if (editField != null) { renderEditModal(ctx, mouseX, mouseY, delta); return; }
 
@@ -439,7 +456,62 @@ public class ConfigScreen extends Screen {
         return y;
     }
 
-    private void renderEditModal(DrawContext ctx, int mouseX, int mouseY, float delta) {
+    private void renderWarning(DrawContext ctx, int mouseX, int mouseY, float delta) {
+        warningTick++;
+        // Fade in for first 20 ticks, hold, then fade out
+        if (warningTick < 20) {
+            warningAlpha = (int)(warningTick / 20.0f * 220);
+        } else if (warningTick < WARNING_DURATION - 20) {
+            warningAlpha = 220;
+        } else {
+            warningAlpha = (int)((WARNING_DURATION - warningTick) / 20.0f * 220);
+        }
+        if (warningTick >= WARNING_DURATION) {
+            showWarning = false;
+            return;
+        }
+
+        int alpha = Math.max(0, Math.min(255, warningAlpha));
+        int bgColor = (alpha << 24) | 0x000000;
+        int boxW = 320; int boxH = 110;
+        int boxX = this.width / 2 - boxW / 2;
+        int boxY = this.height - boxH - 20;
+
+        ctx.fill(boxX - 2, boxY - 2, boxX + boxW + 2, boxY + boxH + 2,
+                (alpha << 24) | 0xFF6B00);
+        ctx.fill(boxX, boxY, boxX + boxW, boxY + boxH,
+                (alpha << 24) | 0x0D0D1A);
+
+        int textAlpha = alpha;
+        ctx.drawCenteredTextWithShadow(this.textRenderer,
+                net.minecraft.text.Text.literal("\u00a7e\u00a7l⚠ f1sch Client - Notice"),
+                this.width / 2, boxY + 8,
+                (textAlpha << 24) | 0xFFDD00);
+        ctx.drawCenteredTextWithShadow(this.textRenderer,
+                net.minecraft.text.Text.literal("\u00a7fThis mod is for SINGLEPLAYER use only."),
+                this.width / 2, boxY + 24,
+                (textAlpha << 24) | 0xE0E0E0);
+        ctx.drawCenteredTextWithShadow(this.textRenderer,
+                net.minecraft.text.Text.literal("\u00a77Do not use on servers you do not own."),
+                this.width / 2, boxY + 36,
+                (textAlpha << 24) | 0xAAAAAA);
+        ctx.drawCenteredTextWithShadow(this.textRenderer,
+                net.minecraft.text.Text.literal("\u00a77Features work client-side without the server addon."),
+                this.width / 2, boxY + 48,
+                (textAlpha << 24) | 0xAAAAAA);
+
+        // Dismiss button
+        boolean dismissHover = mouseX >= this.width / 2 - 35 && mouseX < this.width / 2 + 35
+                && mouseY >= boxY + 68 && mouseY < boxY + 82;
+        int btnBg = ((alpha / 2) << 24) | (dismissHover ? 0x2A2A4A : 0x1A1A3A);
+        ctx.fill(this.width / 2 - 35, boxY + 68, this.width / 2 + 35, boxY + 82, btnBg);
+        ctx.drawCenteredTextWithShadow(this.textRenderer,
+                net.minecraft.text.Text.literal(dismissHover ? "\u00a7a[ Dismiss ]" : "\u00a77[ Dismiss ]"),
+                this.width / 2, boxY + 72,
+                (textAlpha << 24) | 0xFFFFFF);
+    }
+
+        private void renderEditModal(DrawContext ctx, int mouseX, int mouseY, float delta) {
         ctx.fill(0, 0, this.width, this.height, 0xC0000000);
         int boxW = 220; int boxH = 90;
         int boxX = this.width / 2 - boxW / 2; int boxY = this.height / 2 - boxH / 2;
@@ -481,14 +553,26 @@ public class ConfigScreen extends Screen {
     // ---- INPUT HANDLING ----
 
     @Override
-    public boolean mouseClicked(Click click, boolean bl) {
-        double mouseX = click.x(); double mouseY = click.y(); int button = click.button();
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0) return false;
+
+        // Warning overlay dismiss
+        if (showWarning) {
+            int boxH = 110;
+            int boxY = this.height - boxH - 20;
+            if (mouseX >= this.width / 2 - 35 && mouseX < this.width / 2 + 35
+                    && mouseY >= boxY + 68 && mouseY < boxY + 82) {
+                showWarning = false;
+                return true;
+            }
+            return false; // Don't consume clicks through the warning
+        }
 
         // Code entry modal
         if (showCodeEntry) {
             if (codeField != null && codeField.isMouseOver(mouseX, mouseY)) {
-                codeField.mouseClicked(click, bl); setFocused(codeField); return true;
+                codeField.mouseClicked(mouseX, mouseY, button); setFocused(codeField); return true;
             }
             int btnY = this.height / 2 - 50 + 54;
             if (mouseY >= btnY && mouseY < btnY + 14) {
@@ -500,7 +584,7 @@ public class ConfigScreen extends Screen {
 
         // Edit modal
         if (editField != null) {
-            if (editField.isMouseOver(mouseX, mouseY)) { editField.mouseClicked(click, bl); setFocused(editField); return true; }
+            if (editField.isMouseOver(mouseX, mouseY)) { editField.mouseClicked(mouseX, mouseY, button); setFocused(editField); return true; }
             int btnY = this.height / 2 - 45 + 50;
             if (mouseY >= btnY && mouseY < btnY + 14) {
                 if (mouseX >= this.width / 2 - 50 && mouseX < this.width / 2 - 5) { confirmEdit(); return true; }
@@ -601,27 +685,28 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(KeyInput keyInput) {
-        int keyCode = keyInput.key();
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (showCodeEntry && codeField != null) {
             if (keyCode == 257) { tryActivateCode(); return true; }
             if (keyCode == 256) { showCodeEntry = false; codeField = null; return true; }
-            return codeField.keyPressed(keyInput);
+            return codeField.keyPressed(keyCode, scanCode, modifiers);
         }
         if (editField != null) {
             if (keyCode == 257) { confirmEdit(); return true; }
             if (keyCode == 256) { cancelEdit(); return true; }
-            return editField.keyPressed(keyInput);
+            return editField.keyPressed(keyCode, scanCode, modifiers);
         }
         if (keyCode == 256) { close(); return true; }
-        return super.keyPressed(keyInput);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
-    public boolean charTyped(CharInput charInput) {
-        if (showCodeEntry && codeField != null) return codeField.charTyped(charInput);
-        if (editField != null) return editField.charTyped(charInput);
-        return super.charTyped(charInput);
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        if (showCodeEntry && codeField != null) return codeField.charTyped(chr, modifiers);
+        if (editField != null) return editField.charTyped(chr, modifiers);
+        return super.charTyped(chr, modifiers);
     }
 
     // ---- CODE ACTIVATION ----

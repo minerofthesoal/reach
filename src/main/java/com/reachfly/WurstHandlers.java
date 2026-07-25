@@ -283,25 +283,29 @@ public class WurstHandlers {
      * FastPlace: Removes the 4-tick placement cooldown, allowing rapid block placement.
      * Sets the item use cooldown to 0 every tick for instant placement.
      */
+    // FIX: Cache the FastPlace field lookup so we don't call getDeclaredField every tick
+    private static java.lang.reflect.Field fastPlaceField = null;
+    private static boolean fastPlaceFieldChecked = false;
+
     private static void tickFastPlace(MinecraftClient client) {
         if (!ModConfig.fastPlaceEnabled) return;
         ClientPlayerEntity p = client.player;
         if (p == null) return;
 
-        // Reset the right-click delay to allow rapid block placement
-        // Uses reflection-free approach via the MinecraftClient field
-        try {
-            java.lang.reflect.Field f = MinecraftClient.class.getDeclaredField("field_1752"); // itemUseCooldown
-            f.setAccessible(true);
-            f.setInt(client, 0);
-        } catch (Exception ignored) {
-            // Fallback: try yarn name
+        // FIX: Lazy-init the field once; only use yarn-mapped name (valid in dev and prod)
+        if (!fastPlaceFieldChecked) {
+            fastPlaceFieldChecked = true;
             try {
-                java.lang.reflect.Field f = MinecraftClient.class.getDeclaredField("itemUseCooldown");
-                f.setAccessible(true);
-                f.setInt(client, 0);
-            } catch (Exception ignored2) {}
+                fastPlaceField = MinecraftClient.class.getDeclaredField("itemUseCooldown");
+                fastPlaceField.setAccessible(true);
+            } catch (Exception e) {
+                fastPlaceField = null; // Not available - feature silently disabled
+            }
         }
+        if (fastPlaceField == null) return;
+        try {
+            fastPlaceField.setInt(client, 0);
+        } catch (Exception ignored) {}
     }
 
     /**
@@ -406,7 +410,7 @@ public class WurstHandlers {
         }
 
         // Detect jump key press while in air
-        if (p.input.playerInput.jump() && wasOnGround == false && airJumpCooldown <= 0) {
+        if (p.input.playerInput.jump() && !wasOnGround && airJumpCooldown <= 0) {
             Vec3d vel = p.getVelocity();
             p.setVelocity(vel.x, 0.42, vel.z); // Normal jump velocity
             p.fallDistance = 0.0f;

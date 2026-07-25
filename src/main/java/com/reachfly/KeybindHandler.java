@@ -3,13 +3,14 @@ package com.reachfly;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class KeybindHandler {
 
-    private static final KeyBinding.Category CATEGORY =
-            KeyBinding.Category.create(Identifier.of("reachfly", "category"));
+    // FIX: KeyBinding.Category.create(Identifier) does not exist in MC 1.21.x.
+    // The standard approach is to use a plain translation-key string as the
+    // category identifier; Minecraft resolves it via the lang file.
+    private static final String CATEGORY = "key.categories.reachfly.category";
 
     public static KeyBinding toggleReach;
     public static KeyBinding toggleFly;
