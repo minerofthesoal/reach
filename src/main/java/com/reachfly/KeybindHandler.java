@@ -7,10 +7,10 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeybindHandler {
 
-    // FIX: KeyBinding.Category.create(Identifier) does not exist in MC 1.21.x.
-    // The standard approach is to use a plain translation-key string as the
-    // category identifier; Minecraft resolves it via the lang file.
-    private static final String CATEGORY = "key.categories.reachfly.category";
+    // In MC 1.21.11, KeyBinding's constructor requires a KeyBinding.Category record,
+    // not a raw String. Category.create(translationKey) is the correct factory.
+    private static final KeyBinding.Category CATEGORY =
+            KeyBinding.Category.create("key.categories.reachfly.category");
 
     public static KeyBinding toggleReach;
     public static KeyBinding toggleFly;

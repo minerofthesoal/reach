@@ -553,7 +553,6 @@ public class ConfigScreen extends Screen {
     // ---- INPUT HANDLING ----
 
     @Override
-    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0) return false;
 
@@ -572,7 +571,7 @@ public class ConfigScreen extends Screen {
         // Code entry modal
         if (showCodeEntry) {
             if (codeField != null && codeField.isMouseOver(mouseX, mouseY)) {
-                codeField.mouseClicked(mouseX, mouseY, button); setFocused(codeField); return true;
+                setFocused(codeField); return true;
             }
             int btnY = this.height / 2 - 50 + 54;
             if (mouseY >= btnY && mouseY < btnY + 14) {
@@ -584,7 +583,7 @@ public class ConfigScreen extends Screen {
 
         // Edit modal
         if (editField != null) {
-            if (editField.isMouseOver(mouseX, mouseY)) { editField.mouseClicked(mouseX, mouseY, button); setFocused(editField); return true; }
+            if (editField.isMouseOver(mouseX, mouseY)) { setFocused(editField); return true; }
             int btnY = this.height / 2 - 45 + 50;
             if (mouseY >= btnY && mouseY < btnY + 14) {
                 if (mouseX >= this.width / 2 - 50 && mouseX < this.width / 2 - 5) { confirmEdit(); return true; }
@@ -685,27 +684,26 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (showCodeEntry && codeField != null) {
             if (keyCode == 257) { tryActivateCode(); return true; }
             if (keyCode == 256) { showCodeEntry = false; codeField = null; return true; }
-            return codeField.keyPressed(keyCode, scanCode, modifiers);
+            // Delegate to the focused widget via super (1.21.11: TextFieldWidget.keyPressed takes KeyInput)
+            return super.keyPressed(keyCode, scanCode, modifiers);
         }
         if (editField != null) {
             if (keyCode == 257) { confirmEdit(); return true; }
             if (keyCode == 256) { cancelEdit(); return true; }
-            return editField.keyPressed(keyCode, scanCode, modifiers);
+            return super.keyPressed(keyCode, scanCode, modifiers);
         }
         if (keyCode == 256) { close(); return true; }
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
-    @Override
     public boolean charTyped(char chr, int modifiers) {
-        if (showCodeEntry && codeField != null) return codeField.charTyped(chr, modifiers);
-        if (editField != null) return editField.charTyped(chr, modifiers);
+        // In 1.21.11, TextFieldWidget.charTyped takes a CharInput event object.
+        // Delegate to super which dispatches to the currently focused element.
         return super.charTyped(chr, modifiers);
     }
 

@@ -410,10 +410,10 @@ public class ItemGiveScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(Click click, boolean bl) {
-        double mouseX = click.x();
-        double mouseY = click.y();
-        int button = click.button();
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        // In 1.21.11, Screen.mouseClicked still uses (double, double, int).
+        // TextFieldWidget.mouseClicked now takes a Click event object internally;
+        // we set focus and let super dispatch instead of calling it directly.
         if (button != 0) return false;
 
         int panelW = Math.min(400, this.width - 40);
@@ -429,7 +429,6 @@ public class ItemGiveScreen extends Screen {
 
         // Search field
         if (searchField.isMouseOver(mouseX, mouseY)) {
-            searchField.mouseClicked(mouseX, mouseY, button);
             setFocused(searchField);
             return true;
         }
@@ -474,18 +473,20 @@ public class ItemGiveScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-
         if (keyCode == 256) {
             close();
             return true;
         }
-
-        return searchField.keyPressed(keyCode, scanCode, modifiers);
+        // In 1.21.11, TextFieldWidget.keyPressed takes a KeyInput event object.
+        // Delegating to super dispatches to the focused element (searchField) correctly.
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
     public boolean charTyped(char chr, int modifiers) {
-        return searchField.charTyped(chr, modifiers);
+        // In 1.21.11, TextFieldWidget.charTyped takes a CharInput event object.
+        // Delegating to super dispatches to the focused element (searchField) correctly.
+        return super.charTyped(chr, modifiers);
     }
 
     private void giveItem(ItemEntry entry) {
