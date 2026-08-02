@@ -24,11 +24,8 @@ loom {
 }
 
 dependencies {
-    // Minecraft 26.2
+    // Minecraft 26.2 (already uses official Mojang names - no mapping needed)
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    
-    // CRITICAL: Even for unobfuscated versions, Loom needs this line to set up the environment!
-    mappings loom.officialMojangMappings()
     
     // Fabric loader and API
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
