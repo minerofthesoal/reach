@@ -24,17 +24,20 @@ loom {
 }
 
 dependencies {
-    // Minecraft (No mappings needed for unobfuscated 26.2!)
+    // Minecraft 26.2
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     
-    // Fabric loader and API (Use STANDARD implementation)
-    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    // CRITICAL: Even for unobfuscated versions, Loom needs this line to set up the environment!
+    mappings loom.officialMojangMappings()
+    
+    // Fabric loader and API
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     
     // Bundle Fabric API inside the JAR (Jar-in-Jar)
     include "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     
-    // Mod Menu (Use STANDARD compileOnly)
+    // Mod Menu (compile-only soft dependency)
     compileOnly "maven.modrinth:modmenu:17.0.0"
 }
 
