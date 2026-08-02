@@ -6,7 +6,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.gui.screen().slot.SlotActionType;
+import net.minecraft.screen.slot.SlotActionType;
 
 /**
  * Auto Armor - Automatically equips the best armor from inventory.
