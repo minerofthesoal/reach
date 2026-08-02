@@ -1,28 +1,60 @@
+```
+# Compiled and build artifacts
+*.class
+*.o
+*.obj
+*.out
+*.dll
+*.so
+*.a
+
+# Dependencies
+target/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
 # Gradle
 .gradle/
+
+# MyPy cache
+.mypy_cache/
+
+# Pytest cache
+.pytest_cache/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+
+# Node modules
+node_modules/
+
+# Distribution / packaging
+dist/
 build/
-out/
-
-# IDE
-.idea/
-*.iml
-*.ipr
-*.iws
-.vscode/
-*.launch
-.settings/
-.metadata
-.classpath
-.project
-bin/
-
-# Fabric
-run/
-remappedSrc/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Misc
-*.log
+*.egg-info/
+```

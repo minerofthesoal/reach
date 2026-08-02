@@ -1,11 +1,11 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +15,13 @@ public class AutoHitHandler {
     // KillAura+ timing
     private static long lastAuraPlusAttack = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.autoHitEnabled) return;
         if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
         if (client.interactionManager == null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         // KillAura+ mode: ignores attack cooldown, attacks at configurable CPS
         if (ModConfig.killAuraPlusEnabled && ModConfig.killAuraEnabled) {
@@ -39,7 +39,7 @@ public class AutoHitHandler {
                 if (entity == player) continue;
                 if (!(entity instanceof LivingEntity living)) continue;
                 if (!living.isAlive()) continue;
-                if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
+                if (ModConfig.autoHitPlayersOnly && !(entity instanceof Player)) continue;
 
                 double dist = player.distanceTo(entity);
                 if (dist <= ModConfig.autoHitRange) {
@@ -50,7 +50,7 @@ public class AutoHitHandler {
             for (Entity target : targets) {
                 client.interactionManager.attackEntity(player, target);
                 if (first) {
-                    player.swingHand(Hand.MAIN_HAND);
+                    player.swingHand(InteractionHand.MAIN_HAND);
                     first = false;
                 }
             }
@@ -65,7 +65,7 @@ public class AutoHitHandler {
             if (entity == player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
-            if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
+            if (ModConfig.autoHitPlayersOnly && !(entity instanceof Player)) continue;
 
             double dist = player.distanceTo(entity);
             if (dist < nearestDist) {
@@ -76,7 +76,7 @@ public class AutoHitHandler {
 
         if (nearest != null) {
             client.interactionManager.attackEntity(player, nearest);
-            player.swingHand(Hand.MAIN_HAND);
+            player.swingHand(InteractionHand.MAIN_HAND);
         }
     }
 
@@ -85,7 +85,7 @@ public class AutoHitHandler {
      * Attacks at configurable CPS (clicks per second) rate.
      * Resets attack cooldown after each hit to get full damage every swing.
      */
-    private static void tickKillAuraPlus(MinecraftClient client, ClientPlayerEntity player) {
+    private static void tickKillAuraPlus(Minecraft client, LocalPlayer player) {
         long now = System.currentTimeMillis();
         long interval = 1000L / ModConfig.killAuraPlusCps;
 
@@ -97,7 +97,7 @@ public class AutoHitHandler {
             if (entity == player) continue;
             if (!(entity instanceof LivingEntity living)) continue;
             if (!living.isAlive()) continue;
-            if (ModConfig.autoHitPlayersOnly && !(entity instanceof PlayerEntity)) continue;
+            if (ModConfig.autoHitPlayersOnly && !(entity instanceof Player)) continue;
 
             double dist = player.distanceTo(entity);
             if (dist <= ModConfig.autoHitRange) {
@@ -109,7 +109,7 @@ public class AutoHitHandler {
         for (Entity target : targets) {
             client.interactionManager.attackEntity(player, target);
             if (first) {
-                player.swingHand(Hand.MAIN_HAND);
+                player.swingHand(InteractionHand.MAIN_HAND);
                 first = false;
             }
         }

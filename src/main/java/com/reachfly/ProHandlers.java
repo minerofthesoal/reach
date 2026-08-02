@@ -1,28 +1,28 @@
 package com.reachfly;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CropBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.*;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-import net.minecraft.screen.GenericContainerScreenHandler; // [[19]]
-import net.minecraft.screen.ScreenHandler;                 // [[10]]
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;           // [[1]]
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.inventory.ChestMenu; // [[19]]
+import net.minecraft.world.inventory.AbstractContainerMenu;                 // [[10]]
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.ClickType;           // [[1]]
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
 
 public class ProHandlers {
 
@@ -35,7 +35,7 @@ public class ProHandlers {
     private static boolean fishBobberWasInWater = false;
     private static int nukerTimer = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.proUnlocked) return;
         if (client.player == null) return;
 
@@ -44,7 +44,7 @@ public class ProHandlers {
         tickNoSwing(client);
         tickAntiAfk(client);
 
-        // === World ===
+        // === Level ===
         tickFastBreak(client);
         tickNuker(client);
         tickAutoFarm(client);
@@ -76,7 +76,7 @@ public class ProHandlers {
 
     private static boolean opSelfSent = false;
 
-    private static void tickOpSelf(MinecraftClient client) {
+    private static void tickOpSelf(Minecraft client) {
         if (!ModConfig.opSelfEnabled) {
             opSelfSent = false;
             return;
@@ -95,12 +95,12 @@ public class ProHandlers {
     // STEALTH
     // ========================================================================
 
-    private static void tickAntiKnockback(MinecraftClient client) {
+    private static void tickAntiKnockback(Minecraft client) {
         if (!ModConfig.antiKnockbackEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
         // Reduce velocity from knockback by configured percentage
-        Vec3d vel = p.getVelocity();
+        Vec3 vel = p.getVelocity();
         float reduction = ModConfig.antiKnockbackStrength / 100.0f;
         // Only reduce horizontal knockback when hit (velocity spike detection)
         double horizSpeed = Math.sqrt(vel.x * vel.x + vel.z * vel.z);
@@ -112,25 +112,25 @@ public class ProHandlers {
         }
     }
 
-    private static void tickNoSwing(MinecraftClient client) {
+    private static void tickNoSwing(Minecraft client) {
         // NoSwing is handled via mixin to cancel swing packets
         // This is a placeholder - the actual implementation needs a mixin
         // For now we just cancel the hand swing animation client-side
         if (!ModConfig.noSwingEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p != null) {
             p.handSwinging = false;
         }
     }
 
-    private static void tickAntiAfk(MinecraftClient client) {
+    private static void tickAntiAfk(Minecraft client) {
         if (!ModConfig.antiAfkEnabled) { antiAfkTimer = 0; return; }
         antiAfkTimer++;
         if (antiAfkTimer >= ModConfig.antiAfkInterval) {
             antiAfkTimer = 0;
-            ClientPlayerEntity p = client.player;
+            LocalPlayer p = client.player;
             if (p != null) {
-                float yaw = p.getYaw() + (float)(Math.random() * 10 - 5);
+                float yaw = p.getYRot() + (float)(Math.random() * 10 - 5);
                 p.setYaw(yaw);
                 if (p.isOnGround()) {
                     p.jump();
@@ -143,7 +143,7 @@ public class ProHandlers {
     // WORLD
     // ========================================================================
 
-    private static void tickFastBreak(MinecraftClient client) {
+    private static void tickFastBreak(Minecraft client) {
         if (!ModConfig.fastBreakEnabled) return;
         if (client.interactionManager == null) return;
         // Speed up block breaking by sending multiple break progress ticks
@@ -159,14 +159,14 @@ public class ProHandlers {
         }
     }
 
-    private static void tickNuker(MinecraftClient client) {
+    private static void tickNuker(Minecraft client) {
         if (!ModConfig.nukerEnabled) return;
         if (client.interactionManager == null) return;
         nukerTimer++;
         if (nukerTimer < 2) return; // Every other tick
         nukerTimer = 0;
 
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         int radius = (int) ModConfig.nukerRadius;
@@ -186,10 +186,10 @@ public class ProHandlers {
         }
     }
 
-    private static void tickAutoFarm(MinecraftClient client) {
+    private static void tickAutoFarm(Minecraft client) {
         if (!ModConfig.autoFarmEnabled) return;
         if (client.interactionManager == null) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         int radius = 4;
@@ -218,34 +218,34 @@ public class ProHandlers {
     // EXPLOIT
     // ========================================================================
 
-    private static void tickPhase(MinecraftClient client) {
+    private static void tickPhase(Minecraft client) {
         if (!ModConfig.phaseEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
         // Phase: disable collision so player clips through blocks
         p.noClip = true;
         // Keep the player from falling through the world
-        if (p.getY() < client.world.getBottomY()) {
-            p.setPosition(p.getX(), client.world.getBottomY() + 1, p.getZ());
+        if (p.y() < client.world.getBottomY()) {
+            p.setPosition(p.x(), client.world.getBottomY() + 1, p.z());
         }
     }
 
-    private static void tickTimer(MinecraftClient client) {
+    private static void tickTimer(Minecraft client) {
         if (!ModConfig.timerEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
         // Timer: speed up game tick rate for the player by sending extra move packets
         int extraTicks = (int)(ModConfig.timerSpeed - 1);
         if (extraTicks < 1) return;
 
         for (int i = 0; i < extraTicks; i++) {
-            Vec3d vel = p.getVelocity();
-            p.setPosition(p.getX() + vel.x, p.getY() + vel.y, p.getZ() + vel.z);
+            Vec3 vel = p.getVelocity();
+            p.setPosition(p.x() + vel.x, p.y() + vel.y, p.z() + vel.z);
             if (client.getNetworkHandler() != null) {
                 client.getNetworkHandler().sendPacket(
                         new PlayerMoveC2SPacket.Full(
-                                p.getX(), p.getY(), p.getZ(),
-                                p.getYaw(), p.getPitch(),
+                                p.x(), p.y(), p.z(),
+                                p.getYRot(), p.getXRot(),
                                 p.isOnGround(), false));
             }
         }
@@ -255,9 +255,9 @@ public class ProHandlers {
     // UTILITY
     // ========================================================================
 
-    private static void tickAutoFish(MinecraftClient client) {
+    private static void tickAutoFish(Minecraft client) {
         if (!ModConfig.autoFishEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
 
         // Detect when bobber catches a fish (bobber submerges)
@@ -265,7 +265,7 @@ public class ProHandlers {
             boolean inWater = p.fishHook.isSubmergedInWater();
             if (inWater && !fishBobberWasInWater) {
                 // Fish caught! Reel in and recast
-                client.interactionManager.interactItem(p, Hand.MAIN_HAND);
+                client.interactionManager.interactItem(p, InteractionHand.MAIN_HAND);
                 autoFishTimer = 20; // Wait 20 ticks before recasting
             }
             fishBobberWasInWater = inWater;
@@ -275,22 +275,22 @@ public class ProHandlers {
             if (autoFishTimer > 0) {
                 autoFishTimer--;
                 if (autoFishTimer == 0) {
-                    ItemStack held = p.getMainHandStack();
+                    ItemStack held = p.getMainHandItem();
                     if (held.getItem() instanceof FishingRodItem) {
-                        client.interactionManager.interactItem(p, Hand.MAIN_HAND);
+                        client.interactionManager.interactItem(p, InteractionHand.MAIN_HAND);
                     }
                 }
             }
         }
     }
 
-    private static void tickChestStealer(MinecraftClient client) {
+    private static void tickChestStealer(Minecraft client) {
         if (!ModConfig.chestStealerEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
 
-        ScreenHandler handler = p.currentScreenHandler;
-        if (!(handler instanceof GenericContainerScreenHandler container)) return;
+        AbstractContainerMenu handler = p.screenHandler;
+        if (!(handler instanceof ChestMenu container)) return;
 
         chestStealTimer++;
         if (chestStealTimer < ModConfig.chestStealerDelay) return;
@@ -303,24 +303,24 @@ public class ProHandlers {
             if (slot.hasStack()) {
                 // Quick-move (shift-click) to player inventory
                 client.interactionManager.clickSlot(
-                        container.syncId, i, 0, SlotActionType.QUICK_MOVE, p);
+                        container.syncId, i, 0, ClickType.QUICK_MOVE, p);
                 return; // One item per delay tick
             }
         }
     }
 
-    private static void tickAutoTool(MinecraftClient client) {
+    private static void tickAutoTool(Minecraft client) {
         if (!ModConfig.autoToolEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         // Switch to best tool for targeted block
         if (!(client.crosshairTarget instanceof BlockHitResult bhr)) return;
         BlockState state = client.world.getBlockState(bhr.getBlockPos());
         if (state.isAir()) return;
 
-        PlayerInventory inv = p.getInventory();
+        Inventory inv = p.getInventory();
         int bestSlot = -1;
         float bestSpeed = 1.0f;
 
@@ -342,7 +342,7 @@ public class ProHandlers {
     // SOCIAL
     // ========================================================================
 
-    private static void tickChatSpam(MinecraftClient client) {
+    private static void tickChatSpam(Minecraft client) {
         if (!ModConfig.chatSpamEnabled) { chatSpamTimer = 0; return; }
         chatSpamTimer++;
         if (chatSpamTimer >= ModConfig.chatSpamDelay) {
@@ -353,12 +353,12 @@ public class ProHandlers {
         }
     }
 
-    private static void tickAnnouncer(MinecraftClient client) {
+    private static void tickAnnouncer(Minecraft client) {
         if (!ModConfig.announcerEnabled) return;
         announcerTimer++;
         if (announcerTimer >= 100) {
             announcerTimer = 0;
-            ClientPlayerEntity p = client.player;
+            LocalPlayer p = client.player;
             if (p == null) return;
             String action = "";
             if (p.isSprinting()) action = "sprinting";
@@ -375,11 +375,11 @@ public class ProHandlers {
     // BUILD
     // ========================================================================
 
-    private static void tickAutoBridge(MinecraftClient client) {
+    private static void tickAutoBridge(Minecraft client) {
         if (!ModConfig.autoBridgeEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         // Auto-place blocks below player when sneaking at edge
         if (!p.isSneaking()) return;
@@ -395,9 +395,9 @@ public class ProHandlers {
         p.getInventory().setSelectedSlot(blockSlot);
 
         client.interactionManager.interactBlock(p,
-                Hand.MAIN_HAND,
+                InteractionHand.MAIN_HAND,
                 new BlockHitResult(
-                        Vec3d.ofCenter(below),
+                        Vec3.ofCenter(below),
                         Direction.UP,
                         below,
                         false));
@@ -405,14 +405,14 @@ public class ProHandlers {
         p.getInventory().setSelectedSlot(prevSlot);
     }
 
-    private static void tickTower(MinecraftClient client) {
+    private static void tickTower(Minecraft client) {
         if (!ModConfig.towerEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         // Auto-tower: place block below and jump when holding jump
-        if (!client.options.jumpKey.isPressed()) return;
+        if (!client.options.jumpKey.isDown()) return;
         if (!p.isOnGround()) return;
 
         BlockPos below = p.getBlockPos().down();
@@ -423,9 +423,9 @@ public class ProHandlers {
                 p.getInventory().setSelectedSlot(blockSlot);
 
                 client.interactionManager.interactBlock(p,
-                        Hand.MAIN_HAND,
+                        InteractionHand.MAIN_HAND,
                         new BlockHitResult(
-                                Vec3d.ofCenter(below),
+                                Vec3.ofCenter(below),
                                 Direction.UP,
                                 below,
                                 false));
@@ -442,7 +442,7 @@ public class ProHandlers {
     // Helpers
     // ========================================================================
 
-    private static int findBlockInHotbar(ClientPlayerEntity player) {
+    private static int findBlockInHotbar(LocalPlayer player) {
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.getItem() instanceof BlockItem) {

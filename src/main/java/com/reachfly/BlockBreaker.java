@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 
 /**
  * Shared utility for auto-breaking blocks in the way during FlyTo/WalkTo.
@@ -19,7 +19,7 @@ public class BlockBreaker {
      * Try to break a block at the given position.
      * Returns true if actively breaking (caller should wait).
      */
-    public static boolean tryBreak(MinecraftClient client, BlockPos pos) {
+    public static boolean tryBreak(Minecraft client, BlockPos pos) {
         if (client.player == null || client.interactionManager == null) return false;
         if (client.world == null) return false;
 
@@ -38,7 +38,7 @@ public class BlockBreaker {
         // Attack the block (starts or continues breaking)
         client.interactionManager.attackBlock(pos, Direction.UP);
         client.interactionManager.updateBlockBreakingProgress(pos, Direction.UP);
-        client.player.swingHand(net.minecraft.util.Hand.MAIN_HAND);
+        client.player.swingHand(net.minecraft.util.InteractionHand.MAIN_HAND);
         breakProgress++;
 
         // Check if broken (becomes air)

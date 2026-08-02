@@ -1,12 +1,12 @@
 package com.reachfly;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.Component;
 
 /**
  * Teleport handler with three paths:
@@ -28,7 +28,7 @@ public class TeleportHandler {
         pendingTeleport = true;
     }
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (client.player == null) return;
 
         if (cooldownTicks > 0) {
@@ -45,17 +45,17 @@ public class TeleportHandler {
         double ty = ModConfig.tpY;
         double tz = ModConfig.tpZ;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         // Path 1: Singleplayer - direct server access
         MinecraftServer server = client.getServer();
         if (server != null) {
-            ServerPlayerEntity serverPlayer = server.getPlayerManager()
+            ServerPlayer serverPlayer = server.getPlayerManager()
                     .getPlayer(player.getUuid());
             if (serverPlayer != null) {
                 serverPlayer.requestTeleport(tx, ty, tz);
                 player.sendMessage(
-                        Text.literal("\u00a7a[TP] Teleported to " +
+                        Component.literal("\u00a7a[TP] Teleported to " +
                                 String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
                         true);
                 return;
@@ -69,12 +69,12 @@ public class TeleportHandler {
         }
     }
 
-    private static void normalTeleport(MinecraftClient client, ClientPlayerEntity player,
+    private static void normalTeleport(Minecraft client, LocalPlayer player,
                                         double tx, double ty, double tz) {
         if (ClientPlayNetworking.canSend(TeleportPayload.ID)) {
             ClientPlayNetworking.send(new TeleportPayload(tx, ty, tz));
             player.sendMessage(
-                    Text.literal("\u00a7a[TP] Teleported via server addon: " +
+                    Component.literal("\u00a7a[TP] Teleported via server addon: " +
                             String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
                     true);
             return;
@@ -89,7 +89,7 @@ public class TeleportHandler {
      * Each trigger objective is independent so they can all fire in the same tick.
      * The datapack tick function processes f1sch.tp=1 next server tick.
      */
-    private static void datapackTeleport(MinecraftClient client, ClientPlayerEntity player,
+    private static void datapackTeleport(Minecraft client, LocalPlayer player,
                                           double tx, double ty, double tz) {
         if (client.getNetworkHandler() == null) return;
 
@@ -100,12 +100,12 @@ public class TeleportHandler {
         client.getNetworkHandler().sendChatCommand("trigger f1sch.tp set 1");
 
         player.sendMessage(
-                Text.literal("\u00a7a[TP] Teleporting to " +
+                Component.literal("\u00a7a[TP] Teleporting to " +
                         String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
                 true);
     }
 
-    private static void betaTeleport(MinecraftClient client, ClientPlayerEntity player,
+    private static void betaTeleport(Minecraft client, LocalPlayer player,
                                       double tx, double ty, double tz) {
         if (client.getNetworkHandler() == null) return;
 
@@ -117,12 +117,12 @@ public class TeleportHandler {
             client.getNetworkHandler().sendPacket(
                     new PlayerMoveC2SPacket.Full(
                             tx, ty, tz,
-                            player.getYaw(), player.getPitch(),
+                            player.getYRot(), player.getXRot(),
                             true, false));
         }
 
         player.sendMessage(
-                Text.literal("\u00a7a[TP BETA] Teleported to " +
+                Component.literal("\u00a7a[TP BETA] Teleported to " +
                         String.format("%.0f, %.0f, %.0f", tx, ty, tz)),
                 true);
     }

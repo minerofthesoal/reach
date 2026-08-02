@@ -1,19 +1,19 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.TridentItem;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TridentItem;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Wurst Client-style features:
@@ -31,10 +31,10 @@ public class WurstHandlers {
     private static boolean wasOnGround = true;
     private static int autoMLGCooldown = 0;
     private static int blinkTickCounter = 0;
-    private static Vec3d blinkStartPos = null;
+    private static Vec3 blinkStartPos = null;
     private static boolean blinkActive = false;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (client.player == null || client.world == null) return;
 
         tickCriticals(client);
@@ -61,9 +61,9 @@ public class WurstHandlers {
         tickBlink(client);
     }
 
-    private static void tickCriticals(MinecraftClient client) {
+    private static void tickCriticals(Minecraft client) {
         if (!ModConfig.criticalsEnabled) { criticalJumped = false; return; }
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || !p.isOnGround()) return;
 
         if (p.getAttackCooldownProgress(0.0f) >= 0.95f && !criticalJumped) {
@@ -76,10 +76,10 @@ public class WurstHandlers {
         }
     }
 
-    private static void tickBunnyHop(MinecraftClient client) {
+    private static void tickBunnyHop(Minecraft client) {
         if (!ModConfig.bunnyHopEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
         if (!p.isSprinting() || !p.isOnGround()) return;
 
         bunnyHopDelay++;
@@ -88,55 +88,55 @@ public class WurstHandlers {
         p.jump();
     }
 
-    private static void tickSpider(MinecraftClient client) {
+    private static void tickSpider(Minecraft client) {
         if (!ModConfig.spiderEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         if (p.horizontalCollision && !p.isOnGround()) {
-            Vec3d vel = p.getVelocity();
+            Vec3 vel = p.getVelocity();
             p.setVelocity(vel.x, 0.2, vel.z);
             p.fallDistance = 0.0f;
         }
     }
 
-    private static void tickGlide(MinecraftClient client) {
+    private static void tickGlide(Minecraft client) {
         if (!ModConfig.glideEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         if (!p.isOnGround() && p.getVelocity().y < 0) {
-            Vec3d vel = p.getVelocity();
+            Vec3 vel = p.getVelocity();
             p.setVelocity(vel.x, Math.max(vel.y, -0.06), vel.z);
             p.fallDistance = 0.0f;
         }
     }
 
-    private static void tickHighJump(MinecraftClient client) {
+    private static void tickHighJump(Minecraft client) {
         if (!ModConfig.highJumpEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
-        Vec3d vel = p.getVelocity();
+        Vec3 vel = p.getVelocity();
         if (!p.isOnGround() && vel.y > 0.38 && vel.y < 0.45) {
             double boost = (ModConfig.highJumpHeight - 1.0) * 0.2;
             p.setVelocity(vel.x, vel.y + boost, vel.z);
         }
     }
 
-    private static void tickDolphin(MinecraftClient client) {
+    private static void tickDolphin(Minecraft client) {
         if (!ModConfig.dolphinEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         if (p.isTouchingWater()) {
-            Vec3d vel = p.getVelocity();
+            Vec3 vel = p.getVelocity();
             double speed = Math.sqrt(vel.x * vel.x + vel.z * vel.z);
 
             if (speed > 0.01) {
                 p.setVelocity(vel.x * 1.4, vel.y, vel.z * 1.4);
             }
-            if (p.isSwimming() && p.getPitch() < -10) {
+            if (p.isSwimming() && p.getXRot() < -10) {
                 p.setVelocity(p.getVelocity().add(0, 0.04, 0));
             }
             if (p.isSubmergedInWater() && !p.isSneaking()) {
@@ -145,10 +145,10 @@ public class WurstHandlers {
         }
     }
 
-    private static void tickAutoSword(MinecraftClient client) {
+    private static void tickAutoSword(Minecraft client) {
         if (!ModConfig.autoSwordEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
         if (client.crosshairTarget == null) return;
 
         if (!(client.crosshairTarget instanceof net.minecraft.util.hit.EntityHitResult ehr)) return;
@@ -183,14 +183,14 @@ public class WurstHandlers {
         }
     }
 
-    private static void tickSneak(MinecraftClient client) {
+    private static void tickSneak(Minecraft client) {
         if (!ModConfig.sneakEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
         p.setSneaking(true);
     }
 
-    private static void tickPanic(MinecraftClient client) {
+    private static void tickPanic(Minecraft client) {
         if (!ModConfig.panicEnabled) return;
 
         ModConfig.reachEnabled = false;
@@ -242,14 +242,14 @@ public class WurstHandlers {
 
         if (client.player != null) {
             client.player.sendMessage(
-                    net.minecraft.text.Text.literal("\u00a7c[f1sch] PANIC - All hacks disabled!"),
+                    net.minecraft.text.Component.literal("\u00a7c[f1sch] PANIC - All hacks disabled!"),
                     true);
         }
     }
 
-    private static void tickAntiHunger(MinecraftClient client) {
+    private static void tickAntiHunger(Minecraft client) {
         if (!ModConfig.antiHungerEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.getNetworkHandler() == null) return;
 
         if (!p.isOnGround() && p.getVelocity().y < 0) {
@@ -259,10 +259,10 @@ public class WurstHandlers {
         }
     }
 
-    private static void tickTriggerBot(MinecraftClient client) {
+    private static void tickTriggerBot(Minecraft client) {
         if (!ModConfig.triggerBotEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
         if (client.interactionManager == null) return;
 
         if (p.getAttackCooldownProgress(0.0f) < 1.0f) return;
@@ -270,9 +270,9 @@ public class WurstHandlers {
         if (client.crosshairTarget instanceof net.minecraft.util.hit.EntityHitResult ehr) {
             Entity target = ehr.getEntity();
             if (target instanceof LivingEntity living && living.isAlive()) {
-                if (ModConfig.autoHitPlayersOnly && !(target instanceof PlayerEntity)) return;
+                if (ModConfig.autoHitPlayersOnly && !(target instanceof Player)) return;
                 client.interactionManager.attackEntity(p, target);
-                p.swingHand(Hand.MAIN_HAND);
+                p.swingHand(InteractionHand.MAIN_HAND);
             }
         }
     }
@@ -283,21 +283,21 @@ public class WurstHandlers {
      * FastPlace: Removes the 4-tick placement cooldown, allowing rapid block placement.
      * Sets the item use cooldown to 0 every tick for instant placement.
      */
-    private static void tickFastPlace(MinecraftClient client) {
+    private static void tickFastPlace(Minecraft client) {
         if (!ModConfig.fastPlaceEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         // Reset the right-click delay to allow rapid block placement
-        // Uses reflection-free approach via the MinecraftClient field
+        // Uses reflection-free approach via the Minecraft field
         try {
-            java.lang.reflect.Field f = MinecraftClient.class.getDeclaredField("field_1752"); // itemUseCooldown
+            java.lang.reflect.Field f = Minecraft.class.getDeclaredField("field_1752"); // itemUseCooldown
             f.setAccessible(true);
             f.setInt(client, 0);
         } catch (Exception ignored) {
             // Fallback: try yarn name
             try {
-                java.lang.reflect.Field f = MinecraftClient.class.getDeclaredField("itemUseCooldown");
+                java.lang.reflect.Field f = Minecraft.class.getDeclaredField("itemUseCooldown");
                 f.setAccessible(true);
                 f.setInt(client, 0);
             } catch (Exception ignored2) {}
@@ -308,21 +308,21 @@ public class WurstHandlers {
      * Parkour: Automatically jumps when reaching the edge of a block while sprinting.
      * Perfect for parkour courses - jumps at the optimal position for max distance.
      */
-    private static void tickParkour(MinecraftClient client) {
+    private static void tickParkour(Minecraft client) {
         if (!ModConfig.parkourEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
         if (!p.isOnGround()) return;
 
         // Check if the block below the player's feet edge is air
-        Vec3d vel = p.getVelocity();
+        Vec3 vel = p.getVelocity();
         double speed = Math.sqrt(vel.x * vel.x + vel.z * vel.z);
         if (speed < 0.05) return; // Not moving fast enough
 
         // Project forward slightly to detect edge
-        double px = p.getX() + vel.x * 2;
-        double pz = p.getZ() + vel.z * 2;
-        BlockPos checkPos = new BlockPos((int) Math.floor(px), (int) Math.floor(p.getY() - 0.5), (int) Math.floor(pz));
+        double px = p.x() + vel.x * 2;
+        double pz = p.z() + vel.z * 2;
+        BlockPos checkPos = new BlockPos((int) Math.floor(px), (int) Math.floor(p.y() - 0.5), (int) Math.floor(pz));
 
         if (client.world.getBlockState(checkPos).isAir()) {
             p.jump();
@@ -333,14 +333,14 @@ public class WurstHandlers {
      * NoSlowdown: Prevents the slowdown effect from using items (eating, blocking, drawing bow).
      * Maintains full movement speed while consuming items or using shields.
      */
-    private static void tickNoSlowdown(MinecraftClient client) {
+    private static void tickNoSlowdown(Minecraft client) {
         if (!ModConfig.noSlowdownEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         // If using an item, counteract the slowdown by boosting speed back
         if (p.isUsingItem()) {
-            Vec3d vel = p.getVelocity();
+            Vec3 vel = p.getVelocity();
             // Item use applies a 0.2x multiplier, we counteract it partially
             p.setVelocity(vel.x * 1.4, vel.y, vel.z * 1.4);
         }
@@ -350,20 +350,20 @@ public class WurstHandlers {
      * AntiBlind: Removes blindness, darkness, and nausea potion effects client-side.
      * Keeps the player's vision clear regardless of effects applied by the server.
      */
-    private static void tickAntiBlind(MinecraftClient client) {
+    private static void tickAntiBlind(Minecraft client) {
         if (!ModConfig.antiBlindEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         // Remove visual impairment effects client-side
-        if (p.hasStatusEffect(StatusEffects.BLINDNESS)) {
-            p.removeStatusEffect(StatusEffects.BLINDNESS);
+        if (p.hasStatusEffect(MobEffects.BLINDNESS)) {
+            p.removeStatusEffect(MobEffects.BLINDNESS);
         }
-        if (p.hasStatusEffect(StatusEffects.DARKNESS)) {
-            p.removeStatusEffect(StatusEffects.DARKNESS);
+        if (p.hasStatusEffect(MobEffects.DARKNESS)) {
+            p.removeStatusEffect(MobEffects.DARKNESS);
         }
-        if (p.hasStatusEffect(StatusEffects.NAUSEA)) {
-            p.removeStatusEffect(StatusEffects.NAUSEA);
+        if (p.hasStatusEffect(MobEffects.NAUSEA)) {
+            p.removeStatusEffect(MobEffects.NAUSEA);
         }
     }
 
@@ -371,10 +371,10 @@ public class WurstHandlers {
      * AutoWalk: Automatically walks forward without holding W key.
      * Useful for long journeys. Simulates forward input continuously.
      */
-    private static void tickAutoWalk(MinecraftClient client) {
+    private static void tickAutoWalk(Minecraft client) {
         if (!ModConfig.autoWalkEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
 
         // Simulate forward key press
         net.minecraft.util.PlayerInput current = p.input.playerInput;
@@ -393,10 +393,10 @@ public class WurstHandlers {
      * AirJump: Allows jumping while in mid-air, like double/triple jumping.
      * Has a short cooldown to prevent unlimited flight exploit.
      */
-    private static void tickAirJump(MinecraftClient client) {
+    private static void tickAirJump(Minecraft client) {
         if (!ModConfig.airJumpEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
 
         if (airJumpCooldown > 0) airJumpCooldown--;
 
@@ -407,7 +407,7 @@ public class WurstHandlers {
 
         // Detect jump key press while in air
         if (p.input.playerInput.jump() && wasOnGround == false && airJumpCooldown <= 0) {
-            Vec3d vel = p.getVelocity();
+            Vec3 vel = p.getVelocity();
             p.setVelocity(vel.x, 0.42, vel.z); // Normal jump velocity
             p.fallDistance = 0.0f;
             airJumpCooldown = 10; // Half-second cooldown
@@ -422,9 +422,9 @@ public class WurstHandlers {
      * NoWeb: Prevents cobwebs from slowing down the player.
      * Counteracts the velocity reduction when inside a cobweb block.
      */
-    private static void tickNoWeb(MinecraftClient client) {
+    private static void tickNoWeb(Minecraft client) {
         if (!ModConfig.noWebEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         // Check if player is in a cobweb area by detecting drastic velocity reduction
@@ -432,7 +432,7 @@ public class WurstHandlers {
         if (client.world.getBlockState(pos).getBlock() == net.minecraft.block.Blocks.COBWEB ||
             client.world.getBlockState(pos.up()).getBlock() == net.minecraft.block.Blocks.COBWEB) {
             // Counteract web slowdown by maintaining velocity
-            Vec3d vel = p.getVelocity();
+            Vec3 vel = p.getVelocity();
             p.setVelocity(vel.x * 5.0, vel.y, vel.z * 5.0);
         }
     }
@@ -442,13 +442,13 @@ public class WurstHandlers {
      * vertical control. Works without creative mode permission.
      * Press jump to go up, sneak to go down, sprint to go faster.
      */
-    private static void tickFlightPlus(MinecraftClient client) {
+    private static void tickFlightPlus(Minecraft client) {
         if (!ModConfig.flightPlusEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || client.currentScreen != null) return;
+        LocalPlayer p = client.player;
+        if (p == null || client.screen != null) return;
 
         float speed = ModConfig.flightPlusSpeed;
-        float yaw = (float) Math.toRadians(p.getYaw());
+        float yaw = (float) Math.toRadians(p.getYRot());
 
         double motionX = 0, motionY = 0, motionZ = 0;
 
@@ -489,18 +489,18 @@ public class WurstHandlers {
      * LongJump: Boosts horizontal velocity when jumping for massive distance jumps.
      * Activates a one-time burst when the player jumps while sprinting.
      */
-    private static void tickLongJump(MinecraftClient client) {
+    private static void tickLongJump(Minecraft client) {
         if (!ModConfig.longJumpEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         if (longJumpTimer > 0) longJumpTimer--;
 
         // Detect jump initiation (just left ground, positive Y, was sprinting)
-        Vec3d vel = p.getVelocity();
+        Vec3 vel = p.getVelocity();
         if (!p.isOnGround() && vel.y > 0.38 && vel.y < 0.45 && longJumpTimer <= 0) {
             // Boost horizontal velocity in look direction
-            float yaw = (float) Math.toRadians(p.getYaw());
+            float yaw = (float) Math.toRadians(p.getYRot());
             double boost = ModConfig.longJumpBoost * 0.3;
             p.setVelocity(
                     vel.x - Math.sin(yaw) * boost,
@@ -515,9 +515,9 @@ public class WurstHandlers {
      * AutoMLG: Automatically places a water bucket when falling from lethal height.
      * Switches to water bucket, looks down, and places it before impact.
      */
-    private static void tickAutoMLG(MinecraftClient client) {
+    private static void tickAutoMLG(Minecraft client) {
         if (!ModConfig.autoMLGEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
 
         if (autoMLGCooldown > 0) { autoMLGCooldown--; return; }
@@ -547,8 +547,8 @@ public class WurstHandlers {
                 p.setPitch(90.0f);
 
                 // Use the water bucket
-                client.interactionManager.interactItem(p, Hand.MAIN_HAND);
-                p.swingHand(Hand.MAIN_HAND);
+                client.interactionManager.interactItem(p, InteractionHand.MAIN_HAND);
+                p.swingHand(InteractionHand.MAIN_HAND);
 
                 // Restore slot after a tick
                 p.getInventory().setSelectedSlot(prevSlot);
@@ -564,7 +564,7 @@ public class WurstHandlers {
      * Toggles on/off: when enabled, your server-side position freezes;
      * when disabled, all stored positions are sent at once.
      */
-    private static void tickBlink(MinecraftClient client) {
+    private static void tickBlink(Minecraft client) {
         if (!ModConfig.blinkEnabled) {
             if (blinkActive) {
                 // Blink was just turned off, send current position
@@ -574,12 +574,12 @@ public class WurstHandlers {
             return;
         }
 
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.getNetworkHandler() == null) return;
 
         if (!blinkActive) {
             blinkActive = true;
-            blinkStartPos = p.getPos();
+            blinkStartPos = p.position();
             blinkTickCounter = 0;
         }
 
@@ -590,7 +590,7 @@ public class WurstHandlers {
             ModConfig.blinkEnabled = false;
             blinkActive = false;
             blinkStartPos = null;
-            p.sendMessage(net.minecraft.text.Text.literal("\u00a7e[Blink] Auto-released (5s limit)"), true);
+            p.sendMessage(net.minecraft.text.Component.literal("\u00a7e[Blink] Auto-released (5s limit)"), true);
         }
     }
 }

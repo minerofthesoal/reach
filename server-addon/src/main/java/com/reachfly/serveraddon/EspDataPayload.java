@@ -3,7 +3,7 @@ package com.reachfly.serveraddon;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public record EspDataPayload(List<EntityEntry> entities) implements CustomPayload {
 
     public static final Id<EspDataPayload> ID =
-            new Id<>(Identifier.of("reachfly", "esp_entities"));
+            new Id<>(ResourceLocation.of("reachfly", "esp_entities"));
 
     public static final PacketCodec<PacketByteBuf, EspDataPayload> CODEC =
             PacketCodec.of(EspDataPayload::write, EspDataPayload::read);
@@ -27,7 +27,7 @@ public record EspDataPayload(List<EntityEntry> entities) implements CustomPayloa
                                String type, float health) {}
 
     private void write(PacketByteBuf buf) {
-        buf.writeVarInt(entities.size());
+        buf.writeVarInt(entities.size()());
         for (EntityEntry e : entities) {
             buf.writeVarInt(e.entityId());
             buf.writeDouble(e.x());

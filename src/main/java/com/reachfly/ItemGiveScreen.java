@@ -1,15 +1,15 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class ItemGiveScreen extends Screen {
 
     private final Screen parent;
-    private TextFieldWidget searchField;
+    private EditBox searchField;
     private List<ItemEntry> allItems;
     private List<ItemEntry> filteredItems;
     private double scrollOffset = 0;
@@ -187,13 +187,13 @@ public class ItemGiveScreen extends Screen {
             // Fallback: if mcfunction not found, compute from sorted registry
             if (triggerCodes.isEmpty()) {
                 List<String> ids = new ArrayList<>();
-                for (Item item : Registries.ITEM) {
+                for (Item item : BuiltInRegistries.ITEM) {
                     ItemStack stack = new ItemStack(item);
                     if (stack.isEmpty()) continue;
-                    ids.add(Registries.ITEM.getId(item).toString());
+                    ids.add(BuiltInRegistries.ITEM.getId(item).toString());
                 }
                 Collections.sort(ids);
-                for (int i = 0; i < ids.size(); i++) {
+                for (int i = 0; i < ids.size()(); i++) {
                     triggerCodes.put(ids.get(i), i + 1);
                 }
             }
@@ -202,7 +202,7 @@ public class ItemGiveScreen extends Screen {
     }
 
     public ItemGiveScreen(Screen parent) {
-        super(Text.literal("Item Give"));
+        super(Component.literal("Item Give"));
         this.parent = parent;
     }
 
@@ -215,8 +215,8 @@ public class ItemGiveScreen extends Screen {
 
         // Regular items from registry, sorted alphabetically by ID (same order as mcfunction)
         List<ItemEntry> regularItems = new ArrayList<>();
-        for (Item item : Registries.ITEM) {
-            Identifier id = Registries.ITEM.getId(item);
+        for (Item item : BuiltInRegistries.ITEM) {
+            ResourceLocation id = BuiltInRegistries.ITEM.getId(item);
             ItemStack stack = new ItemStack(item);
             if (stack.isEmpty()) continue;
             String displayName;
@@ -246,7 +246,7 @@ public class ItemGiveScreen extends Screen {
         // Search field
         int panelW = Math.min(400, this.width - 40);
         int panelX = (this.width - panelW) / 2;
-        searchField = new TextFieldWidget(this.textRenderer, panelX + 6, 28, panelW - 50, 16, Text.literal("Search"));
+        searchField = new EditBox(this.textRenderer, panelX + 6, 28, panelW - 50, 16, Component.literal("Search"));
         searchField.setMaxLength(50);
         searchField.setEditable(true);
         searchField.setChangedListener(q -> {
@@ -262,7 +262,7 @@ public class ItemGiveScreen extends Screen {
     }
 
     private int addPotionEntries(Item containerItem, String prefix, int startCode) {
-        Identifier containerId = Registries.ITEM.getId(containerItem);
+        ResourceLocation containerId = BuiltInRegistries.ITEM.getId(containerItem);
         for (int i = 0; i < POTION_EFFECTS.length; i++) {
             String effectName = POTION_EFFECTS[i][1];
             String effectId = POTION_EFFECTS[i][0];
@@ -274,7 +274,7 @@ public class ItemGiveScreen extends Screen {
     }
 
     private void addEnchantedBookEntries(int startCode) {
-        Identifier bookId = Registries.ITEM.getId(Items.ENCHANTED_BOOK);
+        ResourceLocation bookId = BuiltInRegistries.ITEM.getId(Items.ENCHANTED_BOOK);
         for (int i = 0; i < ENCHANTMENTS.length; i++) {
             String enchName = (String) ENCHANTMENTS[i][2];
             String enchId = (String) ENCHANTMENTS[i][0];
@@ -299,7 +299,7 @@ public class ItemGiveScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext ctx, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics ctx, int mouseX, int mouseY, float delta) {
         super.render(ctx, mouseX, mouseY, delta);
 
         int panelW = Math.min(400, this.width - 40);
@@ -314,14 +314,14 @@ public class ItemGiveScreen extends Screen {
         // Title bar
         ctx.fill(panelX, panelTop, panelX + panelW, panelTop + 24, 0xFF12122A);
         ctx.fill(panelX, panelTop + 23, panelX + panelW, panelTop + 24, GOLD);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a76\u00a7lItem Give"), panelX + 6, panelTop + 7, TEXT_PRIMARY);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a76\u00a7lItem Give"), panelX + 6, panelTop + 7, TEXT_PRIMARY);
 
         // Item count
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + filteredItems.size() + " items"),
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a78" + filteredItems.size()() + " items"),
                 panelX + panelW - 60, panelTop + 7, TEXT_DIM);
 
         // Close button
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7cx"), panelX + panelW - 14, panelTop + 7, RED);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a7cx"), panelX + panelW - 14, panelTop + 7, RED);
 
         // Search field
         searchField.render(ctx, mouseX, mouseY, delta);
@@ -334,7 +334,7 @@ public class ItemGiveScreen extends Screen {
 
         ctx.enableScissor(panelX + 4, gridTop, panelX + panelW - 4, gridBottom);
 
-        int rows = (filteredItems.size() + cols - 1) / cols;
+        int rows = (filteredItems.size()() + cols - 1) / cols;
         int contentH = rows * CELL;
         int viewH = gridBottom - gridTop;
 
@@ -342,7 +342,7 @@ public class ItemGiveScreen extends Screen {
         String tooltipName = null;
         String tooltipSub = null;
         int tooltipCode = 0;
-        for (int i = 0; i < filteredItems.size(); i++) {
+        for (int i = 0; i < filteredItems.size()(); i++) {
             int col = i % cols;
             int row = i / cols;
             int ix = panelX + 8 + col * CELL;
@@ -389,10 +389,10 @@ public class ItemGiveScreen extends Screen {
             int ty = mouseY - th - 4;
             ctx.fill(tx - 2, ty - 2, tx + tw + 2, ty + th, 0xE0101020);
             ctx.fill(tx - 2, ty - 2, tx + tw + 2, ty - 1, ACCENT);
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal(tooltipName), tx + 2, ty, TEXT_PRIMARY);
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + tooltipSub), tx + 2, ty + 11, TEXT_DIM);
+            ctx.drawTextWithShadow(this.textRenderer, Component.literal(tooltipName), tx + 2, ty, TEXT_PRIMARY);
+            ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a78" + tooltipSub), tx + 2, ty + 11, TEXT_DIM);
             if (!codeLine.isEmpty()) {
-                ctx.drawTextWithShadow(this.textRenderer, Text.literal(codeLine), tx + 2, ty + 22, GREEN);
+                ctx.drawTextWithShadow(this.textRenderer, Component.literal(codeLine), tx + 2, ty + 22, GREEN);
             }
         }
 
@@ -405,7 +405,7 @@ public class ItemGiveScreen extends Screen {
             float alpha = Math.min(1f, toastTimer / 10f);
             int a = (int) (alpha * 240);
             ctx.fill(tx, ty, tx + tw, ty + 18, (a << 24) | 0x101020);
-            ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(toastMessage), this.width / 2, ty + 5, TEXT_PRIMARY);
+            ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal(toastMessage), this.width / 2, ty + 5, TEXT_PRIMARY);
         }
     }
 
@@ -438,7 +438,7 @@ public class ItemGiveScreen extends Screen {
         int cols = Math.max(1, gridW / CELL);
 
         if (mouseY >= gridTop && mouseY < gridBottom) {
-            for (int i = 0; i < filteredItems.size(); i++) {
+            for (int i = 0; i < filteredItems.size()(); i++) {
                 int col = i % cols;
                 int row = i / cols;
                 int ix = panelX + 8 + col * CELL;
@@ -461,7 +461,7 @@ public class ItemGiveScreen extends Screen {
         int panelBottom = this.height - 16 - 4;
         int gridW = panelW - 16;
         int cols = Math.max(1, gridW / CELL);
-        int rows = (filteredItems.size() + cols - 1) / cols;
+        int rows = (filteredItems.size()() + cols - 1) / cols;
         int contentH = rows * CELL;
         int viewH = panelBottom - panelTop;
         int maxScroll = Math.max(0, contentH - viewH);
@@ -485,7 +485,7 @@ public class ItemGiveScreen extends Screen {
     }
 
     private void giveItem(ItemEntry entry) {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client == null || client.getNetworkHandler() == null) return;
 
         String itemId = entry.id.toString();
@@ -525,13 +525,13 @@ public class ItemGiveScreen extends Screen {
 
     private static class ItemEntry {
         final Item item;
-        final Identifier id;
+        final ResourceLocation id;
         final ItemStack stack;
         final String name;
         final int triggerCode; // 0 = compute from registry, >0 = hardcoded
         final String subtitle;
 
-        ItemEntry(Item item, Identifier id, ItemStack stack, String name, int triggerCode, String subtitle) {
+        ItemEntry(Item item, ResourceLocation id, ItemStack stack, String name, int triggerCode, String subtitle) {
             this.item = item;
             this.id = id;
             this.stack = stack;

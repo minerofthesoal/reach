@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Hand;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.InteractionHand;
 
 /**
  * Auto Kill When Low HP - When YOUR health drops below a threshold,
@@ -12,12 +12,12 @@ import net.minecraft.util.Hand;
  */
 public class AutoKillWhenLowHandler {
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.autoKillWhenLowEnabled) return;
         if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         // Only activate when player's health is below threshold
         if (player.getHealth() > ModConfig.autoKillSelfHpThreshold) return;
@@ -45,7 +45,7 @@ public class AutoKillWhenLowHandler {
 
         if (nearest != null) {
             client.interactionManager.attackEntity(player, nearest);
-            player.swingHand(Hand.MAIN_HAND);
+            player.swingHand(InteractionHand.MAIN_HAND);
         }
     }
 }

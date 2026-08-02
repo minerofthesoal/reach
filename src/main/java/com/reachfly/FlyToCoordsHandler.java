@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Auto Fly-to-Coords - Flies the player to target coordinates with smart speed management.
@@ -22,21 +22,21 @@ public class FlyToCoordsHandler {
     private static final double SLOWDOWN_DISTANCE = 30.0;
     private static final double MIN_SPEED_FACTOR = 0.15;
     private static int tickCounter = 0;
-    private static Vec3d lastPos = null;
+    private static Vec3 lastPos = null;
     private static int stuckTicks = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.flyToCoordsEnabled) return;
         if (client.player == null || client.world == null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         double targetX = ModConfig.flyToX;
         double targetY = ModConfig.flyToY;
         double targetZ = ModConfig.flyToZ;
 
-        Vec3d target = new Vec3d(targetX + 0.5, targetY, targetZ + 0.5);
-        Vec3d pos = player.getPos();
+        Vec3 target = new Vec3(targetX + 0.5, targetY, targetZ + 0.5);
+        Vec3 pos = player.position();
         double horizDist = Math.sqrt(
                 (pos.x - target.x) * (pos.x - target.x) +
                 (pos.z - target.z) * (pos.z - target.z));
@@ -48,7 +48,7 @@ public class FlyToCoordsHandler {
             stuckTicks = 0;
             tickCounter = 0;
             player.sendMessage(
-                    Text.literal("\u00a7b[f1sch] \u00a7eFlying to X:%.0f Y:%.0f Z:%.0f (%.0f blocks away)"
+                    Component.literal("\u00a7b[f1sch] \u00a7eFlying to X:%.0f Y:%.0f Z:%.0f (%.0f blocks away)"
                             .formatted(targetX, targetY, targetZ, distance)),
                     true);
         }
@@ -57,9 +57,9 @@ public class FlyToCoordsHandler {
         if (distance < ARRIVAL_DISTANCE) {
             ModConfig.flyToCoordsEnabled = false;
             isNavigating = false;
-            player.setVelocity(Vec3d.ZERO);
+            player.setVelocity(Vec3.ZERO);
             player.sendMessage(
-                    Text.literal("\u00a7b[f1sch] \u00a7aArrived at destination!"),
+                    Component.literal("\u00a7b[f1sch] \u00a7aArrived at destination!"),
                     true);
             ModConfig.save();
             return;
@@ -95,14 +95,14 @@ public class FlyToCoordsHandler {
                     ? String.format("%dm %ds", etaSeconds / 60, etaSeconds % 60)
                     : String.format("%ds", etaSeconds);
             player.sendMessage(
-                    Text.literal(String.format(
+                    Component.literal(String.format(
                             "\u00a7b[FlyTo] \u00a7f%.0f blocks | ETA: %s | Speed: %.1fx",
                             distance, eta, ModConfig.flyToCoordsSpeed)),
                     true);
         }
 
         // Calculate direction
-        Vec3d direction = target.subtract(pos).normalize();
+        Vec3 direction = target.subtract(pos).normalize();
         float baseSpeed = 0.05f * ModConfig.flyToCoordsSpeed;
 
         // Speed management - smooth deceleration near target
@@ -162,8 +162,8 @@ public class FlyToCoordsHandler {
                 * (180.0 / Math.PI));
 
         // Smooth rotation interpolation
-        float currentYaw = player.getYaw();
-        float currentPitch = player.getPitch();
+        float currentYaw = player.getYRot();
+        float currentPitch = player.getXRot();
         float yawDiff = targetYaw - currentYaw;
         // Normalize yaw diff to -180..180
         while (yawDiff > 180) yawDiff -= 360;

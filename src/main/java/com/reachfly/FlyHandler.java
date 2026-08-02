@@ -1,9 +1,9 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 /**
  * Handles survival fly logic each tick.
@@ -16,8 +16,8 @@ public class FlyHandler {
     /**
      * Called every client tick to manage fly state and speed.
      */
-    public static void tick(MinecraftClient client) {
-        ClientPlayerEntity player = client.player;
+    public static void tick(Minecraft client) {
+        LocalPlayer player = client.player;
         if (player == null) return;
 
         // Don't override creative mode flight
@@ -44,12 +44,12 @@ public class FlyHandler {
                     wasFlying = false;
                     if (!player.isOnGround()) {
                         player.sendMessage(
-                            net.minecraft.text.Text.literal("\u00a7c[f1sch] \u00a7eFly disabled! You are falling - brace for landing!"),
+                            net.minecraft.text.Component.literal("\u00a7c[f1sch] \u00a7eFly disabled! You are falling - brace for landing!"),
                             true
                         );
                     } else {
                         player.sendMessage(
-                            net.minecraft.text.Text.literal("\u00a7c[f1sch] \u00a7aFly disabled. Safe on the ground."),
+                            net.minecraft.text.Component.literal("\u00a7c[f1sch] \u00a7aFly disabled. Safe on the ground."),
                             true
                         );
                     }
@@ -68,11 +68,11 @@ public class FlyHandler {
      * Only works in singleplayer/LAN where the integrated server is accessible.
      * On dedicated servers, the FeatureSyncPayload handles this instead.
      */
-    private static void setServerFlightAllowed(MinecraftClient client, ClientPlayerEntity player, boolean allowed) {
+    private static void setServerFlightAllowed(Minecraft client, LocalPlayer player, boolean allowed) {
         MinecraftServer server = client.getServer();
         if (server == null) return; // Dedicated server - handled by server addon
 
-        ServerPlayerEntity serverPlayer = server.getPlayerManager().getPlayer(player.getUuid());
+        ServerPlayer serverPlayer = server.getPlayerManager().getPlayer(player.getUuid());
         if (serverPlayer == null) return;
 
         if (allowed) {

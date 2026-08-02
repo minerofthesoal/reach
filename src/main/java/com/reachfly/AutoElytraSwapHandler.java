@@ -1,22 +1,22 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.ClickType;
 public class AutoElytraSwapHandler {
 
     private static int swapCooldown = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.autoElytraSwapEnabled) return;
         if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
         if (client.interactionManager == null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         if (swapCooldown > 0) {
             swapCooldown--;
@@ -41,7 +41,7 @@ public class AutoElytraSwapHandler {
         }
     }
 
-    private static int findItem(ClientPlayerEntity player, net.minecraft.item.Item item) {
+    private static int findItem(LocalPlayer player, net.minecraft.item.Item item) {
         // Use getStack(slot) instead of accessing private 'main' field
         for (int i = 0; i < 36; i++) {
             if (player.getInventory().getStack(i).isOf(item)) {
@@ -51,7 +51,7 @@ public class AutoElytraSwapHandler {
         return -1;
     }
 
-    private static int findChestplate(ClientPlayerEntity player) {
+    private static int findChestplate(LocalPlayer player) {
         for (int i = 0; i < 36; i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.isOf(Items.NETHERITE_CHESTPLATE) || stack.isOf(Items.DIAMOND_CHESTPLATE)
@@ -63,7 +63,7 @@ public class AutoElytraSwapHandler {
         return -1;
     }
 
-    private static void swapToChestSlot(MinecraftClient client, ClientPlayerEntity player, int inventorySlot) {
+    private static void swapToChestSlot(Minecraft client, LocalPlayer player, int inventorySlot) {
         int chestArmorScreenSlot = 6;
         int screenSlot;
         if (inventorySlot < 9) {
@@ -72,9 +72,9 @@ public class AutoElytraSwapHandler {
             screenSlot = inventorySlot;
         }
 
-        int syncId = player.currentScreenHandler.syncId;
-        client.interactionManager.clickSlot(syncId, screenSlot, 0, SlotActionType.PICKUP, player);
-        client.interactionManager.clickSlot(syncId, chestArmorScreenSlot, 0, SlotActionType.PICKUP, player);
-        client.interactionManager.clickSlot(syncId, screenSlot, 0, SlotActionType.PICKUP, player);
+        int syncId = player.screenHandler.syncId;
+        client.interactionManager.clickSlot(syncId, screenSlot, 0, ClickType.PICKUP, player);
+        client.interactionManager.clickSlot(syncId, chestArmorScreenSlot, 0, ClickType.PICKUP, player);
+        client.interactionManager.clickSlot(syncId, screenSlot, 0, ClickType.PICKUP, player);
     }
 }

@@ -2,8 +2,8 @@ package com.reachfly;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -63,7 +63,7 @@ public class ServerSyncHandler {
     /**
      * Called every client tick. Detects feature state changes and syncs to server.
      */
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (client.player == null || client.getNetworkHandler() == null) return;
 
         syncTicker++;

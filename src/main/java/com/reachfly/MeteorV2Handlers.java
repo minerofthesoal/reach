@@ -1,20 +1,20 @@
 package com.reachfly;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.decoration.EndCrystalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Meteor Client-style features v2:
@@ -29,7 +29,7 @@ public class MeteorV2Handlers {
     private static int trapCooldown = 0;
     private static int reversalCooldown = 0;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (client.player == null || client.world == null) return;
 
         tickElytraFly(client);
@@ -44,15 +44,15 @@ public class MeteorV2Handlers {
     /**
      * ElytraFly: Fly with elytra at configurable speed.
      */
-    private static void tickElytraFly(MinecraftClient client) {
+    private static void tickElytraFly(Minecraft client) {
         if (!ModConfig.elytraFlyEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
 
         if (!p.isGliding()) return;
 
-        float yaw = (float) Math.toRadians(p.getYaw());
-        float pitch = (float) Math.toRadians(p.getPitch());
+        float yaw = (float) Math.toRadians(p.getYRot());
+        float pitch = (float) Math.toRadians(p.getXRot());
 
         double speed = ModConfig.elytraFlySpeed * 0.05;
 
@@ -66,8 +66,8 @@ public class MeteorV2Handlers {
         if (client.getNetworkHandler() != null) {
             client.getNetworkHandler().sendPacket(
                     new net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.Full(
-                            p.getX(), p.getY(), p.getZ(),
-                            p.getYaw(), p.getPitch(),
+                            p.x(), p.y(), p.z(),
+                            p.getYRot(), p.getXRot(),
                             false, false));
         }
     }
@@ -75,11 +75,11 @@ public class MeteorV2Handlers {
     /**
      * Surround: Places obsidian around feet for crystal PvP protection.
      */
-    private static void tickSurround(MinecraftClient client) {
+    private static void tickSurround(Minecraft client) {
         if (!ModConfig.surroundEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         surroundCooldown++;
         if (surroundCooldown < 2) return;
@@ -110,9 +110,9 @@ public class MeteorV2Handlers {
             BlockState state = client.world.getBlockState(pos);
             if (state.isAir() || state.isReplaceable()) {
                 client.interactionManager.interactBlock(p,
-                        Hand.MAIN_HAND,
+                        InteractionHand.MAIN_HAND,
                         new BlockHitResult(
-                                Vec3d.ofCenter(pos),
+                                Vec3.ofCenter(pos),
                                 Direction.UP,
                                 pos,
                                 false));
@@ -127,21 +127,21 @@ public class MeteorV2Handlers {
     /**
      * CrystalAura: Automatically places and detonates end crystals for PvP.
      */
-    private static void tickCrystalAura(MinecraftClient client) {
+    private static void tickCrystalAura(Minecraft client) {
         if (!ModConfig.crystalAuraEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         crystalCooldown++;
         if (crystalCooldown < 4) return;
         crystalCooldown = 0;
 
-        PlayerEntity target = null;
+        Player target = null;
         double nearestDist = 6.0;
         for (Entity entity : client.world.getEntities()) {
             if (entity == p) continue;
-            if (!(entity instanceof PlayerEntity other)) continue;
+            if (!(entity instanceof Player other)) continue;
             if (!other.isAlive()) continue;
             double dist = p.distanceTo(other);
             if (dist < nearestDist) {
@@ -154,12 +154,12 @@ public class MeteorV2Handlers {
 
         // Phase 1: Attack existing end crystals near the target
         for (Entity entity : client.world.getEntities()) {
-            if (!(entity instanceof EndCrystalEntity crystal)) continue;
+            if (!(entity instanceof EndCrystal crystal)) continue;
             if (p.distanceTo(crystal) > 6.0) continue;
             if (crystal.distanceTo(target) > 8.0) continue;
 
             client.interactionManager.attackEntity(p, crystal);
-            p.swingHand(Hand.MAIN_HAND);
+            p.swingHand(InteractionHand.MAIN_HAND);
             return;
         }
 
@@ -182,7 +182,7 @@ public class MeteorV2Handlers {
             for (int z = -3; z <= 3; z++) {
                 for (int y = -1; y <= 2; y++) {
                     BlockPos pos = targetPos.add(x, y, z);
-                    if (p.squaredDistanceTo(Vec3d.ofCenter(pos)) > 36) continue;
+                    if (p.squaredDistanceTo(Vec3.ofCenter(pos)) > 36) continue;
 
                     BlockState below = client.world.getBlockState(pos);
                     BlockState above = client.world.getBlockState(pos.up());
@@ -191,9 +191,9 @@ public class MeteorV2Handlers {
                     if ((below.isOf(Blocks.OBSIDIAN) || below.isOf(Blocks.BEDROCK))
                             && above.isAir() && above2.isAir()) {
                         client.interactionManager.interactBlock(p,
-                                Hand.MAIN_HAND,
+                                InteractionHand.MAIN_HAND,
                                 new BlockHitResult(
-                                        Vec3d.ofCenter(pos).add(0, 0.5, 0),
+                                        Vec3.ofCenter(pos).add(0, 0.5, 0),
                                         Direction.UP,
                                         pos,
                                         false));
@@ -214,22 +214,22 @@ public class MeteorV2Handlers {
      * Places respawn anchors near enemies, charges them with glowstone,
      * then detonates them by right-clicking (they explode outside the Nether).
      */
-    private static void tickAnchorAura(MinecraftClient client) {
+    private static void tickAnchorAura(Minecraft client) {
         if (!ModConfig.anchorAuraEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         anchorCooldown++;
         if (anchorCooldown < 5) return;
         anchorCooldown = 0;
 
         // Find nearest enemy
-        PlayerEntity target = null;
+        Player target = null;
         double nearestDist = 5.0;
         for (Entity entity : client.world.getEntities()) {
             if (entity == p) continue;
-            if (!(entity instanceof PlayerEntity other)) continue;
+            if (!(entity instanceof Player other)) continue;
             if (!other.isAlive()) continue;
             double dist = p.distanceTo(other);
             if (dist < nearestDist) {
@@ -245,7 +245,7 @@ public class MeteorV2Handlers {
             for (int z = -2; z <= 2; z++) {
                 for (int y = -1; y <= 2; y++) {
                     BlockPos pos = targetFeet.add(x, y, z);
-                    if (p.squaredDistanceTo(Vec3d.ofCenter(pos)) > 25) continue;
+                    if (p.squaredDistanceTo(Vec3.ofCenter(pos)) > 25) continue;
                     BlockState state = client.world.getBlockState(pos);
                     if (state.isOf(Blocks.RESPAWN_ANCHOR)) {
                         // Found an anchor - charge it with glowstone or detonate
@@ -253,16 +253,16 @@ public class MeteorV2Handlers {
                         if (glowstoneSlot >= 0) {
                             int prevSlot = p.getInventory().getSelectedSlot();
                             p.getInventory().setSelectedSlot(glowstoneSlot);
-                            client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
-                                    new BlockHitResult(Vec3d.ofCenter(pos), Direction.UP, pos, false));
+                            client.interactionManager.interactBlock(p, InteractionHand.MAIN_HAND,
+                                    new BlockHitResult(Vec3.ofCenter(pos), Direction.UP, pos, false));
                             // Immediately try to detonate by clicking again without glowstone
                             p.getInventory().setSelectedSlot(prevSlot);
-                            client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
-                                    new BlockHitResult(Vec3d.ofCenter(pos), Direction.UP, pos, false));
+                            client.interactionManager.interactBlock(p, InteractionHand.MAIN_HAND,
+                                    new BlockHitResult(Vec3.ofCenter(pos), Direction.UP, pos, false));
                         } else {
                             // No glowstone, try to detonate existing charge
-                            client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
-                                    new BlockHitResult(Vec3d.ofCenter(pos), Direction.UP, pos, false));
+                            client.interactionManager.interactBlock(p, InteractionHand.MAIN_HAND,
+                                    new BlockHitResult(Vec3.ofCenter(pos), Direction.UP, pos, false));
                         }
                         return;
                     }
@@ -278,14 +278,14 @@ public class MeteorV2Handlers {
         for (int x = -2; x <= 2; x++) {
             for (int z = -2; z <= 2; z++) {
                 BlockPos pos = targetFeet.add(x, 0, z);
-                if (p.squaredDistanceTo(Vec3d.ofCenter(pos)) > 25) continue;
+                if (p.squaredDistanceTo(Vec3.ofCenter(pos)) > 25) continue;
                 BlockState state = client.world.getBlockState(pos);
                 BlockState below = client.world.getBlockState(pos.down());
                 if (state.isAir() && !below.isAir()) {
                     int prevSlot = p.getInventory().getSelectedSlot();
                     p.getInventory().setSelectedSlot(anchorSlot);
-                    client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
-                            new BlockHitResult(Vec3d.ofCenter(pos.down()).add(0, 0.5, 0),
+                    client.interactionManager.interactBlock(p, InteractionHand.MAIN_HAND,
+                            new BlockHitResult(Vec3.ofCenter(pos.down()).add(0, 0.5, 0),
                                     Direction.UP, pos.down(), false));
                     p.getInventory().setSelectedSlot(prevSlot);
                     return;
@@ -299,11 +299,11 @@ public class MeteorV2Handlers {
      * In crystal PvP, holes (1x1 bedrock/obsidian pits) are safe spots.
      * This fills enemy holes to force them out into the open.
      */
-    private static void tickHoleFiller(MinecraftClient client) {
+    private static void tickHoleFiller(Minecraft client) {
         if (!ModConfig.holeFillerEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         holeFillCooldown++;
         if (holeFillCooldown < 3) return;
@@ -318,7 +318,7 @@ public class MeteorV2Handlers {
         for (int x = -4; x <= 4; x++) {
             for (int z = -4; z <= 4; z++) {
                 BlockPos base = playerPos.add(x, -1, z);
-                if (p.squaredDistanceTo(Vec3d.ofCenter(base)) > 20) continue;
+                if (p.squaredDistanceTo(Vec3.ofCenter(base)) > 20) continue;
 
                 // A "hole" is: solid walls on all 4 sides, solid floor, air inside (1x1x2)
                 BlockPos inside = base.up();
@@ -350,8 +350,8 @@ public class MeteorV2Handlers {
                 // Fill the hole
                 int prevSlot = p.getInventory().getSelectedSlot();
                 p.getInventory().setSelectedSlot(obsidianSlot);
-                client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
-                        new BlockHitResult(Vec3d.ofCenter(inside), Direction.UP, base, false));
+                client.interactionManager.interactBlock(p, InteractionHand.MAIN_HAND,
+                        new BlockHitResult(Vec3.ofCenter(inside), Direction.UP, base, false));
                 p.getInventory().setSelectedSlot(prevSlot);
                 return;
             }
@@ -362,11 +362,11 @@ public class MeteorV2Handlers {
      * AutoTrap: Automatically places obsidian above and around enemy players' heads.
      * Traps them in a box so they can't move or escape crystal attacks.
      */
-    private static void tickAutoTrap(MinecraftClient client) {
+    private static void tickAutoTrap(Minecraft client) {
         if (!ModConfig.autoTrapEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
         trapCooldown++;
         if (trapCooldown < 2) return;
@@ -376,11 +376,11 @@ public class MeteorV2Handlers {
         if (obsidianSlot < 0) return;
 
         // Find nearest enemy
-        PlayerEntity target = null;
+        Player target = null;
         double nearestDist = 4.5;
         for (Entity entity : client.world.getEntities()) {
             if (entity == p) continue;
-            if (!(entity instanceof PlayerEntity other)) continue;
+            if (!(entity instanceof Player other)) continue;
             if (!other.isAlive()) continue;
             double dist = p.distanceTo(other);
             if (dist < nearestDist) {
@@ -402,7 +402,7 @@ public class MeteorV2Handlers {
         p.getInventory().setSelectedSlot(obsidianSlot);
 
         for (BlockPos pos : trapPositions) {
-            if (p.squaredDistanceTo(Vec3d.ofCenter(pos)) > 20) continue;
+            if (p.squaredDistanceTo(Vec3.ofCenter(pos)) > 20) continue;
             BlockState state = client.world.getBlockState(pos);
             if (state.isAir() || state.isReplaceable()) {
                 // Find a face to place against
@@ -417,8 +417,8 @@ public class MeteorV2Handlers {
                     }
                 }
 
-                client.interactionManager.interactBlock(p, Hand.MAIN_HAND,
-                        new BlockHitResult(Vec3d.ofCenter(placeAgainst),
+                client.interactionManager.interactBlock(p, InteractionHand.MAIN_HAND,
+                        new BlockHitResult(Vec3.ofCenter(placeAgainst),
                                 placeDir, placeAgainst, false));
                 p.getInventory().setSelectedSlot(prevSlot);
                 return; // One block per tick
@@ -433,9 +433,9 @@ public class MeteorV2Handlers {
      * Detects incoming damage and immediately swings at the attacker.
      * Also applies a speed boost toward the attacker for aggressive counter-play.
      */
-    private static void tickReversal(MinecraftClient client) {
+    private static void tickReversal(Minecraft client) {
         if (!ModConfig.reversalEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null || client.interactionManager == null) return;
 
         reversalCooldown++;
@@ -462,16 +462,16 @@ public class MeteorV2Handlers {
             if (attacker != null && nearestDist <= 4.5) {
                 // Counter-attack
                 client.interactionManager.attackEntity(p, attacker);
-                p.swingHand(Hand.MAIN_HAND);
+                p.swingHand(InteractionHand.MAIN_HAND);
 
                 // Boost toward attacker
-                Vec3d dir = attacker.getPos().subtract(p.getPos()).normalize();
+                Vec3 dir = attacker.position().subtract(p.position()).normalize();
                 p.setVelocity(dir.x * 0.4, 0.1, dir.z * 0.4);
             }
         }
     }
 
-    private static int findHotbarItem(ClientPlayerEntity p, net.minecraft.item.Item item) {
+    private static int findHotbarItem(LocalPlayer p, net.minecraft.item.Item item) {
         for (int i = 0; i < 9; i++) {
             if (p.getInventory().getStack(i).isOf(item)) return i;
         }

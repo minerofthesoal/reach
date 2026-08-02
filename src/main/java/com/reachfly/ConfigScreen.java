@@ -1,9 +1,9 @@
 package com.reachfly;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.network.chat.Component;
 
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ public class ConfigScreen extends Screen {
     private double scrollOffset = 0;
     private String expandedModule = null;
 
-    private TextFieldWidget editField = null;
+    private EditBox editField = null;
     private String editLabel = null;
     private java.util.function.Consumer<Float> editSetter = null;
     private float editMin, editMax;
 
     // Code entry
-    private TextFieldWidget codeField = null;
+    private EditBox codeField = null;
     private boolean showCodeEntry = false;
     private String codeMessage = null;
     private int codeMsgTimer = 0;
@@ -51,7 +51,7 @@ public class ConfigScreen extends Screen {
     private final Map<String, List<Module>> categories = new LinkedHashMap<>();
 
     public ConfigScreen(Screen parent) {
-        super(Text.literal("f1sch"));
+        super(Component.literal("f1sch"));
         this.parent = parent;
     }
 
@@ -249,7 +249,7 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext ctx, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics ctx, int mouseX, int mouseY, float delta) {
         ctx.fill(0, 0, this.width, this.height, BG);
 
         if (codeMsgTimer > 0) codeMsgTimer--;
@@ -268,20 +268,20 @@ public class ConfigScreen extends Screen {
         // Title bar
         ctx.fill(panelX, panelTop, panelX + panelW, panelTop + TAB_H, 0xFF12122A);
         ctx.fill(panelX, panelTop + TAB_H - 1, panelX + panelW, panelTop + TAB_H, ModConfig.proUnlocked ? GOLD : ACCENT);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7d\u00a7lf1sch"), panelX + 6, panelTop + 9, TEXT_PRIMARY);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal(ModConfig.proUnlocked ? "\u00a76PRO" : "\u00a78v2.2"), panelX + 40, panelTop + 9, ModConfig.proUnlocked ? GOLD : TEXT_DIM);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a7d\u00a7lf1sch"), panelX + 6, panelTop + 9, TEXT_PRIMARY);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal(ModConfig.proUnlocked ? "\u00a76PRO" : "\u00a78v2.2"), panelX + 40, panelTop + 9, ModConfig.proUnlocked ? GOLD : TEXT_DIM);
 
         // Give button
         int giveX = panelX + panelW - 96;
         boolean giveHover = mouseX >= giveX && mouseX < giveX + 38 && mouseY >= panelTop + 6 && mouseY < panelTop + 20;
         ctx.fill(giveX, panelTop + 6, giveX + 38, panelTop + 20, giveHover ? 0xFF2A2A4A : 0xFF1A1A3A);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(giveHover ? "\u00a7aGive" : "\u00a72Give"), giveX + 19, panelTop + 9, TEXT_PRIMARY);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal(giveHover ? "\u00a7aGive" : "\u00a72Give"), giveX + 19, panelTop + 9, TEXT_PRIMARY);
 
         // Star icon
         int keyX = panelX + panelW - 48;
         boolean keyHover = mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 4 && mouseY < panelTop + TAB_H - 4;
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal(ModConfig.proUnlocked ? "\u00a76\u2605" : (keyHover ? "\u00a7e\u2605" : "\u00a78\u2605")), keyX, panelTop + 9, TEXT_DIM);
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a7cx"), panelX + panelW - 16, panelTop + 9, RED);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal(ModConfig.proUnlocked ? "\u00a76\u2605" : (keyHover ? "\u00a7e\u2605" : "\u00a78\u2605")), keyX, panelTop + 9, TEXT_DIM);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a7cx"), panelX + panelW - 16, panelTop + 9, RED);
 
         // === LEFT SIDEBAR ===
         int sideTop = panelTop + TAB_H;
@@ -302,7 +302,7 @@ public class ConfigScreen extends Screen {
             }
             String displayName = cat.replaceAll("\u00a7.", "");
             String color = selected ? (isPro ? "\u00a76" : "\u00a7f") : (isPro ? "\u00a78" : "\u00a77");
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal(color + displayName), panelX + 6, catY + 4, TEXT_PRIMARY);
+            ctx.drawTextWithShadow(this.textRenderer, Component.literal(color + displayName), panelX + 6, catY + 4, TEXT_PRIMARY);
             catY += catH;
         }
 
@@ -347,13 +347,13 @@ public class ConfigScreen extends Screen {
         int y0 = 0, y1 = 0;
         for (Module mod : modules) {
             boolean expanded = mod.name.equals(expandedModule) && !mod.settings.isEmpty();
-            int h = MODULE_H + (expanded ? mod.settings.size() * SETTING_H : 0);
+            int h = MODULE_H + (expanded ? mod.settings.size()() * SETTING_H : 0);
             if (y0 <= y1) y0 += h; else y1 += h;
         }
         return Math.max(y0, y1);
     }
 
-    private int renderModule(DrawContext ctx, Module mod, int x, int y, int w, int mx, int my) {
+    private int renderModule(GuiGraphics ctx, Module mod, int x, int y, int w, int mx, int my) {
         boolean enabled = mod.enabled.get();
         boolean hovered = mx >= x && mx < x + w && my >= y && my < y + MODULE_H;
         boolean expanded = mod.name.equals(expandedModule) && !mod.settings.isEmpty();
@@ -362,15 +362,15 @@ public class ConfigScreen extends Screen {
         ctx.fill(x, y, x + w, y + MODULE_H, bg);
         if (enabled) ctx.fill(x, y, x + 2, y + MODULE_H, ACCENT);
 
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal(mod.name), x + 8, y + 6, enabled ? TEXT_PRIMARY : TEXT_DIM);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal(mod.name), x + 8, y + 6, enabled ? TEXT_PRIMARY : TEXT_DIM);
 
         String status = enabled ? "\u00a7aON" : "\u00a78OFF";
         int statusW = this.textRenderer.getWidth(enabled ? "ON" : "OFF");
-        ctx.drawTextWithShadow(this.textRenderer, Text.literal(status), x + w - statusW - 20, y + 6, TEXT_PRIMARY);
+        ctx.drawTextWithShadow(this.textRenderer, Component.literal(status), x + w - statusW - 20, y + 6, TEXT_PRIMARY);
 
         if (!mod.settings.isEmpty()) {
             String arrow = expanded ? "\u25BC" : "\u25B6";
-            ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78" + arrow), x + w - 12, y + 6, TEXT_DIM);
+            ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a78" + arrow), x + w - 12, y + 6, TEXT_DIM);
         }
         ctx.fill(x, y + MODULE_H - 1, x + w, y + MODULE_H, 0x18FFFFFF);
         y += MODULE_H;
@@ -382,13 +382,13 @@ public class ConfigScreen extends Screen {
                 if (s.type == SettingType.TOGGLE) {
                     boolean on = s.boolGetter.get();
                     String val = on ? "\u00a7aON" : "\u00a7cOFF";
-                    ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a77  " + s.name), x + 10, y + 4, TEXT_DIM);
+                    ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a77  " + s.name), x + 10, y + 4, TEXT_DIM);
                     int valW = this.textRenderer.getWidth(on ? "ON" : "OFF");
-                    ctx.drawTextWithShadow(this.textRenderer, Text.literal(val), x + w - valW - 10, y + 4, TEXT_PRIMARY);
+                    ctx.drawTextWithShadow(this.textRenderer, Component.literal(val), x + w - valW - 10, y + 4, TEXT_PRIMARY);
                 } else {
                     float val = s.floatGetter.get();
-                    ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a77  " + s.name + ": \u00a7f" + formatNumber(val)), x + 10, y + 4, TEXT_DIM);
-                    ctx.drawTextWithShadow(this.textRenderer, Text.literal("\u00a78[\u00a7bedit\u00a78]"), x + w - 28, y + 4, TEXT_DIM);
+                    ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a77  " + s.name + ": \u00a7f" + formatNumber(val)), x + 10, y + 4, TEXT_DIM);
+                    ctx.drawTextWithShadow(this.textRenderer, Component.literal("\u00a78[\u00a7bedit\u00a78]"), x + w - 28, y + 4, TEXT_DIM);
                 }
                 ctx.fill(x, y + SETTING_H - 1, x + w, y + SETTING_H, 0x10FFFFFF);
                 y += SETTING_H;
@@ -397,30 +397,30 @@ public class ConfigScreen extends Screen {
         return y;
     }
 
-    private void renderEditModal(DrawContext ctx, int mouseX, int mouseY, float delta) {
+    private void renderEditModal(GuiGraphics ctx, int mouseX, int mouseY, float delta) {
         ctx.fill(0, 0, this.width, this.height, 0xC0000000);
         int boxW = 220; int boxH = 90;
         int boxX = this.width / 2 - boxW / 2; int boxY = this.height / 2 - boxH / 2;
         ctx.fill(boxX - 1, boxY - 1, boxX + boxW + 1, boxY + boxH + 1, ACCENT);
         ctx.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0xFF1A1A2E);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a7b\u00a7l" + editLabel), this.width / 2, boxY + 8, TEXT_PRIMARY);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal("\u00a7b\u00a7l" + editLabel), this.width / 2, boxY + 8, TEXT_PRIMARY);
         editField.setX(this.width / 2 - 100); editField.setY(boxY + 24);
         editField.render(ctx, mouseX, mouseY, delta);
         int btnY = boxY + 50;
         boolean confirmHover = mouseX >= this.width / 2 - 50 && mouseX < this.width / 2 - 5 && mouseY >= btnY && mouseY < btnY + 14;
         boolean cancelHover = mouseX >= this.width / 2 + 5 && mouseX < this.width / 2 + 50 && mouseY >= btnY && mouseY < btnY + 14;
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(confirmHover ? "\u00a7a\u00a7l[Confirm]" : "\u00a7a[Confirm]"), this.width / 2 - 28, btnY, GREEN);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"), this.width / 2 + 28, btnY, RED);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a78" + formatNumber(editMin) + " \u2014 " + formatNumber(editMax)), this.width / 2, boxY + boxH - 14, TEXT_DIM);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal(confirmHover ? "\u00a7a\u00a7l[Confirm]" : "\u00a7a[Confirm]"), this.width / 2 - 28, btnY, GREEN);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"), this.width / 2 + 28, btnY, RED);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal("\u00a78" + formatNumber(editMin) + " \u2014 " + formatNumber(editMax)), this.width / 2, boxY + boxH - 14, TEXT_DIM);
     }
 
-    private void renderCodeEntry(DrawContext ctx, int mouseX, int mouseY, float delta) {
+    private void renderCodeEntry(GuiGraphics ctx, int mouseX, int mouseY, float delta) {
         ctx.fill(0, 0, this.width, this.height, 0xC0000000);
         int boxW = 260; int boxH = 100;
         int boxX = this.width / 2 - boxW / 2; int boxY = this.height / 2 - boxH / 2;
         ctx.fill(boxX - 1, boxY - 1, boxX + boxW + 1, boxY + boxH + 1, GOLD);
         ctx.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0xFF1A1A2E);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal("\u00a76\u00a7lEnter Activation Code"), this.width / 2, boxY + 8, GOLD);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal("\u00a76\u00a7lEnter Activation Code"), this.width / 2, boxY + 8, GOLD);
         if (codeField != null) {
             codeField.setX(this.width / 2 - 100); codeField.setY(boxY + 26);
             codeField.render(ctx, mouseX, mouseY, delta);
@@ -428,11 +428,11 @@ public class ConfigScreen extends Screen {
         int btnY = boxY + 54;
         boolean activateHover = mouseX >= this.width / 2 - 55 && mouseX < this.width / 2 - 5 && mouseY >= btnY && mouseY < btnY + 14;
         boolean cancelHover = mouseX >= this.width / 2 + 5 && mouseX < this.width / 2 + 55 && mouseY >= btnY && mouseY < btnY + 14;
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(activateHover ? "\u00a76\u00a7l[Activate]" : "\u00a76[Activate]"), this.width / 2 - 30, btnY, GOLD);
-        ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"), this.width / 2 + 30, btnY, RED);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal(activateHover ? "\u00a76\u00a7l[Activate]" : "\u00a76[Activate]"), this.width / 2 - 30, btnY, GOLD);
+        ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal(cancelHover ? "\u00a7c\u00a7l[Cancel]" : "\u00a7c[Cancel]"), this.width / 2 + 30, btnY, RED);
         if (codeMessage != null && codeMsgTimer > 0) {
             boolean success = codeMessage.startsWith("\u00a7a");
-            ctx.drawCenteredTextWithShadow(this.textRenderer, Text.literal(codeMessage), this.width / 2, boxY + boxH - 14, success ? GREEN : RED);
+            ctx.drawCenteredTextWithShadow(this.textRenderer, Component.literal(codeMessage), this.width / 2, boxY + boxH - 14, success ? GREEN : RED);
         }
     }
 
@@ -482,7 +482,7 @@ public class ConfigScreen extends Screen {
         if (mouseX >= keyX && mouseX < keyX + 12 && mouseY >= panelTop + 4 && mouseY < panelTop + TAB_H - 4) {
             if (!ModConfig.proUnlocked) {
                 showCodeEntry = true;
-                codeField = new TextFieldWidget(this.textRenderer, 0, 0, 200, 20, Text.literal("Code"));
+                codeField = new EditBox(this.textRenderer, 0, 0, 200, 20, Component.literal("Code"));
                 codeField.setMaxLength(20); codeField.setEditable(true); setFocused(codeField);
             }
             return true;
@@ -518,7 +518,7 @@ public class ConfigScreen extends Screen {
         int y1 = y0;
         for (Module mod : modules) {
             boolean expanded = mod.name.equals(expandedModule) && !mod.settings.isEmpty();
-            int modH = MODULE_H + (expanded ? mod.settings.size() * SETTING_H : 0);
+            int modH = MODULE_H + (expanded ? mod.settings.size()() * SETTING_H : 0);
             int cx, cy;
             if (y0 <= y1) { cx = gridX; cy = y0; y0 += modH; }
             else { cx = gridX + colW + 4; cy = y1; y1 += modH; }
@@ -604,7 +604,7 @@ public class ConfigScreen extends Screen {
 
     private void openEditModal(String label, float current, float min, float max, java.util.function.Consumer<Float> setter) {
         editLabel = label; editMin = min; editMax = max; editSetter = setter;
-        editField = new TextFieldWidget(this.textRenderer, 0, 0, 200, 20, Text.literal(label));
+        editField = new EditBox(this.textRenderer, 0, 0, 200, 20, Component.literal(label));
         editField.setText(formatNumber(current)); editField.setMaxLength(15); editField.setEditable(true);
         setFocused(editField);
     }
@@ -627,7 +627,7 @@ public class ConfigScreen extends Screen {
 
     private int getContentHeight(List<Module> modules) {
         int h = 0;
-        for (Module mod : modules) { h += MODULE_H; if (mod.name.equals(expandedModule)) h += mod.settings.size() * SETTING_H; }
+        for (Module mod : modules) { h += MODULE_H; if (mod.name.equals(expandedModule)) h += mod.settings.size()() * SETTING_H; }
         return h;
     }
 

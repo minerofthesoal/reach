@@ -1,21 +1,21 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 public class JesusHandler {
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.jesusEnabled) return;
         if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
 
         // Don't interfere if player is sneaking (allow them to sink)
         if (player.isSneaking()) return;
@@ -24,13 +24,13 @@ public class JesusHandler {
         if (player.getAbilities().flying) return;
 
         BlockPos feetPos = new BlockPos(
-                (int) Math.floor(player.getX()),
-                (int) Math.floor(player.getY() - 0.01),
-                (int) Math.floor(player.getZ()));
+                (int) Math.floor(player.x()),
+                (int) Math.floor(player.y() - 0.01),
+                (int) Math.floor(player.z()));
         BlockPos belowFeet = new BlockPos(
-                (int) Math.floor(player.getX()),
-                (int) Math.floor(player.getY() - 0.5),
-                (int) Math.floor(player.getZ()));
+                (int) Math.floor(player.x()),
+                (int) Math.floor(player.y() - 0.5),
+                (int) Math.floor(player.z()));
 
         boolean liquidAtFeet = isLiquid(client.world.getBlockState(feetPos));
         boolean liquidBelow = isLiquid(client.world.getBlockState(belowFeet));
@@ -39,11 +39,11 @@ public class JesusHandler {
         if (!inLiquid && !liquidAtFeet && !liquidBelow) return;
 
         // Find the surface Y - top of the liquid block
-        int surfaceY = feetPos.getY();
+        int surfaceY = feetPos.y();
         // Search upward from feet for the liquid surface
-        for (int y = (int) Math.floor(player.getY()) + 1; y > (int) Math.floor(player.getY()) - 5; y--) {
-            BlockPos checkPos = new BlockPos(feetPos.getX(), y, feetPos.getZ());
-            BlockPos aboveCheck = new BlockPos(feetPos.getX(), y + 1, feetPos.getZ());
+        for (int y = (int) Math.floor(player.y()) + 1; y > (int) Math.floor(player.y()) - 5; y--) {
+            BlockPos checkPos = new BlockPos(feetPos.x(), y, feetPos.z());
+            BlockPos aboveCheck = new BlockPos(feetPos.x(), y + 1, feetPos.z());
             if (isLiquid(client.world.getBlockState(checkPos)) && !isLiquid(client.world.getBlockState(aboveCheck))) {
                 surfaceY = y + 1;
                 break;
@@ -52,7 +52,7 @@ public class JesusHandler {
 
         double targetY = surfaceY;
 
-        if (player.isSubmergedInWater() || (player.isInLava() && player.getY() < targetY - 0.5)) {
+        if (player.isSubmergedInWater() || (player.isInLava() && player.y() < targetY - 0.5)) {
             // Submerged - push up fast
             player.setVelocity(
                     player.getVelocity().x,
@@ -60,8 +60,8 @@ public class JesusHandler {
                     player.getVelocity().z);
         } else {
             // At or near the surface - snap to surface and simulate ground
-            if (player.getY() < targetY) {
-                player.setPosition(player.getX(), targetY, player.getZ());
+            if (player.y() < targetY) {
+                player.setPosition(player.x(), targetY, player.z());
             }
             player.setVelocity(
                     player.getVelocity().x,
@@ -74,6 +74,6 @@ public class JesusHandler {
 
     private static boolean isLiquid(BlockState state) {
         return state.isOf(Blocks.WATER) || state.isOf(Blocks.LAVA)
-                || state.getBlock() instanceof FluidBlock;
+                || state.getBlock() instanceof LiquidBlock;
     }
 }

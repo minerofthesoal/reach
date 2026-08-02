@@ -1,27 +1,27 @@
 package com.reachfly;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CropBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -51,7 +51,7 @@ public class BaritoneHandler {
     private static BlockPos currentGoal = null;
     private static int recalcCooldown = 0;
     private static int stuckTicks = 0;
-    private static Vec3d lastPos = null;
+    private static Vec3 lastPos = null;
     private static int tickCounter = 0;
 
     // ===== Mining state =====
@@ -82,18 +82,18 @@ public class BaritoneHandler {
 
     public static String getStatus() { return statusMessage; }
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.baritoneEnabled) return;
         if (client.player == null || client.world == null) return;
-        if (client.currentScreen != null) return;
+        if (client.screen != null) return;
         if (client.interactionManager == null) return;
 
-        ClientPlayerEntity player = client.player;
+        LocalPlayer player = client.player;
         tickCounter++;
 
         // Stuck detection (every 20 ticks)
         if (tickCounter % 20 == 0) {
-            Vec3d pos = player.getEntityPos();
+            Vec3 pos = player.getEntityPos();
             if (lastPos != null && !"idle".equals(ModConfig.baritoneMode)) {
                 double moved = pos.distanceTo(lastPos);
                 if (moved < 0.3) {
@@ -234,13 +234,13 @@ public class BaritoneHandler {
 
     // ========== GOTO MODE ==========
 
-    private static void tickGoto(MinecraftClient client, ClientPlayerEntity player) {
+    private static void tickGoto(Minecraft client, LocalPlayer player) {
         BlockPos goal = new BlockPos(
                 (int) ModConfig.baritoneGotoX,
                 (int) ModConfig.baritoneGotoY,
                 (int) ModConfig.baritoneGotoZ);
 
-        double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(goal));
+        double dist = player.getEntityPos().distanceTo(Vec3.ofCenter(goal));
         statusMessage = String.format("Goto %.0f blocks", dist);
 
         if (dist < 2.0) {
@@ -254,9 +254,9 @@ public class BaritoneHandler {
 
     // ========== MINE MODE ==========
 
-    private static void tickMine(MinecraftClient client, ClientPlayerEntity player) {
+    private static void tickMine(Minecraft client, LocalPlayer player) {
         String targetBlockName = ModConfig.baritoneMineBlock;
-        Block targetBlock = Registries.BLOCK.get(Identifier.of("minecraft", targetBlockName));
+        Block targetBlock = BuiltInRegistries.BLOCK.get(ResourceLocation.of("minecraft", targetBlockName));
 
         if (targetBlock == Blocks.AIR) {
             sendMsg("\u00a7cUnknown block: " + targetBlockName);
@@ -268,7 +268,7 @@ public class BaritoneHandler {
         if (miningTarget != null) {
             BlockState state = client.world.getBlockState(miningTarget);
             if (state.isOf(targetBlock)) {
-                double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(miningTarget));
+                double dist = player.getEntityPos().distanceTo(Vec3.ofCenter(miningTarget));
                 statusMessage = String.format("Mining %s (%.1f away)", targetBlockName, dist);
 
                 if (dist < 4.5) {
@@ -320,16 +320,16 @@ public class BaritoneHandler {
             // Explore to find blocks
             if (tickCounter % 60 == 0) {
                 exploreAngle += 45;
-                int ex = (int) (player.getX() + Math.cos(Math.toRadians(exploreAngle)) * 32);
-                int ez = (int) (player.getZ() + Math.sin(Math.toRadians(exploreAngle)) * 32);
-                navigateToward(client, player, new BlockPos(ex, playerPos.getY(), ez));
+                int ex = (int) (player.x() + Math.cos(Math.toRadians(exploreAngle)) * 32);
+                int ez = (int) (player.z() + Math.sin(Math.toRadians(exploreAngle)) * 32);
+                navigateToward(client, player, new BlockPos(ex, playerPos.y(), ez));
             }
         }
     }
 
     // ========== FOLLOW MODE ==========
 
-    private static void tickFollow(MinecraftClient client, ClientPlayerEntity player) {
+    private static void tickFollow(Minecraft client, LocalPlayer player) {
         // Find nearest player
         if (followTarget == null || !followTarget.isAlive()
                 || player.distanceTo(followTarget) > 64) {
@@ -337,7 +337,7 @@ public class BaritoneHandler {
             double best = Double.MAX_VALUE;
             for (Entity e : client.world.getEntities()) {
                 if (e == player) continue;
-                if (!(e instanceof PlayerEntity)) continue;
+                if (!(e instanceof Player)) continue;
                 double d = player.distanceTo(e);
                 if (d < best) { best = d; followTarget = e; }
             }
@@ -363,12 +363,12 @@ public class BaritoneHandler {
 
     // ========== FARM MODE ==========
 
-    private static void tickFarm(MinecraftClient client, ClientPlayerEntity player) {
+    private static void tickFarm(Minecraft client, LocalPlayer player) {
         int radius = (int) ModConfig.baritoneFarmRadius;
         BlockPos pPos = player.getBlockPos();
 
         if (farmTarget != null) {
-            double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(farmTarget));
+            double dist = player.getEntityPos().distanceTo(Vec3.ofCenter(farmTarget));
             BlockState state = client.world.getBlockState(farmTarget);
 
             if (dist < 4.5) {
@@ -376,9 +376,9 @@ public class BaritoneHandler {
                     // Place seeds on farmland
                     if (selectSeeds(player)) {
                         BlockHitResult hit = new BlockHitResult(
-                                Vec3d.ofCenter(farmTarget), Direction.UP, farmTarget, false);
-                        client.interactionManager.interactBlock(player, Hand.MAIN_HAND, hit);
-                        player.swingHand(Hand.MAIN_HAND);
+                                Vec3.ofCenter(farmTarget), Direction.UP, farmTarget, false);
+                        client.interactionManager.interactBlock(player, InteractionHand.MAIN_HAND, hit);
+                        player.swingHand(InteractionHand.MAIN_HAND);
                     }
                     farmReplanting = false;
                     farmTarget = null;
@@ -444,19 +444,19 @@ public class BaritoneHandler {
 
     // ========== EXPLORE MODE ==========
 
-    private static void tickExplore(MinecraftClient client, ClientPlayerEntity player) {
+    private static void tickExplore(Minecraft client, LocalPlayer player) {
         statusMessage = String.format("Exploring (r=%d)", exploreRadius);
 
         if (exploreWaitTicks > 0) { exploreWaitTicks--; return; }
 
         // Navigate in expanding spiral
-        double targetX = player.getX() + Math.cos(Math.toRadians(exploreAngle)) * exploreRadius;
-        double targetZ = player.getZ() + Math.sin(Math.toRadians(exploreAngle)) * exploreRadius;
-        BlockPos goal = new BlockPos((int) targetX, player.getBlockPos().getY(), (int) targetZ);
+        double targetX = player.x() + Math.cos(Math.toRadians(exploreAngle)) * exploreRadius;
+        double targetZ = player.z() + Math.sin(Math.toRadians(exploreAngle)) * exploreRadius;
+        BlockPos goal = new BlockPos((int) targetX, player.getBlockPos().y(), (int) targetZ);
 
         double dist = Math.sqrt(
-                (player.getX() - targetX) * (player.getX() - targetX) +
-                (player.getZ() - targetZ) * (player.getZ() - targetZ));
+                (player.x() - targetX) * (player.x() - targetX) +
+                (player.z() - targetZ) * (player.z() - targetZ));
 
         if (dist < 5 || stuckTicks > 60) {
             exploreAngle += 30;
@@ -475,7 +475,7 @@ public class BaritoneHandler {
 
     // ========== BUILD MODE ==========
 
-    private static void tickBuild(MinecraftClient client, ClientPlayerEntity player) {
+    private static void tickBuild(Minecraft client, LocalPlayer player) {
         // Build mode places blocks from a schematic-like queue
         // If no queue loaded, scan for Litematica ghost blocks nearby
         if (buildQueue == null || buildQueue.isEmpty()) {
@@ -486,7 +486,7 @@ public class BaritoneHandler {
             }
         }
 
-        if (buildIndex >= buildQueue.size()) {
+        if (buildIndex >= buildQueue.size()()) {
             sendMsg("\u00a7b[Baritone] \u00a7aBuild complete!");
             stop();
             return;
@@ -503,9 +503,9 @@ public class BaritoneHandler {
             return;
         }
 
-        double dist = player.getEntityPos().distanceTo(Vec3d.ofCenter(entry.pos));
+        double dist = player.getEntityPos().distanceTo(Vec3.ofCenter(entry.pos));
         statusMessage = String.format("Building %d/%d (%.1f away)",
-                buildIndex + 1, buildQueue.size(), dist);
+                buildIndex + 1, buildQueue.size()(), dist);
 
         if (dist > 4.5) {
             navigateToward(client, player, entry.pos);
@@ -520,7 +520,7 @@ public class BaritoneHandler {
                 buildPlaceCooldown = 10;
                 return;
             }
-            statusMessage = "Missing: " + Registries.BLOCK.getId(entry.block).getPath();
+            statusMessage = "Missing: " + BuiltInRegistries.BLOCK.getId(entry.block).getPath();
             buildPlaceCooldown = 20;
             return;
         }
@@ -531,9 +531,9 @@ public class BaritoneHandler {
         if (placeDir != null) {
             BlockPos neighbor = entry.pos.offset(placeDir);
             BlockHitResult hit = new BlockHitResult(
-                    Vec3d.ofCenter(entry.pos), placeDir.getOpposite(), neighbor, false);
-            client.interactionManager.interactBlock(player, Hand.MAIN_HAND, hit);
-            player.swingHand(Hand.MAIN_HAND);
+                    Vec3.ofCenter(entry.pos), placeDir.getOpposite(), neighbor, false);
+            client.interactionManager.interactBlock(player, InteractionHand.MAIN_HAND, hit);
+            player.swingHand(InteractionHand.MAIN_HAND);
             buildPlaceCooldown = 3;
         }
         buildIndex++;
@@ -543,16 +543,16 @@ public class BaritoneHandler {
      * Scan nearby area for blocks that should exist but don't (Litematica ghost blocks).
      * Also builds a simple queue from ground up for flat-area building.
      */
-    private static void scanLitematicaBlocks(MinecraftClient client, ClientPlayerEntity player) {
+    private static void scanLitematicaBlocks(Minecraft client, LocalPlayer player) {
         buildQueue = new ArrayList<>();
         BlockPos center = player.getBlockPos();
         int radius = 16;
 
         // Scan for air blocks that have solid blocks adjacent (potential build positions)
         // This works with Litematica's verification system
-        for (int y = center.getY() - 4; y <= center.getY() + 8; y++) {
-            for (int x = center.getX() - radius; x <= center.getX() + radius; x++) {
-                for (int z = center.getZ() - radius; z <= center.getZ() + radius; z++) {
+        for (int y = center.y() - 4; y <= center.y() + 8; y++) {
+            for (int x = center.x() - radius; x <= center.x() + radius; x++) {
+                for (int z = center.z() - radius; z <= center.z() + radius; z++) {
                     BlockPos pos = new BlockPos(x, y, z);
                     // In Litematica, ghost blocks would be checked via its API
                     // Here we detect mismatches if Litematica is present
@@ -569,9 +569,9 @@ public class BaritoneHandler {
      * Simple A*-inspired pathfinding toward a goal with terrain walking.
      * Uses WalkToCoordsHandler-style movement with smarter obstacle handling.
      */
-    private static void navigateToward(MinecraftClient client, ClientPlayerEntity player, BlockPos goal) {
-        Vec3d pos = player.getEntityPos();
-        Vec3d target = Vec3d.ofCenter(goal);
+    private static void navigateToward(Minecraft client, LocalPlayer player, BlockPos goal) {
+        Vec3 pos = player.getEntityPos();
+        Vec3 target = Vec3.ofCenter(goal);
 
         // Calculate yaw to face target
         double dx = target.x - pos.x;
@@ -588,18 +588,18 @@ public class BaritoneHandler {
         }
 
         // Smooth rotation
-        float currentYaw = player.getYaw();
+        float currentYaw = player.getYRot();
         float yawDiff = targetYaw - currentYaw;
         while (yawDiff > 180) yawDiff -= 360;
         while (yawDiff < -180) yawDiff += 360;
         player.setYaw(currentYaw + yawDiff * 0.25f);
 
         // Press forward
-        KeyBinding.setKeyPressed(client.options.forwardKey.getDefaultKey(), true);
+        KeyMapping.setKeyPressed(client.options.forwardKey.getDefaultKey(), true);
         client.options.forwardKey.setPressed(true);
 
         // Look direction for block checks
-        float facingYaw = player.getYaw();
+        float facingYaw = player.getYRot();
         double faceDx = -Math.sin(Math.toRadians(facingYaw));
         double faceDz = Math.cos(Math.toRadians(facingYaw));
 
@@ -649,13 +649,13 @@ public class BaritoneHandler {
             }
         }
 
-        KeyBinding.setKeyPressed(client.options.jumpKey.getDefaultKey(), shouldJump);
+        KeyMapping.setKeyPressed(client.options.jumpKey.getDefaultKey(), shouldJump);
         client.options.jumpKey.setPressed(shouldJump);
 
         // Sprint
         boolean canSprint = ModConfig.baritoneSprint
                 && player.getHungerManager().getFoodLevel() > 6 && !inLiquid;
-        KeyBinding.setKeyPressed(client.options.sprintKey.getDefaultKey(), canSprint);
+        KeyMapping.setKeyPressed(client.options.sprintKey.getDefaultKey(), canSprint);
         client.options.sprintKey.setPressed(canSprint);
     }
 
@@ -685,7 +685,7 @@ public class BaritoneHandler {
         return false;
     }
 
-    private static boolean selectSeeds(ClientPlayerEntity player) {
+    private static boolean selectSeeds(LocalPlayer player) {
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.getInventory().getStack(i);
             Item item = stack.getItem();
@@ -701,7 +701,7 @@ public class BaritoneHandler {
         return false;
     }
 
-    private static void selectBestTool(ClientPlayerEntity player, BlockState state) {
+    private static void selectBestTool(LocalPlayer player, BlockState state) {
         float bestSpeed = 1.0f;
         int bestSlot = player.getInventory().getSelectedSlot();
 
@@ -716,7 +716,7 @@ public class BaritoneHandler {
         player.getInventory().setSelectedSlot(bestSlot);
     }
 
-    private static boolean selectBlock(ClientPlayerEntity player, Block block) {
+    private static boolean selectBlock(LocalPlayer player, Block block) {
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.getItem() instanceof BlockItem bi && bi.getBlock() == block) {
@@ -727,7 +727,7 @@ public class BaritoneHandler {
         return false;
     }
 
-    private static Direction findPlacementFace(MinecraftClient client, BlockPos pos) {
+    private static Direction findPlacementFace(Minecraft client, BlockPos pos) {
         for (Direction dir : Direction.values()) {
             BlockPos neighbor = pos.offset(dir);
             BlockState state = client.world.getBlockState(neighbor);
@@ -736,8 +736,8 @@ public class BaritoneHandler {
         return null;
     }
 
-    private static void requestItem(MinecraftClient client, Block block) {
-        String blockId = Registries.BLOCK.getId(block).toString();
+    private static void requestItem(Minecraft client, Block block) {
+        String blockId = BuiltInRegistries.BLOCK.getId(block).toString();
 
         // Try server addon payload first
         if (net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(ItemGivePayload.ID)) {
@@ -764,9 +764,9 @@ public class BaritoneHandler {
         }
     }
 
-    private static void faceBlock(ClientPlayerEntity player, BlockPos pos) {
-        Vec3d target = Vec3d.ofCenter(pos);
-        Vec3d eye = player.getEyePos();
+    private static void faceBlock(LocalPlayer player, BlockPos pos) {
+        Vec3 target = Vec3.ofCenter(pos);
+        Vec3 eye = player.getEyePos();
         double dx = target.x - eye.x;
         double dy = target.y - eye.y;
         double dz = target.z - eye.z;
@@ -777,34 +777,34 @@ public class BaritoneHandler {
         player.setPitch(pitch);
     }
 
-    private static void faceEntity(ClientPlayerEntity player, Entity entity) {
-        Vec3d target = entity.getEntityPos().add(0, entity.getHeight() / 2, 0);
-        Vec3d eye = player.getEyePos();
+    private static void faceEntity(LocalPlayer player, Entity entity) {
+        Vec3 target = entity.getEntityPos().add(0, entity.getHeight() / 2, 0);
+        Vec3 eye = player.getEyePos();
         double dx = target.x - eye.x;
         double dy = target.y - eye.y;
         double dz = target.z - eye.z;
         double dist = Math.sqrt(dx * dx + dz * dz);
         float yaw = (float) (Math.atan2(-dx, dz) * (180.0 / Math.PI));
         float pitch = (float) (Math.atan2(-dy, dist) * (180.0 / Math.PI));
-        player.setYaw(player.getYaw() + (yaw - player.getYaw()) * 0.2f);
-        player.setPitch(player.getPitch() + (pitch - player.getPitch()) * 0.2f);
+        player.setYaw(player.getYRot() + (yaw - player.getYRot()) * 0.2f);
+        player.setPitch(player.getXRot() + (pitch - player.getXRot()) * 0.2f);
     }
 
     private static void releaseKeys() {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client == null) return;
-        KeyBinding.setKeyPressed(client.options.forwardKey.getDefaultKey(), false);
+        KeyMapping.setKeyPressed(client.options.forwardKey.getDefaultKey(), false);
         client.options.forwardKey.setPressed(false);
-        KeyBinding.setKeyPressed(client.options.jumpKey.getDefaultKey(), false);
+        KeyMapping.setKeyPressed(client.options.jumpKey.getDefaultKey(), false);
         client.options.jumpKey.setPressed(false);
-        KeyBinding.setKeyPressed(client.options.sprintKey.getDefaultKey(), false);
+        KeyMapping.setKeyPressed(client.options.sprintKey.getDefaultKey(), false);
         client.options.sprintKey.setPressed(false);
     }
 
     private static void sendMsg(String msg) {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client != null && client.player != null) {
-            client.player.sendMessage(Text.literal(msg), false);
+            client.player.sendMessage(Component.literal(msg), false);
         }
     }
 
