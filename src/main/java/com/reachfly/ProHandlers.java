@@ -13,10 +13,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-import net.minecraft.gui.screen().GenericContainerScreenHandler;
-import net.minecraft.gui.screen().ScreenHandler;
-import net.minecraft.gui.screen().slot.Slot;
-import net.minecraft.gui.screen().slot.SlotActionType;
+import net.minecraft.screen.GenericContainerScreenHandler; // [[19]]
+import net.minecraft.screen.ScreenHandler;                 // [[10]]
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;           // [[1]]
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
