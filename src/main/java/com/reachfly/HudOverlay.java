@@ -1,10 +1,10 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +29,15 @@ public class HudOverlay {
     private static final int COL_WHITE = 0xFFDDDDDD;
     private static final int COL_GRAY = 0xFF888888;
 
-    public static void render(DrawContext ctx, RenderTickCounter tickCounter) {
-        MinecraftClient client = MinecraftClient.getInstance();
+    public static void render(GuiGraphics ctx, GameRenderer tickCounter) {
+        Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
         if (client.getDebugHud().shouldShowDebugHud()) return;
         if (!ModConfig.hudVisible) return;
 
         TextRenderer tr = client.textRenderer;
-        int sw = client.getWindow().getScaledWidth();
-        int sh = client.getWindow().getScaledHeight();
+        int sw = client.getWindow().getGuiScaledWidth();
+        int sh = client.getWindow().getGuiScaledHeight();
 
         // === WATERMARK (top-left) ===
         renderWatermark(ctx, tr);
@@ -49,7 +49,7 @@ public class HudOverlay {
         renderInfoBar(ctx, tr, sh, client);
     }
 
-    private static void renderWatermark(DrawContext ctx, TextRenderer tr) {
+    private static void renderWatermark(GuiGraphics ctx, TextRenderer tr) {
         String brand;
         int brandColor;
         if (ModConfig.proUnlocked) {
@@ -65,7 +65,7 @@ public class HudOverlay {
         ctx.drawText(tr, brand, 7, 5, brandColor, true);
     }
 
-    private static void renderModuleList(DrawContext ctx, TextRenderer tr, int sw, MinecraftClient client) {
+    private static void renderModuleList(GuiGraphics ctx, TextRenderer tr, int sw, Minecraft client) {
         List<ModEntry> entries = new ArrayList<>();
 
         // Combat
@@ -88,12 +88,12 @@ public class HudOverlay {
         if (ModConfig.safeWalkEnabled) entries.add(new ModEntry("SafeWalk", COL_MOVEMENT));
         if (ModConfig.stepEnabled) entries.add(new ModEntry(String.format("Step \u00a7f%.0f", ModConfig.stepHeight), COL_MOVEMENT));
         if (ModConfig.flyToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getPos();
-            double dist = pos.distanceTo(new Vec3d(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
+            Vec3 pos = client.player.position();
+            double dist = pos.distanceTo(new Vec3(ModConfig.flyToX, ModConfig.flyToY, ModConfig.flyToZ));
             entries.add(new ModEntry(String.format("FlyTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
         if (ModConfig.walkToCoordsEnabled && client.player != null) {
-            Vec3d pos = client.player.getPos();
+            Vec3 pos = client.player.position();
             double dist = Math.sqrt((pos.x - ModConfig.walkToX) * (pos.x - ModConfig.walkToX) + (pos.z - ModConfig.walkToZ) * (pos.z - ModConfig.walkToZ));
             entries.add(new ModEntry(String.format("WalkTo \u00a7f%.0fm", dist), COL_MOVEMENT));
         }
@@ -196,16 +196,16 @@ public class HudOverlay {
             // Top highlight line (subtle)
             ctx.fill(x - 4, y, sw - 2, y + 1, (e.color & 0x00FFFFFF) | 0x30000000);
 
-            // Text
+            // Component
             ctx.drawText(tr, e.text, x - 2, y + 1, e.color, true);
 
             y += 11;
         }
     }
 
-    private static void renderInfoBar(DrawContext ctx, TextRenderer tr, int sh, MinecraftClient client) {
+    private static void renderInfoBar(GuiGraphics ctx, TextRenderer tr, int sh, Minecraft client) {
         if (client.player == null) return;
-        Vec3d pos = client.player.getPos();
+        Vec3 pos = client.player.position();
 
         // Coords
         String coords = String.format("XYZ: %.1f / %.1f / %.1f", pos.x, pos.y, pos.z);
@@ -216,7 +216,7 @@ public class HudOverlay {
         ctx.drawText(tr, coords, 7, cy, COL_WHITE, true);
 
         // FPS + direction
-        String facing = getDirection(client.player.getYaw());
+        String facing = getDirection(client.player.getYRot());
         int fps = client.getCurrentFps();
         String info = String.format("%d FPS | %s", fps, facing);
         int iw = tr.getWidth(info);

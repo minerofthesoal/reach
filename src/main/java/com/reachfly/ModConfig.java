@@ -3,8 +3,8 @@ package com.reachfly;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.util.InputUtil;
 
 import java.io.IOException;
@@ -212,7 +212,7 @@ public class ModConfig {
     public static final int ANTI_AFK_MIN = 20;
     public static final int ANTI_AFK_MAX = 1200;
 
-    // ===== PRO: World =====
+    // ===== PRO: Level =====
     public static boolean fastBreakEnabled = false;
     public static float fastBreakSpeed = 3.0f;
     public static final float FAST_BREAK_MIN = 1.0f;
@@ -560,7 +560,7 @@ public class ModConfig {
     /** Apply saved keybind overrides to the registered KeyBindings. Call after KeybindHandler.register(). */
     public static void applyKeybinds() {
         if (savedKeybinds == null || savedKeybinds.isEmpty()) return;
-        for (KeyBinding kb : KeybindHandler.allKeybinds()) {
+        for (KeyMapping kb : KeybindHandler.allKeybinds()) {
             String saved = savedKeybinds.get(kb.getTranslationKey());
             if (saved != null) {
                 try {
@@ -569,7 +569,7 @@ public class ModConfig {
                 } catch (Exception ignored) {}
             }
         }
-        KeyBinding.updateKeysByCode();
+        KeyMapping.updateKeysByCode();
     }
 
     private static Map<String, String> savedKeybinds = null;

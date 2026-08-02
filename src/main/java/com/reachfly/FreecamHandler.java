@@ -1,8 +1,8 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Freecam: Allows the camera to fly freely while the player's server-side
@@ -26,20 +26,20 @@ public class FreecamHandler {
         return active && ModConfig.freecamEnabled && ModConfig.proUnlocked;
     }
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (!ModConfig.proUnlocked) return;
         if (client.player == null) return;
 
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
 
         if (ModConfig.freecamEnabled && !active) {
             // Entering freecam - save position
             active = true;
-            savedX = p.getX();
-            savedY = p.getY();
-            savedZ = p.getZ();
-            savedYaw = p.getYaw();
-            savedPitch = p.getPitch();
+            savedX = p.x();
+            savedY = p.y();
+            savedZ = p.z();
+            savedYaw = p.getYRot();
+            savedPitch = p.getXRot();
             wasFlying = p.getAbilities().flying;
 
             // Enable noclip and flight
@@ -50,7 +50,7 @@ public class FreecamHandler {
             p.sendAbilitiesUpdate();
 
             p.sendMessage(
-                    net.minecraft.text.Text.literal("\u00a7b[Freecam] Enabled - fly around freely"),
+                    net.minecraft.text.Component.literal("\u00a7b[Freecam] Enabled - fly around freely"),
                     true);
         } else if (!ModConfig.freecamEnabled && active) {
             // Exiting freecam - restore position
@@ -74,7 +74,7 @@ public class FreecamHandler {
             }
 
             p.sendMessage(
-                    net.minecraft.text.Text.literal("\u00a7b[Freecam] Disabled - returned to position"),
+                    net.minecraft.text.Component.literal("\u00a7b[Freecam] Disabled - returned to position"),
                     true);
         }
 
@@ -94,7 +94,7 @@ public class FreecamHandler {
     /**
      * Returns saved position for rendering ghost at original location.
      */
-    public static Vec3d getSavedPosition() {
-        return new Vec3d(savedX, savedY, savedZ);
+    public static Vec3 getSavedPosition() {
+        return new Vec3(savedX, savedY, savedZ);
     }
 }

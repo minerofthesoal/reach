@@ -1,18 +1,18 @@
 package com.reachfly;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 public class MeteorHandlers {
 
-    private static final Identifier STEP_ID = Identifier.of("reachfly", "step_height");
+    private static final ResourceLocation STEP_ID = ResourceLocation.of("reachfly", "step_height");
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         if (client.player == null) return;
         tickAutoLog(client);
         tickAutoRespawn(client);
@@ -21,54 +21,54 @@ public class MeteorHandlers {
         tickStep(client);
     }
 
-    private static void tickAutoLog(MinecraftClient client) {
+    private static void tickAutoLog(Minecraft client) {
         if (!ModConfig.autoLogEnabled) return;
-        ClientPlayerEntity p = client.player;
-        if (p == null || p.isDead()) return;
+        LocalPlayer p = client.player;
+        if (p == null || p.isDeadOrDying()) return;
         if (p.getHealth() <= ModConfig.autoLogHealth) {
             ModConfig.autoLogEnabled = false;
             ModConfig.save();
-            p.sendMessage(Text.literal("\u00a7c[f1sch] Auto Log: disconnecting at " +
+            p.sendMessage(Component.literal("\u00a7c[f1sch] Auto Log: disconnecting at " +
                     String.format("%.1f HP", p.getHealth())), false);
             client.getNetworkHandler().getConnection().disconnect(
-                    Text.literal("f1sch Auto Log - Health below " + String.format("%.1f", ModConfig.autoLogHealth)));
+                    Component.literal("f1sch Auto Log - Health below " + String.format("%.1f", ModConfig.autoLogHealth)));
         }
     }
 
-    private static void tickAutoRespawn(MinecraftClient client) {
+    private static void tickAutoRespawn(Minecraft client) {
         if (!ModConfig.autoRespawnEnabled) return;
-        if (client.player != null && client.player.isDead()) {
+        if (client.player != null && client.player.isDeadOrDying()) {
             client.player.requestRespawn();
         }
     }
 
-    private static void tickBetterSprint(MinecraftClient client) {
+    private static void tickBetterSprint(Minecraft client) {
         if (!ModConfig.betterSprintEnabled) return;
-        ClientPlayerEntity p = client.player;
+        LocalPlayer p = client.player;
         if (p == null) return;
-        if (client.options.forwardKey.isPressed() && !p.isSneaking() && !p.isUsingItem()
+        if (client.options.forwardKey.isDown() && !p.isSneaking() && !p.isUsingItem()
                 && p.getHungerManager().getFoodLevel() > 6) {
             p.setSprinting(true);
         }
     }
 
-    private static void tickSafeWalk(MinecraftClient client) {
+    private static void tickSafeWalk(Minecraft client) {
         // SafeWalk is now handled by SafeWalkMixin using clipAtLedge()
         // No tick logic needed - the mixin provides edge-clipping without speed reduction
     }
 
     private static boolean stepApplied = false;
 
-    private static void tickStep(MinecraftClient client) {
-        ClientPlayerEntity p = client.player;
+    private static void tickStep(Minecraft client) {
+        LocalPlayer p = client.player;
         if (p == null) return;
-        EntityAttributeInstance stepAttr = p.getAttributeInstance(EntityAttributes.STEP_HEIGHT);
+        AttributeInstance stepAttr = p.getAttributeInstance(Attributes.STEP_HEIGHT);
         if (stepAttr == null) return;
 
         if (ModConfig.stepEnabled && !stepApplied) {
             stepAttr.removeModifier(STEP_ID);
-            stepAttr.addTemporaryModifier(new EntityAttributeModifier(
-                    STEP_ID, ModConfig.stepHeight - 0.6, EntityAttributeModifier.Operation.ADD_VALUE));
+            stepAttr.addTemporaryModifier(new AttributeModifier(
+                    STEP_ID, ModConfig.stepHeight - 0.6, AttributeModifier.Operation.ADD_VALUE));
             stepApplied = true;
         } else if (!ModConfig.stepEnabled && stepApplied) {
             stepAttr.removeModifier(STEP_ID);

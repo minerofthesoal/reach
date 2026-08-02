@@ -3,7 +3,7 @@ package com.reachfly.serveraddon;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * Custom payload for item give requests (C2S).
@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 public record ItemGivePayload(String itemId, int quantity) implements CustomPayload {
 
     public static final Id<ItemGivePayload> ID =
-            new Id<>(Identifier.of("reachfly", "item_give"));
+            new Id<>(ResourceLocation.of("reachfly", "item_give"));
 
     public static final PacketCodec<PacketByteBuf, ItemGivePayload> CODEC =
             PacketCodec.of(ItemGivePayload::write, ItemGivePayload::read);

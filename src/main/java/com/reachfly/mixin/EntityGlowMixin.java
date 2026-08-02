@@ -1,13 +1,13 @@
 package com.reachfly.mixin;
 
 import com.reachfly.ModConfig;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +22,7 @@ public class EntityGlowMixin {
 
         Entity self = (Entity) (Object) this;
 
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client.player != null && self == client.player) return;
 
         if (!(self instanceof LivingEntity)) return;
@@ -37,10 +37,10 @@ public class EntityGlowMixin {
         if (!ModConfig.espEnabled) return;
 
         Entity self = (Entity) (Object) this;
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
         if (client.player != null && self == client.player) return;
 
-        if (self instanceof PlayerEntity && ModConfig.espPlayers) {
+        if (self instanceof Player && ModConfig.espPlayers) {
             cir.setReturnValue(0xFF5555); // Red
         } else if (isHostile(self) && ModConfig.espHostile) {
             cir.setReturnValue(0xFF8800); // Orange
@@ -50,7 +50,7 @@ public class EntityGlowMixin {
     }
 
     private static boolean shouldGlow(Entity entity) {
-        if (entity instanceof PlayerEntity) return ModConfig.espPlayers;
+        if (entity instanceof Player) return ModConfig.espPlayers;
         if (isHostile(entity)) return ModConfig.espHostile;
         if (isPassive(entity)) return ModConfig.espPassive;
         // Catch-all: any other LivingEntity - treat as hostile
@@ -59,14 +59,14 @@ public class EntityGlowMixin {
     }
 
     private static boolean isHostile(Entity entity) {
-        if (entity instanceof HostileEntity) return true;
-        // Slimes, Magma Cubes, Ghasts, Phantoms, etc. extend MobEntity but not HostileEntity
-        // Treat any MobEntity that isn't passive as hostile
-        if (entity instanceof MobEntity && !(entity instanceof PassiveEntity)) return true;
+        if (entity instanceof Monster) return true;
+        // Slimes, Magma Cubes, Ghasts, Phantoms, etc. extend Mob but not Monster
+        // Treat any Mob that isn't passive as hostile
+        if (entity instanceof Mob && !(entity instanceof Animal)) return true;
         return false;
     }
 
     private static boolean isPassive(Entity entity) {
-        return entity instanceof PassiveEntity;
+        return entity instanceof Animal;
     }
 }
