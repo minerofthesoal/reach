@@ -5,8 +5,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.gui.screen().slot.SlotActionType;
-
+import net.minecraft.screen.slot.SlotActionType;
 public class AutoElytraSwapHandler {
 
     private static int swapCooldown = 0;
