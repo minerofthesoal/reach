@@ -470,7 +470,7 @@ public class ItemGiveScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent event) {
         if (keyCode == 256) {
             close();
             return true;

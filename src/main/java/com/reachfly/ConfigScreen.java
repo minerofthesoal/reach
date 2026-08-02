@@ -558,7 +558,7 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent event) {
         if (showCodeEntry && codeField != null) {
             if (keyCode == 257) { tryActivateCode(); return true; }
             if (keyCode == 256) { showCodeEntry = false; codeField = null; return true; }
@@ -570,7 +570,7 @@ public class ConfigScreen extends Screen {
             return editField.keyPressed(keyCode, scanCode, modifiers);
         }
         if (keyCode == 256) { close(); return true; }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(event);
     }
 
     @Override
