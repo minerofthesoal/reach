@@ -26,15 +26,15 @@ loom {
 dependencies {
     // Minecraft and mappings
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2" // <-- CRITICAL: This was missing!
-
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    
     // Fabric loader and API (use modImplementation, not standard implementation)
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
+    
     // Bundle Fabric API inside the JAR (Jar-in-Jar)
     include "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
+    
     // Mod Menu (compile-only soft dependency)
     modCompileOnly "maven.modrinth:modmenu:17.0.0"
 }
