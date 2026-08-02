@@ -34,7 +34,7 @@ dependencies {
     include "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Mod Menu (compile-only soft dependency)
-    modCompileOnly "maven.modrinth:modmenu:17.0.0"
+    compileOnly "maven.modrinth:modmenu:17.0.0"
 }
 
 processResources {
