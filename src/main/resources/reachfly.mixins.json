@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.reachfly.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BlockRenderMixin",
+    "BlockStateMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "EntityGlowMixin",
+    "InvMoveMixin",
+    "SafeWalkMixin",
+    "XrayBlockRenderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

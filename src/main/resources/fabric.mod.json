@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "reachfly",
+  "version": "${version}",
+  "name": "f1sch client",
+  "description": "The ultimate Minecraft optimization suite with premium features.",
+  "authors": [
+    "f1schDev"
+  ],
+  "contact": {
+    "sources": "https://github.com/minerofthesoal/reach"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/reachfly/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.reachfly.ReachFlyClient"
+    ],
+    "modmenu": [
+      "com.reachfly.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "reachfly.mixins.json"
+  ],
+  "classTweaker": "reachfly.classtweaker",
+  "depends": {
+    "fabricloader": "\u003e\u003d0.19.3",
+    "minecraft": "~26.2",
+    "java": "\u003e\u003d21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}

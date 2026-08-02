@@ -1,0 +1,118 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [ main, 'claude/**', 'mc-*' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-client:
+    name: Build Client Mod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Build client mod
+        run: ./gradlew build --no-daemon
+
+      - name: Upload client JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1sch-client
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+          if-no-files-found: error
+
+  build-server-addon:
+    name: Build Server Addon v3 (Mod + Datapack)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x server-addon/gradlew
+
+      - name: Build server addon (mod JAR + data pack ZIP)
+        working-directory: server-addon
+        run: ./gradlew build --no-daemon
+
+      - name: Upload server addon mod JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1sch-server-addon-v3-mod
+          path: |
+            server-addon/build/libs/f1sch-server-addon-*.jar
+            !server-addon/build/libs/*-sources.jar
+          if-no-files-found: warn
+
+      - name: Upload server addon data pack ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1sch-server-addon-v3-datapack
+          path: server-addon/build/libs/f1sch-server-addon-datapack-*.zip
+          if-no-files-found: warn
+
+  release:
+    name: Create Release
+    needs: [build-client, build-server-addon]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download client mod artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: f1sch-client
+          path: artifacts/client
+
+      - name: Download server addon mod
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: f1sch-server-addon-v3-mod
+          path: artifacts/server
+
+      - name: Download server addon data pack
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: f1sch-server-addon-v3-datapack
+          path: artifacts/datapack
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v2.3.0-mc1.21.8-build.${{ github.run_number }}
+          name: "f1sch v2.3.0 MC 1.21.8 (Build #${{ github.run_number }})"
+          body: |
+            ## Downloads
+            - **Client Mod (MC 1.21.8)** - Install in `.minecraft/mods/` (requires Fabric Loader only, Fabric API + datapack bundled)
+            - **Server Addon (Fabric Mod)** - For dedicated servers: install in server `mods/` folder
+            - **Server Addon (Data Pack)** - For vanilla/Paper servers: install in `world/datapacks/` folder
+          files: |
+            artifacts/**/*.jar
+            artifacts/**/*.zip
+          generate_release_notes: true

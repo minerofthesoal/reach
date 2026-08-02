@@ -1,0 +1,60 @@
+plugins {
+    id 'fabric-loom' version '1.13.6'
+    id 'maven-publish'
+}
+
+version = "3.0.0"
+group = "com.reachfly.serveraddon"
+
+base {
+    archivesName = "f1sch-server-addon"
+}
+
+repositories {
+    maven { url "https://maven.fabricmc.net/" }
+    mavenCentral()
+}
+
+dependencies {
+    // Minecraft and mappings
+    minecraft "com.mojang:minecraft:1.21.8"
+    mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
+
+    // Fabric loader and API
+    modImplementation "net.fabricmc:fabric-loader:0.18.6"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.136.1+1.21.8"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    withSourcesJar()
+}
+
+// === Data Pack build task ===
+// Zips the datapack/ directory into a distributable data pack
+tasks.register('buildDatapack', Zip) {
+    description = 'Builds the f1sch Server Addon as a Minecraft data pack (ZIP)'
+    group = 'build'
+
+    from('datapack')
+    archiveBaseName = 'f1sch-server-addon-datapack'
+    archiveVersion = project.version
+    archiveExtension = 'zip'
+    destinationDirectory = file("${buildDir}/libs")
+}
+
+// Include data pack in the default build
+build.dependsOn buildDatapack
