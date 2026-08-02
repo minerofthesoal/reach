@@ -3,8 +3,7 @@ package com.reachfly;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.Items;
-import net.minecraft.gui.screen().slot.SlotActionType;
-
+import net.minecraft.screen.slot.SlotActionType;
 /**
  * Auto Totem - Automatically moves totems of undying to the offhand slot.
  * Scans inventory every second for totems and swaps them in.
